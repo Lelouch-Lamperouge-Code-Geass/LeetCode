@@ -6,14 +6,20 @@
 // There starting index will never be within [0,k] since its total gas < total cost.
 //(4) For index within [k+1,n], since Gas[k,index] alwasy >= Cost[k,index], otherwise, k will be updated with index.
 
-int minimumTotal(vector<vector<int>>& triangle) {
-  if (triangle.empty()) return 0;
-  vector<int> vec = triangle.back();
-  const int n (triangle.size());
-  for (int i=n-2;i>=0;++i) {
-    for (int j=0;j<triangle[i].size();++j) {
-      vec[j] = std::min(vec[j],vec[j+1]) + triangle[j];
+int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+  const int n(gas.size());
+  int total_cost(0),total_gas(0),tank(0),index(0);
+  for (int i=0;i<n;++i) {
+    total_gas += gas[i];
+    total_cost += cost[i];
+
+    tank += gas[i];
+    tank -= cost[i];
+
+    if (tank<0) { // reset begin index
+      tank = 0;
+      index = i+1;
     }
   }
-  return vec[0];
+  return total_gas >= total_cost ? index : -1;
 }
