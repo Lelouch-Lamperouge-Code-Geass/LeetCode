@@ -11,7 +11,7 @@ public:
         return -1;
     }
 private:
-    // choose a random number within range to partion the vector.
+    // choose a random number within range to partion that range.
     // Larger elements predecede smaller elements.
     // Return the index of the pivot number eventually.
     int partition(vector<int>& nums,int start, int end) {
