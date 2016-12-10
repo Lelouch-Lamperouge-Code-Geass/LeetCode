@@ -13,6 +13,6 @@ public:
         return paper_count;
       }
     }
-    return size-(high+1);
+    return size-low;
   }
 };
