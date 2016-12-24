@@ -1,36 +1,47 @@
 /* Solution 1*/
 class Solution {
 public:
-    int findKthLargest(vector<int>& nums, int k) {
-        int begin(0), end(nums.size()-1);
-        while (begin<=end) {
-            int i = partition(nums,begin,end);// number within [0,i] >= number within [i+1,nums.size()-1]
-            if (k==i+1) return nums[i];
-            else if (k>i+1) begin = i+1;
-            else end = i - 1;
-        }
-        return -1;
+  int findKthLargest(vector<int>& nums, int k) {
+    int start(0), end(nums.size()-1);
+    while (start<=end) {
+      int i = RandomPartition(nums,start,end);
+      if (i==k-1) {
+        return nums[i];
+      } else if (i>k-1) {
+        end = i - 1;
+      } else {
+        start = i + 1;
+      }
     }
+    return -1;
+  }
 private:
-    // choose a random number within range to partion that range.
-    // Larger elements predecede smaller elements.
-    // Return the index of the pivot number eventually.
-    int partition(vector<int>& nums,int start, int end) {
-        int random_index = start + rand() % (end-start+1);
-        std::swap(nums[random_index],nums[end]);
-        const int pivot = nums[end];
-        int sb(start-1),se(start);
-        while (se<end) {
-            if(nums[se] > pivot) std::swap (nums[++sb],nums[se]);
-            ++ se;
-        }
-        ++ sb;
-        std::swap(nums[sb],nums[end]);
-        return sb;
+  // Partition the vector and return an index.
+  // [start,index-1] > nums[index] , [index+1,end] < nums[index]
+  int RandomPartition(vector<int>& nums, int start, int end) {
+    int random_index = start + rand() % (end-start+1);
+    std::swap(nums[random_index],nums[end]);
+    int k(start-1);
+    const int pivot_val(nums[end]);
+    for (int i=start;i<end;++i) {
+      if (nums[i]>pivot_val) {
+        std::swap(nums[++k],nums[i]);
+      }
     }
+    std::swap(nums[++k],nums[end]);
+    return k;
+  }
 };
 
-/* Solution 2*/
+/* Solution 2 */
+class Solution {
+public:
+  int findKthLargest(vector<int>& nums, int k) {
+    std::nth_element(nums.begin(),nums.begin()+k-1,nums.end(),std::greater<int>());
+    return nums[k-1];
+  }
+};
+/* Solution 3 */
 class Solution {
 public:
     int findKthLargest(vector<int>& nums, int k) {

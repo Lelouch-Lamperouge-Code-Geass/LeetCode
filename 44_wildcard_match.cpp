@@ -1,4 +1,7 @@
-/* Solution 1 with dynamic programming */
+/* Solution 1 with dynamic programming :
+P[i][j] = P[i - 1][j - 1] && (s[i - 1] == p[j - 1] || p[j - 1] == '?'), if p[j - 1] != '*';
+P[i][j] = P[i][j - 1] || P[i - 1][j], if p[j - 1] == '*'.
+ */
 class Solution {
 public:
     bool isMatch(string s, string p) {
@@ -12,9 +15,8 @@ public:
                 if (p[j-1]!='*') {
                     is_match[i][j] = is_match[i-1][j-1] && (p[j-1]=='?' || s[i-1]==p[j-1]);
                 } else {
-                    is_match[i][j] = is_match[i][j-1]
-                        || is_match[i-1][j-1]
-                        || is_match[i-1][j] ;
+                  is_match[i][j] = is_match[i][j-1] // * is not used
+                    || is_match[i-1][j] ; // * is used to match current char
                 }
             }
         }
@@ -22,13 +24,41 @@ public:
     }
 };
 
-/* Solution 2 */
+/* Solution 2 
+We optimize the DP code to O(m) space by recording P[i - 1][j - 1] using a single variable pre.
+*/
+class Solution {
+public:
+  bool isMatch(string s, string p) {
+    const std::size_t str_size(s.size()), pattern_size(p.size());
+    vector<bool> is_match(pattern_size+1,false);
+    is_match[0] = true;
+    for (std::size_t i = 1;i<=pattern_size && p[i-1]=='*';++i) is_match[i] = true;
+
+    for (std::size_t i=1;i<=str_size;++i) {
+      bool pre = is_match[0]; // use the value before update
+      is_match[0] = is_match[0] && p[i-1]=='*'; // actually is_match[0] will only be true on first row
+      for (std::size_t j=1;j<=pattern_size;++j) {
+        bool temp = is_match[j]; // record the value before update
+        if (p[j-1]!='*') {
+          is_match[j] = pre && (s[i-1]==p[j-1] || p[j-1]=='?');
+        } else {
+          is_match[j] = is_match[j-1] || is_match[j];
+        }
+        pre = temp;
+      }
+    }
+    return is_match[pattern_size];
+  }
+};
+
+/* Solution 3 */
 class Solution {
 public:
     bool isMatch(string s, string p) {
         int si(0), pi(0),s_size(s.size()), p_size(p.size());
         int p_mark(-1),s_mark(-1);
-        while (si<s_size) {
+        while (si<s_size) { // can't check pi<p_size here, think about "abc","*"
             if (p[pi]=='*') {
                 // mark the index of wildcard and corresponding index in s
                 p_mark = pi;

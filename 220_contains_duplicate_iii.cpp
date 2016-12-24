@@ -21,21 +21,21 @@ public:
 class Solution {
 public:
   bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {
-    if(nums.empty() || k < 1 || t < 0) return false;
-    long min_val = * std::min_element(nums.begin(),nums.end());
-    long bucket_size = t+1, nums_size(nums.size()); // t could be 0
+    if (nums.empty() || k < 0 || t < 0) return false;
+    int min_val = *std::min_element(nums.begin(),nums.end());
     unordered_map<long,long> buckets; // <bucket_id,value>
-    for (int i=0;i<nums_size;++i) {
-      long bucket_id = (nums[i] - min_val) / bucket_size;
-      if(buckets.size() > k) {
-        long old_id = (nums[i-k-1] - min_val)/ bucket_size ;
+    const std::size_t nums_size(nums.size()),bucket_size(t+1);
+    for (std::size_t i=0;i<nums_size;++i) {
+      if (buckets.size()==k+1) {
+        long old_id = (nums[i-k-1]-min_val) / bucket_size;
         buckets.erase(old_id);
       }
-      if ( buckets.count(bucket_id)
-           || buckets.count(bucket_id-1) && std::abs(buckets[bucket_id-1] - nums[i]) <= t
-           || buckets.count(bucket_id+1) && std::abs(buckets[bucket_id+1] - nums[i]) <= t
-           ) return true;
-      buckets[bucket_id] = nums[i];
+      long id = (nums[i]-min_val) / bucket_size;
+      if (buckets.count(id)
+          || buckets.count(id-1)!=0 && std::labs(nums[i]-buckets[id-1]) <=t
+          || buckets.count(id+1)!=0 && std::labs(nums[i]-buckets[id+1]) <=t
+          ) return true;
+      buckets[id] = nums[i];
     }
     return false;
   }
