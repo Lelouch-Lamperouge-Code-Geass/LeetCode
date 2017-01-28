@@ -1,6 +1,14 @@
 class MedianFinder {
  public:
   // Adds a number into the data structure.
+ // The keypoint here is that in order to make the numbers in both heap
+ // are sorted, we need to push the number into one heap and the put the
+ // top item of that heap to another heap.
+ // In short:
+ // (1) the values in heap are sorted across the two heap, 
+ //     the maximum number of left heap can't be larger than the smallest number 
+ //     of the right heap. Vice versa。
+ // (2) The size of left heap is equal or one larger than the size of right heap.
   void addNum(int num) {
     if (max_heap.size() > min_heap.size()) {  // add one item on min_heap
       max_heap.push(num);
