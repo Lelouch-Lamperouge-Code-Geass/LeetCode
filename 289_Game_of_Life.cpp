@@ -1,3 +1,4 @@
+// https://segmentfault.com/a/1190000003819277
 
 /* Solution 1 : Space Complexity is O(MN), the most intuitive solution*/
 class Solution {
@@ -56,3 +57,42 @@ public:
     }
   }
 };
+
+
+class Solution {
+public:
+    void gameOfLife(vector<vector<int>>& board) {
+        if (board.empty()) return;
+        const std::size_t row_size(board.size()), col_size(board[0].size());
+        for (std::size_t row = 0; row < row_size; ++ row) {
+            for (std::size_t col = 0; col < col_size; ++ col) {
+                std::size_t start_row = row > 0 ? row - 1 : 0;
+                std::size_t end_row = row < row_size - 1 ? row + 1 : row;
+                std::size_t start_col = col > 0 ? col - 1 : 0;
+                std::size_t end_col = col < col_size - 1 ? col + 1 : col;
+  
+                int live_neighbor(0);
+                for (std::size_t i = start_row; i <= end_row; ++i) {
+                    for (std::size_t j = start_col; j <= end_col; ++j) {
+                        if (i == row && j == col) {
+                            continue;
+                        } else {
+                            live_neighbor += board[i][j] & 1;
+                        }
+                    }
+                }
+                
+                if (live_neighbor == 3 || (live_neighbor == 2 && board[row][col]==1) ) {
+                    board[row][col] |= 2 ;
+                }
+            }
+        }
+        for (std::size_t row = 0; row < row_size; ++ row) {
+            for (std::size_t col = 0; col < col_size; ++ col) {
+                board[row][col] >>= 1;
+            }
+        }
+    }
+};
+
+
