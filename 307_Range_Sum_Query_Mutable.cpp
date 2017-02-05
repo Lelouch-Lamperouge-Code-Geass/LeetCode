@@ -1,3 +1,6 @@
+/***
+Solution with segment tree
+***/
 class NumArray {
 public:
   NumArray(vector<int> &nums) {
@@ -66,4 +69,49 @@ private:
     }
   }
   SegmentTreeNode* m_root;
+};
+
+/***
+Solution with binary indexed tree
+***/
+class NumArray {
+public:
+    NumArray(vector<int> nums) : m_nums(nums.size(),0), m_tree(nums.size() + 1,0) {
+        const std::size_t nums_size(nums.size());
+        for (std::size_t i = 0;i < nums_size; ++ i) {
+            update(i,nums[i]);
+        }
+    }
+    
+    void update(int i, int val) {
+        int diff = val - m_nums[i];
+        m_nums[i] = val;
+        
+        ++ i;
+        while (i < m_tree.size()) {
+            m_tree[i] += diff;
+            int last_set_bit = i & (-i);
+            i += last_set_bit;
+        }
+    }
+    
+    int GetSum(int i) {
+        int sum(0);
+        ++ i;
+        while (i>0) {
+            sum += m_tree[i];
+            int last_set_bit = i & (-i);
+            i -= last_set_bit;
+        }
+        return sum;
+    }
+    
+    int sumRange(int i, int j) {
+        return GetSum(j) - GetSum(i-1);
+    }
+    
+private:
+    std::vector<int> m_nums;
+    std::vector<int> m_tree; // binary indexed tree
+    
 };
