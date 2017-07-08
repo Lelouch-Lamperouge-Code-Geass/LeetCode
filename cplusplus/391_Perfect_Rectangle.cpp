@@ -4,7 +4,6 @@ public:
   bool isRectangleCover(vector<vector<int>>& rectangles) {
     if (rectangles.empty()) return false;
 
-    const std::size_t row_size(rectangles.size()), col_size(rectangles[0].size());
     int x1(INT_MAX), x2(0), y1(INT_MAX), y2(0);
     std::size_t area(0);
     std::unordered_set<std::string> points_hash;
