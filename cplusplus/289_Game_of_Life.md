@@ -15,7 +15,7 @@ Follow up:
   
 # Solution
 
-// https://segmentfault.com/a/1190000003819277
+* https://segmentfault.com/a/1190000003819277
 
 ### Solution 1 : Space Complexity is O(MN), the most intuitive solution
 ```cpp
@@ -50,35 +50,6 @@ public:
 ```
 
 ### Solution 2: optimize based on solution 1, in-place solution 
-```cpp
-class Solution {
-public:
-  void gameOfLife(vector<vector<int>>& board) {
-    if(board.empty()) return;
-    const int M(board.size()),N(board[0].size());
-    for(int row=0;row<M;++row){
-      for(int col=0;col<N;++col){
-        int count(0);
-        //calculate live neighbors
-        for(int i=std::max(0,row-1);i<=std::min(M-1,row+1);++i){
-          for(int j=std::max(0,col-1);j<=std::min(N-1,col+1);++j){
-            if(i==row && j==col) continue;
-            count += board[i][j] & 1;
-          }
-        }
-        if(count==3 || (board[row][col]&&count==2))
-          board[row][col]|=2;
-      }
-    }
-    for (std::size_t row=0;row<M;++row){
-      for (std::size_t col=0;col<N;++col){
-        board[row][col] >>= 1;
-      }
-    }
-  }
-};
-```
-
 ```cpp
 class Solution {
 public:
@@ -118,7 +89,7 @@ public:
 ```
 
 # What if the life field is infinite?
-/***
+
 In principle, the Life field is infinite, but computers have finite memory. 
 This leads to problems when the active area encroaches on the border of the array. 
 Programmers have used several strategies to address these problems. 
@@ -136,7 +107,7 @@ This approach allows the pattern to move about the field unhindered,
 as long as the population does not exceed the size of the live-coordinate array. 
 The drawback is that counting live neighbours becomes a hash-table lookup or search operation, 
 slowing down simulation speed. With more sophisticated data structures this problem can also be largely solved.
-***/
+
 
 ```cpp
 typedef std::unordered_map<std::size_t, std::unordered_map<std::size_t,std::size_t> > LiveMapper;
