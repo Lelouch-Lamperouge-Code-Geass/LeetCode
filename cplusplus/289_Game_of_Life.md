@@ -1,6 +1,24 @@
+According to the Wikipedia's article: "The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970."
+
+Given a board with m by n cells, each cell has an initial state live (1) or dead (0). Each cell interacts with its eight neighbors (horizontal, vertical, diagonal) using the following four rules (taken from the above Wikipedia article):
+
+* Any live cell with fewer than two live neighbors dies, as if caused by under-population.
+* Any live cell with two or three live neighbors lives on to the next generation.
+* Any live cell with more than three live neighbors dies, as if by over-population..
+* Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+  
+Write a function to compute the next state (after one update) of the board given its current state.
+
+Follow up: 
+1. Could you solve it in-place? Remember that the board needs to be updated at the same time: You cannot update some cells first and then use their updated values to update other cells.
+2. In this question, we represent the board using a 2D array. In principle, the board is infinite, which would cause problems when the active area encroaches the border of the array. How would you address these problems?
+  
+# Solution
+
 // https://segmentfault.com/a/1190000003819277
 
-/* Solution 1 : Space Complexity is O(MN), the most intuitive solution*/
+### Solution 1 : Space Complexity is O(MN), the most intuitive solution
+```cpp
 class Solution {
 public:
   void gameOfLife(vector<vector<int>>& board) {
@@ -29,8 +47,10 @@ public:
     }
   }
 };
+```
 
-/* Solution 2: optimize based on solution 1, in-place solution */
+### Solution 2: optimize based on solution 1, in-place solution 
+```cpp
 class Solution {
 public:
   void gameOfLife(vector<vector<int>>& board) {
@@ -57,8 +77,9 @@ public:
     }
   }
 };
+```
 
-
+```cpp
 class Solution {
 public:
     void gameOfLife(vector<vector<int>>& board) {
@@ -94,8 +115,9 @@ public:
         }
     }
 };
+```
 
-
+# What if the life field is infinite?
 /***
 In principle, the Life field is infinite, but computers have finite memory. 
 This leads to problems when the active area encroaches on the border of the array. 
@@ -116,6 +138,7 @@ The drawback is that counting live neighbours becomes a hash-table lookup or sea
 slowing down simulation speed. With more sophisticated data structures this problem can also be largely solved.
 ***/
 
+```cpp
 typedef std::unordered_map<std::size_t, std::unordered_map<std::size_t,std::size_t> > LiveMapper;
 
 class Solution {
@@ -184,4 +207,4 @@ public:
         }
     }
 };
-
+```
