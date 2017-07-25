@@ -33,12 +33,12 @@ Then we can keep going until we reach the n. And finally just sum up these two v
 public int numWays(int n, int k) {
     if(n == 0) return 0;
     else if(n == 1) return k;
-    int diffColorCounts = k*(k-1);
-    int sameColorCounts = k;
-    for(int i=2; i<n; i++) {
+    int diffColorCounts = k*(k-1); // fence 1 have k ways, fence 2 have (k-1)
+    int sameColorCounts = k; // fence 1 have k ways, fence 2 use the same color
+    for(int i=3; i<=n; i++) {
         int temp = diffColorCounts;
-        diffColorCounts = (diffColorCounts + sameColorCounts) * (k-1);
-        sameColorCounts = temp;
+        diffColorCounts = (diffColorCounts + sameColorCounts) * (k-1); // Use different color
+        sameColorCounts = temp; // Use same color
     }
     return diffColorCounts + sameColorCounts;
 }
