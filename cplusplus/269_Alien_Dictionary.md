@@ -24,6 +24,50 @@ Note:
 
 # Solution
 
+First, build a degree map for each character in all the words:
+
+```
+w:0
+r:0
+t:0
+f:0
+e:0
+```
+
+Then build the hashmap by comparing the adjacent words, the first character that is different between two adjacent words reflect the lexicographical order. For example:
+
+```
+ "wrt",
+ "wrf",
+    first different character is 3rd letter, so t comes before f
+
+ "wrf",
+ "er",
+    first different character is 1rd letter, so w comes before e
+ ```
+ 
+ The characters in set come after the key. x->y means letter x comes before letter y. x -> set: y,z,t,w means x comes before all the letters in the set. The final HashMap "map" looks like.
+ 
+```
+t -> set: f    
+w -> set: e
+r -> set: t
+e -> set: r
+```
+
+and final HashMap "degree" looks like, the number means "how many letters come before the key":
+
+```
+w:0
+r:1
+t:1
+f:1
+e:1
+```
+
+Then use Karn's aglorithm to do topological sort. This is essentially BFS.  
+https://en.wikipedia.org/wiki/Topological_sorting  
+
 首先必须要做的是需要找到局部的order，也就是前后单词字母比较给出的信息，以上面的例子来说，比较“wrt”和“wrf”就可以得到‘t’在‘f’之前的局部order。每一对这样前后的单词，至多产生一组这样的order，因为也可能得不到任何局部的order，比如“ab”和“abc”，这样就不能得出任何局部order了，需要注意这样的edge case。
 
 然后有了这些order，我们需要整理出全局的order，这里需要一点抽象能力和经验，因为这个order本质是一种sort，而这种partial order的整理其实可以用topological sort解决。换句话说，我们把用到的字母当成node，之前得到的局部order当成directed edge，以此来建graph，然后利用topological sort来整理出全局order。想到这里就基本完成了，至于topological sort是用bfs还是dfs就看个人喜好了。
