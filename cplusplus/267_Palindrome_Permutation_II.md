@@ -19,7 +19,7 @@ As suggested by the first hint, we just need to get one half of the string (each
 
 All the above work will only be done if an palindrome permutation exists. To tell whether a palindrome permutation exists, Palindrome Permutation has paved the way for us. To generate all the unique permutations, you may as well refer to Permutations II or Next Permutation as suggested by the second hint. But I guess this part is not the main point of this problem, so I directly use the next_permutation of C++. Well, I am not quite whether this is the right way, but this gives shorter codes. Moreover, the tag of this problem is backtracking, which I guess only needs to be used in generating the permutations. After this is done, we can simply concatenate to make the palindromes.
 
-```
+```cpp
 class Solution {
 public:
     vector<string> generatePalindromes(string s) {
