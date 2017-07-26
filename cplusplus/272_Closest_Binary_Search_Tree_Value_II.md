@@ -64,9 +64,9 @@ We can use iterative inorder traversal rather than recursion, but to keep the co
 
 Following the hint, I use a predecessor stack and successor stack. I do a logn traversal to initialize them until I reach the null node. Then I use the getPredecessor and getSuccessor method to pop k closest nodes and update the stacks.
 
-Time complexity is O(klogn), since k BST traversals are needed and each is bounded by O(logn) time. Note that it is not O(logn + k) which is the time complexity for k closest numbers in a linear array.
+I think this is a O(k + logN) solution.
 
-Space complexity is O(klogn), since each traversal brings O(logn) new nodes to the stack.
+According the follow up question, for a balanced BST, the size of "prec" and "suc" is bounded by logN. Each time, we call getPrec or getSuc, we may kind of shrink/enlarge the stack, but they are still bounded by logN. The amortized complexity will be O(1) for get, since we can consider it like "lazy traverse".
 
 ```java
 public class Solution {
