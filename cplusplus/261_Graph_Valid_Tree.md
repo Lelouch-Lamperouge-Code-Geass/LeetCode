@@ -41,8 +41,8 @@ public:
         for(int i=0; i<edges.size(); i++){
             int f = edges[i].first;
             int s = edges[i].second;
-            while(nodes[f]!=f) nodes[f] = nodes[nodes[f]]; 
-            while(nodes[s]!=s) nodes[s] = nodes[nodes[s]];
+            while(nodes[f]!=f) nodes[f] = nodes[nodes[f]]; // path compression
+            while(nodes[s]!=s) nodes[s] = nodes[nodes[s]]; // path compression
             if(nodes[f] == nodes[s]) return false;
             nodes[s] = f;
         }
