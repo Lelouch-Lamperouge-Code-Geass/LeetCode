@@ -6,6 +6,13 @@ For example, Given n = 2, return ["11","69","88","96"].
 
 # Solution
 
+This is a expansion of the version I problem. This problem has a obvious hint of divide and conquer. It can be reduced to sub problems.
+
+We are going to build a string of n length, what if we already know the n – 2 length solution to the problem? Then we just surround that by ‘1’ and ‘1’, ‘8’ and ‘8’, ‘6’ and ‘9’ etc.
+
+Note that in between we can add ‘0’ and ‘0’ but at the last chance, we don’t want to surround with ‘0’ and ‘0’. Because we don’t want a “0110” in the solution. This is not part of the description of the problem. But based on the example given above, it doesn’t contain “00” in the answer, so that’s how we can guess we should not contain ‘0’ and ‘0’.
+
+
 ```java
 // recursive version
 public List<String> findStrobogrammatic(int n) {
