@@ -33,6 +33,8 @@ This means we need to think outside the box.
 If you look at the matrix carefully, you will find that if we place a chess piece at the top-right corner or bottom-left corner, we can move the chess piece in a decisive direction based on its value comparing to target. Actually the matrix looks like the it contains two "binary search tree" and it has two "roots" correspondingly.
   
 Let's say we place the chess piece on top-right corner, and begin to move it. And all numbers on its "left" are smaller than it, all numbers on its "right(bottom direction)" are larger than it. Therefore we can essentially do a binary search on a binary tree. It also works if we begin with bottom-left corner. It won't work if we place the chess piece on top-left and bottom-right, because it won't form a binary search tree.
+
+__Time complexity O(row_size + col_size).__
   
 ```cpp
 class Solution {
