@@ -1,3 +1,8 @@
+Implement a trie with insert, search, and startsWith methods.
+  
+# Solution
+
+```cpp
 class TrieNode {
   friend class Trie;
 public:
@@ -60,3 +65,4 @@ private:
   }
   TrieNode* root;
 };
+```
