@@ -62,23 +62,23 @@ public:
         vector<pair<int,int>> result;
 
         // <position, height>
-        multiset<pair<int,int>> seq;
+        multiset<pair<int,int>> critical_points;
         for(auto p:buildings){
-            seq.emplace(make_pair(p[0],-p[2])); // left edge of rectangle
-            seq.emplace(make_pair(p[1],p[2])); // right edge of rectangle
+            critical_points.emplace(make_pair(p[0],-p[2])); // left edge of rectangle
+            critical_points.emplace(make_pair(p[1],p[2])); // right edge of rectangle
         }
         std::multiset<int> height({0}); // Use multiset as heap
         int pre_height(0);
-        for(auto p:seq){
-            if (p.second < 0) { // It is left edge, add to heap
-                height.emplace(-p.second);
+        for(auto point : critical_points){
+            if (point.second < 0) { // It is left edge, add to heap
+                height.emplace(-point.second);
             } else { // It is right edge, remove from heap
-                height.erase(height.find(p.second));
+                height.erase(height.find(point.second));
             }
             
             int cur_max_height = *height.rbegin();
             if(cur_max_height != pre_height){
-                result.emplace_back(std::make_pair(p.first, cur_max_height));
+                result.emplace_back(std::make_pair(point.first, cur_max_height));
                 pre_height = cur_max_height;
             }
         }
