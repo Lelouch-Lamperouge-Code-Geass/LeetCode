@@ -55,6 +55,7 @@ public:
                 } else if (c == ')'){
                     result += sign * cur_number;  
                     cur_number = 0;
+                    sign = 1; // Not neccessary, since we know there must be a sign after )
                     result *= values.back();    //values.back() is the sign before the parenthesis
                     values.pop_back();
                     result += values.back();   //values.back() now is the result calculated before the parenthesis
