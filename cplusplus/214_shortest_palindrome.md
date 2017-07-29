@@ -1,4 +1,18 @@
-/* Solution 1*/
+Given a string S, you are allowed to convert it to a palindrome by adding characters in front of it. Find and return the shortest palindrome you can find by performing this transformation.
+
+For example:
+
+```
+Given "aacecaaa", return "aaacecaaa".
+
+Given "abcd", return "dcbabcd".
+```
+
+# Solution
+
+##### Solution 1
+
+```cpp
 class Solution {
 public:
   string shortestPalindrome(string s) {
@@ -11,8 +25,11 @@ public:
     return rev.substr(0,s_size-len)+s;
   }
 };
+```
 
-/* Solution 2*/
+##### Solution 2
+
+```cpp
 class Solution {
 public:
   string shortestPalindrome(string s) {
@@ -44,9 +61,11 @@ private:
     return res;
   }
 };
+```
 
-/* Solution 3 : optimize on solution 2 */
+##### Solution 3 : optimize on solution 2 
 
+```cpp
 class Solution {
 public:
   string shortestPalindrome(string s) {
@@ -74,3 +93,4 @@ private:
     return kmp_table[s_size-1];
   }
 };
+```
