@@ -204,29 +204,37 @@ private:
 ```cpp
 class Solution {
 public:
-  string shortestPalindrome(string s) {
-    std::string rev_s(s.rbegin(),s.rend());
-    std::string ss(s+'#'+rev_s);
-    std::size_t len =  LongestCommonPrefixSuffixLength(ss);
-    return rev_s.substr(0,s.size()-len) + s;
-  }
-private:
-  std::size_t LongestCommonPrefixSuffixLength(const std::string & s) {
-    const std::size_t s_size(s.size());
-    vector<std::size_t> kmp_table(s_size,0);
-    std::size_t len(0),index(1);
-    while (index < s_size) {
-      if (s[len] == s[index]) {
-        kmp_table[index++] = ++len;
-      } else {
-        if (len!=0) {
-          len = kmp_table[len-1];
-        } else {
-          kmp_table[index++] = 0;
-        }
-      }
+    string shortestPalindrome(string s) {
+        std::string rev_s(s.rbegin(),s.rend());
+        std::string ss(s + '#' + rev_s);
+        std::size_t common_prefix_suffix_len =  GetCommonPrefixSuffixLength(ss);
+        return rev_s.substr(0, s.size() - common_prefix_suffix_len) + s;
     }
-    return kmp_table[s_size-1];
-  }
+    
+private:
+    std::size_t GetCommonPrefixSuffixLength(const std::string &str) {
+        if (str.empty()) return 0;
+        std::size_t prefix_index(0), suffix_index(1);
+        const std::size_t str_size(str.size());
+        std::vector<std::size_t> kmp_table(str_size, 0);
+        while (suffix_index < str_size) {
+            if (str[suffix_index] == str[prefix_index]) { // match
+                kmp_table[suffix_index] = prefix_index + 1;
+                ++ suffix_index, ++ prefix_index;
+            } else { // mismatch
+                
+                // match failed, we try to match a shorter substring
+                
+                if (prefix_index != 0) {
+                    prefix_index = kmp_table[prefix_index - 1];
+                } else {
+                    kmp_table[suffix_index] = 0;
+                    ++ suffix_index;
+                }
+            }
+        }
+        
+        return kmp_table[str_size - 1];
+    }
 };
 ```
