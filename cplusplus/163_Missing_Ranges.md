@@ -17,9 +17,10 @@ public:
         for(int i =0; i <= nums.size(); i++)
         {
            int cur = (i==nums.size()? upper+1:nums[i]);
-           if(cur-pre>=2)
+           if(cur-pre >= 2) {
             result.push_back(get_range(pre+1,cur-1));
-            pre = cur;
+           }
+           pre = cur;
         }
         return result;
     }
