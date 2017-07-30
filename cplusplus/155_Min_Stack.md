@@ -112,7 +112,17 @@ private:
 
 
 ##### Solution three
-Using one extra space to store m_min. The idea is to store the gap between the min value and the current value.
+Using one extra space to store m_min.
+What the stack stores is the gap between current value and previous minimum value, it equals 
+
+```current_value - previous_minimum_value```.
+
+Therefore, when we call top(). There are two scenarios:
+1. top() <= : which means current value is even smaller or at least equal to previous minimum value. So just return m_min.
+2. top() is positive : which means current value is bigger than previous value, so return top() + m_min
+
+When we call pop(), we just need to make sure update m_min when top() is negative.
+
 Using long here to handle overflow.
   
 ```cpp
