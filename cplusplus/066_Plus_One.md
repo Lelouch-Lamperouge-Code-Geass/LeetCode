@@ -14,7 +14,7 @@ public:
         std::size_t pos(digits.size()); // we know its non-empty array
         
         // Find the first non-9 digit backward
-        while (pos > 0) { // notice that pos-- > 0 is wrong!
+        while (pos > 0) { // LeetCode has a weired compiler which makes pos -- > 0 WRONG! WTF!
             -- pos;
             if (digits[pos] != 9) {
                 ++ digits[pos];
