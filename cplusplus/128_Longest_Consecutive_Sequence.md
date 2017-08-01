@@ -1,3 +1,12 @@
+Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
+
+For example,
+Given [100, 4, 200, 1, 3, 2],
+The longest consecutive elements sequence is [1, 2, 3, 4]. Return its length: 4.
+
+Your algorithm should run in O(n) complexity.
+
+```cpp
 /* Use hashmap to record number and its located interval's length.*/
 class Solution {
 public:
@@ -19,7 +28,9 @@ public:
     return max_len;
   }
 };
+```
 
+```cpp
 /* This solution looks like O(n^2) but it is actually O(n).
 Let's say an input is [1,2,3,4,5], we will iterate the whole array when we check 1.
 But for the rest numbers, the inner while is constant.*/
@@ -40,3 +51,4 @@ public:
     return reval;
   }
 };
+```
