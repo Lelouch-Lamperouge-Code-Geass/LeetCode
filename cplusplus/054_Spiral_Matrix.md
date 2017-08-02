@@ -18,6 +18,8 @@ This is a very simple and easy to understand solution. I traverse right and incr
 
 The only tricky part is that when I traverse left or up I have to check whether the row or col still exists to prevent duplicates. 
 
+__Note that start_row<=end_row && start_col<=end_col is the requirement to enter the while loop, which is in fact the INVARIANT we need. Therefore, whenever we need to update start_row, start_col, end_row, end_col, we need to check whether we violate the invariant or not.__
+
 ### Solution when row size and colume size are both within integer range
 ```cpp
 class Solution {
