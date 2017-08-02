@@ -1,7 +1,35 @@
-/* Solution 1 with dynamic programming :
+Implement wildcard pattern matching with support for '?' and '*'.
+ 
+```
+'?' Matches any single character.
+'*' Matches any sequence of characters (including the empty sequence).
+
+The matching should cover the entire input string (not partial).
+
+The function prototype should be:
+bool isMatch(const char *s, const char *p)
+
+Some examples:
+isMatch("aa","a") ? false
+isMatch("aa","aa") ? true
+isMatch("aaa","aa") ? false
+isMatch("aa", "*") ? true
+isMatch("aa", "a*") ? true
+isMatch("ab", "?*") ? true
+isMatch("aab", "c*a*b") ? false
+```
+
+# Solution
+
+##### Solution 1 with dynamic programming :
+Let's briefly summarize the idea of DP. We define the state P[i][j] to be whether s[0..i) matches p[0..j). The state equations are as follows:
+    
+```
 P[i][j] = P[i - 1][j - 1] && (s[i - 1] == p[j - 1] || p[j - 1] == '?'), if p[j - 1] != '*';
 P[i][j] = P[i][j - 1] || P[i - 1][j], if p[j - 1] == '*'.
- */
+```
+
+```cpp
 class Solution {
 public:
     bool isMatch(string s, string p) {
@@ -23,10 +51,10 @@ public:
         return is_match[s_size][p_size];
     }
 };
+```
 
-/* Solution 2 
 We optimize the DP code to O(m) space by recording P[i - 1][j - 1] using a single variable pre.
-*/
+```cpp
 class Solution {
 public:
   bool isMatch(string s, string p) {
@@ -51,8 +79,10 @@ public:
     return is_match[pattern_size];
   }
 };
+```
 
-/* Solution 3 */
+##### Solution two
+```cpp
 class Solution {
 public:
     bool isMatch(string s, string p) {
@@ -87,3 +117,4 @@ public:
         return si == s_size && pi == p_size;
     }
 };
+```
