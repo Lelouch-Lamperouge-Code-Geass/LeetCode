@@ -1,0 +1,53 @@
+Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining.
+
+For example, 
+Given [0,1,0,2,1,0,1,3,2,1,2,1], return 6.
+
+![alt](https://leetcode.com/static/images/problemset/rainwatertrap.png)
+       
+The above elevation map is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped. 
+
+# Solution
+Here is my idea: instead of calculating area by height*width, we can think it in a cumulative way. In other words, sum water amount of each bin(width=1).  
+For each bin, the water it can contain = std::min(max_left,max_right) - cur_val.  
+That is to say, the water each bin can contain is limited by minimal value between the max height of its left bars and the max height of its right bars.  
+So we can accumulate from both sides to its middle.        
+       
+Then how to implement this algorithm?
+The simple way is to keep two arrays, one is called max_left[], one is called max_right[].
+We iterate the input from left to right to record the max_left on each bin, and iterate from right to left to record the max_right on each bin. Then accumulate at the final iteration with ```std::min(max_left[i],max_right[i]) - height[i]```.
+
+In this case, the time complexity is O(n), and space complexity is O(n).
+
+Can we improve this algorithm?
+
+Probably not on time complexity, since we have to visit each bin no matter what.
+How about space complexity?  
+It turns out, we just need use a trick similar to two pointers, left and right.
+
+When height[left] < height[right], we know that we don't need to worry about right elements, since the max_right is definitely larger than max_left for current item.Likewise when height[left] >= height[right].
+
+```cpp
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        if (height.empty()) return 0;
+        int reval(0), max_left(0), max_right(0);
+        std::size_t left(0), right(height.size() - 1);
+        
+        while (left < right) {
+            if (height[left] < height[right]) {
+                max_left = std::max(max_left, height[left]);
+                reval += max_left - height[left];
+                ++ left;
+            } else {
+                max_right = std::max(max_right, height[right]);
+                reval += max_right - height[right];
+                -- right;
+            }
+        }
+        
+        return reval;
+    }
+};
+```
