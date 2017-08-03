@@ -21,13 +21,15 @@ isMatch("aab", "c*a*b") ? false
 
 # Solution
 
-##### Solution 1 with dynamic programming :
+### Solution 1 with dynamic programming :
 Let's briefly summarize the idea of DP. We define the state P[i][j] to be whether s[0..i) matches p[0..j). The state equations are as follows:
     
 ```
 P[i][j] = P[i - 1][j - 1] && (s[i - 1] == p[j - 1] || p[j - 1] == '?'), if p[j - 1] != '*';
 P[i][j] = P[i][j - 1] || P[i - 1][j], if p[j - 1] == '*'.
 ```
+
+__Time complexity : O(s.size() * p.size()), Splace Complexity O(s.size() * p.size())__
 
 ```cpp
 class Solution {
@@ -54,6 +56,8 @@ public:
 ```
 
 We optimize the DP code to O(m) space by recording P[i - 1][j - 1] using a single variable pre.
+
+__Time complexity : O(s.size() * p.size()), Splace Complexity O(p.size())__
 ```cpp
 class Solution {
 public:
@@ -81,7 +85,10 @@ public:
 };
 ```
 
-##### Solution two
+### Solution two
+
+__Time complexity : O(s.size() * p.size()), Splace Complexity O(1)__
+
 ```cpp
 class Solution {
 public:
