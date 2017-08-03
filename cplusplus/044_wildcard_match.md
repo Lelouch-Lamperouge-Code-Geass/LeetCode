@@ -87,41 +87,50 @@ public:
 
 ### Solution two
 
+For each element in s  
+If *s==*p or *p == ? which means this is a match, then goes to next element s++ p++.  
+If p == '*', this is also a match, but one or many chars may be available, so let us save this *'s position and the matched s position.  
+
+If not match, then we check if there is a * previously showed up,  
+       if there is no *,  return false;  
+       if there is an *,  we set current p to the next element of *, and set current s to the next saved s position.  
+
 __Time complexity : O(s.size() * p.size()), Splace Complexity O(1)__
 
 ```cpp
 class Solution {
 public:
     bool isMatch(string s, string p) {
-        int si(0), pi(0),s_size(s.size()), p_size(p.size());
-        int p_mark(-1),s_mark(-1);
-        while (si<s_size) { // can't check pi<p_size here, think about "abc","*"
-            if (p[pi]=='*') {
-                // mark the index of wildcard and corresponding index in s
-                p_mark = pi;
-                s_mark = si;
-                
-                ++ pi; // * match 0 char at first shot
+        std::size_t s_pos(0), p_pos(0);
+        const std::size_t s_size(s.size()), p_size(p.size()), MINUS_ONE(-1);
+        std::size_t s_mark(MINUS_ONE), p_mark(MINUS_ONE);
+        
+        while(s_pos < s_size) { // can't check p_pos < p_size here, think about "abc","*"
+            if (p[p_pos] == '*') {
+                // mark both positions when meet *
+                s_mark = s_pos;
+                p_mark = p_pos;
+                // only move p_pos forward
+                ++ p_pos;
             } else {
-                if (p[pi]=='?' || p[pi]==s[si]) {
-                    ++ pi;
-                    ++ si;
+                if (s[s_pos] == p[p_pos] || p[p_pos] == '?') {
+                    ++ s_pos;
+                    ++ p_pos;
                 } else {
-                    if (p_mark!=-1) {
-                        pi = p_mark + 1; //p_mark always point to wildcard index in p
-                        si = s_mark+1; 
-                        
-                        ++ s_mark; // use '*' to match one char in s 
+                    if (p_mark != MINUS_ONE) {
+                        s_pos = ++s_mark; // use wildcard to match one more char in s
+                        p_pos = p_mark + 1;
                     } else {
                         return false;
-                    }    
+                    }
                 }
             }
         }
         
-        while (pi<p_size && p[pi]=='*') ++pi; // p may have trailing *
+        // Right now s_pos reach s_size, let's skip tailing '*' of p
+        while (p_pos < p_size && p[p_pos] == '*') ++ p_pos; 
         
-        return si == s_size && pi == p_size;
+        return p_pos == p_size;
     }
 };
 ```
