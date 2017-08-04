@@ -40,28 +40,37 @@ We used recursion here, so the space complexity is O(height of the tree).
 ```cpp
 class Solution {
 public:
-  vector<string> generateParenthesis(int n) {
-    vector<string> res;
-    string temp("");
-    checkWithDfs(res,temp,n,n);
-    return res;
-  }
-private:
-  void checkWithDfs(vector<string> & res,string & temp,int left, int right){
-    if (left==0 && right==0) {
-      res.push_back(temp);
-    } else {
-      if (left>0) {
-        temp.push_back('(');
-        checkWithDfs(res,temp,left-1,right);
-        temp.pop_back();
-      }
-      if (right>left) {
-        temp.push_back(')');
-        checkWithDfs(res,temp,left,right-1);
-        temp.pop_back();
-      }
+    vector<string> generateParenthesis(int n) {
+        vector<string> reval;
+        string temp("");
+        BacktrackingWithDFS(reval, temp, n, n);
+        return reval;
     }
-  }
+private:
+    void BacktrackingWithDFS(vector<string> &reval, 
+                             string &temp,
+                             const int left_parenthesis_remain, 
+                             const int right_parenthesis_remain) {
+        if (0 == left_parenthesis_remain 
+            && 0 == right_parenthesis_remain
+            && !temp.empty()) {
+            reval.push_back(temp);
+        } else {   
+            // We can push '(' whenever we want
+            if (left_parenthesis_remain > 0) {
+                temp.push_back('(');
+                BacktrackingWithDFS(reval, temp, left_parenthesis_remain - 1, right_parenthesis_remain);
+                temp.pop_back();
+            }
+
+            // We can only push ')' when temp's '(' are more than ')',
+            // in other words, remaining '(' are less than remaining ')'
+            if (left_parenthesis_remain < right_parenthesis_remain) {
+                temp.push_back(')');
+                BacktrackingWithDFS(reval, temp, left_parenthesis_remain, right_parenthesis_remain - 1);
+                temp.pop_back();
+            }
+        }
+    }
 };
 ```
