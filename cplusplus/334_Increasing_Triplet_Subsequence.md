@@ -25,7 +25,7 @@ return false.
 
 __time complexity is O(n), space complexity is O(1)__
 
-```
+```cpp
 class Solution {
 public:
   bool increasingTriplet(vector<int>& nums) {
@@ -48,7 +48,7 @@ But it is still worth to check it out.
     
 __time complexity is O(nlogn), space complexity is O(n)__
 
-```
+```cpp
 class Solution {
 public:
   bool increasingTriplet(vector<int>& nums) {
