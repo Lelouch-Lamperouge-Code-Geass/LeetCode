@@ -1,7 +1,31 @@
-/***
-    Solution 1  : O(N)
- ***/
+Given an unsorted array return whether an increasing subsequence of length 3 exists or not in the array.
 
+Formally the function should:
+
+```
+Return true if there exists i, j, k 
+such that arr[i] < arr[j] < arr[k] given 0 ≤ i < j < k ≤ n-1 else return false.
+```
+
+Your algorithm should run in O(n) time complexity and O(1) space complexity.
+
+Examples:
+
+```
+Given [1, 2, 3, 4, 5],
+return true.
+
+Given [5, 4, 3, 2, 1],
+return false.
+```
+    
+# Solution
+
+### Solution one
+
+__time complexity is O(n), space complexity is O(1)__
+
+```
 class Solution {
 public:
   bool increasingTriplet(vector<int>& nums) {
@@ -15,11 +39,16 @@ public:
     return false;
   }
 };
+```
 
-/***
-    Solution 2 : Longest Increasing Sequence, O(nlogn)
- ***/
+### Solution 2 : Longest Increasing Sequence, O(nlogn)
 
+This solution doesn't meet the requirement of time complexity and space complexity.
+But it is still worth to check it out.
+    
+__time complexity is O(nlogn), space complexity is O(n)__
+
+```
 class Solution {
 public:
   bool increasingTriplet(vector<int>& nums) {
@@ -36,3 +65,4 @@ public:
     return false;
   }
 };
+```
