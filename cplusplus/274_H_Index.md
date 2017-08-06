@@ -45,18 +45,26 @@ Time complexity O(n), space complexity O(n).
 class Solution {
 public:
     int hIndex(vector<int>& citations) {
-        const std::size_t n_size(citations.size());
+        const std::size_t total_paper(citations.size());
+        vector<int> citation_count(total_paper + 1, 0);
         
-        vector<int> papers_count_by_citation(n_size + 1, 0);
-        for (int citation : citations) {
-            ++ papers_count_by_citation[std::min((int)n_size,citation)];
+        // citation_count stores how many papaers are citated in
+        // 0, 1, ...  times. One special case is when
+        // citation is larger than total_paper, we count it into the last
+        // bucket. 
+        for (int temp : citations) {
+            ++ citation_count[std::min((std::size_t)temp, total_paper)];
         }
         
-        int papers_count_so_far(0);
-        for (std::size_t citation = n_size; citation >= 0; -- citation) {
-            papers_count_so_far += papers_count_by_citation[citation];
-            if (papers_count_so_far >= citation) return citation;
+        int citation_so_far(0);
+        
+        for (std::size_t i = total_paper + 1; i-- > 0; ) {
+            citation_so_far += citation_count[i];
+            if (citation_so_far >= i) {
+                return i;
+            }
         }
+        
         return 0;
     }
 };
