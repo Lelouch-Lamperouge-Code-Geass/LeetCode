@@ -18,6 +18,8 @@ This problem has a lot of edge cases to be considered:
 * 0 sequence: because we can't have numbers with multiple digits started with zero, we have to deal with it too.
 * a little trick is that we should save the value that is to be multiplied in the next recursion.
 
+> My first intuitive solution is to use divide and conquer. We just need a function which look like ``` vector<pair<string, int>> getItems(const string & str)```, this function will return a vector of expression string and their corresponding value. However, it is not easy to implement when the operators have different priorities. For example, you get one item <"1+2 * 3", 7> and another item<"4-5", -1>, how can to concatenate theses two strings with operator '*' ? 
+
 
 ```cpp
 class Solution {
