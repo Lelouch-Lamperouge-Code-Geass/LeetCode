@@ -37,7 +37,8 @@ public:
         
         bool reval(true);
         
-        for (ListNode *left = head, *right = reverseList(fast); left && right; left = left->next, right = right->next) {
+        for (ListNode *left = head, *right = reverseList(fast); 
+              left && right; left = left->next, right = right->next) {
             if (left->val != right->val) {
                 reval = false;
                 reverseList(right); //reverse back
