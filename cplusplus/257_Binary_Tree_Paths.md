@@ -30,23 +30,26 @@ All root-to-leaf paths are:
  */
 class Solution {
 public:
-  vector<string> binaryTreePaths(TreeNode* root) {
-    vector<string> reval;
-    dfs_binary_tree_path(reval,"",root);
-    return reval;
-  }
-private:
-  void dfs_binary_tree_path(vector<string> &reval,
-                            const string & temp,
-                            TreeNode* root) {
-    if (!root) return;
-    if (!root->left && !root->right) {
-      reval.push_back(temp+std::to_string(root->val));
-    } else {
-      dfs_binary_tree_path(reval,temp+std::to_string(root->val)+"->",root->left);
-      dfs_binary_tree_path(reval,temp+std::to_string(root->val)+"->",root->right);
+    vector<string> binaryTreePaths(TreeNode* root) {
+        vector<string> reval;
+        string temp("");
+        traversalWithDFS(reval, temp, root);
+        return reval;
     }
-  }
+private:
+    void traversalWithDFS(vector<string> &reval, 
+                         const string &temp,
+                         TreeNode *root) {
+        if (root) {
+            string new_temp = temp.empty() ? std::to_string(root->val) : temp + "->" + std::to_string(root->val);
+            if (!root->left && !root->right) {
+                reval.emplace_back(new_temp);
+            } else {
+               if (root->left) traversalWithDFS(reval, new_temp, root->left);
+               if (root->right) traversalWithDFS(reval, new_temp, root->right);
+            }
+        }
+    }
 };
 
 ```
