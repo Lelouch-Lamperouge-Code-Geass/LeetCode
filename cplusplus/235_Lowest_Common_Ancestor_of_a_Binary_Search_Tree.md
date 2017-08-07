@@ -13,7 +13,7 @@ According to the definition of LCA on Wikipedia: “The lowest common ancestor i
 For example, the lowest common ancestor (LCA) of nodes 2 and 8 is 6. Another example is LCA of nodes 2 and 4 is 2, since a node can be a descendant of itself according to the LCA definition.
 
 # Solution
-
+```
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -23,7 +23,7 @@ For example, the lowest common ancestor (LCA) of nodes 2 and 8 is 6. Another exa
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-
+```
 /* Solution 1: Iteration */
 ```cpp
 class Solution {
