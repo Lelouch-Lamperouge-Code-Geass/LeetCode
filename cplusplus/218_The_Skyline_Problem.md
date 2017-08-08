@@ -29,7 +29,7 @@ Our final solution, then, in O(nlogn) time, is as follows. First, sort the criti
 
 General idea:
 
-* Step 1: Use a multimap to sort all boundary points. For a start point of an interval, let the height be positive; otherwise, let the height be negative. Time complexity: O(n log n)
+* Step 1: Use a multiset to sort all boundary points. For a start point of an interval, let the height be negative; otherwise, let the height be positive. Time complexity: O(n log n)
 
 * Step 2: Use a multiset (rather than a heap/priority_queue) to maintain the current set of heights to be considered. If a new start point is met, insert the height into the set, otherwise, delete the height. The current max height is the back() element of the multiset. For each point, the time complexity is O(log n). The overall time complexity is O(n log n).
 
