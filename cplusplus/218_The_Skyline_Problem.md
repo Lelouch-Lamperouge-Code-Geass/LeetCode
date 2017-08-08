@@ -86,3 +86,45 @@ public:
     }
 };
 ```
+
+```cpp
+class Solution {
+
+public:
+    vector<pair<int, int>> getSkyline(vector<vector<int>>& buildings) {
+        vector<pair<int, int>> result;
+
+        // Smaller index has higher priority.
+        // If index are the same, smaller height has higher priority.
+        auto PointComparator = [](const pair<int,int> &left, const pair<int,int> &right) {
+            return left.first < right.first || left.first == right.first && left.second < right.second;
+        };
+        
+        // multiset<pair<int,int>> critical_points;
+        multiset<pair<int,int>, decltype(PointComparator)>  critical_points(PointComparator);    
+        
+        for (const auto & item : buildings) {
+            critical_points.emplace(make_pair(item[0], -item[2])); // left edge
+            critical_points.emplace(make_pair(item[1], item[2])); // right edge
+        }       
+        
+        std::multiset<int> height({0}); // Use multiset as heap
+        int pre_height(0);
+        for (const auto &point : critical_points) {
+            if (point.second < 0) { // It is left edge, add to heap
+                height.emplace(-point.second);
+            } else { // It is right edge, remove from heap
+                height.erase(height.find(point.second));
+            }
+            
+            int cur_max_height = *height.rbegin();
+            if(cur_max_height != pre_height){
+                result.emplace_back(std::make_pair(point.first, cur_max_height));
+                pre_height = cur_max_height;
+            }
+        }
+        
+        return result;
+    }
+};
+```
