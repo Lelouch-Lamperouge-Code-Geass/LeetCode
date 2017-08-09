@@ -23,6 +23,8 @@ You may assume that all words are consist of lowercase letters a-z.
 
 # Solution
 
+### Solution one : need to clear memory when use raw pointer
+
 ```cpp
 class TrieNode {
   friend class WordDictionary;
@@ -68,5 +70,65 @@ private:
   }
 
   TrieNode* m_root;
+};
+```
+
+### Solution two : Use shared_ptr
+```cpp
+class WordDictionary {
+private:
+    struct TrieNode;
+    typedef std::shared_ptr<TrieNode> TrieNodePtr;
+    struct TrieNode {
+      TrieNode(char c) : m_char(c), m_word_count(0), m_children(26, nullptr) {
+          
+      }
+      char m_char;
+      std::size_t m_word_count;
+      std::vector<TrieNodePtr> m_children;
+    };
+    
+    TrieNodePtr m_root;
+public:
+    /** Initialize your data structure here. */
+    WordDictionary() : m_root(std::make_shared<TrieNode>(' ')){
+        
+    }
+    
+    /** Adds a word into the data structure. */
+    void addWord(string word) {
+        TrieNodePtr cur(m_root);
+        for (char c : word) {
+            std::size_t index = c - 'a';
+            if (cur->m_children[index] == nullptr) {
+                cur->m_children[index] = std::make_shared<TrieNode>(c);
+            }
+            cur = cur->m_children[index];
+        }
+        
+        ++ cur->m_word_count;
+    }
+    
+    /** Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter. */
+    bool search(string word) {
+        return searchWithDFS(m_root, word, 0);
+    }
+private:
+    bool searchWithDFS(const TrieNodePtr & node_ptr, const string &word, std::size_t pos) {
+        if (pos == word.size()) return node_ptr && node_ptr->m_word_count > 0;
+        
+        if (word[pos] == '.') {
+            for (const TrieNodePtr &child : node_ptr->m_children) {
+                if (child && searchWithDFS(child, word, pos + 1)) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            std::size_t index = word[pos] - 'a';
+            return node_ptr->m_children[index] 
+                && searchWithDFS(node_ptr->m_children[index], word, pos + 1);
+        }
+    }
 };
 ```
