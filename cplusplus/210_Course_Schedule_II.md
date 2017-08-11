@@ -20,8 +20,15 @@ Note:
 The input prerequisites is a graph represented by a list of edges, not adjacency matrices. Read more about [how a graph is represented](https://www.khanacademy.org/computing/computer-science/algorithms/graph-representation/a/representing-graphs).
 You may assume that there are no duplicate edges in the input prerequisites.  
 
+# Solution
+
+This question asks for an order in which prerequisite courses must be taken first. This prerequisite relationship reminds one of directed graphs. Then, the problem reduces to find a topological sort order of the courses, which would be a DAG if it has a valid order.
 
 ### Solution 1 with BFS
+
+We observe that if a node has incoming edges, it has prerequisites. Therefore, the first few in the order must be those with no prerequisites, i.e. no incoming edges. Any non-empty DAG must have at least one node without incoming links. You can draw a small graph to convince yourself. If we visit these few and remove all edges attached to them, we are left with a smaller DAG, which is the same problem. This will then give our BFS solution.
+
+__Please note in this BFS solution here, we fist of all put all the zero-indegree nodes into the queue. If we only put one zero-indegree node, it will be a problem. Think about we have two zero-indegree nodes, and we push only one node as the begin node into the queue, and after take out it from the queue and reduce the indegree of its neighbors. It is possible that all its neighbors's indegree are all larger than zero. And another zero-indegree node has never been put into the queue.__
 
 ```cpp           
 class Solution {
@@ -56,6 +63,7 @@ public:
 
 ### Solution 2 with DFS
 
+Another way to think about it is the last few in the order must be those which are not prerequisites of other courses. Thinking it recursively means if one node has unvisited child node, you should visit them first before you put this node down in the final order array. This sounds like the post-order of a DFS. Since we are putting nodes down in the reverse order, we should reverse it back to correct ordering or use a stack.
 
 ```cpp
 class Solution {
