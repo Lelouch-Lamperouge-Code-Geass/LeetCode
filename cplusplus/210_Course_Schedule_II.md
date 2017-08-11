@@ -22,7 +22,8 @@ You may assume that there are no duplicate edges in the input prerequisites.
 
 
 ### Solution 1 with BFS
-                                                                                                                             ```cpp           
+
+```cpp           
 class Solution {
 public:
   vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
@@ -51,7 +52,10 @@ public:
 };
 ``` 
 
+
+
 ### Solution 2 with DFS
+
 
 ```cpp
 class Solution {
@@ -95,9 +99,13 @@ private:
     return true;
   }
 };
-```                                                                                                                                        
+```                                                                                                                         
+
+
 ###  Solution 3
-                                                                                                                             ```cpp           
+
+
+```cpp           
 class Solution {
 public:
   vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
