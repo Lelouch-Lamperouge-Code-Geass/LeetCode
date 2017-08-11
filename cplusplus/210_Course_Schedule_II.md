@@ -20,6 +20,7 @@ Note:
 The input prerequisites is a graph represented by a list of edges, not adjacency matrices. Read more about [how a graph is represented](https://www.khanacademy.org/computing/computer-science/algorithms/graph-representation/a/representing-graphs).
 You may assume that there are no duplicate edges in the input prerequisites.  
 
+
 ### Solution 1 with BFS
                                                                                                                              ```cpp           
 class Solution {
