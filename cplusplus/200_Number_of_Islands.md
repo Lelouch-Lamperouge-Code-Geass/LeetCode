@@ -87,39 +87,47 @@ private:
 ```cpp
 class Solution {
 public:
-    int numIslands(vector<vector<char>> & grid) {
-        if(grid.empty()) return 0;
+    int numIslands(vector<vector<char>>& grid) {
+        if (grid.empty()) return 0;
+        const std::size_t row_size(grid.size()), col_size(grid[0].size());
+        
         int reval(0);
-        const int row_size(grid.size()),col_size(grid[0].size());
         for (int row=0;row<row_size;++row) {
             for (int col=0;col<col_size;++col) {
                 if (grid[row][col] == '1') {
                    ++ reval;
-                   dfs(grid,row,col);
+                   searchWithDFS(grid,row,col);
                 }        
             }
         }
         
-        // revert input back, optional
-        for (int row=0;row<row_size;++row) {
-            for (int col=0;col<col_size;++col) {
-                if(grid[row][col] == 'x')
-                   grid[row][col] = '1'; 
-            }
-        }
+        // Should recover original input
+        revertBack(grid);
         
         return reval;
     }
 private:
-    void dfs(vector<vector<char>> & grid, int row, int col) {
+    void revertBack(vector<vector<char>> &grid) {
+        const std::size_t row_size(grid.size()), col_size(grid[0].size());
+        for (std::size_t row; row < row_size; ++ row) {
+            for (std::size_t col; col < col_size; ++ col) {
+                if ('x' == grid[row][col]) {
+                    grid[row][col] = '1';
+                }
+            }
+        }
+    }
+    void searchWithDFS(vector<vector<char>>& grid,
+                      const std::size_t row,
+                      const std::size_t col) {
         const int row_size(grid.size()),col_size(grid[0].size());
         if(row<0 || col<0 || row>=row_size || col>=col_size) return;
         if(grid[row][col] != '1') return;
         grid[row][col] = 'x';
-        dfs(grid,row-1,col);
-        dfs(grid,row+1,col);
-        dfs(grid,row,col-1);
-        dfs(grid,row,col+1);
+        searchWithDFS(grid,row-1,col);
+        searchWithDFS(grid,row+1,col);
+        searchWithDFS(grid,row,col-1);
+        searchWithDFS(grid,row,col+1);
     }
 };
 ```
