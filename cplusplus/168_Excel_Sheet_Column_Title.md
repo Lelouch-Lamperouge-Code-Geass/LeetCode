@@ -41,8 +41,25 @@ Z  26     AZ    26+26     BZ  2×26+26     ...     ZZ  26×26+26     AAZ  1×26�
 
 从least significant digit开始，不断地除以26取余数
 
-这是我的方法：因为A是1，而不是0，相当于26进制的数都整体减1，才能对应上从0开始的十进制数。
+因为A是1，而不是0，相当于26进制的数都整体减1，才能对应上从0开始的十进制数。
  
+consider the letter 'A' to have a value of 1, 'B'->2 ..... 'Z'->26
+note that in the above notation, values are 1-based
+
+here our Radix (R) == 26
+
+the final value of a number X Y Z = X * R^2 + Y * R + Z
+
+this looks similar to base-10 decimal number but the biggest difference is that the numbers on every digit starts with 1, instead of 0., and the max on each digit goes up to R (Radix) instead of R-1
+
+for example
+```
+Z== Radix
+then next number is AA = R + 1 = Z+1
+ZZ = R * R + R
+next number is AAA = 1*R^2 + 1 * R + 1 = ZZ +1
+```
+so from the AAA notation to their sequence number (decimal) it's easy, but the other way is a bit tricky due to the way % and / operates
 
 ```cpp
 class Solution {
