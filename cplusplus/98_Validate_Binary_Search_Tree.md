@@ -27,6 +27,10 @@ Binary tree [1,2,3], return false.
 
 # Solution
 
+If we use in-order traversal to serialize a binary search tree, we can get a list of values in ascending order. It can be proved with the definition of BST. And here I use the reference of TreeNode pointer prev as a global variable to mark the address of previous node in the list.
+
+### Solution one
+
 ```cpp
 /**
  * Definition for a binary tree node.
@@ -61,5 +65,33 @@ private:
         return check(node->right, predecessor);
         
     }
+};
+```
+
+### Solution two
+
+```cpp
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        stack<TreeNode*> nodes;
+        TreeNode *curr(root), *pre(nullptr);
+        
+        while (curr || !nodes.empty()) {
+           if(curr){//root to leaf,going down
+                nodes.push(curr);
+                curr = curr->left;
+            } else {// leaf to root, going up
+                curr = nodes.top();
+                nodes.pop();
+                if (pre && pre->val >= curr->val) return false;
+                pre = curr;
+                curr = curr->right;
+            }
+        }
+        
+        return true;
+    }
+
 };
 ```
