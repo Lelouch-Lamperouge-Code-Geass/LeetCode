@@ -66,4 +66,61 @@ private:
  */
  ```
 
+### Solution with Morris Traversal
 
+__ Haven't complete yet __
+
+We need to find a way to avoid find predecessor again when visit from bottom-up.
+Probably need a bool value in TreeNode which is ``` bool should_recover```.
+
+```cpp
+class BSTIterator {
+public:
+    BSTIterator(TreeNode *root)  {
+        cur_node = visitLeftmostPath(root);
+    }
+
+    /** @return whether we have a next smallest number */
+    bool hasNext() {
+        return cur_node;
+    }
+
+    /** @return the next smallest number */
+    int next() {
+        int reval = cur_node->val;
+
+        TreeNode* prede = findPredecessor(cur_node);
+        if (prede && prede->right == cur_node) { // recover
+            prede->right = nullptr;
+        } else {
+          cur_node = visitLeftmostPath(cur_node->right);
+        }
+        
+        return reval;
+    }
+private:
+    TreeNode *cur_node;
+    
+    TreeNode* visitLeftmostPath(TreeNode *node) {
+        while (node && node->left) {
+            TreeNode* prede = findPredecessor(node);
+            if (prede && !prede->right) {
+                prede->right = node;
+            }
+            node = node->left;
+        }
+        return node;
+    }
+    
+    TreeNode* findPredecessor(TreeNode *node) {
+        if (!node || !node->left) return nullptr;
+        // Find the predecessor of current node(root)
+        TreeNode *prede = node->left;
+        while(prede->right && prede->right != node){
+            prede = prede->right;
+        }
+
+        return prede;
+    }
+};
+```
