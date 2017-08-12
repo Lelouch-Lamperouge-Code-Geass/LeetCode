@@ -48,6 +48,8 @@ public:
     return sell[prices_size - 1];
   }
 };
+```
+
 
 ###  Solution two
 
