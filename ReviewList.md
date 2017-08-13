@@ -10,3 +10,5 @@
 * https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/158_Read_N_Characters_Given_Read4_II_Call_multiple_times.md
 * https://leetcode.com/problems/word-ladder/description/
 * https://leetcode.com/problems/word-ladder-ii/
+* https://leetcode.com/problems/maximal-rectangle/description/
+* 91 Decode Ways
