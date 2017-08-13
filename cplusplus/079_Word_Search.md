@@ -18,7 +18,9 @@ word = "SEE", -> returns true,
 word = "ABCB", -> returns false.
   
 # Solution
-  
+
+### Solution with DFS
+
 ```cpp
 class Solution {
 public:
