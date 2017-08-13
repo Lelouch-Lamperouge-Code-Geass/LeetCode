@@ -41,6 +41,8 @@ public:
 
 ### Solution two
 
+__Note here we compare each number with nums[i-2]__
+
 ```cpp
 int removeDuplicates(vector<int>& nums) {
     int i = 0;
