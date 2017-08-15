@@ -13,3 +13,4 @@
 * https://leetcode.com/problems/maximal-rectangle/description/
 * 91 Decode Ways
 * https://leetcode.com/problems/sqrtx/description/
+* https://leetcode.com/problems/powx-n/description/
