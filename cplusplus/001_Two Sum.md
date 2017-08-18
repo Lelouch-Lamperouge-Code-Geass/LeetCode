@@ -13,6 +13,8 @@ return [0, 1].
 
 # Solution
 
+__Time complexity is O(n), space complexity is O(n).__
+
 ```cpp
 class Solution {
 public:
