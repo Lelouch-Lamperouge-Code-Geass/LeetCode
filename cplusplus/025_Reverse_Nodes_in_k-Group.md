@@ -55,65 +55,63 @@ keep stripping nodes from the list and reverse it
 ```cpp
 class Solution {
 public:
-  // strip node from list, and
-  // return header of the stripped list
-  ListNode* Strip(ListNode*& head, int k){
-    if(!head) return head;
-    ListNode dummy(0),*pre(&dummy);
-    dummy.next = head;
-    for (int i=1;i<k && head;++i) {
-      pre = head;
-      head = head->next;
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        std::size_t len = getListLength(head);
+        ListNode  dummy(0), *pre(&dummy), *curr(head);
+        dummy.next = head;
+        while (len >= k) {
+            ListNode* left_head = splitList(curr, k);
+            ListNode* new_left_head = reverseList(left_head);
+            pre->next = new_left_head;
+            // now left_head is the tail node of left list
+            left_head->next = curr;
+            pre = left_head;
+            len -= k;
+        }
+        
+        return dummy.next;
     }
-    if (!head) {
-      head = dummy.next;
-    } else {
-      pre = head;
-      head = head->next;
-      pre->next = nullptr;
+private:
+    std::size_t getListLength(ListNode* head) {
+        std::size_t len(0);
+        while (head) {
+            head = head->next;
+            ++ len;
+        }
+        return len;
     }
-    return dummy.next;
-  }
-  // reverse a list and return its head node
-  ListNode* Reverse(ListNode* head) {
-    if (!head || !head->next) return head;
-    ListNode dummy(0),*pre(&dummy),*next(nullptr);
-    dummy.next = head;
-    while (head) {
-      next = head->next;
-      head->next = pre;
-      pre = head;
-      head = next;
+    // Strip num nodes and return the head node of stripped list.
+    // The input list will be splitted into two seperate lists. 
+    ListNode* splitList(ListNode* &node, int num) {
+        ListNode  dummy(0), *pre(&dummy);
+        dummy.next = node;
+        while (node && num > 1) {
+            node = node->next;
+            -- num;
+        }
+        
+        ListNode *next = node->next;
+        node->next = nullptr;
+        node = next;
+        return dummy.next;
     }
-    dummy.next->next = nullptr;
-    return pre;
-  }
-  ListNode* reverseKGroup(ListNode* head, int k) {
-    if (k<=0) return head;
-    ListNode dummy(0),*pre(&dummy);
-    dummy.next = head;
-    while(head) {
-      ListNode* stripped_head = Strip(head,k);
-      if(stripped_head!=head) {
-        ListNode* rev_head = Reverse(stripped_head);
-        pre->next = rev_head;
-        // after reverse, the strippead_head become the
-        // tail node of the reversed list
-        stripped_head->next = head;
-        pre = stripped_head;
-      } else {
-        // if stripped_head == head, then it means
-        // no stripped happens at all!
-        pre->next = head;
-        break;
-      }
+    
+    // Reverse the whole list
+    ListNode* reverseList(ListNode* node) {
+        ListNode dummy(0), *next(nullptr);
+        while (node) {
+            next = node->next;
+            node->next = dummy.next;
+            dummy.next = node;
+            node = next;
+        }
+        return dummy.next;
     }
-    return dummy.next;
-  }
 };
 ```
 
-###  Solution1 3 
+###  Solution 3
+
 Please notice that since this solution uses recursion, its space complexity is not constant.
   
 ```cpp
