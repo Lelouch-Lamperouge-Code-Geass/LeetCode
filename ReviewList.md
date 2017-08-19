@@ -1,3 +1,5 @@
+* 336 Palindrome Pairs 19.5% Hard
+* 340 Longest Substring with At Most K Distinct Characters 37.2% Hard
 * 311 Sparse Matrix Multiplication 47.2% Medium
 * https://leetcode.com/problems/expression-add-operators/description/
 * https://leetcode.com/problems/h-index-ii/description/
