@@ -53,7 +53,7 @@ void UnitTest() {
 ```
 
 
-# Follow up
+# Follow-up
 
 * https://discuss.leetcode.com/topic/48827/java-o-nlogk-using-treemap-to-keep-last-occurrence-interview-follow-up-question/7
 
