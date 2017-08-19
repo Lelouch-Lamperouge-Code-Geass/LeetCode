@@ -26,6 +26,8 @@ The palindromes are ["dcbaabcd", "abcddcba", "slls", "llssssll"]
     There may be duplicates in the output (consider test case ["abcd", "dcba"]).
     Therefore I put a str2.length()!=0 to avoid duplicates.
 
+__Time complexity  complexity O(LengthOfList * LengthOfWord ^ 2)
+
 ```cpp
 class Solution {
 private:
