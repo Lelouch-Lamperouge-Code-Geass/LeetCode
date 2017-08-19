@@ -1,9 +1,32 @@
-// 1. The <= in (std::size_t j = 0; j <= cur_word.size(); ++j) is aimed to handle empty string in the input.
-//    Consider the test case of ["a", ""];
+Given a list of unique words, find all pairs of distinct indices (i, j) in the given list, so that the concatenation of the two words, i.e. words[i] + words[j] is a palindrome.
 
-// 2. Since we now use <= in (std::size_t j = 0; j <= cur_word.size(); ++j) instead of <.
-//    There may be duplicates in the output (consider test case ["abcd", "dcba"]).
-//    Therefore I put a str2.length()!=0 to avoid duplicates.
+Example 1:
+
+```
+Given words = ["bat", "tab", "cat"]
+Return [[0, 1], [1, 0]]
+The palindromes are ["battab", "tabbat"]
+```
+
+Example 2:
+
+```
+Given words = ["abcd", "dcba", "lls", "s", "sssll"]
+Return [[0, 1], [1, 0], [3, 2], [2, 4]]
+The palindromes are ["dcbaabcd", "abcddcba", "slls", "llssssll"]
+```
+
+
+# Solution
+
+1. The <= in (std::size_t j = 0; j <= cur_word.size(); ++j) is aimed to handle empty string in the input.
+    Consider the test case of ["a", ""];
+
+2. Since we now use <= in (std::size_t j = 0; j <= cur_word.size(); ++j) instead of <.
+    There may be duplicates in the output (consider test case ["abcd", "dcba"]).
+    Therefore I put a str2.length()!=0 to avoid duplicates.
+
+```cpp
 class Solution {
 private:
   bool isPalindrome(const std::string & word) {
@@ -55,3 +78,4 @@ public:
     return reval;
   }
 };
+```
