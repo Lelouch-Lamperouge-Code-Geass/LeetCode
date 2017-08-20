@@ -40,6 +40,21 @@ In a Hamiltonian path you may not pass though all edges.
 
 # Solution
 
+__Just Eulerian path. Greedy DFS, building the route backwards when retreating.__
+
+First keep going forward until you get stuck. That's a good main path already. Remaining tickets form cycles which are found on the way back and get merged into that main path. By writing down the path backwards when retreating from recursion, merging the cycles into the main path is easy - the end part of the path has already been written, the start part of the path hasn't been written yet, so just write down the cycle now and then keep backwards-writing the path.
+
+![alt](http://www.stefan-pochmann.info/misc/reconstruct-itinerary.png)
+
+From JFK we first visit JFK -> A -> C -> D -> A. There we're stuck, so we write down A as the end of the route and retreat back to D. There we see the unused ticket to B and follow it: D -> B -> C -> JFK -> D. Then we're stuck again, retreat and write down the airports while doing so: Write down D before the already written A, then JFK before the D, etc. When we're back from our cycle at D, the written route is D -> B -> C -> JFK -> D -> A. Then we retreat further along the original path, prepending C, A and finally JFK to the route, ending up with the route JFK -> A -> C -> D -> B -> C -> JFK -> D -> A.
+
+The following is my summary:
+1. The nodes which have odd degrees (int and out) are the entrance or exit. In your example it's JFK and A.
+2. If there are no nodes have odd degrees, we could follow any path without stuck until hit the last exit node
+3. The reason we got stuck is because that we hit the exit
+
+In the example, nodes A is the exit node, we hit it and it's the exit. So we put it to the result as the last node.
+
 Starting at the first node, we can only get stuck at the ending point, since every node except for the first and the last node has even number of edges, when we enter a node we can always get out. Now we are at the destination and if all edges are visited, we are done, and the dfs returns to the very first state. Otherwise we need to "insert" the unvisited loop into corresponding position, and in the dfs method, it returns to the node with extra edges, starts another recursion and adds the result before the next path. This process continues until all edges are visited.
 
 ```cpp
