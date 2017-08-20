@@ -90,6 +90,8 @@ private int countWhileMergeSort(long[] sums, int start, int end, int lower, int 
 
 ### Solution 3
 
+__I believe it's only O(N^2), not O(NlogN), and thus not acceptable. If I'm not mistaken, multiset iterators are bidirectional iterators and distance takes linear time for them.__
+
 ```cpp
 class Solution {
 public:
