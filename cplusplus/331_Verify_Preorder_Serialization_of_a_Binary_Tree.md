@@ -86,11 +86,17 @@ public:
 
 ### Solution 2
 
-Some used stack. Some used the depth of a stack. Here I use a different perspective. In a binary tree, if we consider null as leaves, then
+If we treat null's as leaves, then the binary tree will always be full. A full binary tree has a good property that # of leaves = # of nonleaves + 1. Since we are given a pre-order serialization, we just need to find the shortest prefix of the serialization sequence satisfying the property above. If such prefix does not exist, then the serialization is definitely invalid; otherwise, the serialization is valid if and only if the prefix is the entire sequence.
 
-all non-null node provides 2 outdegree and 1 indegree (2 children and 1 parent), except root
-all null node provides 0 outdegree and 1 indegree (0 child and 1 parent).
-Suppose we try to build this tree. During building, we record the difference between out degree and in degree diff = outdegree - indegree. When the next node comes, we then decrease diff by 1, because the node provides an in degree. If the node is not null, we increase diff by 2, because it provides two out degrees. If a serialization is correct, diff should never be negative and diff will be zero when finished.
+In a binary tree, if we consider null as leaves, then
+
+* all non-null node provides 2 outdegree and 1 indegree (2 children and 1 parent), except root  
+* all null node provides 0 outdegree and 1 indegree (0 child and 1 parent).  
+
+Suppose we try to build this tree. During building, we record the difference between out degree and in degree ```diff = outdegree - indegree```. When the next node comes, we then decrease diff by 1, because the node provides an in degree. If the node is not null, we increase diff by 2, because it provides two out degrees. If a serialization is correct, diff should never be negative and diff will be zero when finished.
+
+
+
 
 ```cpp
 class Solution {
