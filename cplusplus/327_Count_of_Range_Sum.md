@@ -34,7 +34,7 @@ public int countRangeSum(int[] nums, int lower, int upper) {
 
 Recall count smaller number after self where we encountered the problem
 
-````
+```
 count[i] = count of nums[j] - nums[i] < 0 with j > i
 ```
 
