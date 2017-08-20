@@ -37,12 +37,16 @@ class Solution {
 public:
     int maxSubArrayLen(vector<int>& nums, int k) {
         int sum = 0, res = 0;
-        unordered_map<int, int> m;
-        for (int i = 0; i < nums.size(); ++i) {
+        unordered_map<int, std::size_t> m;
+        for (std::size_t i = 0; i < nums.size(); ++i) {
             sum += nums[i];
-            if (sum == k) res = i + 1;
-            else if (m.count(sum - k) != 0) res = max(res, i - m[sum - k]);
-            
+            if (sum == k) {
+                res = i + 1; // can't be larger than i + 1 so far
+            } else if (m.count(sum - k) != 0) {
+                res = max(res, i - m[sum - k]);
+            }
+            // There might be duplicate value of of sum[i] we should avoid overriding its index
+            // as we want the max j - i, so we want to keep i as left as possible. 
             if (!m.count(sum)) m[sum] = i;
         }
         return res;
