@@ -23,12 +23,33 @@ return false.
 
 ### Solution one
 
+The basic condition is at any time, small < big.  
+So for any arbitrary element later, we call it i, there are three possibilities:  
+a). i <= small < big, then just update small, and it will not change our basic condition, which is small < big.  
+b). small < i <= big, then just update big. small < big still exists.  
+c.) small < big < i, then we find a increasing triplet subsequence.  
+
+```
+Example:   
+initial : [1, 2, 0, 3], small = MAX, big = MAX
+loop1 : [1, 2, 0, 3], small = 1, big = MAX
+loop2 : [1, 2, 0, 3], small = 1, big = 2
+loop3 : [1, 2, 0, 3], small = 0, big = 2 // <- Uh oh, 0 technically appeared after 2
+loop4 : return true since 3 > small && 3 > big // Isn't this a violation??
+
+If you observe carefully, the moment we updated big from MAX to some other value, that means that 
+there clearly was a value less than it (which would have been assigned to small in the past). 
+What this means is that once you find a value bigger than big, you've implicitly found an increasing triplet.
+```
+
 __time complexity is O(n), space complexity is O(1)__
 
 ```cpp
 class Solution {
 public:
   bool increasingTriplet(vector<int>& nums) {
+  // start with two largest values, as soon as we find a number bigger than both, 
+  // while both have been updated, return true.
     int small(INT_MAX), big(INT_MAX);
     std::vector<int> sequence;
     for (int num : nums) {
