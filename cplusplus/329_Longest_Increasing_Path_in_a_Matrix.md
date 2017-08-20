@@ -1,13 +1,46 @@
-/***
+Given an integer matrix, find the length of the longest increasing path.
+
+From each cell, you can either move to four directions: left, right, up or down. You may NOT move diagonally or move outside of the boundary (i.e. wrap-around is not allowed).
+
+Example 1:    
+
+```
+nums = [
+  [9,9,4],
+  [6,6,8],
+  [2,1,1]
+]
+Return 4
+The longest increasing path is [1, 2, 6, 9].
+```
+
+Example 2:  
+
+
+```
+nums = [
+  [3,4,5],
+  [3,2,6],
+  [2,2,1]
+]
+Return 4
+The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.
+···
+
+# Solution
+
 To get max length of increasing sequences:
 
-Do DFS from every cell
-Compare every 4 direction and skip cells that are out of boundary or smaller
-Get matrix max from every cell's max
-Use matrix[x][y] <= matrix[i][j] so we don't need a visited[m][n] array
-The key is to cache the distance because it's highly possible to revisit a cell
-***/
+1. Do DFS from every cell
+2. Compare every 4 direction and skip cells that are out of boundary or smaller
+3. Get matrix max from every cell's max
+4. Use matrix[x][y] <= matrix[i][j] so we don't need a visited[m][n] array
 
+The key is to cache the distance because it's highly possible to revisit a cell
+
+__time complexity is O(m* n). Every element in the matrix can be only visited once cuz we use the cache.__  
+  
+```cpp
 class Solution {
 public:
   int longestIncreasingPath(vector<vector<int>>& matrix) {
@@ -42,3 +75,4 @@ public:
     return reval;
   }
 };
+```
