@@ -53,6 +53,8 @@ This extends our range to [0,58). But then the 43 becomes useful and expands our
 At which point we're done.
 ```
 
+__In summary, when cur_num is within [0,missing), we don't need add number at all and can extend the range to [0, missing + cur_number). We only need add number when cur_number is large than missing, and the best candidate is the missing number itself.__
+
 ```cpp
 class Solution {
 public:
