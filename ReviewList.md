@@ -1,7 +1,13 @@
-* 336 Palindrome Pairs 19.5% Hard
-* https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/334_Increasing_Triplet_Subsequence.md
 * 340 Longest Substring with At Most K Distinct Characters 37.2% Hard
+* 336 Palindrome Pairs 19.5% Hard
+* 334 Increasing_Triplet_Subsequence.md
+* 332 Reconstruct_Itinerary.md
+* 331. Verify Preorder Serialization of a Binary Tree
 * 311 Sparse Matrix Multiplication 47.2% Medium
+* 330 Patching Array
+* 327. Count of Range Sum
+* 325 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/325_Maximum_Size_Subarray_Sum_Equals_k%20.md
+
 * https://leetcode.com/problems/expression-add-operators/description/
 * https://leetcode.com/problems/h-index-ii/description/
 * https://leetcode.com/problems/the-skyline-problem/description/
