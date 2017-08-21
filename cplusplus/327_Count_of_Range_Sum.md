@@ -88,6 +88,62 @@ private int countWhileMergeSort(long[] sums, int start, int end, int lower, int 
 }
 ```
 
+C++ version, to be continue....
+
+```cpp
+class Solution {
+public:
+    int countRangeSum(vector<int>& nums, int lower, int upper) {
+        std::size_t n = nums.size();
+        vector<long long> range_sum(n + 1, 0);
+        
+        for (std::size_t i = 1; i <= n; ++i) {
+            range_sum[i] = range_sum[i - 1] + nums[i - 1];
+        }
+        
+        return countWhileMergeSort(range_sum, 0, n + 1, lower, upper);
+    }
+    
+private:
+    void copyArray(vector<long long> &target, std::size_t pos, vector<long long> &source, std::size_t start, std::size_t len) {
+        for (std::size_t i = 0; i < len; ++i) {
+            target[pos + i] = source[start + i];
+        }    
+    }
+    
+    // merge [start, mid) and [mid, end)
+    void merge(vector<long long> &range_sum, std::size_t start, std::size_t mid, std::size_t end) {
+        vector<long long> cache(end - start, 0);
+        std::size_t cache_index(0);
+        for (std::size_t i = start, j = mid; i < mid; ++i) {
+            // merge the two sorted array
+            while (j < end && range_sum[j] < range_sum[i]) cache[cache_index++] = range_sum[j++];
+            cache[cache_index] = range_sum[i];
+        }
+        copyArray(cache, 0, range_sum, start, end - start);
+    }
+    
+    int countWhileMergeSort(vector<long long> &range_sum, std::size_t start, std::size_t end, int lower, int upper) {
+        if (end - start <= 1) return 0;
+        std::size_t mid = start + (end - start) / 2;
+        // Here we get the count of [start,mid) and [mid, end)
+        int count = countWhileMergeSort(range_sum, start, mid, lower, upper) 
+                  + countWhileMergeSort(range_sum, mid, end, lower, upper);
+        // Right now we will get the count from interval which one part from left array, one part from right array.
+        // Which means, interval [i,j], i is within [start,mid), and j is within [mid, end)
+        std::size_t l = mid, r = mid;
+        vector<long long> cache(end - start, 0);
+        for (std::size_t i = start; i < mid; ++i) {
+            while (l < end && range_sum[l] - range_sum[i] < lower) ++l;  // l is the first index satisfy sums[l] - sums[i] >= lower.
+            while (r < end && range_sum[r] - range_sum[i] <= upper) ++r; // r is the first index satisfy sums[r] - sums[i] > upper 
+            count += r - l;
+        }
+        merge(range_sum, start, mid, end);
+        return count;
+    }
+};
+```
+
 ### Solution 3
 
 __I believe it's only O(N^2), not O(NlogN), and thus not acceptable. If I'm not mistaken, multiset iterators are bidirectional iterators and distance takes linear time for them.__
