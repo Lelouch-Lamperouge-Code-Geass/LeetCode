@@ -21,6 +21,8 @@ In fact, the above partition puts elements smaller than the pivot before the piv
 
 Of course, O(n) is the average time complexity. In the worst case, the recursion may become T(n) = T(n - 1) + O(n) and the complexity will be O(n^2).
 
+Shuffle here avoid the worst case, so each partition will just eliminate a half the of the array and then search on the other half. Here the first partition will search in an array of length n but the second partition will only need to search on length n/2 since we remove the other half and third search will also remove the half of the n/2 again and ..., to sum them up we traversed 2*n at most to get the answer.
+
 Now let's briefly write down the algorithm before writing our codes.
 
 1. Initialize left to be 0 and right to be nums.size() - 1;
