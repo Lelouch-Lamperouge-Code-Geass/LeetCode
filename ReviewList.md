@@ -7,6 +7,7 @@
 * 330 Patching Array
 * 327. Count of Range Sum
 * 325 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/325_Maximum_Size_Subarray_Sum_Equals_k%20.md
+* 324. Wiggle Sort II
 
 * https://leetcode.com/problems/expression-add-operators/description/
 * https://leetcode.com/problems/h-index-ii/description/
