@@ -75,3 +75,66 @@ public int[] maxArray(int[] nums, int k) {
     return ans;
 }
 ```
+
+CPP　version, to be continue.
+
+```cpp
+class Solution {
+public:
+    vector<int> MaxSubVec(const vector<int> & nums, const std::size_t n) {
+       if (nums.size() < n || 0 == n) return vector<int>();
+
+          vector<int> reval;
+          std::size_t remain(nums.size());
+          for (int num : nums) {
+            while (reval.size() + remain > n && !reval.empty() && reval.back() < num) {
+              //printVector(reval);
+              reval.pop_back();
+            }
+
+            reval.emplace_back(num);
+
+            if (remain > 0) -- remain;
+          }
+
+          while (reval.size() > n) reval.pop_back();
+
+          return reval;
+    }
+    
+    bool GreaterThan(const std::vector<int> & left, 
+         std::size_t i, 
+         const std::vector<int> & right, 
+         std::size_t j) {
+        const std::size_t left_size(left.size()), right_size(right.size());
+        while (i<left_size && j<right_size && left[i] == right[j]) {
+            ++i;
+            ++j;
+        }
+        return j == right_size || ( i < left_size && left[i] > right[j]); 
+    }
+    
+    vector<int> Merge(const vector<int> & left, const vector<int> & right, std::size_t k) {
+        vector<int> reval(k, 0);
+        for (std::size_t i = 0, l = 0, r = 0; i < k; ++i) {
+            reval[i] = GreaterThan(left,l,right,r) ? left[l++] : right[r++];
+        }
+        return reval;
+    }
+    
+    vector<int> maxNumber(vector<int>& nums1, vector<int>& nums2, int k) {
+        std::size_t size1(nums1.size()), size2(nums2.size());
+        vector<int> reval(k,0);
+        for (std::size_t i = 1; i < k && i < size1; ++i) {
+            const vector<int> & left = MaxSubVec(nums1,i);
+            const vector<int> & right = MaxSubVec(nums2,k - i);
+            vector<int> temp = Merge(left, right, k);
+            if (GreaterThan(temp,0,reval,0)) {
+                reval = temp;
+            }
+        }
+        return reval;
+    }
+    
+};
+```
