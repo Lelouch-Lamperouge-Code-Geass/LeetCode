@@ -9,6 +9,7 @@
 * 325 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/325_Maximum_Size_Subarray_Sum_Equals_k%20.md
 * 324 Wiggle Sort II  
 * 321 Create Maximum Number
+* 318 Maximum Product of Word Lengths
 
 * https://leetcode.com/problems/expression-add-operators/description/
 * https://leetcode.com/problems/h-index-ii/description/
