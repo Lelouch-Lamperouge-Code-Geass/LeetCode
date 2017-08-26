@@ -6,7 +6,7 @@
 * 311 Sparse Matrix Multiplication 47.2% Medium
 * 330 Patching Array
 * 327 Count of Range Sum
-* 325 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/325_Maximum_Size_Subarray_Sum_Equals_k%20.md
+* 325 
 * 324 Wiggle Sort II  
 * 321 Create Maximum Number
 * 318 Maximum Product of Word Lengths
@@ -17,6 +17,7 @@
 * 313 Super Ugly Number 33.9% Medium
 * 314 Binary Tree Vertical Order Traversal 30.3% Medium
 * 315 Count of Smaller Numbers After Self 30.1% Hard
+* 309 Best Time to Buy and Sell Stock with Cooldown
 
 * https://leetcode.com/problems/expression-add-operators/description/
 * https://leetcode.com/problems/h-index-ii/description/
