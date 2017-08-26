@@ -141,3 +141,33 @@ c) "Sparse matrix manipultion" helps, if we compress the first sparse matrix int
     return res;
 }
 ```
+
+We can still optimize a little bit based on above solution.
+
+```cpp
+vector<vector<int>> multiply(vector<vector<int>>& A, vector<vector<int>>& B) {
+  const std::size_t a_row_size = A.size(), a_col_size = A[0].size();
+  const std::size_t b_row_size = B.size(), b_col_size = B[0].size();
+
+  vector<vector<int>> res(a_row_size, vector<int>(b_col_size, 0));
+  vector< vector<int> > sparse_a(a_row_size, vector<int>());
+
+  for(int i = 0; i < a_row_size; i++) {
+    for(int j = 0; j < a_col_size; j++) {
+      if (A[i][j] != 0)  {
+        sparse_a[i].emplace_back(j);
+      }
+    }
+  }
+  // C[i,j] = Sum(A[i,k] * B[k, j] for each k)
+  for (int i = 0; i < a_row_size; ++i) {
+    for (int k : sparse_a[i]) {
+      for (int j = 0; j < b_row_size; ++j) {
+        if (B[k][j] != 0) {
+          res[i][j] += A[i][k] * B[k][j];
+        }
+      }
+    }
+  }
+}
+```
