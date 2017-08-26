@@ -152,10 +152,10 @@ vector<vector<int>> multiply(vector<vector<int>>& A, vector<vector<int>>& B) {
   vector<vector<int>> res(a_row_size, vector<int>(b_col_size, 0));
   vector< vector<int> > sparse_a(a_row_size, vector<int>());
 
-  for(int i = 0; i < a_row_size; i++) {
-    for(int j = 0; j < a_col_size; j++) {
-      if (A[i][j] != 0)  {
-        sparse_a[i].emplace_back(j);
+  for(int i = 0; i < a_row_size; ++i) {
+    for(int k = 0; k < a_col_size; ++k) {
+      if (A[i][k] != 0)  {
+        sparse_a[i].emplace_back(k);
       }
     }
   }
