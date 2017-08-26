@@ -46,13 +46,18 @@ return its vertical order traversal as:
 
 # Solution
 
-BFS, put node, col into queue at the same time.  
-Every left child access col - 1 while right child col + 1.  
-This maps node into different col buckets.    
-Get col boundary min and max on the fly.    
-Retrieve result from cols.    
+* BFS, put node, col into queue at the same time.  
+* Every left child access col - 1 while right child col + 1.  
+* This maps node into different col buckets.    
+* Get col boundary min and max on the fly.    
+* Retrieve result from cols.    
 
 __*Note that DFS won't work here since the order of elements won't be guranteed.It would be worth mentioning in the explanation that since the nodes in a column are ordered by their row number(depth) we cannot process level x+2 nodes before we process level x.*__
+
+Here is an example of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]. Notice that every child access changes one column bucket id. So 12 actually goes ahead of 11.
+
+![alt](https://drscdn.500px.org/photo/135826875/m%3D900/7e1d9c2bdc47791e3b54f25bf50b6370)
+
 
 ```cpp
 class Solution {
