@@ -12,6 +12,11 @@
 * 318 Maximum Product of Word Lengths
 * 317	Shortest Distance from All Buildings
 * 316 Remove Duplicate Letters
+* 311 Sparse Matrix Multiplication 47.2% Medium
+* 312 Burst Balloons 36.4% Hard
+* 313 Super Ugly Number 33.9% Medium
+* 314 Binary Tree Vertical Order Traversal 30.3% Medium
+* 315 Count of Smaller Numbers After Self 30.1% Hard
 
 * https://leetcode.com/problems/expression-add-operators/description/
 * https://leetcode.com/problems/h-index-ii/description/
