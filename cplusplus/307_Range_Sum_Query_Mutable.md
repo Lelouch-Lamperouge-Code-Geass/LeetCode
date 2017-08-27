@@ -1,6 +1,26 @@
-/***
-Solution with segment tree
-***/
+Given an integer array nums, find the sum of the elements between indices i and j (i ≤ j), inclusive.
+
+The update(i, val) function modifies nums by updating the element at index i to val.
+Example:
+```
+Given nums = [1, 3, 5]
+
+sumRange(0, 2) -> 9
+update(1, 2)
+sumRange(0, 2) -> 8
+```
+Note:
+The array is only modifiable by the update function.
+You may assume the number of calls to update and sumRange function is distributed evenly.
+
+# Solution
+  
+Range sum with _mutable_ elements, which means we need use either segment tree or binary indexed tree.  
+  
+### Solution with segment tree
+
+  
+```cpp
 class NumArray {
 public:
   NumArray(vector<int> &nums) {
@@ -70,10 +90,12 @@ private:
   }
   SegmentTreeNode* m_root;
 };
+```
 
-/***
-Solution with binary indexed tree
-***/
+
+### Solution with binary indexed tree
+
+```cpp
 class NumArray {
 public:
     NumArray(vector<int> nums) : m_nums(nums.size(),0), m_tree(nums.size() + 1,0) {
@@ -115,3 +137,4 @@ private:
     std::vector<int> m_tree; // binary indexed tree
     
 };
+```
