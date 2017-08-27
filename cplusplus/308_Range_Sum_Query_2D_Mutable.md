@@ -37,7 +37,7 @@ Here we are going to use binary indexed tree. Binary Indexed Tree and Segment Tr
 
 We know that to answer range sum queries on a 1-D array efficiently, binary indexed tree (or Fenwick Tree) is the best choice (even better than segment tree due to less memory requirements and a little faster than segment tree).
 
-Can we answer sub-matrix sum queries efficiently using Binary Indexed Tree ? The answer is yes. This is possible using a 2D BIT which is nothing but an array of 1D BIT.
+Can we answer sub-matrix sum queries efficiently using Binary Indexed Tree ? The answer is yes. This is possible using a 2D BIT which is nothing but an array of 1D BIT(Note: I think this statement might be wrong, I would say it is a BIT of BIT.).
 
 2D BIT is basically a BIT where each element is another BIT.
 Updating by adding v on (x, y) means it's effect will be found throughout the rectangle [(x, y), (max_x, max_y)], and query for (x, y) gives you the result of the rectangle [(0, 0), (x, y)], assuming the total rectangle is [(0, 0), (max_x, max_y)]. So when you query and update on this BIT,you have to be careful about how many times you are subtracting a rectangle and adding it. Simple set union formula
