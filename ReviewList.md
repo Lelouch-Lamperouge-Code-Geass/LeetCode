@@ -19,7 +19,9 @@
 * 315 Count of Smaller Numbers After Self 30.1% Hard
 * 309 Best Time to Buy and Sell Stock with Cooldown
 * 308 Range Sum Query 2D - Mutable
-
+* 302 Smallest Rectangle Enclosing Black Pixels 39.0% Hard
+* 305 Number of Islands II 34.0% Hard
+* 308 Range Sum Query 2D – Mutable 21.6% Hard
 
 * https://leetcode.com/problems/expression-add-operators/description/
 * https://leetcode.com/problems/h-index-ii/description/
