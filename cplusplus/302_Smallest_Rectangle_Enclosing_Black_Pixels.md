@@ -37,9 +37,10 @@ Theorem : If there are only one black pixel region, then in a projected 1D array
 
 Proof by contradiction
 
-Assume to the contrary that there are disconnected black pixels at i and j where i < j in the 1D projection array. Thus there exists one
-column k, k in (i, j) and and the column k in the 2D array has no black pixel. Therefore in the 2D array there exists at least 2 black
-pixel regions separated by column k which contradicting the condition of "only one black pixel region".
+Assume to the contrary that there are disconnected black pixels at i and j where i < j in the 1D projection array. 
+Thus there exists one column k, k in (i, j) and and the column k in the 2D array has no black pixel. 
+Therefore in the 2D array there exists at least 2 black pixel regions separated by column k 
+which contradicting the condition of "only one black pixel region".
 ```  
 
 Therefore we conclude that all the black pixels in the 1D projection array is connected.
@@ -54,8 +55,118 @@ We can do the same for the other boundaries. The area is then calculated by the 
 Thus the algorithm runs in __O(m log n + n log m)__.  
   
 #  Solution
+
+### Solution one
+
+```cpp
+int getLeftMostColumn(const std::vector< std::vector<char> > & image,
+                int begin_row,
+                int end_row,
+                int begin_col,
+                int end_col) {
+  while (begin_col < end_col) {
+    int mid_col = begin_col + (end_col - begin_col) / 2;
+
+    // Check mid_col has '1' or not
+    int row(begin_row);
+    while (row <= end_row && '0' == image[row][mid_col]) ++ row;
+
+    if (row == end_row + 1) { // The whole mid column has no '1'
+      begin_col = mid_col + 1;
+    } else { // The mid column has '1'
+      end_col = mid_col;
+    }
+  }
+  return begin_col;
+}
+
+int getRightMostColumn(const std::vector< std::vector<char> > & image,
+                      int begin_row,
+                      int end_row,
+                      int begin_col,
+                      int end_col) {
+  while (begin_col < end_col) {
+    int mid_col = begin_col + (end_col + 1 - begin_col) / 2; // Here mid_col is end_col inclination
+
+    // Check mid_col has '1' or not
+    int row(begin_row);
+    while (row <= end_row && '0' == image[row][mid_col]) ++ row;
+
+    if (row == end_row + 1) { // The whole mid column has no '1'
+      end_col = mid_col - 1;
+    } else { // The mid column has '1'
+      begin_col = mid_col;
+    }
+  }
+
+  return begin_col;
+}
+
+int getTopMostRow(const std::vector< std::vector<char> > & image,
+                      int begin_row,
+                      int end_row,
+                      int begin_col,
+                      int end_col) {
+  while (begin_row < end_row) {
+    int mid_row = begin_row + (end_row - begin_row) / 2;
+
+    // Check mid_row has '1' or not
+    int col(begin_col);
+    while (col <= end_col && '0' == image[mid_row][col]) ++ col;
+
+    if (col == end_col + 1) { // The whole mid row has no '1'
+      begin_row = mid_row + 1;
+    } else { // The mid row has '1'
+      end_row = mid_row;
+    }
+  }
+
+  return begin_row;
+}
+
+
+int getBottomMostRow(const std::vector< std::vector<char> > & image,
+                       int begin_row,
+                       int end_row,
+                       int begin_col,
+                       int end_col) {
+  while (begin_row < end_row) {
+    int mid_row = begin_row + (end_row + 1 - begin_row) / 2; // Here mid_row is end_row inclination
+
+    // Check mid_row has '1' or not
+    int col(begin_col);
+    while (col <= end_col && '0' == image[mid_row][col]) ++ col;
+
+    if (col == end_col + 1) { // The whole mid row has no '1'
+      end_row = mid_row - 1;
+    } else { // The mid row has '1'
+      begin_row = mid_row;
+    }
+  }
+
+  return begin_row;
+}
+
+int minArea(const std::vector< std::vector<char> > & image,
+            int x,
+            int y) {
+  if (image.empty()) return 0;
+  const int row_size(image.size()), col_size(image[0].size());
+  int left_most_column = getLeftMostColumn(image, 0, row_size - 1, 0, y);
+  int right_most_column = getRightMostColumn(image, 0, row_size - 1, y, col_size - 1);
+  std::cout << left_most_column << ',' << right_most_column << std::endl;
+  int top_most_row = getTopMostRow(image, 0, x, left_most_column, right_most_column);
+  int bottom_most_row = getBottomMostRow(image, x, row_size - 1, left_most_column, right_most_column);
+  std::cout << top_most_row << ',' << bottom_most_row << std::endl;
+  return (right_most_column - left_most_column + 1) * (bottom_most_row - top_most_row + 1);
+}
+
+```
                                                         
-                                                        
+### Solution two
+
+We can combine some functions which have similar code into one function. However, I would say this is optional since the merged code is not a clear as solution one.
+
 ```cpp
 #include <iostream>
 #include <vector>
