@@ -47,14 +47,19 @@ private:
           remove(s.substr(0,j)+s.substr(j+1), result,i,j,parens);
         }
       }
+      // Here we have tried to remove all the possible invalid (
       return;
     }
+    // When i == s.size(), we will be here.
+
     std::string rs(s);
     std::reverse(rs.begin(),rs.end());
 
-    if (parens.first=='(') {
+    if (parens.first=='(') { 
+      // Means it is time to reverse string and process it backwards.
       remove(rs, result, 0, 0, std::make_pair(')','('));
     } else {
+      // Alreay processed this string from both direction.
       result.push_back(rs);
     }
   }
