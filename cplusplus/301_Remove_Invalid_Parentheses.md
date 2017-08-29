@@ -12,6 +12,8 @@ Examples:
 
 # Solution
 
+
+### Solution one
 We all know how to check a string of parentheses is valid using a stack. Or even simpler use a counter.
 The counter will increase when it is ‘(‘ and decrease when it is ‘)’. Whenever the counter is negative, we have more ‘)’ than ‘(‘ in the prefix.
 
@@ -24,8 +26,6 @@ Now one may ask. What about ‘(‘? What if s = ‘(()(()’ in which we need r
 The answer is: do the same from right to left.
 However a cleverer idea is: reverse the string and reuse the code!
 
-### Solution one
-
 ```cpp
 class Solution {
 public:
@@ -35,7 +35,8 @@ public:
     return result;
   }
 private:
-  void remove(const string & s,vector<string> & result,int last_i,int last_j, const std::pair<char,char> & parens) {
+  void remove(const string & s,vector<string> & result,
+    int last_i,int last_j, const std::pair<char,char> & parens) {
     for (int stack=0, i = last_i;i<s.size(); ++i) {
       if (s[i]==parens.first) ++stack;
       if (s[i]==parens.second) --stack;
@@ -61,6 +62,10 @@ private:
 ```
 
 ### Solution two
+
+As long as we know how many invalid left parentheses and how many invalid right parentheses then this problem
+becomes quite similar to LeetCode-22(generate parentheses). Our primary job is to guarantee the generated string is valid.
+
 ```cpp
 class Solution {
 public:
