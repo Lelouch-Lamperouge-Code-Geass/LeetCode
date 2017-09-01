@@ -35,3 +35,9 @@ public:
     } 
 };
 ```
+
+# Follow-up
+
+__Note: the difference between this and the wiggle sort II is that in latter two adjacent number cannot be the same.__
+
+For example, given nums = [1, 1, 1, 3, 3, 3, 2, 2, 2], one acceptable answer is [1,1,1,2,2,3,2,3,3] which is not acceptable to wiggle sort II. A valid answer to wiggle sort II is [1, 3, 2, 3, 2, 3, 1, 2, 1].
