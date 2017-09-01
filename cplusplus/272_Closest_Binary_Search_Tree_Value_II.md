@@ -24,7 +24,10 @@ Hint:
 
 ### Solution one
 
-Maintain a k-size heap. Time complexity is O(klogn), worst case when k==n it is O(nlogn).
+Maintain a k-size min-heap. The heap stores <diff(val, target), val> pairs.
+We traversal the whole tree, and add each node to this heap, eventually we will get result from this heap.
+
+Time complexity is O(klogn), worst case when k==n it is O(nlogn).
 
 ```cpp
 void dfs(TreeNode* root, priority_queue<pair<double, int>>& pq, double target, int k) {
