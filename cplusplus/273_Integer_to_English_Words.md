@@ -10,6 +10,12 @@ For example,
   
 # Solution
 
+The keypoint is to make sure helper function can return 
+```
+1. if number == 0, return "";
+2. if number != 0, return number.toString() + ' ';
+```
+
 ```java
 private final String[] LESS_THAN_20 = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
 private final String[] TENS = {"", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
