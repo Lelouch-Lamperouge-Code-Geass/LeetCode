@@ -9,6 +9,21 @@ The final sorted nums needs to satisfy two conditions:
 
 The code is just to fix the orderings of nums that do not satisfy 1 and 2.
 
+__It's important to understand why this algorithm works.__
+
+```
+Proof of correctness:
+Let's use induction:
+Base case: only one element is processed, no constraints are violated.
+Step: 
+1. if i % 2 == 0: If we do not swap anything at this step, the prefix remains valid. 
+   Otherwise, we have the following situation: a[i - 2] >= a[i - 1] > a[i]. 
+   When we make a swap, we can see that the constraints are not violated 
+   for the i - 2 and i - 1 elements, 
+   and the last position is fixed. 
+2. For an odd i, the situation is similar.
+```
+
 Suppose nums[0 .. i - 1] is wiggled, for position i:
 * if i is odd, we already have, nums[i - 2] >= nums[i - 1],
     * if nums[i - 1] <= nums[i], then we does not need to do anything, its already wiggled.
@@ -35,6 +50,8 @@ public:
     } 
 };
 ```
+
+
 
 # Follow-up
 
