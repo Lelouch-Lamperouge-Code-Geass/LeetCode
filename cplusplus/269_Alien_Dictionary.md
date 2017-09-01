@@ -74,6 +74,8 @@ https://en.wikipedia.org/wiki/Topological_sorting
 
 具体实现的话还是有些小技巧值得一提，因为我们需要保存order，也就是edge list，会自然想到用list或者map一类的数据结构。这点来说本身是没有问题的，因为这样很规范，也很适用于大部分情况，但是考虑到现在我们只有26个字母需要考虑，利用array来存储和更新数据会更加迅速轻巧。
 
+##### C++ solution
+
 ```cpp
 class Solution {
 public:
@@ -132,4 +134,55 @@ private:
         return degrees;
     }
 };
+```
+
+##### Java solution
+
+```java
+public String alienOrder(String[] words) {
+    Map<Character, Set<Character>> map=new HashMap<Character, Set<Character>>();
+    Map<Character, Integer> degree=new HashMap<Character, Integer>();
+    String result="";
+    if(words==null || words.length==0) return result;
+    for(String s: words){
+        for(char c: s.toCharArray()){
+            degree.put(c,0);
+        }
+    }
+    for(int i=0; i<words.length-1; i++){
+        String cur=words[i];
+        String next=words[i+1];
+        int length=Math.min(cur.length(), next.length());
+        for(int j=0; j<length; j++){
+            char c1=cur.charAt(j);
+            char c2=next.charAt(j);
+            if(c1!=c2){
+                Set<Character> set=new HashSet<Character>();
+                if(map.containsKey(c1)) set=map.get(c1);
+                if(!set.contains(c2)){
+                    set.add(c2);
+                    map.put(c1, set);
+                    degree.put(c2, degree.get(c2)+1);
+                }
+                break;
+            }
+        }
+    }
+    Queue<Character> q=new LinkedList<Character>();
+    for(char c: degree.keySet()){
+        if(degree.get(c)==0) q.add(c);
+    }
+    while(!q.isEmpty()){
+        char c=q.remove();
+        result+=c;
+        if(map.containsKey(c)){
+            for(char c2: map.get(c)){
+                degree.put(c2,degree.get(c2)-1);
+                if(degree.get(c2)==0) q.add(c2);
+            }
+        }
+    }
+    if(result.length()!=degree.size()) return "";
+    return result;
+}
 ```
