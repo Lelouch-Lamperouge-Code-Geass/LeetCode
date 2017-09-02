@@ -19,6 +19,7 @@ public:
             int last1 = min1, last2 = min2;
             min1 = -1; min2 = -1;
             for (int j = 0; j < dp[i].size(); ++j) {
+                // Choose last1 if we can, if not, choose last2
                 if (j != last1) {
                     // current color j is different to last min1
                     dp[i][j] += last1 < 0 ? 0 : dp[i - 1][last1];
