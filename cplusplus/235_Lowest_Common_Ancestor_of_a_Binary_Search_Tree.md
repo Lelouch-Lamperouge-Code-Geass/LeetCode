@@ -28,19 +28,24 @@ For example, the lowest common ancestor (LCA) of nodes 2 and 8 is 6. Another exa
 ```cpp
 class Solution {
 public:
-  TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-    if (!root || !p || !q) return nullptr;
-    // make sure p->val < q->val
-    if (p->val > q->val) return lowestCommonAncestor(root, q, p);  
-    TreeNode* cur = root;
-    while (true) {
-      if (p -> val < cur -> val && q -> val < cur -> val)
-        cur = cur -> left;
-      else if (p -> val > cur -> val && q -> val > cur -> val)
-        cur = cur -> right;
-      else return cur;
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if (!root || !p || !q) return nullptr;
+        
+        // make sure p is smaller than q
+        if (p->val > q->val) return lowestCommonAncestor(root, q, p);
+        
+        while (root) {
+            if (root->val < p->val) {
+                root = root->right;
+            } else if (root->val > q->val) {
+                root = root->left;
+            } else {
+                return root;
+            }
+        }
+        
+        return root;
     }
-  }
 };
 ```
 
