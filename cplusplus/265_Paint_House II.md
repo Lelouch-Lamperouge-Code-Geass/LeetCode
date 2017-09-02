@@ -12,16 +12,21 @@ public:
     int minCostII(vector<vector<int>>& costs) {
         if (costs.empty() || costs[0].empty()) return 0;
         vector<vector<int>> dp = costs;
+        // min1 is the index of the 1st-smallest cost till previous house
+        // min2 is the index of the 2nd-smallest cost till previous house
         int min1 = -1, min2 = -1;
         for (int i = 0; i < dp.size(); ++i) {
             int last1 = min1, last2 = min2;
             min1 = -1; min2 = -1;
             for (int j = 0; j < dp[i].size(); ++j) {
                 if (j != last1) {
+                    // current color j is different to last min1
                     dp[i][j] += last1 < 0 ? 0 : dp[i - 1][last1];
                 } else {
                     dp[i][j] += last2 < 0 ? 0 : dp[i - 1][last2];
                 }
+                
+                // find the indices of 1st and 2nd smallest cost of painting current house i
                 if (min1 < 0 || dp[i][j] < dp[i][min1]) {
                     min2 = min1; min1 = j;
                 } else if (min2 < 0 || dp[i][j] < dp[i][min2]) {
