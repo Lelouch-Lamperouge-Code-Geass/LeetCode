@@ -14,6 +14,9 @@ According to the definition of LCA on Wikipedia: “The lowest common ancestor i
 
 # Solution
 
+### Solution 1 , recursive
+Same solution in several languages. It's recursive and expands the meaning of the function. If the current (sub)tree contains both p and q, then the function result is their LCA. If only one of them is in that subtree, then the result is that one of them. If neither are in that subtree, the result is null/None/nil.
+
 ```cpp
 /**
  * Definition for a binary tree node.
@@ -25,7 +28,6 @@ According to the definition of LCA on Wikipedia: “The lowest common ancestor i
  * };
  */
 
-/* Solution 1 */
 class Solution {
 public:
   TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
@@ -36,4 +38,36 @@ public:
     else return left? left : right;
   }
 };
+```
+
+### Solution two, iterative 
+
+To find the lowest common ancestor, we need to find where is p and q and a way to track their ancestors. A parent pointer for each node found is good for the job. After we found both p and q, we create a set of p's ancestors. Then we travel through q's ancestors, the first one appears in p's is our answer.
+
+```cpp
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+    unordered_map<TreeNode*, TreeNode*> parents;
+    parents[root] = nullptr;
+    queue<TreeNode*> qu;
+    qu.push(root);
+    while (!parents.count(p) || !parents.count(q)) { // Not found both
+        int qsize = (int)qu.size();
+        for (int i = 0; i < qsize; ++i) {
+            auto node = qu.front();
+            qu.pop();
+            if (node -> left) {
+                parents[node -> left] = node;
+                qu.push(node -> left);
+            }
+            if (node -> right) {
+                parents[node -> right] = node;
+                qu.push(node -> right);
+            }
+        }
+    }
+    unordered_set<TreeNode*> ancestors;
+    while (p) ancestors.insert(p), p = parents[p];
+    while (q && !ancestors.count(q)) q = parents[q];
+    return q;
+}
 ```
