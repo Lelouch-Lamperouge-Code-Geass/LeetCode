@@ -7,6 +7,8 @@ return 2.
 ```
 # Solution
 
+> A greedy algorithm is an algorithmic paradigm that follows the problem solving __heuristic__ of making the locally optimal choice at each stage with the hope of finding a __global optimum__. In many problems, a greedy strategy does not in general produce an optimal solution, but nonetheless a greedy heuristic may yield locally optimal solutions that approximate a global optimal solution in a reasonable time.
+
 If you look at these events in a time line one after another (like stream data), then this solution is a greedy solution.
 
 The heap stores all conflicting events, which must be resolved by independent rooms. The heap's head is the event that has earliest end/finish time. All other events collide with each other mutually in the heap.
