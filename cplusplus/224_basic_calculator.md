@@ -14,6 +14,8 @@ Some examples:
 
 # Solution
 
+### Solution 1
+
 Simple iterative solution by identifying characters one by one. One important thing is that the input is valid, which means the parentheses are always paired and in order.
 
 Only 5 possible input we need to pay attention:
@@ -72,3 +74,80 @@ public:
     }
 };
 ```
+
+### Solution 2
+
+Using similar shutting-yard algirthm.
+
+```cpp
+class Solution {
+public:
+    int calculate(string s) {
+        int reval(0);
+        vector<char> operators;
+        vector<int> values;
+        vector<string> tokens = getTokens(s);
+        
+        for (const string &token : tokens) {
+            if (token[0] == '(' ) {
+                operators.emplace_back(token[0]);
+            } else if (token[0] == ')') {
+                while (operators.back() != '(') {
+                    calculate(operators, values);
+                }
+                operators.pop_back(); // pop out '('
+            } else if (token[0] == '+' || token[0] == '-') {
+                while (!operators.empty() && operators.back() != '(') {
+                    calculate(operators, values);
+                }
+                operators.emplace_back(token[0]);
+            } else { // is number
+                values.emplace_back(std::stoi(token));
+            }
+        }
+        
+        while (!operators.empty()) {
+            calculate(operators, values);
+        }
+        
+        return values.back();
+    }
+private:
+    void calculate(vector<char> &operators, vector<int> &values) {
+        if (operators.empty() || values.empty()) return;
+        char op = operators.back();
+        operators.pop_back();
+        int right = values.back();
+        values.pop_back();
+        int left = values.back();;
+        values.pop_back();
+        if (op == '+') {
+            values.emplace_back(left + right); 
+        } else { // op == '-'
+            values.emplace_back(left - right);  
+        }
+    }
+    
+    vector<string> getTokens(const string &s) {
+        vector<string> tokens;
+        std::size_t pos(0), n(s.size());
+        
+        while (pos < n) {
+            if (s[pos] == '(' || s[pos] == ')' || s[pos] == '+' || s[pos] == '-') {
+                tokens.emplace_back(string(1, s[pos]));
+                ++ pos;
+            } else if (std::isdigit(s[pos])){
+                string number("");
+                while (pos < n && std::isdigit(s[pos])) {
+                    number.push_back(s[pos]);
+                    ++ pos;
+                }
+                tokens.emplace_back(number);
+            } else { //ignore invalid 
+                ++ pos;
+            }
+        }
+        
+        return tokens;
+    }
+};
