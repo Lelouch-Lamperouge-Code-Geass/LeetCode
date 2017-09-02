@@ -89,6 +89,7 @@
 * 261 Graph Valid Tree 32.5% Medium
 * 265 Paint House II 35.6% Hard
 * 266 Palindrome Permutation 50.4% Easy
+* 267 Palindrome Permutation II
 * 269 Alien Dictionary 22.9% Hard
 * 270 Closest Binary Search Tree Value 34.3% Easy
 * 271 Encode and Decode Strings 27.1% Medium
