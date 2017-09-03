@@ -18,6 +18,52 @@ Some examples:
 
 ### Solution 1
 
+```cpp
+class Solution {
+public:
+    int calculate(string s) {
+        vector<int> numbers;
+        std::size_t n(s.size());
+        int result(0), sign(1);
+        for (std::size_t i = 0, n = s.size(); i < n; ) {
+            if (isdigit(s[i])) {
+                int cur_number(0);
+                while (isdigit(s[i])) {
+                    cur_number = cur_number * 10 + (s[i] - '0');
+                    ++ i;
+                }
+                result += cur_number * sign;
+                
+            } else {
+                if ('+' == s[i]) {
+                    sign = 1;
+                } else if ('-' == s[i]) {
+                    sign = -1;
+                } else if ('(' == s[i]) {
+                    numbers.emplace_back(result);
+                    numbers.emplace_back(sign);
+                    result = 0;
+                    sign = 1;
+                } else if (')' == s[i]) {
+                    // Right now result represents the value within ()
+                    // numbers stores sign and result before (
+                    int sign_of_paren = numbers.back();
+                    numbers.pop_back();
+                    int pre_result = numbers.back();
+                    numbers.pop_back();
+                    result = result * sign_of_paren + pre_result;
+                }
+                
+                ++ i;
+            }
+        }
+        return result;
+    }
+};
+```
+
+### Solution 2
+
 Simple iterative solution by identifying characters one by one. One important thing is that the input is valid, which means the parentheses are always paired and in order.
 
 Only 5 possible input we need to pay attention:
@@ -77,7 +123,7 @@ public:
 };
 ```
 
-### Solution 2
+### Solution 3
 
 Using similar shutting-yard algirthm.
 
