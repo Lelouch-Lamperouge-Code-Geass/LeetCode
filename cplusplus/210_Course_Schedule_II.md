@@ -107,7 +107,57 @@ private:
     return true;
   }
 };
-```                                                                                                                         
+```  
+
+Different style.
+
+```cpp
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
+        vector< vector<int> > graph(numCourses, vector<int>() );
+        for(auto item : prerequisites){
+          graph[item.second].push_back(item.first);
+        }
+        
+        vector<int> result;
+        vector<bool> visited(numCourses, false), on_path(numCourses, false);
+        for (int i = 0; i < numCourses; ++i) {
+            if (!visited[i]) {
+                if (hasCircleInDFS(graph, i, visited, on_path, result)) {
+                    // Detect a circle when searching with DFS
+                    return vector<int>();
+                }
+            }
+        }
+        std::reverse(result.begin(), result.end());
+        return result;
+    }
+private:
+    bool hasCircleInDFS(vector< vector<int> > &graph,
+            int course,
+            vector<bool> &visited,
+            vector<bool> &on_path,
+            vector<int> &result) {
+        if (on_path[course]) {
+            return true;
+        } else if (visited[course]) {
+            return false;
+        } else { // !visited[course] && !on_path[course]
+            visited[course] = true;
+            on_path[course] = true;
+            for (int to : graph[course]) {
+                if (hasCircleInDFS(graph, to, visited, on_path, result)) {
+                    return true;
+                }
+            }
+            on_path[course] = false;
+            result.emplace_back(course);
+            return false;
+        }
+    }
+};
+```
 
 
 ###  Solution 3
