@@ -165,6 +165,19 @@ public:
 
 ##### Solution 2
 
+For a string str, in worse case, the palindrome can be constructed by concatenate its reverse string with itself, ```rev_str + str```. 
+
+For example, for string, 'aacd', we get its reverse string 'dcaa', and concatenate them as 'dcaaaacd'.
+
+While in order to get the shortest palindrome, we need to find a way to get rid of the extra charaters in the middle.
+
+And we find that the chars need to be removed is the longest common prefix and suffix if we construct a string as 
+'aacd' + 'dcaa'. If we use KMP algorithm, we can get this length in linear time.
+
+However, a special case is 'aa' whose reverse string is also 'aa', if we build the concatenated string 'aaaa', then the KMP algorithm will return length==3, since the longest common prefix and suffix string is 'aaa'.
+
+To prevent that, we need a special char in the middle, like 'aa#aa'.
+
 ```cpp
 class Solution {
 public:
