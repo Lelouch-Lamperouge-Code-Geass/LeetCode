@@ -68,13 +68,16 @@ class Solution {
   // here comes the base 26 representation, it's similar when you convert a
   // number from base 10 to base 2
   string convertToTitle(int n) {
-    string result;
-    while (n) {
-      result.push_back((n - 1) % 26 + 'A');
-      n = (n - 1) / 26;
+        string reval("");
+        
+        while (n) {
+            -- n;
+            reval.push_back('A' + n % 26);
+            n /= 26;
+        }
+        
+        std::reverse(reval.begin(), reval.end());
+        return reval;
     }
-    std::reverse(result.begin(), result.end());
-    return result;
-  }
 };
 ```
