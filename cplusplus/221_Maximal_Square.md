@@ -63,3 +63,38 @@ public:
     }
 };
 ```
+
+Can be optimized to O(n) space complexity.
+
+This solution need to be check again, not working.
+
+```cpp
+class Solution {
+public:
+    int maximalSquare(vector<vector<char>>& matrix) {
+        if (matrix.empty()) return 0;
+        const std::size_t m(matrix.size()), n(matrix[0].size());
+        vector<std::size_t> max_len(n, 0);
+        
+        std::size_t max_square_len(0), diagonal_neighbor(0);
+        for (std::size_t i = 0; i < m; ++i) {
+            for (std::size_t j = 0; j < n; ++j) {
+                int temp = max_len[j];
+                if (i == 0 || j == 0) {
+                    max_len[j] = matrix[i][j] == '1' ? 1 : 0;
+                } else {
+                    if (matrix[i][j] == '1') {
+                        max_len[j] = 1 + std::min(diagonal_neighbor, 
+                                                  std::min(max_len[j], max_len[j-1]));
+                    }
+                }
+                diagonal_neighbor = temp;
+                max_square_len = std::max(max_square_len, max_len[j]);
+
+            }
+        }
+        
+        return max_square_len * max_square_len;
+    }
+};
+```
