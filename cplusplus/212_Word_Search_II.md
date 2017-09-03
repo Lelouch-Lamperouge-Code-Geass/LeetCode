@@ -37,6 +37,8 @@ The time complexity to make a trie structure is O(words_count * word_length).
 The time complexity to lookup a word in a trie structure is O(word_length).
   
 # Solution one 
+
+Using raw pointer here, need delete the dynamically allocated objects.
   
 ```cpp
 class Solution {
@@ -117,7 +119,90 @@ private:
 };
 ```
 
-# Solution two : same methology as solution one
+A different style.
+
+```cpp
+class Solution {
+private:
+    struct TrieNode;
+    typedef TrieNode* TrieNodePtr;
+    struct TrieNode {
+        TrieNode(char c) : m_char(c), m_count(0), m_children(26, nullptr) {
+            
+        } 
+        ~TrieNode() {
+            for (TrieNodePtr child : m_children) {
+                delete child;
+            }
+        }
+        char m_char;
+        int m_count;
+        vector<TrieNodePtr> m_children;
+    };
+    
+    TrieNodePtr getTrie(const vector<string> &words) {
+        TrieNodePtr root = new TrieNode(' ');
+        for (const string & word : words) {
+            TrieNodePtr cur = root;
+            for (const char c : word) {
+                if (!cur->m_children[c - 'a']) {
+                    cur->m_children[c - 'a'] = new TrieNode(c);
+                }
+                cur = cur->m_children[c - 'a'];
+            }
+            ++ cur->m_count; // one word is added
+        }
+        return root;
+    }
+    
+public:
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        TrieNodePtr trie = getTrie(words);
+        vector<string> reval;
+        string temp("");
+        const std::size_t m = board.size(), n = board[0].size();
+        for (std::size_t i = 0; i < m; ++i) {
+            for (std::size_t j = 0; j < n; ++j) {
+                dfs(board, i, j, trie, reval, temp);
+            }
+        }
+        delete trie;
+        return reval;
+    }
+    
+    void dfs(vector<vector<char>>& board, 
+             size_t i, 
+             size_t j, 
+             TrieNodePtr root, 
+             vector<string> &reval,
+             string &temp) {
+        const std::size_t m = board.size(), n = board[0].size();
+        if (i < m && j < n && root && board[i][j] != '#') {
+            const char origin_char = board[i][j];
+            if (root->m_children[origin_char - 'a']) {
+                temp.push_back(origin_char);
+                root = root->m_children[origin_char-'a'];
+                if (root->m_count > 0) {
+                    reval.emplace_back(temp);
+                    // We set count to 0 directly since deduplication is required
+                    root->m_count = 0; 
+                }
+                board[i][j] = '#';
+                dfs(board, i + 1, j, root, reval, temp);
+                dfs(board, i - 1, j, root, reval, temp);
+                dfs(board, i, j + 1, root, reval, temp);
+                dfs(board, i, j - 1, root, reval, temp);
+                board[i][j] = origin_char;    // Revert back
+                temp.pop_back();
+            }
+        }
+    }
+};
+```
+
+# Solution two  
+
+Same methology as solution one, using shared pointer instead.
 
 ```cpp
 struct TrieNode;
