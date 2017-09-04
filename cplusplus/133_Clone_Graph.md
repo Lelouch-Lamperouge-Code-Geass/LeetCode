@@ -30,7 +30,13 @@ This problem is an application of graph traversal, which has two systematic meth
 
 We need to maintain a hashmap from original node to the "clone" node. And use BFS or DFS to visit original nodes. Everytime we visit an original node, we need to create the "clone" node if it is null. And we also need to create the clone nodes for its neighbors and generate the clone edges from the cloned-original node to the clone neighbors.  
 
+__Note: we also need be careful about cycle and self-cycle.__
+
 ##### Solution with BFS
+
+Instantiation clone node and push to queue. Clone edges for popped node.
+
+Time complexity  O(|V|+|E|), space complexity  O(|V|+|E|).
 
 ```cpp
 class Solution {
@@ -63,19 +69,29 @@ public:
 ```
 
 ##### Solution with DFS
+
+
 ```cpp
 class Solution {
 public:
     UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
-        if (!node) return NULL;
-        if (mp.find(node) == mp.end()) {
-            mp[node] = new UndirectedGraphNode(node -> label);
-            for (UndirectedGraphNode* neigh : node -> neighbors)
-                mp[node] -> neighbors.push_back(cloneGraph(neigh));
-        }
-        return mp[node];
-    } 
+        if (!node) return nullptr;
+        unordered_map<UndirectedGraphNode *, UndirectedGraphNode*> mapper;
+        DFS(mapper, node);
+        return mapper[node];
+    }
 private:
-    unordered_map<UndirectedGraphNode*, UndirectedGraphNode*> mp;
+    void DFS(unordered_map<UndirectedGraphNode*, UndirectedGraphNode*> &mapper,
+             UndirectedGraphNode *node) {
+        if (mapper.count(node) == 0) {
+            // Here by instantiating the clone node, we actually "marked"
+            // the original node as visited.
+            mapper[node] = new UndirectedGraphNode(node->label);
+            for (UndirectedGraphNode *neighbor : node->neighbors) {
+                DFS(mapper, neighbor);
+                mapper[node]->neighbors.emplace_back(mapper[neighbor]);
+            }
+        }
+    }
 };
 ```
