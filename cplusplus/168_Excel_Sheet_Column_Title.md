@@ -12,6 +12,19 @@ For example:
 28 -> AB 
 ```    
 
+# Understand the problem:
+
+A classic 10-based math to 26-based math. Remember for a 10-based integer, e.g. 123, how can we extract each digit?  The idea is from the least significant digit and use %10 and /10 respectively. e.g. 
+
+```
+123 % 10 = 3, 123 / 10 = 12
+12 % 10 = 2, 12 / 10 = 1
+1 % 10 = 1, 1 / 10 - 0.
+```
+
+Therefore, for this question, we only need to replace 10 to 26. Note that for this question, the map is from 1 to 26. Therefore, we need to minus 1 for each number before the computation.  
+
+
 # Solution
 
 Let's see the relationship between the Excel sheet column title and the number:
