@@ -53,7 +53,47 @@ private:
 };
 ```
 
+A different style.
+
+```cpp
+class Solution {
+public:
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
+        unordered_set<string> word_set(wordDict.begin(), wordDict.end());
+        unordered_map<string, vector<string>> mapper;
+        return getSentence(s, word_set, mapper);
+    }
+private:
+    vector<string> getSentence(string s, 
+                               const unordered_set<string> &word_set,
+                               unordered_map<string, vector<string>> &mapper) {
+        if (mapper.count(s) > 0) {
+            return mapper[s];
+        } else {
+            vector<string> reval;
+            if (word_set.count(s) > 0) reval.push_back(s);
+            for (int i = 1, n = s.size(); i < n; ++i) {
+                const string &left = s.substr(0, i), &right = s.substr(i);
+                if (word_set.count(right) > 0) {
+                    const vector<string> &left_items = getSentence(left, word_set, mapper);
+                    for (const string & item : left_items) {
+                        reval.push_back(item + ' ' + right);
+                    }
+                }              
+            }
+            
+            mapper[s] = reval;
+            return reval;
+        }
+    }
+};
+```
+
 ##### Think about why this have  Time Limit Exceeded
+
+The problem is that  we can avoid call
+```right_parts = getSentences(right, word_set, sentence_mapper);``` by checking if (word_set.count(right) > 0) first.
+
 ```cpp
 class Solution {
 public:
