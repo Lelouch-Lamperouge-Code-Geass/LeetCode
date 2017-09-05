@@ -21,6 +21,7 @@ Walk through the matrix. At the start of each non-wall-streak (row-wise or colum
 
 int maxKilledEnemies(vector<vector<char>>& grid) {
   int row_size = grid.size(), col_size = row_size != 0 ? grid[0].size() : 0;
+  // We use one variable to store row hits and a vector to store col hits.
   int result = 0, rowhits, colhits[n];
   for (int row = 0; row < row_size; ++ row) {
     for (int col = 0; col < col_size; ++ col) {
