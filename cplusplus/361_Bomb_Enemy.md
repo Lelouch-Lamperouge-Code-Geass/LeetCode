@@ -1,5 +1,23 @@
-// Walk through the matrix. At the start of each non-wall-streak (row-wise or column-wise),
-// count the number of hits in that streak and remember it. O(mn) time, O(n) space.
+Given a 2D grid, each cell is either a wall 'Y', an enemy 'X' or empty '0' (the number zero), return the maximum enemies you can kill using one bomb.
+The bomb kills all the enemies in the same row and column from the planted point until it hits the wall since the wall is too strong to be destroyed.
+Note that you can only put the bomb at an empty cell.
+
+Example:
+
+For the given grid
+
+```
+0 X 0 0
+X 0 Y X
+0 X 0 0
+```
+return 3. (Placing a bomb at (1,1) kills 3 enemies)
+  
+# Solution
+
+Walk through the matrix. At the start of each non-wall-streak (row-wise or column-wise), count the number of hits in that streak and remember it. O(mn) time, O(n) space.
+  
+```cpp
 
 int maxKilledEnemies(vector<vector<char>>& grid) {
   int row_size = grid.size(), col_size = row_size != 0 ? grid[0].size() : 0;
@@ -31,3 +49,4 @@ int maxKilledEnemies(vector<vector<char>>& grid) {
   }
   return result;
 }
+```
