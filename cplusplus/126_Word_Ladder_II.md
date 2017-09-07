@@ -24,8 +24,28 @@ Note:
 * You may assume no duplicates in the word list.
 * You may assume beginWord and endWord are non-empty and are not the same.
 
+# Knowledge
+
+### idirectional search
+
+* https://en.wikipedia.org/wiki/Bidirectional_search
+
+__Bidirectional search__ is a graph search algorithm that finds a shortest path from an initial vertex to a goal vertex in a directed graph. It runs two simultaneous searches: one forward from the initial state, and one backward from the goal, stopping when the two meet in the middle. The reason for this approach is that in many cases it is faster.
+
+In normal graph search using BFS/DFS we begin our search in one direction usually from source vertex toward the goal vertex, but what if we start search form both direction simultaneously. Bidirectional search is a graph search algorithm which find smallest path form source to goal vertex. It runs two simultaneous search 
+
+1. Forward search form source/initial vertex toward goal vertex
+2. Backward search form goal/target vertex toward source vertex
+
+Bidirectional search replaces single search graph(which is likely to grow exponentially) with two smaller sub graphs – one starting from initial vertex and other starting from goal vertex. The search terminates when two graphs intersect.
+
 
 # Solution
+
+We are required to return the SHORTEST transformation sequences in the end. How to build the transformation sequence then? It turns out if we can store the next transformation words for each word, then we can build the paths based on that.
+Therefore, a HashMap stores <word, vector<next-transformation>> pairs will be a good choice.
+
+How to generate the transformation mapper? Using BFS! Moreover, we can use Bi-directional BFS. Bi-direction BFS means simultaneously run two BFS's from both source and target vertices, terminating once a vertex common to both runs is discovered. We can return the transformation mapper once the common vertices are found, because we are find __SHORTEST__ sequences.
 
 ```cpp
 class Solution {
