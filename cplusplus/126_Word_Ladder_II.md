@@ -26,7 +26,7 @@ Note:
 
 # Knowledge
 
-### idirectional search
+### Bidirectional search
 
 * https://en.wikipedia.org/wiki/Bidirectional_search
 
