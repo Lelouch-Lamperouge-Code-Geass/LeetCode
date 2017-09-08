@@ -32,6 +32,65 @@ The idea is simpy to begin from start, then visit its neighbors, then the non-vi
 
 To simplify the problem, we insert end into dict. Once we meet end during the BFS, we know we have found the answer. We maintain a variable dist for the current distance of the transformation and update it by dist++ after we finish a round of BFS search (note that it should fit the definition of the distance in the problem statement). Also, to avoid visiting a word for more than once, we erase it from dict once it is visited.
 
+### Solution 1
+
+```cpp
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        if (beginWord == endWord) return 1;
+        unordered_set<string> begin_words = {beginWord}, end_words = {endWord};
+        unordered_set<string> word_set(wordList.begin(), wordList.end());
+        if (word_set.count(endWord) == 0) return 0;
+        return getLadderLength(begin_words, end_words, word_set, 1);
+    }
+    
+private:
+    void eraseWordsFromDictionary(unordered_set<string> &words, 
+                                  unordered_set<string> &dictionary) {
+        for (const string &w : words) {
+            dictionary.erase(w);
+        }
+    }
+    
+    int getLadderLength(unordered_set<string> &begin_words,
+                       unordered_set<string> &end_words,
+                       unordered_set<string> &word_set,
+                       int len) {
+        if (begin_words.size() > end_words.size()) {
+            return getLadderLength(end_words, begin_words, word_set, len);
+        } else {
+            eraseWordsFromDictionary(begin_words, word_set);
+            eraseWordsFromDictionary(end_words, word_set);
+            
+            unordered_set<string> next_words;
+            
+            for (const string &word : begin_words) {
+                string word_copy(word);
+                for (char &c : word_copy) {
+                    const char origin_char(c);
+                    for (char tc = 'a'; tc <='z'; ++tc) {
+                        if (tc == origin_char) continue;
+                        c = tc;
+                        if (end_words.count(word_copy) > 0) {
+                            return len + 1;
+                        } else if (word_set.count(word_copy) > 0){
+                            next_words.insert(word_copy);
+                        }
+                    }
+                    c = origin_char;
+                }
+            }
+            
+            if (next_words.empty()) return 0;
+            else return getLadderLength(next_words, end_words, word_set, len + 1);
+        }
+    }
+};
+```
+
+### Solution 2
+
 ```cpp
 class Solution {
 public:
