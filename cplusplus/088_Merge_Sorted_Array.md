@@ -4,8 +4,11 @@ Note:
 You may assume that nums1 has enough space (size that is greater or equal to m + n) to hold additional elements from nums2. The number of elements initialized in nums1 and nums2 are m and n respectively.
 
 # Solution
-
 __You need confirm with interviewer that m + n is within integer range.__
+
+
+Note the in below code we merge backwards from i = m + n + 1 to i = 0, not merge forwards from i = 0 to i = m + n + 1.
+The reason is that former will not override the numbers in nums1 we have not allocate.
 
 ```cpp
 class Solution {
