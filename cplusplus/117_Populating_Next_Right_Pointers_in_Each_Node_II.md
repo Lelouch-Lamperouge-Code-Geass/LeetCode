@@ -41,34 +41,24 @@ __Time complexity O(N), space complexity O(1)__
 class Solution {
 public:
     void connect(TreeLinkNode *root) {
-        TreeLinkNode *next_level_head(nullptr), *next_level_pre(nullptr);
+        TreeLinkNode *next_head(nullptr), *next_tail(nullptr);
+        
         while (root) {
-            
             if (root->left) {
-                if (!next_level_head) {
-                    next_level_head = root->left;
-                    next_level_pre = root->left;
-                } else {
-                    next_level_pre->next = root->left;
-                    next_level_pre = next_level_pre->next;
-                }
+                if (!next_head) next_head = next_tail = root->left;
+                else next_tail->next = root->left,  next_tail = root->left;
             }
             
             if (root->right) {
-                if (!next_level_head) {
-                    next_level_head = root->right;
-                    next_level_pre = root->right;
-                } else {
-                    next_level_pre->next = root->right;
-                    next_level_pre = next_level_pre->next;
-                }
+                if (!next_head) next_head = next_tail = root->right;
+                else next_tail->next = root->right,  next_tail = root->right;
             }
             
-            if (root->next) {
-                root = root->next;
-            } else {
-                root = next_level_head;
-                next_level_head = next_level_pre = nullptr;
+            root = root->next;
+            
+            if (!root) {
+                root = next_head;
+                next_head = next_tail = nullptr;
             }
         }
     }
