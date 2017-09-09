@@ -25,9 +25,21 @@ Example 2:
 
 Binary tree [1,2,3], return false.
 
+```
+       3 
+     /  \ 
+    2    4
+   / \
+  1   3
+  
+Return false
+```
+
 # Solution
 
 If we use in-order traversal to serialize a binary search tree, we can get a list of values in ascending order. It can be proved with the definition of BST. And here I use the reference of TreeNode pointer prev as a global variable to mark the address of previous node in the list.
+
+
 
 ### Solution one
 
