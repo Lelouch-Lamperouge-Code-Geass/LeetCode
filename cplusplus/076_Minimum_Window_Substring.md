@@ -15,32 +15,41 @@ If there are multiple such windows, you are guaranteed that there will always be
 ```cpp
 class Solution {
 public:
-  string minWindow(string s, string t) {
-    vector<int> counter(256,0);
-    for (char c : t) {
-      ++ counter[c];
-    }
-
-    int start(0),min_start(0),min_len(INT_MAX),count(t.size());
-    for (int i=0;i<s.size();++i) {
-      if(counter[s[i]] > 0) --count; // the char we need
-      -- counter[s[i]];
-      while (count==0) { //all chars have been found
-        int cur_len = i-start+1;
-        if (cur_len < min_len) {
-          min_start = start;
-          min_len = cur_len;
+    string minWindow(string s, string t) {
+        vector<int> counter(256, 0);
+        std::size_t t_chars_count(0);
+        for (char c : t) {
+            ++ counter[c];
+            ++ t_chars_count;
         }
-        // begin increase start
-        if (counter[s[start]]==0) {
-          ++ count;
+        
+        std::size_t start(0), min_len(SIZE_MAX), min_start(0);
+        std::size_t count(t_chars_count);
+        for (std::size_t i = 0, n = s.size(); i < n; ++i) {
+            if (counter[s[i]] > 0) {
+                -- count;
+            }
+            
+            -- counter[s[i]];
+            
+            while (count == 0) {
+                std::size_t len = i + 1 - start;
+                if (len < min_len) {
+                    min_start = start;
+                    min_len = len;
+                }
+                
+                // move start out of window
+                ++ counter[s[start]];
+                if (counter[s[start]] > 0) {
+                    ++ count;
+                }
+                ++ start;
+            }
         }
-        ++ counter[s[start]];
-        ++ start;
-      }
+        
+        return min_len == SIZE_MAX ? "" : s.substr(min_start, min_len);
     }
-    return min_len==INT_MAX? "" : s.substr(min_start,min_len);
-  }
 };
 ```  
   
