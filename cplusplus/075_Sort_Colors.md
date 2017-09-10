@@ -12,7 +12,16 @@ First, iterate the array counting number of 0's, 1's, and 2's, then overwrite ar
 Could you come up with an one-pass algorithm using only constant space?
 
 # Solution
-  
+
+```
+[ , red]  represents red colors
+[red + 1, i] represents white colors
+[blue, ] represents blue colors 
+```
+
+The pitfall is that we can't move i forward if it's value is 0 or 2.
+And it is possible that after swap(nums[i], nums[--blue]), nums[i] is still 2 or 0.
+ 
 ```cpp
 class Solution {
 public:
