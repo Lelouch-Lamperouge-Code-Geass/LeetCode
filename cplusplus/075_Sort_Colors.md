@@ -15,7 +15,8 @@ Could you come up with an one-pass algorithm using only constant space?
 
 ```
 [ , red]  represents red colors
-[red + 1, i] represents white colors
+[red + 1, i - 1] represents white colors
+[i, blue - 1] colors have not been checked
 [blue, ] represents blue colors 
 ```
 
