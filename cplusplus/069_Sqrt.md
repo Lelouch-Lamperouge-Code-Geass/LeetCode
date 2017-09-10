@@ -10,6 +10,11 @@ Near the very end, closest step, before while loop, left = mid = right.
 * In while, If mid < sqrt(x), left = mid + 1 executed, right pointer is not moving, and right is the answer.
 * If while, If mid > sqrt(x), right = mid - 1 executed, right pointer shifts left 1, closest to sqrt(x), right is also the answer.
 
+#### Pitfall
+
+1. If we use mid * mid == x to check, what if mid * mid causes overflow?
+2. If we use mi == x / mid to check, we should avoid mid is zero.
+
 ```cpp
 class Solution {
 public:
