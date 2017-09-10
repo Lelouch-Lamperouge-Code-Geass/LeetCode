@@ -58,6 +58,8 @@ l: 0 1 2 3 2 1 0
 r: 7 5 4 3 4 5 7
 ```
 
+The key is to understand what does height, right, left vectors mean.
+
 ```cpp
 class Solution {
 public:
