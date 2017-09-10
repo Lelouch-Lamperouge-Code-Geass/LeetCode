@@ -18,6 +18,8 @@ If nums = [1,2,2], a solution is:
 
 # Solution
 
+__For subset problem, backtracking is not the best way to be used in interview. It works, while how to handle the duplicates can be hard to understand and explain to interviwer. For interview, always choose the methology of solution 1 might be easier for you to explain it to interviewer.__ 
+
 ### Solution 1 
 
   We can treat duplicate element as a spacial element. 
