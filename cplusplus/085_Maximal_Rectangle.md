@@ -27,6 +27,37 @@ height(i,j) = height(i-1,j) + 1, if matrix[i][j]=='1';
 height(i,j) = 0, if matrix[i][j]=='0'
 ```
 
+If you think this algorithm is not easy to understand, you can try this example:
+
+```
+0 0 0 1 0 0 0 
+0 0 1 1 1 0 0 
+0 1 1 1 1 1 0
+```
+
+The vector "left" and "right" from row 0 to row 2 are as follows
+
+row 0:
+
+```
+l: 0 0 0 3 0 0 0
+r: 7 7 7 3 7 7 7
+```
+
+row 1:
+
+```
+l: 0 0 2 3 2 0 0
+r: 7 7 4 3 4 7 7 
+```
+
+row 2:
+
+```
+l: 0 1 2 3 2 1 0
+r: 7 5 4 3 4 5 7
+```
+
 ```cpp
 class Solution {
 public:
@@ -103,6 +134,52 @@ private:
                 rightmost = col > 0 ? col - 1 : 0;
             }
         }    
+    }
+};
+```
+
+A more concise version.
+
+```cpp
+class Solution {
+public:
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        if (matrix.empty()) return 0;
+        int reval(0);
+        const std::size_t row_size(matrix.size()), col_size(matrix[0].size());
+        vector<std::size_t> height(col_size, 0), left(col_size, 0), right(col_size, col_size - 1);
+        for (std::size_t row = 0; row < row_size; ++ row) {
+            // left_most represents the leftmost index for consecutive '1'
+            // including current index in this row
+            std::size_t left_most(0); 
+            for (std::size_t i = 0; i < col_size; ++ i) {
+                if ('0' == matrix[row][i]) {
+                    height[i] = 0;
+                    left[i] = 0;
+                    left_most = i + 1;
+                } else { // '1' == matrix[row][i]
+                    ++ height[i];
+                    left[i] = std::max(left_most, left[i]);
+                }
+            }
+            
+            // right_most represents the rightmost index for consecutive '1'
+            // including current index in this row
+            std::size_t right_most(col_size - 1);
+            for (std::size_t i = col_size; i-- > 0; ) {
+                if ('0' == matrix[row][i]) {
+                    right[i] = col_size - 1;
+                    right_most = i == 0 ? i : i - 1;
+                } else { // '1' == matrix[row][i]
+                    right[i] = std::min(right_most, right[i]);
+                }
+                
+                int cur_height = height[i] * (right[i] + 1 - left[i]);
+                reval = std::max(reval, cur_height);
+            }
+        }
+        
+        return reval;
     }
 };
 ```
