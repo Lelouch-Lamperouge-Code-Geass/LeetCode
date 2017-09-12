@@ -29,7 +29,12 @@ Input: 4
 Output: "1211"
 ```
 
+# Pitcall
+
+How to handle last char.
+
 # Solution
+
 
 ```cpp
 class Solution {
