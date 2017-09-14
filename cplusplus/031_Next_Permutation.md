@@ -21,6 +21,11 @@ Well, in fact the problem of next permutation has been studied long ago. From th
 3. Swap the value of nums[k] with that of nums[l].  
 4. Reverse the sequence from nums[k + 1] up to and including the final element nums[nums.size() - 1].  
 
+
+__Note__:
+1. while (pos >= 1 && nums[pos - 1] >= nums[pos])
+2. std::upper_bound
+
 ```cpp
 class Solution {
 public:
@@ -46,6 +51,31 @@ public:
         auto iter = std::upper_bound(nums.begin() + pos + 1, nums.end(), nums[pos]);
         
         std::swap(nums[pos], *iter);
+    }
+};
+```
+
+Different style.
+
+```cpp
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        if (nums.empty()) return;
+        
+        const std::size_t n(nums.size());
+        std::size_t i(n - 1);
+        
+        while (i - 1 < n && nums[i-1] >= nums[i]) --i;
+        
+        std::reverse(nums.begin() + i, nums.end());
+        
+        if (0 == i) return;
+        
+        int pivot(nums[i - 1]);
+        
+        std::size_t pos = std::upper_bound(nums.begin() + i, nums.end(), pivot) - nums.begin();
+        std::swap(nums[i-1], nums[pos]);
     }
 };
 ```
