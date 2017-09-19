@@ -7,7 +7,9 @@ T is "ece" which its length is 3.
 # Solution
 
 ### Solution by other  
-  
+
+__Time complexity O(n), space complexity O(1).__
+
 ```cpp
 int lengthOfLongestSubstringKDistinct(string s, int k) {
   int ctr[256] = {}, j = -1, distinct = 0, maxlen = 0;
@@ -22,6 +24,8 @@ int lengthOfLongestSubstringKDistinct(string s, int k) {
 ```
 
 ### Solution by myself
+
+__Time complexity O(n), space complexity O(1).__
 
 ```cpp
 int lengthOfLongestSubstringKDistinct(string s, int k) {
