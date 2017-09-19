@@ -73,3 +73,33 @@ private:
     vector<int>::iterator vec_begin, vec_end;
 };
 ```
+
+Modify a little bit, then it works.
+
+```cpp
+class Solution {
+public:
+    Solution(vector<int> nums) :m_nums(nums){
+        vec_begin = m_nums.begin();
+        vec_end = m_nums.end();
+    }
+    
+    int pick(int target) {
+        vector<int>::iterator pos(vec_end);
+        std::size_t count(0);
+        for (vector<int>::iterator iter = vec_begin; iter != vec_end; ++iter) {
+            if (*iter == target) {
+                ++ count;
+                if (rand() % count == 0) {
+                    pos = iter;
+                }
+            }
+        }
+        
+        return pos - vec_begin;
+    }
+private:
+    vector<int> m_nums;
+    vector<int>::iterator vec_begin, vec_end;
+};
+```
