@@ -42,6 +42,18 @@ there clearly was a value less than it (which would have been assigned to small 
 What this means is that once you find a value bigger than big, you've implicitly found an increasing triplet.
 ```
 
+Before coding I also thought about this solution and I did’t think that will work, as it appears to be very naïve and greedy: find first smallest, then find second smallest, then find the third and bingo. I argued myself it cannot pass the case like [1,2,0,3] since c1 is changed.
+
+But when I take a closer look, it does [1,2,0,3] very well. And I realize that c1 and c2 are indeed having the meaning of:
+
+```
+C1 = so far best candidate of end element of a one-cell subsequence to form a triplet subsequence
+
+C2 = so far best candidate of end element of a two-cell subsequence to form a triplet subsequence
+
+So c1 and c2 are the perfect summary of history.
+```
+
 __time complexity is O(n), space complexity is O(1)__
 
 ```cpp
