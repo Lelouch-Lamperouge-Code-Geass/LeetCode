@@ -95,3 +95,7 @@ Every time when the window is full of k distinct chars, we lookup TreeMap to fin
         return max;
     }
 ```    
+
+# Follow-up
+
+* 395_Longest_Substring_with_At_Least_K_Repeating_Characters
