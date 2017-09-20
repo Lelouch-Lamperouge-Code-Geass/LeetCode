@@ -84,6 +84,32 @@ public:
 };
 ```
 
+Different style.
+
+```cpp
+class Solution {
+public:
+    bool isValidSerialization(string preorder) {
+        vector<string> nodes;
+        string temp("");
+        istringstream iss(preorder);
+        while (std::getline(iss, temp, ',')) {
+            if (temp == "#") {
+              while (!nodes.empty() && nodes.back() == "#") {
+                  nodes.pop_back();
+                  if (nodes.empty() || nodes.back() == "#") return false; // empty or not a number
+                  nodes.pop_back();
+              }  
+            }
+            
+            nodes.emplace_back(temp);
+        }
+        
+        return nodes.size() == 1 && nodes.back() == "#";
+    }
+};
+```
+
 ### Solution 2
 
 If we treat null's as leaves, then the binary tree will always be full. A full binary tree has a good property that # of leaves = # of nonleaves + 1. Since we are given a pre-order serialization, we just need to find the shortest prefix of the serialization sequence satisfying the property above. If such prefix does not exist, then the serialization is definitely invalid; otherwise, the serialization is valid if and only if the prefix is the entire sequence.
