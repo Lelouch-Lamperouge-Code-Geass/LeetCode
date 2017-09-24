@@ -94,52 +94,115 @@ C++ version, to be continue....
 class Solution {
 public:
     int countRangeSum(vector<int>& nums, int lower, int upper) {
-        std::size_t n = nums.size();
+        const std::size_t n = nums.size();
         vector<long long> range_sum(n + 1, 0);
-        
-        for (std::size_t i = 1; i <= n; ++i) {
-            range_sum[i] = range_sum[i - 1] + nums[i - 1];
+        for (std::size_t i = 0; i < n; ++i) {
+            range_sum[i + 1] =  range_sum[i] + nums[i];
         }
         
-        return countWhileMergeSort(range_sum, 0, n + 1, lower, upper);
+        return countAndMerge(range_sum, lower, upper, 0, n + 1) ;
     }
-    
 private:
-    void copyArray(vector<long long> &target, std::size_t pos, vector<long long> &source, std::size_t start, std::size_t len) {
-        for (std::size_t i = 0; i < len; ++i) {
-            target[pos + i] = source[start + i];
-        }    
-    }
-    
-    // merge [start, mid) and [mid, end)
-    void merge(vector<long long> &range_sum, std::size_t start, std::size_t mid, std::size_t end) {
-        vector<long long> cache(end - start, 0);
-        std::size_t cache_index(0);
-        for (std::size_t i = start, j = mid; i < mid; ++i) {
-            // merge the two sorted array
-            while (j < end && range_sum[j] < range_sum[i]) cache[cache_index++] = range_sum[j++];
-            cache[cache_index] = range_sum[i];
+    void merge(vector<long long> &range_sum, 
+               std::size_t begin,
+               std::size_t mid,
+               std::size_t end) {
+        const std::size_t n = end - begin;
+        vector<long long> cache(n, 0);
+        std::size_t left(begin), right(mid);
+        for (std::size_t i = 0; i < n; ++i) {
+            if (right == end) {
+                cache[i] = range_sum[left++];
+            } else if (left == mid) {
+                cache[i] = range_sum[right++];
+            } else {
+                if (right == end || range_sum[left] < range_sum[right]) {
+                    cache[i] = range_sum[left++];
+                } else {
+                    cache[i] = range_sum[right++];
+                }
+            }
         }
-        copyArray(cache, 0, range_sum, start, end - start);
-    }
-    
-    int countWhileMergeSort(vector<long long> &range_sum, std::size_t start, std::size_t end, int lower, int upper) {
-        if (end - start <= 1) return 0;
-        std::size_t mid = start + (end - start) / 2;
-        // Here we get the count of [start,mid) and [mid, end)
-        int count = countWhileMergeSort(range_sum, start, mid, lower, upper) 
-                  + countWhileMergeSort(range_sum, mid, end, lower, upper);
-        // Right now we will get the count from interval which one part from left array, one part from right array.
-        // Which means, interval [i,j], i is within [start,mid), and j is within [mid, end)
-        std::size_t l = mid, r = mid;
-        vector<long long> cache(end - start, 0);
-        for (std::size_t i = start; i < mid; ++i) {
-            while (l < end && range_sum[l] - range_sum[i] < lower) ++l;  // l is the first index satisfy sums[l] - sums[i] >= lower.
-            while (r < end && range_sum[r] - range_sum[i] <= upper) ++r; // r is the first index satisfy sums[r] - sums[i] > upper 
-            count += r - l;
+        
+        for (std::size_t i = 0; i < n; ++i) {
+            range_sum[begin + i] = cache[i];
         }
-        merge(range_sum, start, mid, end);
-        return count;
+    }
+    std::size_t countAndMerge(vector<long long> &range_sum, 
+                              int lower, 
+                              int upper,
+                              std::size_t begin, 
+                              std::size_t end) {
+        if (end <= begin + 1) {
+            return 0;
+        } else {
+            std::size_t mid = begin + (end - begin) / 2;
+            
+            std::size_t count = countAndMerge(range_sum, lower, upper, begin, mid) 
+                                + countAndMerge(range_sum, lower, upper, mid, end);
+            std::size_t low(mid), up(mid);
+            for (std::size_t i = begin; i < mid; ++i) {
+                while (low < end && range_sum[low] - range_sum[i] < lower) {
+                    ++ low;
+                }
+                
+                while (up < end && range_sum[up] - range_sum[i] <= upper) {
+                    ++ up;
+                }
+                
+                count += up - low;
+            }
+            
+            merge(range_sum, begin, mid, end);
+            return count;
+        }
+    }
+};
+```
+
+Using inplace_merge.
+
+```cpp
+class Solution {
+public:
+    int countRangeSum(vector<int>& nums, int lower, int upper) {
+        const std::size_t n = nums.size();
+        vector<long long> range_sum(n + 1, 0);
+        for (std::size_t i = 0; i < n; ++i) {
+            range_sum[i + 1] =  range_sum[i] + nums[i];
+        }
+        
+        return countAndMerge(range_sum, lower, upper, 0, n + 1) ;
+    }
+private:
+    std::size_t countAndMerge(vector<long long> &range_sum, 
+                              int lower, 
+                              int upper,
+                              std::size_t begin, 
+                              std::size_t end) {
+        if (end <= begin + 1) {
+            return 0;
+        } else {
+            std::size_t mid = begin + (end - begin) / 2;
+            
+            std::size_t count = countAndMerge(range_sum, lower, upper, begin, mid) 
+                                + countAndMerge(range_sum, lower, upper, mid, end);
+            std::size_t low(mid), up(mid);
+            for (std::size_t i = begin; i < mid; ++i) {
+                while (low < end && range_sum[low] - range_sum[i] < lower) {
+                    ++ low;
+                }
+                
+                while (up < end && range_sum[up] - range_sum[i] <= upper) {
+                    ++ up;
+                }
+                
+                count += up - low;
+            }
+            
+            inplace_merge(range_sum.begin() + begin, range_sum.begin() + mid, range_sum.begin() + end);
+            return count;
+        }
     }
 };
 ```
