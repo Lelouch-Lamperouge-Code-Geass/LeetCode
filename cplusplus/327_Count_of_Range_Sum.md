@@ -88,7 +88,7 @@ private int countWhileMergeSort(long[] sums, int start, int end, int lower, int 
 }
 ```
 
-C++ version, to be continue....
+### C++ version
 
 ```cpp
 class Solution {
