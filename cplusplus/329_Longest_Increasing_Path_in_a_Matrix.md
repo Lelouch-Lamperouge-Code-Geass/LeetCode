@@ -25,7 +25,7 @@ nums = [
 ]
 Return 4
 The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.
-···
+```
 
 # Solution
 
@@ -74,5 +74,45 @@ public:
     memoization[row][col] = reval; // Memoize the result
     return reval;
   }
+};
+```
+
+An alternative style.
+
+```cpp
+class Solution {
+public:
+    int longestIncreasingPath(vector<vector<int>>& matrix) {
+        if (matrix.empty()) return 0;
+        const std::size_t m(matrix.size()), n(matrix[0].size());
+        vector<vector<int>> memoization(m, vector<int>(n, 0));
+        std::size_t max_len(0);
+        for (std::size_t i = 0; i < m; ++i) {
+            for (std::size_t j = 0;  j < n; ++j) {
+                max_len = std::max( max_len, dfs(matrix, memoization, i, j));
+            }
+        }
+        return max_len;
+    }
+private:
+    std::size_t dfs(vector<vector<int>> &matrix,
+                vector<vector<int>> &memoization,
+                std::size_t row,
+                std::size_t col) {
+        if (memoization[row][col] != 0) return memoization[row][col];
+        static vector<pair<int, int>> move = {{1,0}, {-1, 0}, {0, 1}, {0, -1}};
+        const std::size_t m(matrix.size()), n(matrix[0].size());
+        std::size_t cur_len(1);
+        for (const pair<int, int> &item : move) {
+            std::size_t next_row = row + item.first;
+            std::size_t next_col = col + item.second;
+
+            if (next_row < m && next_col < n && matrix[next_row][next_col] > matrix[row][col]) {
+                cur_len = std::max(cur_len, 1 + dfs(matrix, memoization, next_row, next_col));
+            }
+        }
+        memoization[row][col] = cur_len;
+        return cur_len;
+    }
 };
 ```
