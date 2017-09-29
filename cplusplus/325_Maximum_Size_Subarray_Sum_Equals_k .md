@@ -19,6 +19,8 @@ return 2. (because the subarray [-1, 2] sums to 1 and is the longest)
 
 # Solution
 
+_Note: your initial thought might be using sliding window method, but the tricky part is that when can you discard left numbers? You may just add a new number on the right side to make the sum much more larger than k, but you still can't discard numbers on the left side because the next number on right might be negative enough to make the whole window's sum just to be k._
+
 The subarray sum reminds me the range sum problem. Preprocess the input array such that you get the range sum in constant time.
 
 sum[i] means the sum from 0 to i inclusively  
