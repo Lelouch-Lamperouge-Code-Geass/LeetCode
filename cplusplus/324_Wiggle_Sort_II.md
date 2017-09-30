@@ -44,36 +44,6 @@ number:   11 18 14 17 10 19 13 16 12 15
 ```
 And 11 18 14 17 10 19 13 16 12 15 is perfectly wiggly. And the whole partitioning-to-wiggly-arrangement (everything after finding the median) only takes O(n) time and O(1) space.
 
- StefanPochmann  
-Reputation:  18,631
-This post is mainly about what I call "virtual indexing" technique (I'm sure I'm not the first who came up with this, but I couldn't find anything about it, so I made up a name as well. If you know better, let me know).
-
-Solution
-
-void wiggleSort(vector<int>& nums) {
-    int n = nums.size();
-    
-    // Find a median.
-    auto midptr = nums.begin() + n / 2;
-    nth_element(nums.begin(), midptr, nums.end());
-    int mid = *midptr;
-    
-    // Index-rewiring.
-    #define A(i) nums[(1+2*(i)) % (n|1)]
-
-    // 3-way-partition-to-wiggly in O(n) time with O(1) space.
-    int i = 0, j = 0, k = n - 1;
-    while (j <= k) {
-        if (A(j) > mid)
-            swap(A(i++), A(j++));
-        else if (A(j) < mid)
-            swap(A(j), A(k--));
-        else
-            j++;
-    }
-}
-Explanation
-
 First I find a median using nth_element. That only guarantees O(n) average time complexity and I don't know about space complexity. I might write this myself using O(n) time and O(1) space, but that's not what I want to show here.
 
 This post is about what comes after that. We can use three-way partitioning to arrange the numbers so that those larger than the median come first, then those equal to the median come next, and then those smaller than the median come last.
