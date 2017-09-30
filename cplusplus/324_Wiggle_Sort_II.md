@@ -126,3 +126,35 @@ One way is to do an index mapping which can build a mapping relationship "index 
 Therefore, in this solution, we do the index mapping during partition.
 
 You also need to now that std::nth_element internally uses parition algorithm as well. It's time complexisty is on average O(N), and the worse time complexity is depend on what c++ version you are using, could be O(N) or O(N^2).
+
+
+In fact, if nth_element is implemented with __three-way partition__ and we don't need to have O(1) space complexity, we can simply use below solution.
+
+
+```cpp
+class Solution {
+public:
+    void wiggleSort(vector<int>& nums) {
+        const std::size_t nums_size = nums.size();
+        std::vector<int>::iterator pivot_pos = nums.begin() + nums.size() / 2;
+        std::nth_element(nums.begin(), pivot_pos, nums.end(), std::greater<int>());
+        const int pivot = *pivot_pos;
+        
+        std::size_t n = nums.size(), mid_pos = nums.size() / 2;
+        
+        // A functor to get wiggle index
+        auto virtualIndex = [nums_size](int idx) { return (2 * idx + 1) % (nums_size | 1); };
+        
+        vector<int> copy = nums;
+        
+        for (std::size_t i = 0; i < nums_size; ++i) {
+            copy[virtualIndex(i)] = nums[i];
+        }
+        
+        nums = copy;
+    }
+};
+```
+
+
+However, it seems like nth_element is not implemented in three-way parition, so.....
