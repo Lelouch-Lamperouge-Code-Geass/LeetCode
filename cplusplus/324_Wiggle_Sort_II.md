@@ -83,6 +83,8 @@ public:
 
         // Find position in the middle.
         // Note that it is not median, because it doesn't take average value when length is an even number.
+        // Also we use nth_element here only to find the 'mid' value, its internal partition implementation has nothing
+        // to do with our algorithm.
         std::vector<int>::iterator pivot_pos = nums.begin() + nums_size / 2;
         std::nth_element(nums.begin(), pivot_pos, nums.end()); 
         const int pivot = *pivot_pos;
