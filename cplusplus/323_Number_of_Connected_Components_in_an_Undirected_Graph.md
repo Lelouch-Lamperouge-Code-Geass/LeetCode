@@ -23,6 +23,20 @@ You can assume that no duplicate edges will appear in edges. Since all edges are
 
 # Solution
 
+To find the number of connected components. We can use:
+
+1. BFS
+2. DFS
+3. Union-find(disjoint-set)
+
+According to CLRS, When the edges of the graph are static—not changing over time—we can compute the connected components faster by using depth-first search.
+
+When the edges of the graph are dynamic – changing over time – DFS is not a good choice since it cannot be applied progressively, we need to use a data structure to represents the graph(represented in adjacent lists or adjacent matrix) first.
+
+And in this condition, we can compute the connected components faster by using union-find.
+
+__In summary, prefer using BFS or DFS when graph is static; prefer using union-find when graph is dynamic.__
+
 ```cpp
 int countComponents(int n, vector<pair<int, int>>& edges) {
   std::vector<int> parents(n, 0);
