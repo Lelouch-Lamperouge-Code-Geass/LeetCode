@@ -1,5 +1,7 @@
 
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/280_Wiggle_Sort.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/317_Shortest_Distance_from_All_Buildings.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/318_Maximum_Product_of_Word_Lengths.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/321_Create_Maximum_Number.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/323_Number_of_Connected_Components_in_an_Undirected_Graph.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/324_Wiggle_Sort_II.md
