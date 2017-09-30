@@ -12,7 +12,7 @@ Can you do it in O(n) time and/or in-place with O(1) extra space?
 
 # Solution
 The intuitive solution to this problem is to split numbers into a smaller half and a bigger half.
-And then get number from smaller array and bigger array alternately。
+And then get number from smaller array and bigger array alternately.
 How can we do better to get O(1) space complexity?
 Then we have to perform the reconstruction in-place.
 We know that we can use partition algorithm to make an array with half smaller and half bigger.
@@ -110,3 +110,17 @@ public:
     }
 };
 ```
+
+# Highlight
+
+The intuitive solution to this problem is to split numbers into a smaller half and a bigger half.
+And then fill the original vector with numbers from smaller array and bigger array alternately.
+
+To split the numbers into bigger and smaller halves, we need use partition algorithm.
+The tricky thing here is how to fill the vector  "in a wiggle way" after that?
+
+One way is to do an index mapping which can build a mapping relationship "index => mapping index". If the space complexity requirement is not constant, this is easy. While in order to have O(1) space complexity, swapping index after partition might be very hard. 
+
+Therefore, in this solution, we do the index mapping during partition.
+
+You also need to now that std::nth_element internally uses parition algorithm as well. It's time complexisty is on average O(N), and the worse time complexity is depend on what c++ version you are using, could be O(N) or O(N^2).
