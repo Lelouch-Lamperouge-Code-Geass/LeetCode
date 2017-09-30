@@ -78,3 +78,16 @@ int countComponents(int n, vector<pair<int, int>>& edges) {
   return n;
 }
 ```
+
+# Knowledge
+
+### Connected component
+
+In graph theory, a connected component (or just component) of an undirected graph is a subgraph in which any two vertices are connected to each other by paths, and which is connected to no additional vertices in the supergraph.
+
+It is straightforward to compute the connected components of a graph in linear time (in terms of the numbers of the vertices and edges of the graph) using either __breadth-first search__ or __depth-first search__. In either case, a search that begins at some particular vertex v will find the entire connected component containing v (and no more) before returning. To find all the connected components of a graph, loop through its vertices, starting a new breadth first or depth first search whenever the loop reaches a vertex that has not already been included in a previously found connected component. 
+
+There are also efficient algorithms to dynamically track the connected components of a graph as vertices and edges are added, as a straightforward application of __disjoint-set data structures__. 
+
+
+
