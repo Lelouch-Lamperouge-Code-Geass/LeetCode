@@ -34,7 +34,8 @@ public:
         nums = res;
     }
     
-    // this ensures all values equal to the median is in the middle
+    // this ensures all values equal to the median is in the middle.
+    // Smaller numbers come before that, and bigger numbers come after that.
     void threeWayPartition(vector<int> &nums, int val) {
         int i = 0, j = 0;
         int n = nums.size()-1;
