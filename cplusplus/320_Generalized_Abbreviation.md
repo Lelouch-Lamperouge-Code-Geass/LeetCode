@@ -26,14 +26,14 @@ public:
             result.push_back(cur);
             return;
         }
-        /** add the current word **/
+        /** add previous count and the current character **/
         if(count > 0) {
             dfs(result, word, pos + 1, 0, cur + to_string(count) + word[pos]);
         } 
         else {
             dfs(result, word, pos + 1, 0, cur + word[pos]);
         }
-        /** skip the current word **/
+        /** just add the current character to count **/
         dfs(result, word, pos + 1, count + 1, cur);
         
     }
