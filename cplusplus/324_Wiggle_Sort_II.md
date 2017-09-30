@@ -11,6 +11,46 @@ You may assume all input has valid answer.
 Can you do it in O(n) time and/or in-place with O(1) extra space?
 
 # Solution
+
+### Solution 1
+
+Note that here we need three-way partition, nth_element internally uses partition algorithm but it is not three-way partition.
+
+```cpp
+class Solution {
+public:
+    void wiggleSort(vector<int>& nums) {
+        int n = nums.size();
+        int mid = n/2;
+        nth_element(nums.begin(), nums.begin() + mid, nums.end());
+        threeWayPartition(nums, nums[mid]);
+        vector<int> res(n);
+        int largeStart = n-1;
+        int smallStart = (n%2) ? mid : (mid-1);
+        for (int i = 0; i < n; i+=2)
+            res[i] = nums[smallStart--];
+        for (int i = 1; i < n; i+=2)
+            res[i] = nums[largeStart--];
+        nums = res;
+    }
+    
+    // this ensures all values equal to the median is in the middle
+    void threeWayPartition(vector<int> &nums, int val) {
+        int i = 0, j = 0;
+        int n = nums.size()-1;
+        while (j <= n){
+            if (nums[j] < val)
+                swap(nums[i++], nums[j++]);
+            else if (nums[j] > val)
+                swap(nums[j], nums[n--]);
+            else
+                j++;
+        }
+    }
+};
+```
+
+### Solution 2
 The intuitive solution to this problem is to split numbers into a smaller half and a bigger half.
 And then get number from smaller array and bigger array alternately.
 How can we do better to get O(1) space complexity?
@@ -113,7 +153,7 @@ public:
 };
 ```
 
-# Highlight
+#### Highlight
 
 The intuitive solution to this problem is to split numbers into a smaller half and a bigger half.
 And then fill the original vector with numbers from smaller array and bigger array alternately.
