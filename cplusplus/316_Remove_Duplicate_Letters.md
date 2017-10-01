@@ -9,11 +9,16 @@ Return "acdb"
 
 # Solution
 
+### Solution 1
+
 First, given "bcabc", the solution should be "abc". If we think about this problem intuitively, you would sort of go from the beginning of the string and start removing one if there is still the same character left and a smaller character is after it. Given "bcabc", when you see a 'b', keep it and continue with the search, then keep the following 'c', then we see an 'a'. Now we get a chance to get a smaller lexi order, you can check if after 'a', there is still 'b' and 'c' or not. We indeed have them and "abc" will be our result.
 
 Come to the implementation, we need some data structure to store the previous characters 'b' and 'c', and we need to compare the current character with previous saved ones, and if there are multiple same characters, we prefer left ones. This calls for a stack.
 
 After we decided to use stack, the implementation becomes clearer. From the intuition, we know that we need to know if there are still remaining characters left or not. So we need to iterate the array and save how many each characters are there. A visited array is also required since we want unique character in the solution. The line while(!stack.isEmpty() && stack.peek() > c && count[stack.peek()-'a'] > 0) checks that the queued character should be removed or not, like the 'b' and 'c' in the previous example. After removing the previous characters, push in the new char and mark the visited array.
+
+*It's important to understand this line ```if (added_to_result[c]) continue;```, can we remove this line or not?
+If we remove that line, e.g. "abacb" will have result "acb" instead of "abc". The important thing to know is that since we keep an increasing string, if we alreay have the same char in ```reval```.* 
 
 __Time complexity: O(n), n is the number of chars in string.__
 
@@ -35,7 +40,7 @@ public:
         
         for (char c : s) {
             -- remain_count[c];
-            if (added_to_result[c]) continue;
+            if (added_to_result[c]) continue; // Important to understand this! e.g. "abacb"
             while (!result.empty() && c < result.back() && remain_count[result.back()] > 0) {
                 // As long as current char is smaller than the last char of current result
                 // and the last char of result will appear later, we can safely pop the last char out
@@ -46,6 +51,37 @@ public:
             added_to_result[c] = true;
         }
         return result;
+    }
+};
+```
+
+### Solution 2, same as solution1 
+
+
+```cpp
+class Solution {
+public:
+    string removeDuplicateLetters(string s) {
+        unordered_map<char, std::size_t> last_positions;
+        for (std::size_t i = 0, n = s.size(); i < n; ++i) {
+            last_positions[s[i]] = i;
+        }
+        
+        vector<bool> added_to_reval(256, false);
+        string reval("");
+        for (std::size_t i = 0, n = s.size(); i < n; ++i) {
+            if (added_to_reval[s[i]]) continue;
+            while (!reval.empty() && reval.back() > s[i] && last_positions[reval.back()] > i) {
+                added_to_reval[reval.back()] = false;
+                reval.pop_back();
+            }
+            if (!added_to_reval[s[i]]) {
+                reval.push_back(s[i]);
+                added_to_reval[s[i]] = true;
+            }
+        }
+        
+        return reval;
     }
 };
 ```
