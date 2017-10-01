@@ -157,55 +157,66 @@ __Complexities: Time: O(n log n)    Space: O(n)__
 
 ```cpp
 class Solution {
-    
+public:
+    vector<int> countSmaller(vector<int>& nums) {
+        const std::size_t n = nums.size();
+        vector<std::size_t> indexes(n, 0);
+        std::iota (std::begin(indexes), std::end(indexes), 0);
+        vector<int> count(n, 0);
+        merge_sort_on_indexes(nums, indexes, count, 0, n);
+        return count;
+    }
 private:
-    void mergeOnIndices(const vector<int> &nums,
-                    vector<int> &indices,
-                    vector<int> &count,
-                    const std::size_t begin,
-                    const std::size_t mid,
-                    const std::size_t end) {
-        const std::size_t n = end - begin + 1;
-        vector<int> cache(n, 0);
-        std::size_t i(begin), j(mid + 1), k(0);
-
-        while (k < n) {
-            if (j > end || i <= mid && nums[indices[i]] <= nums[indices[j]]) {
-              // (j - (mid+1)) equals to how many items we have choosen from right half
-              count[indices[i]] += (j - 1 - mid);
-              cache[k++] = indices[i++];
-            } else {
-              cache[k++] = indices[j++];
-            }
-        }
-
-        for ( k = 0; k < n; ++k) {
-            indices[begin + k] = cache[k];
+    void merge_sort_on_indexes(const vector<int> &nums,
+                              vector<std::size_t> &indexes,
+                              vector<int> &count,
+                              std::size_t begin,
+                              std::size_t end) {
+        if (begin + 1< end) {
+            std::size_t mid = begin + (end - begin) / 2;
+            merge_sort_on_indexes(nums, indexes, count, begin, mid);
+            merge_sort_on_indexes(nums, indexes, count, mid, end);
+            merge_on_indexes(nums, indexes, count, begin, mid, end);
         }
     }
     
-    void mergeSortOnIndices(const vector<int> &nums,
-                        vector<int> &indices,
-                        vector<int> &count,
-                        const std::size_t begin,
-                        const std::size_t end) {
-      if (begin < end) {
-        const std::size_t mid = begin + (end - begin) / 2;
-        mergeSortOnIndices(nums, indices, count, begin, mid);
-        mergeSortOnIndices(nums, indices, count, mid + 1, end);
-
-        mergeOnIndices(nums, indices, count, begin, mid, end);
-      }
-}
-public:
-    vector<int> countSmaller(vector<int>& nums) {
-        if (nums.empty()) return vector<int>();
-        const std::size_t n = nums.size();
-        vector<int> count(n, 0); // Record smaller number count after itself
-        vector<int> indices(n, 0); // The sorted indices based on numbers
-        std::iota(indices.begin(), indices.end(), 0);
-        mergeSortOnIndices(nums, indices, count, 0, n - 1);
-        return count;
+    // Notice here that since we are doing merge_sort on indexes,
+    // 'begin', 'mid', 'end' here represent the index in 'indexes'.
+    //  You can think 'indexes' as a mapping to original index.
+    void merge_on_indexes(const vector<int> &nums,
+                          vector<std::size_t> &indexes,
+                          vector<int> &count,
+                          std::size_t begin,
+                          std::size_t mid,
+                          std::size_t end) {
+        vector<int> cache(end - begin, 0); // Store the merged indexes
+        
+        std::size_t index(0), left(begin), right(mid), added_right(0);
+        while (left < mid && right < end) {
+            if (nums[indexes[right]] < nums[indexes[left]]) {
+                // When we are pushing elements in right array, we don't need to
+                // update 'count' array, because the smaller count of right element
+                // will stay the same when merging with left array.
+                cache[index++] = indexes[right++];
+                ++ added_right; // one smaller number added to cache
+            } else {
+                // When we are pushing elements in left array, we need update 
+                // 'count' array with the count of smaller elements in right array
+                // merged so far.
+                count[indexes[left]] += added_right;
+                cache[index++] = indexes[left++];
+            }
+        }
+        
+        while (right < end)  cache[index++] = indexes[right++];
+        while (left < mid) {
+            count[indexes[left]] += added_right;
+            cache[index++] = indexes[left++];
+        }
+        
+        for (std::size_t i = 0; i < end - begin; ++i) {
+            indexes[begin + i] = cache[i];
+        }
     }
 };
 ```
