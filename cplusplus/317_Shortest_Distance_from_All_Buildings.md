@@ -100,7 +100,7 @@ void markWithBFS(vector<vector<int>> grid,
         distance[r][c] = distance[cur_pos.first][cur_pos.second] + 1;
         final_distance[r][c] += distance[r][c];
         ++ reach[r][c];
-        grid[r][c] = 2;
+        grid[r][c] = 2; // We mark the cell as visited with '2'
         positions.push(make_pair(r, c));
       }
     }
