@@ -66,9 +66,20 @@ int shortestDistance(vector<vector<int>> grid) {
 
 ### my solution
 
+Traverse the matrix. For each building, use BFS to compute the shortest distance from each building to
+empty space. After we do this for all the buildings, we can get the sum of shortest distance
+from every '0' to all reachable buildings. This value is stored
+in ```final_distance[][]```. For example, if ```grid[2][2] == 0```, ```final_distance[2][2]``` is the sum of shortest distance from this block to all reachable buildings.
 
+We also count how many building each '0' can be reached. It is stored in ```reach[][]```. This can be done during the BFS. We also need to count how many total buildings are there in the matrix, which is stored in 'total_building'.
+
+Finally, we can traverse the ```final_distance[][]``` matrix to get the point having shortest distance to all buildings. ```O(m*n)```.
+
+The total time complexity will be ```O(m^2*n^2)```, which is quite high!. 
 
 ```cpp
+// Notice here grid and distance are passed by value.
+// That's because wee need store the BFS information for each building.
 void markWithBFS(vector<vector<int>> grid,
                  vector<vector<int>> distance,
                  vector<vector<int>> &final_distance,
