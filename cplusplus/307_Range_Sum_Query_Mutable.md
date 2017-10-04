@@ -19,7 +19,10 @@ Range sum with _mutable_ elements, which means we need use either segment tree o
   
 ### Solution with segment tree
 
-  
+Maintain a balanced binary tree. Each node of the binary tree corresponds to some consecutive range. In particular, the root corresponds to the entire [1,n] range. Its left child corresponds to [1,n/2] range and the right child corresponds to [n/2+1,n] range and so on. More formally, if a node corresponds to a consecutive range [l,r], its left child corresponds to the range [l,l+(r-l)/2] and its right child corresponds to [l+(l-r)/2+1,r].
+
+For each segment tree node, we store _m_start_, _m_end_, and the sum of range [m\_start, m\_end]. Every leaf node's ```m_start == m_end```, and its value is the value of original element in the input array.
+  
 ```cpp
 class NumArray {
 public:
@@ -95,6 +98,10 @@ private:
 
 ### Solution with binary indexed tree
 
+For every binary indexed tree node, it's value includes it's owne value and the total sum of left children's value.
+
+
+
 ```cpp
 class NumArray {
 public:
@@ -138,3 +145,13 @@ private:
     
 };
 ```
+
+# Segment tree vs Fenwick tree(BIT)
+
+Here are the things to keep in mind while deciding whether to use segment tree or binary indexed tree:
+
+* Anything that can be done using a BIT can also be done using a segment tree : BIT stores cumulative quantities for certain intervals. Segment tree stores cumulative quantities for those intervals and more. In particular, if we are creating a data structure to deal with an array of size N=2^K, the BIT will have cumulative quantities for N intervals whereas the segment tree will have cumulative values for 2N-1 intervals
+* There are things that a segment tree can do but a BIT cannot : A BIT essentially works with cumulative quantities. When the cumulative quantity for interval [i..j] is required, it is found as the difference between cumulative quantities for [1...j] and [1...i-1]. This works only because addition has an inverse operation. You cannot do this if the operation is non-invertible (such as max). On the other hand, every interval on a segment tree can be found as union of disjoint intervals and no inverse operation is required
+* A BIT requires only half as much memory as a segment tree : In cases where you have masochistic memory constraints, you are almost stuck with using a BIT
+* Though BIT and segment tree operations are both O(log(n)), the segment tree operations have a larger constant factor : This should not matter for most cases. But once again, if you have masochistic time constraints, you might want to switch from a segment tree to a BIT. The constant factor might become more of a problem if the BIT/Segment tree is multidimensional.
+* With practice, coding either will be very fast : If you have coded a segment tree 100 times, you will get it very fast the next time you do it. So no need to worry about code being long.
