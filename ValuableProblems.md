@@ -1,5 +1,6 @@
 
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/280_Wiggle_Sort.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/307_Range_Sum_Query_Mutable.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/308_Range_Sum_Query_2D_Mutable.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/309_Best_Time_to_Buy_and_Sell_Stock_with_Cooldown.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/310_Minimum_Height_Trees.md
