@@ -21,11 +21,12 @@ Then the transaction sequences can end with any of these three states.
 
 For each of them we make an array, buy[n], sell[n] and rest[n].
   
-* buy[i] means before day i what is the maxProfit for any sequence end with buy.
-* sell[i] means before day i what is the maxProfit for any sequence end with sell.
-* rest[i] means before day i what is the maxProfit for any sequence end with rest.
+* buy[i] means before day i what is the maxProfit for any sequence end with buy (with trailing rest).
+* sell[i] means before day i what is the maxProfit for any sequence end with sell.(with trailing rest)
+* rest[i] means before day i what is the maxProfit for any sequence end with rest.(with trailing rest)
 
-  Then we want to deduce the transition functions for buy sell and rest. By definition we have:
+Then we want to deduce the transition functions for buy sell and rest. By definition we have:
+
 ```
 buy[i]  = max(rest[i-1]-price, buy[i-1]) 
 sell[i] = max(buy[i-1]+price, sell[i-1])
@@ -135,3 +136,34 @@ int maxProfit(vector<int>& prices) {
   return max(sold, rest);
 }
 ```
+
+### Q & A
+
+##### Q1 
+How did u come up with the state as "any sequence end with sell/buy/rest before i"? All I can think is something like
+"any sequence end with operation, and this operation happens at i".
+
+##### A1
+That's because buy[i] doesn't mean you must buy at day i. It only means you have to compare with the possibility of buy at day i and all other choices like buy at i-1 and rest at i.
+
+You must understand that this problem you can do as many transactions as you want. Not just one transaction.
+
+If you define buy[i] as the maxProfit of all the sequence buy at day i then when you sell at i+1 you have to look through all the buy array from 0 to i to get the maximum profit. This is algorithm is then O(n^2) not O(n) anymore.
+
+But you are right, it seems that rest[i] actually means rest at day i. So why rest is different than buy and sell?
+
+This is because rest don't change your profit.
+
+When we compare all the possible sequence, we are actually comparing with the sequence filled with trailing rests.
+
+when I say:
+
+buy[2] is max of [buy] [rest buy] [rest rest buy]
+
+it is equivalent to
+
+buy[2] is max of [buy rest rest] [rest buy rest] [rest rest buy]
+
+because the trailing rest has no effect on max profit
+
+then for rest[2] the trailing rest will always make it end with rest therefore it seems different then buy and sell
