@@ -100,9 +100,12 @@ private:
 
 For every binary indexed tree node, it's value includes it's owne value and the total sum of left children's value.
 
+Odd indexes are leaves nodes, even indexes are internal nodes.
+
 When updating value, we keep adding __last set bit__ to index in order to go upward to root node.
 
 When getting range sum, we keep minus __last set bit__ to index in order to go upward to root node.
+
 
 
 
