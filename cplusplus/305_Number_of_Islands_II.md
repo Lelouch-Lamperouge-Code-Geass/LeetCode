@@ -1,4 +1,4 @@
-A 2d grid map of m rows and n columns is initially filled with water. We may perform an addLand operation which turns the water at position (row, col) into a land. Given a list of positions to operate, count the number of islands after each addLand operation. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
+A 2d grid map of m rows and n columns is initially filled with water. We may perform an _addLand_ operation which turns the water at position (row, col) into a land. Given a list of positions to operate, count the number of islands after each addLand operation. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
 
 ##### Example:
 
@@ -112,7 +112,21 @@ int findRoot(int idx) {
 }
 ```
 
+# Summary
 
+To find the number of connected components. We can use:
+
+1. BFS
+2. DFS
+3. Union-find(disjoint-set)
+
+According to CLRS, When the edges of the graph are static—not changing over time—we can compute the connected components faster by using depth-first search.
+
+When the edges of the graph are dynamic – changing over time – DFS is not a good choice since it cannot be applied progressively, we need to use a data structure to represents the graph(represented in adjacent lists or adjacent matrix) first.
+
+And in this condition, we can compute the connected components faster by using union-find.
+
+__In summary, prefer using BFS or DFS when graph is static; prefer using union-find when graph is dynamic.__
 
 
 
