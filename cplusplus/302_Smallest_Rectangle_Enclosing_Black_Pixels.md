@@ -19,6 +19,10 @@ Return 6.
 
 # Solution
 
+Of course, you can check all the cells in the matrix and mark a flag for very row and column if a cell has black pixel, which has time complexity O(mn).
+
+However, we can do better than that because in the description, it gives out one location of black pixel.
+
 Suppose we have a 2D array
 
 ```
@@ -33,11 +37,13 @@ Imagine we project the 2D array to the bottom axis with the rule "if a column ha
 ``` "000001111100000"  ```
 
 ```
-Theorem : If there are only one black pixel region, then in a projected 1D array all the black pixels are connected.
+Theorem : If there are only one black pixel region, 
+  then in a projected 1D array all the black pixels are connected.
 
 Proof by contradiction
 
-Assume to the contrary that there are disconnected black pixels at i and j where i < j in the 1D projection array. 
+Assume to the contrary that there are disconnected black pixels at i and j 
+where i < j in the 1D projection array. 
 Thus there exists one column k, k in (i, j) and and the column k in the 2D array has no black pixel. 
 Therefore in the 2D array there exists at least 2 black pixel regions separated by column k 
 which contradicting the condition of "only one black pixel region".
