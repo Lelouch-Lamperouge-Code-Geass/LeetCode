@@ -1,5 +1,7 @@
 
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/280_Wiggle_Sort.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/302_Smallest_Rectangle_Enclosing_Black_Pixels.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/304_Range_Sum_Query_2D_Immutable.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/305_Number_of_Islands_II.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/307_Range_Sum_Query_Mutable.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/308_Range_Sum_Query_2D_Mutable.md
