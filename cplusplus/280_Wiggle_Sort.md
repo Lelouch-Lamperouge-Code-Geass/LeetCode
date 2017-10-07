@@ -45,7 +45,7 @@ public:
         int n = nums.size();
         for (int i = 1; i < n; i++)
             if (((i & 1) && nums[i] < nums[i - 1]) // odd index should >= previous number
-                || (!(i & 1) && nums[i] > nums[i - 1])) // even index should < previous number
+                || (!(i & 1) && nums[i] > nums[i - 1])) // even index should <= previous number
                 swap(nums[i], nums[i - 1]);
     } 
 };
