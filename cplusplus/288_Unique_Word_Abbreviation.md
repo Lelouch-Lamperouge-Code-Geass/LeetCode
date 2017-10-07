@@ -1,4 +1,5 @@
-An abbreviation of a word follows the form <first letter><number><last letter>. Below are some examples of word abbreviations:
+An abbreviation of a word follows the form <first letter><number><last letter>. 
+Below are some examples of word abbreviations:
 ```
 a) it                      --> it    (no abbreviation)
 
@@ -14,7 +15,8 @@ c) i|nternationalizatio|n  --> i18n
 d) l|ocalizatio|n          --> l10n
 ```
 
-Assume you have a dictionary and given a word, find whether its abbreviation is unique in the dictionary. A word's abbreviation is unique if no other word from the dictionary has the same abbreviation.
+Assume you have a dictionary and given a word, find whether its abbreviation is unique in the dictionary. 
+A word's abbreviation is unique if no other word from the dictionary has the same abbreviation.
 Example: 
 
 ```
@@ -34,13 +36,15 @@ We call a word’s abbreviation unique.
 EX:
 ```
 1) [“dog”]; isUnique(“dig”);   
-//False, because “dig” has the same abbreviation with “dog" and “dog” is already in the dictionary. It’s not unique.
+// False, because “dig” has the same abbreviation with “dog" and “dog” is already in the dictionary. 
+// It’s not unique.
 
 2) [“dog”, “dog"]; isUnique(“dog”);  
-//True, because “dog” is the only word that has “d1g” abbreviation.
+// True, because “dog” is the only word that has “d1g” abbreviation.
 
 3) [“dog”, “dig”]; isUnique(“dog”);   
-//False, because if we have more than one word match to the same abbreviation, this abbreviation will never be unique.
+// False, because if we have more than one word match to the same abbreviation, 
+// this abbreviation will never be unique.
 ```
 
 # Solution
@@ -61,7 +65,8 @@ public:
     bool isUnique(string word) {  
         int n = word.length();  
         string abbr = word[0] + to_string(n) + word[n - 1];  
-        return mp[abbr].count(word) == mp[abbr].size();   // If mp[abbr].size() > 1 or mp[abbr].count(word) == 0, will return false. 
+        return mp[abbr].count(word) == mp[abbr].size();   // If mp[abbr].size() > 1 or mp[abbr].count(word) == 0,
+                                                         // will return false. 
     }  
 private:  
     unordered_map<string, unordered_set<string>> mp;  
