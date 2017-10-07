@@ -1,4 +1,5 @@
-
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/274_H_Index.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/275_H_Index_II.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/276_Paint_Fence.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/279_Perfect_Squares.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/280_Wiggle_Sort.md
