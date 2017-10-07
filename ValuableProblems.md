@@ -1,5 +1,7 @@
 
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/280_Wiggle_Sort.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/295_find_median_from_data_stream.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/297_Serialize_and_Deserialize_Binary_Tree.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/301_Remove_Invalid_Parentheses.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/302_Smallest_Rectangle_Enclosing_Black_Pixels.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/304_Range_Sum_Query_2D_Immutable.md
