@@ -8,7 +8,7 @@ Note:
 
 # Solution
   
-### Solution one
+### Solution one, not meet second requirement.
 
   This solution doesn't meet the second requirement "Minimize the total number of operations", because there are a lot of swaps here.
   
@@ -29,7 +29,7 @@ public:
 };
 ```
 
-__What if the input vector's length can be larger than 2147483647 ? __
+__Use std::size_t instead of int.__
 
 ```cpp
 class Solution {
