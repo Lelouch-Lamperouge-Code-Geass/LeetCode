@@ -1,5 +1,9 @@
 
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/280_Wiggle_Sort.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/282_Expression_Add_Operators.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/285_Inorder_Successor_in_BST.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/286_Walls_and_Gates.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/289_Game_of_Life.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/295_find_median_from_data_stream.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/297_Serialize_and_Deserialize_Binary_Tree.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/301_Remove_Invalid_Parentheses.md
@@ -25,3 +29,9 @@ https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/329_Longest_Increas
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/332_Reconstruct_Itinerary.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/336_Palindrome_Pairs.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/340_Longest_Substring_with_At_Most_K_Distinct_Characters.md
+
+
+
+
+
+
