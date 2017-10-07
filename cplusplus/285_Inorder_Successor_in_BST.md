@@ -10,6 +10,16 @@ Initially, the suc is nullptr, and we are at root node. As long as we are moving
 
 Only in a balanced BST O(h) = O(log n). In the worst case h can be as large as n.
 
+```
+The idea is to compare root's value with p's value if root is not null, and consider the following two cases:
+
+1. root.val > p.val. In this case, root can be a possible answer, so we store the root node first and call it res. 
+However, we don't know if there is anymore node on root's left that is larger than p.val. So we move root to its left and check again.
+
+2. root.val <= p.val. In this case, root cannot be p's inorder successor, neither can root's left child. 
+So we only need to consider root's right child, thus we move root to its right and check again.
+```
+
 __Time complexity O(h), space complexity O(1)__
 
 ```cpp
@@ -20,11 +30,11 @@ public:
         
         TreeNode *suc = NULL;
         while (root != NULL) {
-            if (root->val <= p->val) {
-                root = root->right;
-            } else {
+            if (root->val > p->val) {
                 suc = root;
                 root = root->left;
+            } else {
+                root = root->right;
             }
         }
         
