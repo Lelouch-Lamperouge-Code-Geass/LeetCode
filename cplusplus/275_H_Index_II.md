@@ -3,29 +3,34 @@ Follow up for [H-Index](https://leetcode.com/problems/h-index/description/): Wha
 # Solution
   
                         
-Just binary search, each time check citations[mid]  :
-                        
-* case 1: citations[mid] == len-mid, then it means there are citations[mid] papers that have at least citations[mid] citations.  
-* case 2: citations[mid] > len-mid, then it means there are citations[mid] papers that have moret than citations[mid] citations, so we should continue searching in the left half  
-* case 3: citations[mid] < len-mid, we should continue searching in the right side
+We use two pinter to solve this problem: pointer l (low) and pointer h (high).
 
-After iteration, it is guaranteed that right+1 is the one we need to find (i.e. len-(right+1) papars have at least len-(righ+1) citations)  
+Say n = citations.length.
+Because the range of H-index is [0,n], at the beginning we must point high pointer after the last element of the array: h = n. In this way we can generate all possible value without worrying about annoying corner case.
+
+The rest is standard binary search, we find middle point m and compare citations[m] with n-m (n-m means number of papers has at least citations[m] citations.)
+
+1. citations[m] == n-m : we find the answer
+2. citations[m] < n-m : more papers has at least this number of citations we should raise the bar of citations so we go to the right part: l = m+1.
+3. citations[m] > n-m : we should lower the bar so we go to the left part: h = m.
+
+In the end l == r and the H-index is n-l. 
 
 ```cpp
 class Solution {
 public:
     int hIndex(vector<int>& citations) {
         int n_size(citations.size()),low(0), high(n_size-1);
-        while (low<=high) {
+        while (low <= high) {
             int mid = low + (high-low) / 2;
             int paper_num = n_size - mid;
-            if (paper_num==citations[mid]) {
-                return paper_num;
-            } else if (paper_num<citations[mid]) {
+            if (paper_num < citations[mid]) { 
                 high = mid - 1;
-            } else {
+            } else if (paper_num > citations[mid]) {
                 low = mid + 1;
-            }
+            } else { // paper_num==citations[mid]) {
+                return paper_num;
+            } 
         }
         return n_size-low;
     }
