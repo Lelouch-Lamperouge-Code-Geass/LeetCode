@@ -1,5 +1,8 @@
 
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/276_Paint_Fence.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/279_Perfect_Squares.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/280_Wiggle_Sort.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/281_Zigzag_Iterator.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/282_Expression_Add_Operators.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/285_Inorder_Successor_in_BST.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/286_Walls_and_Gates.md
