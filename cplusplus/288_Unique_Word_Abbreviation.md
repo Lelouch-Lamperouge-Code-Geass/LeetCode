@@ -47,7 +47,7 @@ EX:
 
 思路: 将字典中的单词按照缩写为key, 将具有相同缩写的放进一个hash表中. 当判断一个给定单词是否唯一的时候,可以先计算出其缩写, 然后去hash表中查, 如果hash表中这个缩写对应几个单词, 那么肯定是不唯一的, 如果只对应一个单词, 则看这个单词是不是我们要判断的单词, 如果是的话,则唯一, 否则不唯一. 如果这个缩写在hash表中没有对应单词, 那么肯定唯一了.
 
-```
+```cpp
 class ValidWordAbbr {  
 public:  
     ValidWordAbbr(vector<string> &dictionary) {  
@@ -61,7 +61,7 @@ public:
     bool isUnique(string word) {  
         int n = word.length();  
         string abbr = word[0] + to_string(n) + word[n - 1];  
-        return mp[abbr].count(word) == mp[abbr].size();   
+        return mp[abbr].count(word) == mp[abbr].size();   // If mp[abbr].size() > 1 or mp[abbr].count(word) == 0, will return false. 
     }  
 private:  
     unordered_map<string, unordered_set<string>> mp;  
