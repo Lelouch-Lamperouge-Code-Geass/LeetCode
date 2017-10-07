@@ -4,7 +4,7 @@ Follow up for [H-Index](https://leetcode.com/problems/h-index/description/): Wha
  
 ![alt](https://upload.wikimedia.org/wikipedia/commons/d/da/H-index-en.svg)
 
-Look at above chart, the difference from this description is that the citations array is sorted in __descending order__.
+Look at above chart, the difference from this description is that the citations array is sorted in __descending order__ in this chart.
 
                         
 We use two pinter to solve this problem: pointer l (low) and pointer h (high).
