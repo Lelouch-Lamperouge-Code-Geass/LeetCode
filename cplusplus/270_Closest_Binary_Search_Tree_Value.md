@@ -23,6 +23,9 @@ int closestValue(TreeNode* root, double target) {
 
 ### Solution two, iterative
 
+Walk the path down the tree close to the target, return the closest value on the path. 
+Think about why the cloests value is definitely on this path.
+
 ```cpp
 int closestValue(TreeNode* root, double target) {
     int closest = root->val;
