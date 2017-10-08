@@ -58,18 +58,15 @@ vector<int> closestKValues(TreeNode* root, double target, int k) {
 
 ### Solution two
 
-The idea is to compare the predecessors and successors of the closest node to the target, we can use two stacks to track the predecessors and successors, then like what we do in merge sort, we compare and pick the closest one to the target and put it to the result list.
-
-As we know, inorder traversal gives us sorted predecessors, whereas reverse-inorder traversal gives us sorted successors.
-
-We can use iterative inorder traversal rather than recursion, but to keep the code clean, here is the recursion version.
-
+The idea is to compare the predecessors and successors of the closest node to the target, we can use two stacks to track the predecessors and successors, then we compare and pick the closest one to the target and put it to the result list.
 
 Following the hint, I use a predecessor stack and successor stack. I do a logn traversal to initialize them until I reach the null node. Then I use the getPredecessor and getSuccessor method to pop k closest nodes and update the stacks.
 
 I think this is a O(k + logN) solution.
 
 According the follow up question, for a balanced BST, the size of "prec" and "suc" is bounded by logN. Each time, we call getPrec or getSuc, we may kind of shrink/enlarge the stack, but they are still bounded by logN. The amortized complexity will be O(1) for get, since we can consider it like "lazy traverse".
+
+
 
 ```java
 public class Solution {
@@ -83,9 +80,9 @@ public class Solution {
             getNextPredecessor(pred);
         }
         while(k-- > 0) {
-            if(succ.isEmpty()) {
+            if(succ.isEmpty()) { // No sucessor anymore
                 ret.add(getNextPredecessor(pred));
-            } else if(pred.isEmpty()) {
+            } else if(pred.isEmpty()) { // No predecessor anymore
                 ret.add(getNextSuccessor(succ));
             } else {
                 double succ_diff = Math.abs((double)succ.peek().val - target);
@@ -100,6 +97,7 @@ public class Solution {
         return ret;
     }
 
+    // Binary search, only add node to stack if its value is larger than target.
     private void initializeSuccessorStack(TreeNode root, double target, Stack<TreeNode> succ) {
         while(root != null) {
             if(root.val == target) {
@@ -114,6 +112,7 @@ public class Solution {
         }
     }
 
+     // Binary search, only add node to stack if its value is smaller than target.
     private void initializePredecessorStack(TreeNode root, double target, Stack<TreeNode> pred) {
         while(root != null){
             if(root.val == target){
