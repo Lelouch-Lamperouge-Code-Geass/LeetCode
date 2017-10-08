@@ -17,8 +17,8 @@ The keypoint is to make sure helper function can return
 ```
 
 ```java
-private final String[] LESS_THAN_20 = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", 
-"Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", 
+private final String[] LESS_THAN_20 = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", 
+"Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", 
 "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
 private final String[] TENS = {"", "Ten", "Twenty", "Thirty", "Forty",
 "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
@@ -59,10 +59,13 @@ C++ version.
 class Solution {
 private:
     vector<string> LESS_THAN_TWENTY = {
-          "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"   
+          "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight",
+          "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", 
+          "Sixteen", "Seventeen", "Eighteen", "Nineteen"   
     };
     vector<string> LESS_THAN_ONE_HUNDRED = {
-          "", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"  
+          "", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", 
+          "Eighty", "Ninety"  
     };
     vector<string> THOURSANDS = {
           "", "Thousand","Million","Billion"  
