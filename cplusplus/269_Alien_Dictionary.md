@@ -186,3 +186,19 @@ public String alienOrder(String[] words) {
     return result;
 }
 ```
+
+# Summary
+
+In the field of computer science, a topological sort or topological ordering of a directed graph is a linear ordering of its vertices such that for every directed edge uv from vertex u to vertex v, u comes before v in the ordering. For instance, the vertices of the graph may represent tasks to be performed, and the edges may represent constraints that one task must be performed before another; in this application, a topological ordering is just a valid sequence for the tasks. A topological ordering is possible if and only if the graph has no directed cycles, that is, if it is a directed acyclic graph (DAG). Any DAG has at least one topological ordering, and algorithms are known for constructing a topological ordering of any DAG in linear time.
+
+### Algorithms
+
+The usual algorithms for topological sorting have running time linear in the number of nodes plus the number of edges, asymptotically,  O(V+E).
+
+1. Kahn's algorithm
+2. An alternative algorithm for topological sorting is based on depth-first search. The algorithm loops through each node of the graph, in an arbitrary order, initiating a depth-first search that terminates when it hits any node that has already been visited since the beginning of the topological sort or the node has no outgoing edges.
+
+##### Kahn's algorithm vs BFS
+
+Thus the "queue" for topological sorting is really "any collection" structure and the ordering in this collection does not matter; it can be anything. The queue used for BFS on the other hand, is all about the order; so that it can accomplish its FIFO (first-in, first-out) task. Changing this ordering will ruin the BFS algorithm.
+
