@@ -1,3 +1,7 @@
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/256_Paint_House.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/259_3Sum_Smaller.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/261_Graph_Valid_Tree.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/265_Paint_House%20II.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/266%09_Palindrome_Permutation.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/267_Palindrome_Permutation_II.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/269_Alien_Dictionary.md
