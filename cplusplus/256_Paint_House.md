@@ -36,3 +36,15 @@ public:
     }   
 };
 ```
+
+# Knowledge
+
+In computer science, mathematics, management science, economics and bioinformatics, __dynamic programming (also known as dynamic optimization) is a method for solving a complex problem by breaking it down into a collection of simpler subproblems, solving each of those subproblems just once, and storing their solutions__. The next time the same subproblem occurs, instead of recomputing its solution, one simply looks up the previously computed solution, thereby saving computation time at the expense of a (hopefully) modest expenditure in storage space. (Each of the subproblem solutions is indexed in some way, typically based on the values of its input parameters, so as to facilitate its lookup.) The technique of storing solutions to subproblems instead of recomputing them is called __"memoization"__.
+
+Dynamic programming algorithms are often used for optimization. A dynamic programming algorithm will examine the previously solved subproblems and will combine their solutions to give the best solution for the given problem. In comparison, a greedy algorithm treats the solution as some sequence of steps and picks the locally optimal choice at each step. __Using a greedy algorithm does not guarantee an optimal solution, because picking locally optimal choices may result in a bad global solution, but it is often faster to calculate.__ Some greedy algorithms (such as Kruskal's or Prim's for minimum spanning trees) are however proven to lead to the optimal solution.
+
+From Wikipedia, dynamic programming is a method for solving a complex problem by breaking it down into a collection of simpler subproblems. As it said, _it’s very important to understand that the core of dynamic programming is breaking down a complex problem into simpler subproblems_.
+
+Dynamic programming is very similar to recursion. But when subproblems are solved for multiple times, dynamic programming utilizes memorization techniques (usually a memory table) to store results of subproblems so that same subproblem won’t be solved twice.
+
+* http://blog.gainlo.co/index.php/2015/10/22/a-step-by-step-guide-to-dynamic-programming/?utm_campaign=quora&utm_medium=What+are+systematic+ways+to+prepare+for+dynamic+programming%3F&utm_source=quora
