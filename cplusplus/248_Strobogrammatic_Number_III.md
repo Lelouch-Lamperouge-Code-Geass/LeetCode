@@ -11,6 +11,11 @@ Because the range might be a large number, the low and high numbers are represen
 
 # Solution
 
+1. Initialize an all-'0' string with length from low.size() to high.size(), e.g. "0000"
+2. Use two pointers, left and right position and try to fill left and right with mirror pairs
+3. Finally, when left is larger than right, which means that we have filled the whole string. Then we need to make sure 
+   the generated string is within range.
+
 ```cpp
 
 int strobogrammaticInRange(string low, string high) {
@@ -24,7 +29,7 @@ int strobogrammaticInRange(string low, string high) {
 }
 void dfs(string low, string high, string str, int left, int right, int &count, map<char, char> &mp) {
     if(left > right) {
-        // Makge sure generated string are within range
+        // Make sure generated string are within range
         if((str.length() == low.length() && str.compare(low) < 0) || 
            (str.length() == high.length() && str.compare(high) > 0)) return;
         count++; 
