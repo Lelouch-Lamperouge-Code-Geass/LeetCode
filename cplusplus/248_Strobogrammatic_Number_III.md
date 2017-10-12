@@ -14,7 +14,7 @@ Because the range might be a large number, the low and high numbers are represen
 1. Initialize an all-'0' string with length from low.size() to high.size(), e.g. "0000"
 2. Use two pointers, left and right position and try to fill left and right with mirror pairs
 3. Finally, when left is larger than right, which means that we have filled the whole string. Then we need to make sure 
-   the generated string is within range.
+   the generated string is within range. If it is, increase the count.
 
 ```cpp
 
