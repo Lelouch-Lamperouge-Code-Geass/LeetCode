@@ -80,6 +80,7 @@
 * 240 Search a 2D Matrix II 34.4% Medium
 * 246 Strobogrammatic Number 36.3% Easy
 * 247 Strobogrammatic Number II 34.1% Medium
+* 248 Strobogrammatic Number III
 * 249 Group Shifted Strings 31.3% Easy
 * 251 Flatten 2D Vector 33.8% Medium
 * 252 Meeting Rooms 41.6% Easy
