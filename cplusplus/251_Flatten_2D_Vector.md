@@ -50,3 +50,36 @@ public:
     }
 };
 ```
+
+My personal version.
+
+```cpp
+class Vector2D {
+public:
+  Vector2D(std::vector<std::vector<int>> &vec2d) : m_begin(vec2d.begin()), m_end(vec2d.end()), m_index(0){
+    
+  }
+  int next() {
+    hasNext();
+    return (*m_begin)[m_index++];
+  }
+  bool hasNext() {
+    while (m_index == m_begin->size() && m_begin != m_end) {
+      ++ m_begin;
+      m_index = 0;
+    }
+    return m_begin != m_end;
+  }
+private:
+  std::size_t m_index;
+  std::vector<std::vector<int>>::iterator m_begin, m_end;
+};
+void UnitTest() {
+  vector<vector<int>> vec2d = {{1,2}, {3},{},{},{}, {4,5,6},{7}};
+  Vector2D matrix(vec2d);
+  while (matrix.hasNext()) {
+    std::cout <<matrix.next() << std::endl;
+  }
+}
+
+```
