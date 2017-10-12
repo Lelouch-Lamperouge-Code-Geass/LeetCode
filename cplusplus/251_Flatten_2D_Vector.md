@@ -56,7 +56,8 @@ My personal version.
 ```cpp
 class Vector2D {
 public:
-  Vector2D(std::vector<std::vector<int>> &vec2d) : m_begin(vec2d.begin()), m_end(vec2d.end()), m_index(0){
+  Vector2D(std::vector<std::vector<int>> &vec2d) 
+    : m_begin(vec2d.begin()), m_end(vec2d.end()), m_index(0){
     
   }
   int next() {
