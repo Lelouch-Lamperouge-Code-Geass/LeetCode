@@ -146,6 +146,13 @@
 * 336 Palindrome Pairs 19.5% Hard
 * 340 Longest Substring with At Most K Distinct Characters 37.2% Hard
 * 341 Flatten Nested List Iterator 19.8% Medium
+* 377 Combination Sum IV 41.6% Medium
+* 380 Insert Delete GetRandom O(1) 38.3% Hard
+* 398 Random Pick Index 39.8% Medium
+* 404 Sum of Left Leaves 45.7% Easy
+* 410 Split Array Largest Sum 32.0% Hard
+* 461 Hamming Distance 73.0% Easy
+* 477 Total Hamming Distance 44.8% Medium
 
 
 
