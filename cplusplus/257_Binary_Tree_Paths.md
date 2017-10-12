@@ -18,6 +18,8 @@ All root-to-leaf paths are:
 
 # Solution
 
+The time complexity for the problem should be O(n), since we are basically visiting each node in the tree.
+
 ```cpp
 /**
  * Definition for a binary tree node.
