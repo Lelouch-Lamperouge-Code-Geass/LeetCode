@@ -15,6 +15,11 @@ Because the range might be a large number, the low and high numbers are represen
 2. Use two pointers, left and right position and try to fill left and right with mirror pairs
 3. Finally, when left is larger than right, which means that we have filled the whole string. Then we need to make sure 
    the generated string is within range. If it is, increase the count.
+   
+Note here we don't use the methology like "247 Strobogrammatic Number II", which is building the strings from bottom up, and 
+then check the string are within the range or not. This is because there are potentailly many redundant calculations there.
+
+Let's say the "low" string has length == 10, then we need to get length == 10 strings based on length < 10 strings(0 to 9), the time complexity is pretty bad.
 
 ```cpp
 
