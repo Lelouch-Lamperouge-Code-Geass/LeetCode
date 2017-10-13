@@ -23,6 +23,8 @@ Given target = 20, return false.
   
 # Solution
 
+__Note that the common mistake is ignoring the posssibility that a number at lower row can be larger than number at larger row. In this example, 19 is on row 2 and 9 is on row 3.__
+
 The most straightforward solution is to run binary search on each row, and its time complexity is O(row_size * log(col_size)).
 This will work but if you think about this solution, you will find that it only uses property 1, "Integers in each row are sorted". How about property 2? 
 
