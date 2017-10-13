@@ -72,12 +72,13 @@ https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/248_Strobogrammatic
 
 Just initialize the string with n '0', and fill it with left and right pointers.
 
-```
+```cpp
 void fillString(vector<string> &reval,
                 std::string & temp,
                 const int left,
                 const int right) {
-  static std::unordered_map<char, char> mapper = {{'0', '0'}, {'1', '1'}, {'6', '9'}, {'8', '8'}, {'9', '6'}};
+  static std::unordered_map<char, char> mapper 
+     = {{'0', '0'}, {'1', '1'}, {'6', '9'}, {'8', '8'}, {'9', '6'}};
   if (left > right) {
     reval.emplace_back(temp);
   } else {
