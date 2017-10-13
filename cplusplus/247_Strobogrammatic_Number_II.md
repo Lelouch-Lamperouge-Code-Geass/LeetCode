@@ -11,6 +11,8 @@ We are going to build a string of n length, what if we already know the n – 2 
 Note that in between we can add ‘0’ and ‘0’ but at the last chance, we don’t want to surround with ‘0’ and ‘0’. Because we don’t want a “0110” in the solution. This is not part of the description of the problem. But based on the example given above, it doesn’t contain “00” in the answer, so that’s how we can guess we should not contain ‘0’ and ‘0’.
 
 
+### Solution 1
+
 ```cpp
 class Solution {
 public:
@@ -22,7 +24,8 @@ public:
         if(m == 1) return vector<string>({"0", "1", "8"});
         vector<string> tmp = helper(m - 2, n), res;
         for(int i = 0; i < tmp.size(); i++){
-            if(m != n) res.push_back("0" + tmp[i] + "0"); //  "0" cannot be add to the leftmost and rightmost position.
+            //  "0" cannot be add to the leftmost and rightmost position.
+            if(m != n) res.push_back("0" + tmp[i] + "0"); 
             res.push_back("1" + tmp[i] + "1");
             res.push_back("6" + tmp[i] + "9");
             res.push_back("8" + tmp[i] + "8");
@@ -32,6 +35,8 @@ public:
     }
 };
 ```
+
+### Solution 2
 
 ```java
 // iterative version ^^
@@ -56,5 +61,40 @@ public class Solution {
         
         return ans;
     }
+}
+```
+
+### Solution 3
+
+We can use the same methology as 
+
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/248_Strobogrammatic_Number_III.md
+
+Just initialize the string with n '0', and fill it with left and right pointers.
+
+```
+void fillString(vector<string> &reval,
+                std::string & temp,
+                const int left,
+                const int right) {
+  static std::unordered_map<char, char> mapper = {{'0', '0'}, {'1', '1'}, {'6', '9'}, {'8', '8'}, {'9', '6'}};
+  if (left > right) {
+    reval.emplace_back(temp);
+  } else {
+    for (const std::pair<char, char> & p : mapper) {
+      //  "0" cannot be add to the leftmost and rightmost position.
+      if (temp.size() > 1 && left == 0 &&  p.first == '0') continue;
+      temp[left] = p.first;
+      temp[right] = p.second;
+      fillString(reval, temp, left + 1, right - 1);
+    }
+  }
+}
+
+vector<string> findStrobogrammatic(int n) {
+  std::string temp(n, '0');
+  vector<string> reval;
+  fillString(reval, temp, 0, n - 1);
+  return reval;
 }
 ```
