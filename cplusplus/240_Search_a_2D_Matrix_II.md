@@ -36,6 +36,8 @@ If you look at the matrix carefully, you will find that if we place a chess piec
   
 Let's say we place the chess piece on top-right corner, and begin to move it. And all numbers on its "left" are smaller than it, all numbers on its "right(bottom direction)" are larger than it. Therefore we can essentially do a binary search on a binary tree. It also works if we begin with bottom-left corner. It won't work if we place the chess piece on top-left and bottom-right, because it won't form a binary search tree.
 
+Here is the algorithm : We start search the matrix from top right corner, initialize the current position to top right corner, if the target is greater than the value in current position, then the target can not be in entire row of current position because the row is sorted, if the target is less than the value in current position, then the target can not in the entire column because the column is sorted too. We can rule out one row or one column each time, so the time complexity is O(m+n).
+
 __Time complexity O(row_size + col_size).__
   
 ```cpp
