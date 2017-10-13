@@ -16,18 +16,31 @@ Window position                Max
 ```
 
 Therefore, return the max sliding window as [3,3,5,5,6,7].
+
+##### Note: 
+
+You may assume k is always valid, ie: 1 ≤ k ≤ input array's size for non-empty array.
+
+##### Follow up:
+Could you solve it in linear time?
   
 # Solution
+
+One straightforward solution is use a k-size max-heap, the time complexity is O(n * log k). 
+
+In order to solve it in linear time, we need a better way to track the max numbers within the k-size window than heap.
+
+Basically, we notice that the heap stores every numbers within the window, while we also notice that for increasing sequences, the lower numbers are basically uselesss to us. Why ? Because the increasing sequence means that the smaller number is before the larger number, and when it goes out of the window, it has no impact the the max number at all. On the contrary, for decreasing sequence, the larger number goes before the smaller number, and when it is out of the window, we need ‘promote’ the smaller number. So you can say, "In the window, smaller numbers before larger numbers are useless to us and we don't need to store them. Smaller numbers after larger numbers might be the next max number". Be careful about the equal numbers, they can be the next max numbers when previous one goes out of window. Therefore, we just need to get rid of all the "increasing part" of the window.
   
 We scan the array from 0 to n-1, keep "promising" elements in the deque. The algorithm is amortized O(n) as each element is put and polled once.
 
 At each i, we keep "promising" elements, which are potentially max number in window [i-(k-1),i] or any subsequent window. This means
 
-If an element in the deque and it is out of i-(k-1), we discard them. We just need to poll from the head, as we are using a deque and elements are ordered as the sequence in the array
+1. If an element in the deque and it is out of i-(k-1), we discard them. We just need to poll from the head, as we are using a deque and elements are ordered as the sequence in the array
 
-Now only those elements within [i-(k-1),i] are in the deque. We then discard elements smaller than a[i] from the tail. This is because if a[x] <a[i] and x<i, then a[x] has no chance to be the "max" in [i-(k-1),i], or any other subsequent window: a[i] would always be a better candidate.
+2. Now only those elements within [i-(k-1),i] are in the deque. We then discard elements smaller than a[i] from the tail. This is because if a[x] <a[i] and x<i, then a[x] has no chance to be the "max" in [i-(k-1),i], or any other subsequent window: a[i] would always be a better candidate.
 
-As a result elements in the deque are ordered in both sequence in array and their value. At each step the head of the deque is the max element in [i-(k-1),i]
+3. As a result elements in the deque are ordered in both sequence in array and their value. At each step the head of the deque is the max element in [i-(k-1),i]
 
 
 ```cpp  
