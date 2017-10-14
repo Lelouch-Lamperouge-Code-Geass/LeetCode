@@ -43,9 +43,13 @@ public:
     stack<TreeNode*> my_stack;
     while(root || !my_stack.empty()){
       if(root){
+        // When root is not null and not took from stack,
+        // we know it is going downward in recursion.
         my_stack.push(root);
         root = root->left;
       } else {
+        // When root is null and need took from stack,
+        // we know it is going upward in recursion.
         root = my_stack.top();
         -- k;
         if(k==0) return root->val;
