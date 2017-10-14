@@ -3,6 +3,12 @@ Given a sorted integer array without duplicates, return the summary of its range
 For example, given [0,1,2,4,5,7], return ["0->2","4->5","7"].
 
 # Solution
+
+1. You need to know how to handle when  
+ i) start == end  
+ ii) start -> end  
+2. One corner case is that the last range is often ignored by people since it goes out of the for loop.
+
  
 ```cpp
 
@@ -29,7 +35,8 @@ public:
     
 private:
     std::string generateRangeString(int start, int end) {
-        return start == end ? std::to_string(start) : std::to_string(start) + "->" + std::to_string(end);
+        return start == end ? std::to_string(start) 
+         : std::to_string(start) + "->" + std::to_string(end);
     }
 };
 ```
