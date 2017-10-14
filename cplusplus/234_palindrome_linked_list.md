@@ -4,6 +4,10 @@ Follow up:
 Could you do it in O(n) time and O(1) space?
 
 # Solution  
+
+1. We need revert the reversed list back, that's what most developers usually forget.
+2. You can't use recursion, since it is not O(1) space complexity.
+3. You need set the tail node of left half to have nullptr next when compare two half. Otherwise it will have a problem.
   
 ```cpp
 /**
@@ -41,7 +45,7 @@ public:
               left && right; left = left->next, right = right->next) {
             if (left->val != right->val) {
                 reval = false;
-                reverseList(right); //reverse back
+                reverseList(fast); //reverse back
                 break;
             }
         }
