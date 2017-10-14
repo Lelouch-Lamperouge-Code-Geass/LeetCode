@@ -11,7 +11,7 @@ Return 4.
 
 
 # Solution
-Well, this problem desires for the use of dynamic programming. They key to any DP problem is to come up with the state equation. In this problem, we define the state to be the maximal size of the square that can be achieved at point (i, j), denoted as P[i][j]. Remember that we use size instead of square as the state (square = size^2).
+Well, this problem desires for the use of dynamic programming. They key to any DP problem is to come up with the state equation. In this problem, we define the state to be the maximal size of the square that can be achieved at point (i, j), denoted as P[i][j]. Remember that we use size instead of square as the state (square = size^2). (Using square instead of side length still works, but you will find that you still need square side length when calculate it during dynamic programming),
 
 Now let's try to come up with the formula for P[i][j].
 
