@@ -152,16 +152,24 @@ c a t a c b # b c a t a c
 class Solution {
 public:
     string shortestPalindrome(string s) {
-        string rev(s.rbegin(),s.rend()); // get reverse string
-        const std::size_t s_size(s.size());
-        std::size_t len(s_size + 1);// the minimum suffix length from the reverse string we need to add before s
-        while (len -- > 0) {
-          if (s.substr(0, len) == rev.substr(s_size - len)) break;
+        string rev_s(s.rbegin(), s.rend());
+        
+        std::size_t index(0);
+        for (std::size_t n = s.size(), len = n; len > 0; --len) {
+            if (s.substr(0, len) == rev_s.substr(n - len)) {
+                index = n - len;
+                break;
+            }
         }
-        return rev.substr(0, s_size - len) + s;
-    }   
+        
+        return rev_s.substr(0, index) + s;
+    }
 };
 ```
+
+The problem with this solution is that it is not efficient enough.
+
+Let's use N to represent the length of input string, then the for loop takes O(N). And inside the for loop, each substr function call takes worst O(N). So the time complexity is O(N^2).
 
 ##### Solution 2
 
