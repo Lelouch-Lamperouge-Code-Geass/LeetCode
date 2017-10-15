@@ -238,12 +238,12 @@ public:
     string shortestPalindrome(string s) {
         std::string rev_s(s.rbegin(),s.rend());
         std::string ss(s + '#' + rev_s);
-        std::size_t common_prefix_suffix_len =  GetCommonPrefixSuffixLength(ss);
-        return rev_s.substr(0, s.size() - common_prefix_suffix_len) + s;
+        std::size_t common_proper_prefix_suffix_len =  GetCommonProperPrefixSuffixLength(ss);
+        return rev_s.substr(0, s.size() - common_proper_prefix_suffix_len) + s;
     }
     
 private:
-    std::size_t GetCommonPrefixSuffixLength(const std::string &str) {
+    std::size_t GetCommonProperPrefixSuffixLength(const std::string &str) {
         if (str.empty()) return 0;
         std::size_t prefix_index(0), suffix_index(1);
         const std::size_t str_size(str.size());
