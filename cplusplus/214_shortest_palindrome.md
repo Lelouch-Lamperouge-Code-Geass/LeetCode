@@ -9,13 +9,23 @@ Given "abcd", return "dcbabcd".
 ```
 
 # Solution
+
+http://jakeboxer.com/blog/2009/12/13/the-knuth-morris-pratt-algorithm-in-my-own-words/
+
 Firstly, let me share my understanding of KMP algorithm.  
-The key of KMP is to build a look up table that records the match result of prefix and postfix.  
-Value in the table means the max len of matching substring that exists in both prefix and postfix.  
-In the prefix this substring should starts from 0, while in the postfix this substring should ends at current index.  
+The key of KMP is to build a look up table that records the match result of __proper prefix__ and __preper postfix__.
+
+* __Proper prefix__: All the characters in a string, with one or more cut off the end. “S”, “Sn”, “Sna”, and “Snap” are all the proper prefixes of “Snape”.
+* __Proper suffix__: All the characters in a string, with one or more cut off the beginning. “agrid”, “grid”, “rid”, “id”, and “d” are all proper suffixes of “Hagrid”.
+
+_String can be prefix and suffix of itself, but it is not a proper prefix and proper suffix._
+
+Value in the table means the max len of matching substring that exists in both proper prefix and proper postfix.  
+In the proper prefix this substring should starts from 0, while in the proper postfix this substring should ends at current index.  
 
 For example, now we have a string "ababc"  
 The KMP table will look like this:  
+
 ```
 a b a b c
 
@@ -26,7 +36,7 @@ a b a b c
 
 So how does this table help us search string match faster?
 
-Well, the answer is if we are trying to match a char after postfix with target string and failed, then we can smartly shift the string, so that the matching string in prefix will replace postfix and now we can try to match the char after prefix with this char in target.
+Well, the answer is if we are trying to match a char after proper postfix with target string and failed, then we can smartly shift the string, so that the matching string in proper prefix will replace proper postfix and now we can try to match the char after proper prefix with this char in target.
 
 Take above string as an example.
 
