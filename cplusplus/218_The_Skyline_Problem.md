@@ -43,24 +43,29 @@ __Space Complexity: O(n)__
 class Solution {
 public:
     vector<pair<int, int>> getSkyline(vector<vector<int>>& buildings) {
-        pair<int,int> curr({0,0});
-        vector<pair<int,int>> result;
-        multiset<pair<int,int>> seq;
-        for(auto p:buildings){
-            seq.emplace(make_pair(p[0],-p[2]));
-            seq.emplace(make_pair(p[1],p[2]));
+        multiset<pair<int,int>> points;
+        for (const vector<int> &building : buildings) {
+            points.emplace(std::make_pair(building[0], -building[2])); // Insert begin point
+            points.emplace(std::make_pair(building[1], building[2])); // Insert end point
         }
-        multiset<int> height({0});
-        for(auto p:seq){
-            if(p.second<0)height.emplace(-p.second);
-            else height.erase(height.find(p.second));
-            if(*height.rbegin()!=curr.second){
-                curr.first=p.first;
-                curr.second=*height.rbegin();
-                result.push_back(curr);
+        
+        vector<pair<int, int>> reval;
+        int cur_max_height(0);
+        multiset<int> max_height_heap({0}); // Important to add 0 here
+        for (const pair<int,int> &point : points) {
+            if (point.second < 0) { // New building comes in!
+                max_height_heap.emplace(-point.second);
+            } else { // Building is out of scope, remove it from heap!
+                max_height_heap.erase(max_height_heap.find(point.second));
+            }
+            
+            int heap_max_height = *max_height_heap.rbegin();
+            if (heap_max_height != cur_max_height) {
+                cur_max_height = heap_max_height;
+                reval.emplace_back(point.first, cur_max_height);
             }
         }
-        return result;
+        return reval;
     }
 };
 ```
