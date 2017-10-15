@@ -1,5 +1,7 @@
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/008_String_to_Integer.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/003_Longest_Substring_Without_Repeating_Characters.md 
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/210_Course_Schedule_II.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/211_Add_and_Search_Word.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/212_Word_Search_II.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/214_shortest_palindrome.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/224_basic_calculator.md
