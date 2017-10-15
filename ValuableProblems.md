@@ -1,5 +1,8 @@
-
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/008_String_to_Integer.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/003_Longest_Substring_Without_Repeating_Characters.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/224_basic_calculator.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/227_basic_calculator_ii.cpp
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/230_kth_smallest_element_in_bst.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/234_palindrome_linked_list.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/235_Lowest_Common_Ancestor_of_a_Binary_Search_Tree.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/236_Lowest_Common_Ancestor_of_a_Binary_Tree.md  
