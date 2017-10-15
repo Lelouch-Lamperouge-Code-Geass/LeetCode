@@ -1,5 +1,8 @@
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/003_Longest_Substring_Without_Repeating_Characters.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/008_String_to_Integer.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/173_Binary_Search_Tree_Iterator.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/206_Reverse_Linked_List.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/208_Implement_Trie.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/209_Minimum_Size_Subarray_Sum.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/210_Course_Schedule_II.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/211_Add_and_Search_Word.md   
