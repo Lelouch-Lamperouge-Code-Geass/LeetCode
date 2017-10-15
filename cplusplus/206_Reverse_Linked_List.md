@@ -9,7 +9,7 @@ A linked list can be reversed either iteratively or recursively. Could you imple
 
 Iterative solution.
 
-```
+```cpp
 /**
  * Definition for singly-linked list.
  * struct ListNode {
