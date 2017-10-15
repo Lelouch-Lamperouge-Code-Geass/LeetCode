@@ -32,6 +32,8 @@ Now let's briefly write down the algorithm before writing our codes.
 5. Repeat 2.
   
 Now let's turn it into code.
+
+__The algorithm has average O(N) time, but worst case is O(N^2).__
   
 ```cpp
 class Solution {
