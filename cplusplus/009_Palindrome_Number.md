@@ -18,6 +18,7 @@ There are below corner cases you need to consider:
 
 1. x < 0
 2. x has tailing 0, e.g. 100
+  
 
 ```cpp
 class Solution {
