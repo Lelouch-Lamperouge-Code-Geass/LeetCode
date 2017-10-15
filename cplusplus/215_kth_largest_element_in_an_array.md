@@ -111,3 +111,15 @@ public:
 
 };
 ```
+
+# Knowledge
+
+### std::nth_element implementations complexities
+
+The expected running time is O(N) The worst case running time for most implemententations is O(N * N) because most implementations use QuickSelect and it could be that QuickSelect runs into bad partitions. 
+
+Now with the new ISO C++ 2011 standard, the complexity for std::sort has been tightened up - it is guaranteed to be O(N * log N) and has no worse case as David Musser's IntroSort is used: - use QuickSort and if parts of the array experience bad partitioning, swap to heapsort.
+
+Ideally exactly the same should apply std::nth_element but the ISO C++ 2011 standard has not tightened up the complexity requirements. So std::nth_element could be O(N * N) in the worst case. This could be because in David Musser's original paper (see here) he did not mention what algorithm should be swapped to if QuickSelect goes bad.
+
+In the worst case, the median-of-medians using groups of 5 could be used (I have seen a paper the recommended groups of 7 but cannot find it). So a quality implementation of std::nth_element could use QuickSelect and swap to median-of-medians if partitioning goes bad. This would guarantee O(N) behaviour. QuickSelect can be improved by using sampling making the worst case unlikely but not impossible.
