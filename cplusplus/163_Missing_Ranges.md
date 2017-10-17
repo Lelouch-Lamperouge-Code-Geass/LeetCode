@@ -30,3 +30,52 @@ public:
     }
 };
 ```
+
+### Follow-up
+
+What if lower can be larger than the smallest number or upper can be smaller than the biggest number in the array?
+
+Simple, adjust the range first and then reuse above solution.
+
+```cpp
+std::string get_range(int start, int end){
+  ostringstream oss;
+  oss << start;
+  if (start != end) oss << "->" << end;
+  return oss.str();
+}
+
+
+vector<int> adjust_range(vector<int>& nums, int lower, int upper) {
+  vector<int> reval;
+  for (int num : nums) {
+    if (num >= lower && num <= upper) {
+      reval.emplace_back(num);
+    }
+  }
+  return reval;
+}
+
+vector<string> findMissingRanges(vector<int>& numbers, int lower, int upper) {
+  vector<string> reval;
+  vector<int> nums = adjust_range(numbers, lower, upper);
+  int pre = lower - 1;
+  for (std::size_t i = 0, n = nums.size(); i <= n; ++ i) {
+    int cur = i == n ? upper + 1: nums[i];
+    
+    if (cur != pre + 1) {
+      reval.emplace_back( get_range(pre + 1, cur - 1));
+    }
+    pre = cur;
+  }
+  return reval;
+}
+
+void UnitTest() {
+  vector<int> nums = {-5,1,3,50,75};
+  vector<string> res = findMissingRanges(nums, -10, 70);
+  for (string s : res) {
+    std::cout << s << std::endl;
+  }
+}
+```
