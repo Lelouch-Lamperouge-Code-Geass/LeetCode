@@ -87,4 +87,27 @@
 410 Split Array Largest Sum 32.0% Hard
 461 Hamming Distance 73.0% Easy
 477 Total Hamming Distance 44.8% Medium
+494     Target Sum    43.4%Medium
+523     Continuous Subarray Sum 23.1%   Medium
+525     Contiguous Array   40.4%Medium
+534     Design TinyURL  0.0%    Medium
+535     Encode and Decode TinyURL       74.2%   Medium
+543     Diameter of Binary Tree   44.4% Easy
+554     Brick Wall  45.7%       Medium
+572     Subtree of Another Tree       40.8%     Easy
+578     Get Highest Answer Rate Question28.2%   Medium
+597     Friend Requests I: Overall Acceptance Rate      36.0%   Easy
+602     Friend Requests II: Who Has the Most Friends    42.0%   Medium
+621     Task Scheduler     42.2%Medium
+636     Exclusive Time of Functions     43.0%   Medium
+637     Average of Levels in Binary Tree    55.8%       Easy
+639     Decode Ways II     23.6%Hard
+642     Design Search Autocomplete System       30.1%   Hard
+647     Palindromic Substrings  55.8%   Medium
+653     Two Sum IV - Input is a BST 50.7%       Easy
+670     Maximum Swap   38.3%    Medium
+673     Number of Longest Increasing Subsequence31.0%   Medium
+674     Longest Continuous Increasing Subsequence       43.0%   Easy
+680     Valid Palindrome II31.9%Easy
+689     Maximum Sum of 3 Non-Overlapping Subarrays      42.8%   Hard
 ```
