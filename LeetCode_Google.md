@@ -147,4 +147,70 @@
 471 Encode String with Shortest Length 43.5% Hard
 474 Ones and Zeroes 35.4% Medium
 475 Heaters 30.5% Easy
+480     Sliding Window Median31.3%      Hard
+481     Magical String 45.4% Medium
+482     License Key Formatting 41.6%   Medium
+483     Smallest Good Base   33.3%      Hard
+484     Find Permutation    55.0%       Medium
+485     Max Consecutive Ones 54.0%      Easy
+486     Predict the Winner  45.1%       Medium
+487     Max Consecutive Ones II      45.4%      Medium
+490     The Maze  43.2% Medium
+493     Reverse Pairs   20.6%Hard
+494     Target Sum   43.4%    Medium
+498     Diagonal Traverse   45.9%       Medium
+501     Find Mode in Binary Search Tree  37.7%  Easy
+503     Next Greater Element II47.1%    Medium
+505     The Maze II      37.7%  Medium
+506     Relative Ranks     46.5%  Easy
+514     Freedom Trail      39.2%  Hard
+520     Detect Capital     51.9%  Easy
+521     Longest Uncommon Subsequence I  55.7%   Easy
+522     Longest Uncommon Subsequence II 31.8%   Medium
+524     Longest Word in Dictionary through Deleting     42.9%   Medium
+526     Beautiful Arrangement54.5%      Medium
+527     Word Abbreviation    42.0%      Hard
+530     Minimum Absolute Difference in BST      47.3%   Easy
+531     Lonely Pixel I       55.3% Medium
+533     Lonely Pixel II      44.2% Medium
+534     Design TinyURL  0.0%    Medium
+535     Encode and Decode TinyURL  74.2%Medium
+541     Reverse String II 43.6%    Easy
+542     01 Matrix    33.3%  Medium
+543     Diameter of Binary Tree 44.4%   Easy
+544     Output Contest Matches   71.0%  Medium
+545     Boundary of Binary Tree  31.6%  Medium
+549     Binary Tree Longest Consecutive Sequence II     41.2%   Medium
+551     Student Attendance Record I      44.0%  Easy
+552     Student Attendance Record II    31.4%   Hard
+560     Subarray Sum Equals K     40.2% Medium
+562     Longest Line of Consecutive One in Matrix       40.5%   Medium
+568     Maximum Vacation Days    39.9%  Hard
+569     Median Employee Salary    33.5% Hard
+581     Shortest Unsorted Continuous Subarray   29.5%   Easy
+583     Delete Operation for Two Strings44.0%   Medium
+587     Erect the Fence    32.4%Hard
+604     Design Compressed String Iterator       32.4%   Easy
+616     Add Bold Tag in String  38.7%   Medium
+638     Shopping Offers   42.9%  Medium
+643     Maximum Average Subarray I      37.7%   Easy
+644     Maximum Average Subarray II     22.1%   Hard
+651     4 Keys Keyboard  47.9%  Medium
+652     Find Duplicate Subtrees 34.9%   Medium
+656     Coin Path24.6%  Hard
+657     Judge Route Circle       68.5%  Easy
+658     Find K Closest Elements  35.7%  Medium
+659     Split Array into Consecutive Subsequences       35.6%   Medium
+665     Non-decreasing Array 21.3%      Easy
+667     Beautiful Arrangement II     51.9%      Medium
+668     Kth Smallest Number in Multiplication Table     37.0%   Hard
+676     Implement Magic Dictionary    50.0%     Medium
+679     24 Game 38.6%  Hard
+681     Next Closest Time       42.9%   Medium
+683     K Empty Slots    37.2%  Hard
+684     Redundant Connection    35.7%   Medium
+685     Redundant Connection II       29.0%     Hard
+686     Repeated String Match 30.4%     Easy
+687     Longest Univalue Path   32.4%   Easy
+689     Maximum Sum of 3 Non-Overlapping Subarrays      42.8%   Hard
 ```
