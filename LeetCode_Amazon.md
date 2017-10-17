@@ -52,4 +52,31 @@
 451 Sort Characters By Frequency 50.8% Medium
 459 Repeated Substring Pattern 39.7% Easy
 460 LFU Cache 18.7% Hard
+508     Most Frequent Subtree Sum       52.3%   Medium
+516     Longest Palindromic Subsequence 42.6%   Medium
+517     Super Washing Machines    36.5% Hard
+529     Minesweeper  49.5%  Medium
+532     K-diff Pairs in an Array     28.2%      Easy
+534     Design TinyURL  0.0%    Medium
+535     Encode and Decode TinyURL       74.2%   Medium
+536     Construct Binary Tree from String       42.6%   Medium
+537     Complex Number Multiplication   64.0%   Medium
+538     Convert BST to Greater Tree     49.4%   Easy
+545     Boundary of Binary Tree 31.6%   Medium
+553     Optimal Division55.1%   Medium
+579     Find Cumulative Salary of an Employee   24.2%   Hard
+606     Construct String from Binary Tree       49.8%   Easy
+617     Merge Two Binary Trees  68.0%   Easy
+640     Solve the Equation    39.1%     Medium
+645     Set Mismatch  40.4%     Easy
+646     Maximum Length of Pair Chain    47.7%   Medium
+661     Image Smoother45.8%     Easy
+662     Maximum Width of Binary Tree    37.6%   Medium
+663     Equal Tree Partition    36.6%   Medium
+675     Cut Off Trees for Golf Event    27.1%   Hard
+682     Baseball Game     59.0% Easy
+692     Top K Frequent Words   41.9% Medium
+694     Number of Distinct Islands      43.4%   Medium
+711     Number of Distinct Islands II   24.2%   Hard
+
 ```
