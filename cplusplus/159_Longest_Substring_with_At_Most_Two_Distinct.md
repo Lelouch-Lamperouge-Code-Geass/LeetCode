@@ -30,3 +30,36 @@ int lengthOfLongestSubstringTwoDistinct(string s) {
     return len;
 }
 ```
+
+
+### A full version
+
+```cpp
+int lengthOfLongestSubstringTwoDistinct(string s) {
+  int distinct_count(0);
+  std::vector<std::size_t> counter(256, 0);
+  std::size_t start(0), max_len(0);
+  for (std::size_t i = 0, n = s.size(); i < n; ++i) {
+    if (counter[s[i]]++ == 0) {
+      ++ distinct_count;
+    }
+
+    while (distinct_count > 2) {
+      if (--counter[s[start]] == 0) {
+        -- distinct_count;
+      }
+      ++ start;
+    }
+
+    max_len = std::max(max_len, i - start + 1);
+  }
+  
+  return max_len;
+}
+void UnitTest() {
+  assert(lengthOfLongestSubstringTwoDistinct("eceba") == 3);
+  assert(lengthOfLongestSubstringTwoDistinct("eccebbbe") == 5);
+  assert(lengthOfLongestSubstringTwoDistinct("abccaab") == 4);
+}
+
+```
