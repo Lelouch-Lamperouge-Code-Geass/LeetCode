@@ -6,56 +6,34 @@ T is "ece" which its length is 3.
   
 # Solution
 
-### Solution by other  
-
 __Time complexity O(n), space complexity O(1).__
 
 ```cpp
-int lengthOfLongestSubstringKDistinct(string s, int k) {
-  int ctr[256] = {}, j = -1, distinct = 0, maxlen = 0;
-  for (int i=0; i<s.size(); ++i) {
-    distinct += ctr[s[i]]++ == 0;
-    while (distinct > k)
-      distinct -= --ctr[s[++j]] == 0;
-    maxlen = max(maxlen, i - j);
-  }
-  return maxlen;
-}
-```
+class Solution {
+public:
+    int lengthOfLongestSubstringKDistinct(string s, int k) {
+          int distinct_count(0);
+          std::vector<std::size_t> counter(256, 0);
+          std::size_t start(0), max_len(0);
+          for (std::size_t i = 0, n = s.size(); i < n; ++i) {
+            if (counter[s[i]]++ == 0) {
+              ++ distinct_count;
+            }
 
-### Solution by myself
+            while (distinct_count > k) {
+              if (--counter[s[start]] == 0) {
+                -- distinct_count;
+              }
+              ++ start;
+            }
 
-__Time complexity O(n), space complexity O(1).__
+            max_len = std::max(max_len, i - start + 1);
+          }
 
-```cpp
-int lengthOfLongestSubstringKDistinct(string s, int k) {
-  if (s.empty() || k <= 0) return 0;
-  std::vector<int> counter(256, 0);
-  std::size_t start(0), max_len(0);
-  int distinct(0);
-  for (std::size_t i = 0, n = s.size(); i < n; ++i) {
-    if (counter[s[i]] == 0) ++ distinct;
-    ++ counter[s[i]];
-    while (distinct > k) {
-      --counter[s[start]];
-      if (counter[s[start]] == 0) -- distinct;
-      ++ start;
+          return max_len;
     }
-    max_len = std::max(max_len, i - start + 1);
-  }
-
-  return max_len;
-}
-
-void UnitTest() {
-  assert(lengthOfLongestSubstringKDistinct("eceba", 2) == 3);
-  assert(lengthOfLongestSubstringKDistinct("abcdbcfde", 3) == 5);
-  assert(lengthOfLongestSubstringKDistinct("abcde", 2) == 2);
-  assert(lengthOfLongestSubstringKDistinct("", 10) == 0);
-  assert(lengthOfLongestSubstringKDistinct("aaaaa", -1) == 0);
-}
+};
 ```
-
 
 # Follow-up
 
