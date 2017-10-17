@@ -11,7 +11,7 @@ This question belong to the same category as those such as "longest substring wi
 ```cpp
 class Solution {
 public:
-    int lengthOfLongestSubstringKDistinct(string s, int k) {
+    int lengthOfLongestSubstringTwoDistinct(string s) {
           int distinct_count(0);
           std::vector<std::size_t> counter(256, 0);
           std::size_t start(0), max_len(0);
@@ -20,7 +20,7 @@ public:
               ++ distinct_count;
             }
 
-            while (distinct_count > k) {
+            while (distinct_count > 2) {
               if (--counter[s[start]] == 0) {
                 -- distinct_count;
               }
