@@ -62,3 +62,7 @@ public:
     }
 };
 ```
+
+# Pitfall
+
+Note that C++ std::to\_string can't handle negative integer.
