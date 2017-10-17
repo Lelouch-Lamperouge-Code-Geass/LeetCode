@@ -4,6 +4,10 @@ For example, given [0, 1, 3, 50, 75], lower = 0 and upper = 99, return ["2", "4-
 
 # Solution
 
+Note that in the description "a sorted integer array where the range of elements are [lower, upper] inclusive",  itmade it clear that the elements will be between lower and upper.
+
+Otherwise we need to handle when lower is larger than the smallest number or the upper is bigger than the biggest number in the array.
+
 ```cpp
 class Solution {
 public:
