@@ -11,7 +11,26 @@ For example, in array [1, 2, 3, 1], 3 is a peak element and your function should
 Your solution should be in logarithmic complexity.
   
 # Solution
-  
+
+It's easy to know this problem can be solve by using binary search.
+
+The problem is that we can't compare nums[mid] with nums[low] or nums[high] to narrow down range.
+
+Why ? 
+
+1. Let's assume nums[mid] > nums[high], does that mean there is definitely a peak between [low, mid] ? NO!
+   Does that mean there is definitely a peak between [mid, high] ? NO!
+2. Same for nums[mid] < nums[high].  
+
+While if we choose to compare nums[mid] with nums[mid + 1]:
+
+1. If nums[mid] > nums[mid + 1], there is definitely a peak between [low, mid].
+2. If nums[mid] < nums[mid + 1], there is definitely a peak between [mid+1, high].  
+3. Note that nums[mid] can't be the same as nums[mid + 1].  
+
+By comparing nums[mid] with its neighbor, we can know the slope is going upward or downward, which indicates where we can find a peak.
+
+
 I find it useful to reason about binary search problems using invariants.
 
 Assume we initialize left = 0, right = nums.length - 1. The invariant I'm using is the following:
