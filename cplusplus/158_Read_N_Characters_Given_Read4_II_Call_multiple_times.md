@@ -23,33 +23,40 @@ read(buf, 3); // should return 'b, c, d'
 
 All the 4 chars will be consumed in the first call. So the tricky part of this question is how can you preserve the remaining 'b, c, d' to the second call.
 
-```jave
-/* The read4 API is defined in the parent class Reader4.
-      int read4(char[] buf); */
+```cpp
+// Forward declaration of the read4 API.
+int read4(char *buf);
 
-public class Solution extends Reader4 {
+class Solution {
+public:
     /**
      * @param buf Destination buffer
      * @param n   Maximum number of characters to read
      * @return    The number of characters read
      */
+    int read(char *buf, int n) {
+        int count(0);
+        
+        while (count < n) {
+            if (m_pos == 0) {
+                m_buff_count = read4(m_buff);
+            }
+            
+            if (m_buff_count == 0) break;
 
-    private int buffPtr = 0;
-    private int buffCnt = 0;
-    private char[] buff = new char[4];
-    
-    public int read(char[] buf, int n) {
-        int ptr = 0;
-        while (ptr < n) {
-            if (buffPtr == 0) {
-                buffCnt = read4(buff);
+            while (count < n && m_pos < m_buff_count) {
+                *buf = m_buff[m_pos];
+                ++ buf, ++ m_pos, ++ count;
             }
-            if (buffCnt == 0) break;
-            while (ptr < n && buffPtr < buffCnt) {
-                buf[ptr++] = buff[buffPtr++];
-            }
-            if (buffPtr >= buffCnt) buffPtr = 0;
+            
+            if (m_pos >= m_buff_count) m_pos = 0;
         }
-        return ptr;
+        
+        return count;
     }
+private:
+    int m_pos = 0;
+    int m_buff_count = 0;
+    char m_buff[4];
+};
 ```
