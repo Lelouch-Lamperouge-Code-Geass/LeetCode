@@ -62,95 +62,63 @@ To keep track of which player, I add one for Player1 and -1 for Player2. There a
 
 Also see a very similar answer that I believe had beaten me to the punch. We came up with our solutions independently but they are very similar in principle.
 
-### Java Solution
-
-```java
-public class TicTacToe {
-private int[] rows;
-private int[] cols;
-private int diagonal;
-private int antiDiagonal;
-
-/** Initialize your data structure here. */
-public TicTacToe(int n) {
-    rows = new int[n];
-    cols = new int[n];
-}
-
-/** Player {player} makes a move at ({row}, {col}).
-    @param row The row of the board.
-    @param col The column of the board.
-    @param player The player, can be either 1 or 2.
-    @return The current winning condition, can be either:
-            0: No one wins.
-            1: Player 1 wins.
-            2: Player 2 wins. */
-public int move(int row, int col, int player) {
-    int toAdd = player == 1 ? 1 : -1;
-    
-    rows[row] += toAdd;
-    cols[col] += toAdd;
-    if (row == col)
-    {
-        diagonal += toAdd;
-    }
-    
-    if (col == (cols.length - row - 1))
-    {
-        antiDiagonal += toAdd;
-    }
-    
-    int size = rows.length;
-    if (Math.abs(rows[row]) == size ||
-        Math.abs(cols[col]) == size ||
-        Math.abs(diagonal) == size  ||
-        Math.abs(antiDiagonal) == size)
-    {
-        return player;
-    }
-    
-    return 0;
-}
-```
-
-### C++ solution
+### Solution
 
 ```cpp
 class TicTacToe {
 public:
-    TicTacToe(int n) : sz(n) {
-        rows.resize(n, 0), cols.resize(n, 0);
-        diagonal = anti_diagonal = 0;
+    /** Initialize your data structure here. */
+    TicTacToe(int n) : m_row_counter(n, 0), 
+        m_col_counter(n, 0), m_diagonal(0), m_anti_diagonal(0){
+        
     }
     
+    /** Player {player} makes a move at ({row}, {col}).
+        @param row The row of the board.
+        @param col The column of the board.
+        @param player The player, can be either 1 or 2.
+        @return The current winning condition, can be either:
+                0: No one wins.
+                1: Player 1 wins.
+                2: Player 2 wins. */
     int move(int row, int col, int player) {
-        if (player == 1) {
-            ++rows[row], ++cols[col];
-            if (row == col)
-                ++diagonal;
-            if (row == sz - 1 - col)
-                ++anti_diagonal;
-            if (rows[row] == sz || cols[col] == sz || diagonal == sz || anti_diagonal == sz)
-                return 1;
+        const int n = m_row_counter.size();
+        
+        int val = (player == 1 ? 1 : -1);
+        
+        m_row_counter[row] += val;
+        m_col_counter[col] += val;
+        
+        if (row == col) {
+            m_diagonal += val;
         }
-        else {
-            --rows[row], --cols[col];
-            if (row == col)
-                --diagonal;
-            if (row == sz - 1 - col)
-                --anti_diagonal;
-            if (rows[row] == -sz || cols[col] == -sz || diagonal == -sz || anti_diagonal == -sz)
-                return 2;
+
+        if (row + col + 1 == n) {
+            m_anti_diagonal += val;
         }
+        
+        if (std::abs(m_row_counter[row]) == n
+           || std::abs(m_col_counter[col]) == n
+           || std::abs(m_diagonal) == n
+           || std::abs(m_anti_diagonal) == n) {
+            return player;
+        }
+        
         return 0;
     }
-
 private:
-    vector<int> rows, cols;
-    int diagonal, anti_diagonal;
-    int sz;
+    std::vector<int> m_row_counter, m_col_counter;
+    int m_diagonal, m_anti_diagonal;
 };
+
+/**
+ * Your TicTacToe object will be instantiated and called as such:
+ * TicTacToe obj = new TicTacToe(n);
+ * int param_1 = obj.move(row,col,player);
+ */
 ```
+
+
 
 
 
