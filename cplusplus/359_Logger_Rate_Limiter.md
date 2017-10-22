@@ -35,16 +35,33 @@ Instead of logging print times, I store when it's ok for a message to be printed
 ```cpp
 class Logger {
 public:
-
-    map<string, int> ok;
-
-    bool shouldPrintMessage(int timestamp, string message) {
-        if (timestamp < ok[message])
-            return false;
-        ok[message] = timestamp + 10;
-        return true;
+    /** Initialize your data structure here. */
+    Logger() {
+        
     }
+    
+    /** Returns true if the message should be printed in the given timestamp, otherwise returns false.
+        If this method returns false, the message will not be printed.
+        The timestamp is in seconds granularity. */
+    bool shouldPrintMessage(int timestamp, string message) {
+        bool reval(true);
+        if (m_mapper.count(message) != 0
+           && timestamp - m_mapper[message] < 10) { // Not print
+            reval = false;
+        } else { // Print
+            m_mapper[message] = timestamp;
+        }
+        return reval;
+    }
+private:
+    unordered_map<std::string, int> m_mapper;
 };
+
+/**
+ * Your Logger object will be instantiated and called as such:
+ * Logger obj = new Logger();
+ * bool param_1 = obj.shouldPrintMessage(timestamp,message);
+ */
 ```
 
 ### Solution 2
