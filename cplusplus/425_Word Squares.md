@@ -72,6 +72,19 @@ The output consists of two word squares. The order of output does not matter
 
 ### Solution one, use Trie
 
+Example: ["area","lead","wall","lady","ball"]
+
+We know that the sequence contains 4 words because the length of each word is 4.  
+Every word can be the first word of the sequence, let's take "wall" for example.  
+Which word could be the second word? Must be a word start with "a" (therefore "area"), because it has to match the second letter of word "wall".  
+Which word could be the third word? Must be a word start with "le" (therefore "lead"), because it has to match the third letter of word "wall" and the third letter of word "area".  
+What about the last word? Must be a word start with "lad" (therefore "lady"). For the same reason above.  
+
+The picture below shows how the prefix are matched while building the sequence.
+
+![alt](https://discuss.leetcode.com/assets/uploads/files/1476809120456-wordsquare.png)
+
+
 ```cpp
 class Solution {
 private:
