@@ -6,17 +6,19 @@ Design an algorithm to find the maximum profit. You may complete as many transac
 
 ### Solution one
 
-```
-Let's define buy[i] means the max profit for all the transactions within [0,i] whose last trading operation is BUY.
-Example, if i == 2, then the transaction can be [rest, buy], [buy, rest](rest is not trading operation).
-Therefore, it is the max value between
-(1) Won't buy stock at i-th day : buy[i-1] , max profit for all the transactions within [0, i-1], 
+
+Let's define buy[i] means the max profit for all the transactions within [0,i] whose last trading operation is BUY.  
+Example, if i == 2, then the transaction can be [rest, buy], [buy, rest](rest is not trading operation).  
+Therefore, it is the max value between  
+
+1. Won't buy stock at i-th day : buy[i-1] , max profit for all the transactions within [0, i-1], 
     whose last trading operation is BUY.
-(2) Buy stock at i-th day : sell[i-1] - prices[i], sell[i-1] means max profit for all the transactions 
+2. Buy stock at i-th day : sell[i-1] - prices[i], sell[i-1] means max profit for all the transactions 
     within [0, i-1], whose last trading operation is SELL.
         
 Same for sell[i].
-```
+
+__Note how similar this solution is to LeetCode 121.__
 
 ```cpp
 class Solution {
