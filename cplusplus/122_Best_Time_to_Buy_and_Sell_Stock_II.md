@@ -1,5 +1,11 @@
-/***
-Solution one
+Say you have an array for which the ith element is the price of a given stock on day i.
+
+Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy one and sell one share of the stock multiple times). However, you may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).
+
+# Solution
+
+### Solution one
+    
 Let's define buy[i] means the max profit for all the transactions within [0,i] whose last trading operation is BUY.
 Example, if i == 2, then the transaction can be [rest, buy], [buy, rest](rest is not trading operation).
 Therefore, it is the max value between
@@ -7,9 +13,10 @@ Therefore, it is the max value between
     whose last trading operation is BUY.
 (2) Buy stock at i-th day : sell[i-1] - prices[i], sell[i-1] means max profit for all the transactions within [0, i-1], 
     whose last trading operation is SELL.
-Same for sell[i]
-***/
+        
+Same for sell[i].
 
+```cpp
 class Solution {
 public:
   int maxProfit(vector<int>& prices) {
@@ -28,8 +35,11 @@ public:
     return sell[prices_size - 1];
   }
 };
+```
 
-// Observe this solution, we can optimize it to O(1) space complexity.
+We can optimize above solution to O(1) space complexity.
+
+```cpp
 class Solution {
 public:
   int maxProfit(vector<int>& prices) {
@@ -45,11 +55,11 @@ public:
     return pre_sell;
   }
 };
+```
 
+### Solution two
 
-/***
-Solution two
- ***/
+```cpp
 class Solution {
 public:
   int maxProfit(vector<int>& prices) {
@@ -60,3 +70,4 @@ public:
     return max_profit;
   }
 };
+```
