@@ -5,7 +5,8 @@ Design an algorithm to find the maximum profit. You may complete as many transac
 # Solution
 
 ### Solution one
-    
+
+```
 Let's define buy[i] means the max profit for all the transactions within [0,i] whose last trading operation is BUY.
 Example, if i == 2, then the transaction can be [rest, buy], [buy, rest](rest is not trading operation).
 Therefore, it is the max value between
@@ -15,6 +16,7 @@ Therefore, it is the max value between
     whose last trading operation is SELL.
         
 Same for sell[i].
+···
 
 ```cpp
 class Solution {
