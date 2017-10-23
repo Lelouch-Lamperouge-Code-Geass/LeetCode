@@ -16,7 +16,7 @@ Therefore, it is the max value between
     whose last trading operation is SELL.
         
 Same for sell[i].
-···
+```
 
 ```cpp
 class Solution {
