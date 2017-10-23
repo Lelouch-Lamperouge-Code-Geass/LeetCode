@@ -42,7 +42,7 @@ public:
     buy[0] = - prices[0];
     for (std::size_t i = 1; i < prices_size; ++i) {
       buy[i] = std::max(buy[i-1], 0 - prices[i]);
-      sell[i] = std::max(buy[i-1] + prices[i], sell[i-1]);
+      sell[i] = std::max(sell[i-1], buy[i-1] + prices[i]);
     }
 
     return sell[prices_size - 1];
