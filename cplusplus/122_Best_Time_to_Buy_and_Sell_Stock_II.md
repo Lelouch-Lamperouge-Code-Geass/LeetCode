@@ -12,8 +12,8 @@ Example, if i == 2, then the transaction can be [rest, buy], [buy, rest](rest is
 Therefore, it is the max value between
 (1) Won't buy stock at i-th day : buy[i-1] , max profit for all the transactions within [0, i-1], 
     whose last trading operation is BUY.
-(2) Buy stock at i-th day : sell[i-1] - prices[i], sell[i-1] means max profit for all the transactions within [0, i-1], 
-    whose last trading operation is SELL.
+(2) Buy stock at i-th day : sell[i-1] - prices[i], sell[i-1] means max profit for all the transactions 
+    within [0, i-1], whose last trading operation is SELL.
         
 Same for sell[i].
 ```
@@ -31,7 +31,7 @@ public:
     buy[0] = - prices[0];
     for (std::size_t i = 1; i < prices_size; ++i) {
       buy[i] = std::max(buy[i-1], sell[i-1] - prices[i]);
-      sell[i] = std::max(buy[i-1] + prices[i], sell[i-1]);
+      sell[i] = std::max(sell[i-1], buy[i-1] + prices[i]);
     }
 
     return sell[prices_size - 1];
