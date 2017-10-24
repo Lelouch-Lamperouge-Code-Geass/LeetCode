@@ -19,6 +19,10 @@ Therefore, it is the max value between
 
 Same for sell[i]
 
+__Why not let buy_two[i] means "the max profit to buy second stock on day i"?__
+
+Let's see if we define it like this, then the value of ```buy_two[i] = Max{sell_one[k], k from 0 to i-1} - prices[i]```, because sell_one means "the max profit to sell one stock on day i"! This is hard to track.  
+
 ```cpp
 class Solution {
 public:
@@ -49,10 +53,10 @@ public:
   int maxProfit(vector<int> & prices) {
     int buy_one(INT_MIN),sell_one(0),buy_two(INT_MIN),sell_two(0);
     for (int price : prices) {
-      buy_one = std::max(buy_one,0-price);
-      sell_one = std::max(sell_one,buy_one+price);
-      buy_two = std::max(buy_two,sell_one-price);
-      sell_two = std::max(sell_two,buy_two+price);
+      buy_one = std::max(buy_one,0-price); // The maximum if we've just buy  1st stock so far. 
+      sell_one = std::max(sell_one,buy_one+price);  // The maximum if we've just sold 1nd stock so far.
+      buy_two = std::max(buy_two,sell_one-price); // The maximum if we've just buy  2nd stock so far.
+      sell_two = std::max(sell_two,buy_two+price); // The maximum if we've just sold 2nd stock so far.
     }
     return sell_two;
   }
