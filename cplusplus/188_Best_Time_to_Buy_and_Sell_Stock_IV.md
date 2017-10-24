@@ -14,7 +14,8 @@ You may not engage in multiple transactions at the same time (ie, you must sell 
 class Solution {
 public:
   // sell[k][i] = MAX(sell[k][i-1], buy[k][i-1] + prices[i]),
-  // sell[k][i] means the max profit for transaction combintion whose last trading is SELL k-th stock within i days.
+  // sell[k][i] means the max profit for transaction combintion whose 
+  // last trading is SELL k-th stock within i days.
   int maxProfit(int k, vector<int>& prices) {
     if (k<=0 || prices.empty()) return 0;
     const std::size_t prices_size(prices.size());
@@ -58,7 +59,7 @@ The max profit of each day, is the maximum value of
   
 Here the i rangs from 1 to k.  
 
-```
+```cpp
 class Solution {
 public:
   int maxProfit(int k, vector<int>& prices) {
