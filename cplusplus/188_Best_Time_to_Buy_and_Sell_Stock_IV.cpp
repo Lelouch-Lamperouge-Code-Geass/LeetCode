@@ -1,7 +1,16 @@
-/***
-Solution one
- ***/
+Say you have an array for which the ith element is the price of a given stock on day i.
 
+Design an algorithm to find the maximum profit. You may complete at most k transactions.
+
+Note:
+You may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).
+  
+# Solution
+  
+
+### Solution one
+ 
+```cpp
 class Solution {
 public:
   // sell[k][i] = MAX(sell[k][i-1], buy[k][i-1] + prices[i]),
@@ -35,9 +44,21 @@ public:
     }
   }
 };
+```
 
+Above solution can be optimized to below code.
 
-// Can be optimized as
+You can also think in a different way based on below code. 
+  
+The max profit of each day, is the maximum value of
+
+1. the max value of do the i-th buy operation that day(it means we have already bought i-1  and sold i-1 times). We store these information in buy[i].
+2. the max value of do the i-th sell operation that day(it means we have already bought i  and sold i-1 times). We store these information in sell[i].
+
+  
+Here the i rangs from 1 to k.  
+
+```
 class Solution {
 public:
   int maxProfit(int k, vector<int>& prices) {
@@ -65,3 +86,4 @@ public:
   }
 
 };
+```
