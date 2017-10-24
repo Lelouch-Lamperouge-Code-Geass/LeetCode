@@ -45,7 +45,18 @@ public:
 };
 ```
 
-It can be optimized as
+The above solution can be optimized to O(1) space complexity.
+
+You can also consider below solution simulate a state transition.
+
+The max profit of any day, is depend on the status of
+
+1. The maximum if we've just buy  1st stock so far. 
+2. The maximum if we've just sold 1nd stock so far.
+3. The maximum if we've just buy  2nd stock so far.
+4. The maximum if we've just sold 2nd stock so far.
+
+We only need these four information to choose the optimal operation.
 
 ```cpp
 class Solution {
