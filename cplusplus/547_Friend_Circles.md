@@ -140,3 +140,60 @@ private:
 
 ### Union-Find
 
+```cpp
+class Solution {
+
+private:
+    class UnionFind {
+      public:
+        UnionFind(std::size_t n) : m_count(n), m_parent(n, 0), m_rank(n, 0) {
+            for (std::size_t i = 0; i < n; ++i) {
+                m_parent[i] = i;
+            }
+        }
+        
+        std::size_t Find(std::size_t i) {
+            while (m_parent[i] != i) {
+                i = m_parent[i] = m_parent[m_parent[i]]; // Path compression by halving
+            }
+            return i;
+        }
+        
+        std::size_t Count() {
+            return m_count;
+        }
+        
+        void Union(std::size_t i, std::size_t j) {
+            std::size_t i_root = Find(i), j_root = Find(j);
+            if (i_root != j_root) {
+                if (m_rank[i_root] > m_rank[j_root]) {
+                    m_parent[j_root] = i_root;
+                } else {
+                    m_parent[i_root] = j_root;
+                    if (m_rank[i_root] == m_rank[j_root]) {
+                        ++ m_rank[j_root];
+                    }
+                }
+                -- m_count;
+            }
+        }
+      private:
+        vector<std::size_t> m_parent;
+        vector<std::size_t> m_rank;
+        std::size_t m_count;
+    };
+    
+public:
+    int findCircleNum(vector<vector<int>>& M) {
+        if (M.empty()) return 0;
+        const std::size_t n(M.size());
+        UnionFind uf(n);
+        for (int i = 0; i + 1 < n; ++i) {
+            for (int j = i + 1; j < n; ++j) {
+                if (M[i][j] == 1) uf.Union(i, j);
+            }
+        }
+        return uf.Count();
+    }
+};
+```
