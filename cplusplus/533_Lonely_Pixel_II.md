@@ -93,7 +93,7 @@ public:
                 oss << picture[i][j];
             }
             
-            if (row_black_count == N) {
+            if (row_black_count == N) { // This row have N black pixel
                 ++ mapper[oss.str()];
             }
         }
@@ -102,11 +102,11 @@ public:
         for (const std::pair<std::string, int> &item : mapper) {
             if (item.second == N) { // we have N such rows that are exactly the same
                  for (int i = 0; i < col_size; ++i) {
-                    if (item.first[i] == 'B' && col_black_counter[i] == N) {
+                    if (item.first[i] == 'B' && col_black_counter[i] == N) { // This column has N black pixel 
                         reval += N;
                     }
                 }
-           }
+            }
         }
         return reval;
     }
