@@ -68,19 +68,33 @@ public:
 ### Solution two, DFS
 
 
-```java
-public void wallsAndGates(int[][] rooms) {
-    for (int i = 0; i < rooms.length; i++)
-        for (int j = 0; j < rooms[0].length; j++)
-            if (rooms[i][j] == 0) dfs(rooms, i, j, 0);
-}
-
-private void dfs(int[][] rooms, int i, int j, int d) {
-    if (i < 0 || i >= rooms.length || j < 0 || j >= rooms[0].length || rooms[i][j] < d) return;
-    rooms[i][j] = d;
-    dfs(rooms, i - 1, j, d + 1);
-    dfs(rooms, i + 1, j, d + 1);
-    dfs(rooms, i, j - 1, d + 1);
-    dfs(rooms, i, j + 1, d + 1);
-}
+```cpp
+class Solution {
+public:
+    void wallsAndGates(vector<vector<int>>& rooms) {
+        if (rooms.empty()) return;
+        const std::size_t row_size(rooms.size()), col_size(rooms[0].size());
+        for (std::size_t i = 0; i < row_size; ++i) {
+            for (std::size_t j = 0; j < col_size; ++j) {
+                if (0 == rooms[i][j]) {
+                    DFS(rooms,i, j, 0);
+                }
+            }
+        }
+    }
+private:
+    void DFS(vector<vector<int>> &rooms, 
+             std::size_t row, 
+             std::size_t col,
+             int distance) {
+        const std::size_t row_size(rooms.size()), col_size(rooms[0].size());
+        
+        if (row >= row_size || col >= col_size || rooms[row][col] < distance) return;
+        rooms[row][col] = distance;
+        DFS(rooms, row - 1, col, distance + 1);
+        DFS(rooms, row + 1, col, distance + 1);
+        DFS(rooms, row, col - 1, distance + 1);
+        DFS(rooms, row, col + 1, distance + 1);
+    }
+};
 ```
