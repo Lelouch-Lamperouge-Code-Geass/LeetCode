@@ -59,6 +59,58 @@ Here is an example of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]. Notice that every c
 ![alt](https://drscdn.500px.org/photo/135826875/m%3D900/7e1d9c2bdc47791e3b54f25bf50b6370)
 
 
+__The most important thing is to think about how to guarantee the order of top-to-bottom and left-to-right.__
+Obviously, DFS will NOT give us this guarantee.
+
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> verticalOrder(TreeNode* root) {
+        vector<vector<int>> reval;
+        unordered_map<int, vector<int>> mapper;
+        int min_column(0);
+        
+        if(root) BFS(mapper, root, min_column);
+        
+        while (mapper.count(min_column)) { 
+            // We know that column value is continuous
+            reval.emplace_back(mapper[min_column]);
+            ++ min_column;
+        }
+        
+        return reval;
+    }
+private:
+    void BFS(unordered_map<int, vector<int>> &mapper, 
+             const TreeNode *root,
+             int & min_column) {
+        std::queue< std::pair<int, const TreeNode*> > nodes;
+        nodes.push(std::make_pair(0, root));
+        while (!nodes.empty()) {
+            std::pair<int, const TreeNode*> item = nodes.front();
+            nodes.pop();
+            min_column = std::min(min_column, item.first);
+            mapper[item.first].emplace_back(item.second->val);
+            if (item.second->left) {
+                nodes.push(std::make_pair(item.first - 1, item.second->left));
+            }
+            if (item.second->right) {
+                nodes.push(std::make_pair(item.first + 1, item.second->right));
+            }
+        }
+    }
+};
+```
+
 ```cpp
 class Solution {
 public:
