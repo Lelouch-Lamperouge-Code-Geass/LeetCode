@@ -36,7 +36,8 @@ The HashMap stores the sum of all elements before index i as key, and i as value
 class Solution {
 public:
     int maxSubArrayLen(vector<int>& nums, int k) {
-        int sum = 0, res = 0;
+        int sum = 0;
+        std::size_t res = 0;
         unordered_map<int, std::size_t> m;
         for (std::size_t i = 0; i < nums.size(); ++i) {
             sum += nums[i];
