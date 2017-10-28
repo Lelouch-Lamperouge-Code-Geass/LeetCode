@@ -19,42 +19,51 @@ If the new event collides with A, then it must collide with all events in the he
 
 The reason for correctness is the invariant: heap size is always the minimum number of rooms we need so far. If the new event collides with everyone, then a new room must be created; if the new event does not collide with someone, then it must not collide with the earliest finish one, so greedily choose that one and re-use that room. So the invariant is maintained.
 
-```java
-public int minMeetingRooms(Interval[] intervals) {
-    if (intervals == null || intervals.length == 0)
-        return 0;
+__Time complexity O(NlogN)__.
+
+```cpp
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+ *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+class Solution {
+public:
+    int minMeetingRooms(vector<Interval>& intervals) {
+        if (intervals.empty()) return 0;
+        static auto StartEarlier = [](const Interval &left, const Interval &right){
+            return left.start < right.start || left.start == right.start && left.end < right.end;
+        };
+        // Sort the intervals by start time
+        std::sort(intervals.begin(), intervals.end(), StartEarlier);
         
-    // Sort the intervals by start time
-    Arrays.sort(intervals, new Comparator<Interval>() {
-        public int compare(Interval a, Interval b) { return a.start - b.start; }
-    });
-    
-    // Use a min heap to track the minimum end time of merged intervals
-    PriorityQueue<Interval> heap = new PriorityQueue<Interval>(intervals.length, new Comparator<Interval>() {
-        public int compare(Interval a, Interval b) { return a.end - b.end; }
-    });
-    
-    // start with the first meeting, put it to a meeting room
-    heap.offer(intervals[0]);
-    
-    for (int i = 1; i < intervals.length; i++) {
-        // get the meeting room that finishes earliest
-        Interval interval = heap.poll();
+        // Use a min heap to track the minimum end time of merged intervals
+        std::priority_queue<int, std::vector<int>, std::greater<int>> meeting_rooms;
         
-        if (intervals[i].start >= interval.end) {
-            // if the current meeting starts right after 
-            // there's no need for a new room, merge the interval
-            interval.end = intervals[i].end;
-        } else {
-            // otherwise, this meeting needs a new room
-            heap.offer(intervals[i]);
+         // start with the first meeting, put it to a meeting room
+        meeting_rooms.push(intervals[0].end);
+        
+        
+        for (std::size_t i = 1, n = intervals.size(); i < n; ++i) {
+            // get the meeting room that finishes earliest
+            int earliest_end = meeting_rooms.top();
+            if (earliest_end <= intervals[i].start) { 
+                // if the current meeting starts right after 
+                // there's no need for a new room, just reuse the exsiting one
+                meeting_rooms.pop();
+                meeting_rooms.push(intervals[i].end);
+            } else { 
+                // add meeting room
+                meeting_rooms.push(intervals[i].end);
+            }
         }
         
-        // don't forget to put the meeting room back
-        heap.offer(interval);
+        return meeting_rooms.size();
     }
-    
-    return heap.size();
-}
+};
 ```
 
