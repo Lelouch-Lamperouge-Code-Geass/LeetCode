@@ -30,30 +30,39 @@ Push all gates into queue first. Then for each gate update its neighbor cells an
 Repeating above steps until there is nothing left in the queue.
 
 ```cpp
-void wallsAndGates(vector<vector<int>>& rooms) {
-    const int row = rooms.size();
-    if (0 == row) return;
-    const int col = rooms[0].size();
-    queue<pair<int, int>> canReach;  // save all element reachable
-    vector<pair<int, int>> dirs = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}}; // four directions for each reachable
-    for(int i = 0; i < row; i++){
-        for(int j = 0; j < col; j++){
-            if(0 == rooms[i][j])
-                canReach.emplace(i, j);
+class Solution {
+public:
+    void wallsAndGates(vector<vector<int>>& rooms) {
+        if (rooms.empty()) return;
+        static std::vector<std::pair<int,int>> directions = {{0,1}, {0,-1}, {1,0}, {-1,0}};
+        const std::size_t row_size(rooms.size()), col_size(rooms[0].size());
+        std::queue< std::pair<std::size_t, std::size_t> > bfs_queue;
+        for (std::size_t i = 0; i < row_size; ++i) {
+            for (std::size_t j = 0; j < col_size; ++j) {
+                if (0 == rooms[i][j]) {
+                    bfs_queue.emplace(i, j);
+                }
+            }
+        }
+        
+        while (!bfs_queue.empty()) {
+            std::size_t r = bfs_queue.front().first, c = bfs_queue.front().second;
+            bfs_queue.pop();
+            for (const std::pair<int,int> &direction : directions) {
+                std::size_t row = r + direction.first;
+                std::size_t col = c + direction.second;
+                if (row < row_size 
+                    && col < col_size 
+                    && rooms[row][col] > rooms[r][c] + 1) {
+                    // rooms[row][col] > rooms[r][c] + 1 guarantees that we won't visit the box we already visited
+                    // as well as avoid unnecessary re-calculations
+                    rooms[row][col]  = rooms[r][c] + 1;
+                    bfs_queue.emplace(row, col);
+                }
+            }
         }
     }
-    while(!canReach.empty()){
-        int r = canReach.front().first, c = canReach.front().second;
-        canReach.pop();
-        for (auto dir : dirs) {
-            int x = r + dir.first,  y = c + dir.second;
-            // if x y out of range or it is obstasle, or has small distance aready
-            if (x < 0 || y < 0 || x >= row || y >= col || rooms[x][y] <= rooms[r][c]+1) continue;
-            rooms[x][y] = rooms[r][c] + 1;
-            canReach.emplace(x, y);
-        }
-    }
-}
+};
 ```
 
 ### Solution two, DFS
