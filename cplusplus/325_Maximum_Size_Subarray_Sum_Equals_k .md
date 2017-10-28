@@ -23,14 +23,12 @@ _Note: your initial thought might be using sliding window method, but the tricky
 
 The subarray sum reminds me the range sum problem. Preprocess the input array such that you get the range sum in constant time.
 
-sum[i] means the sum from 0 to i inclusively  
-
-the sum from i to j is sum[j] - sum[i - 1] except that from 0 to j is sum[j].
-
-j-i is equal to the length of subarray of original array. we want to find the max(j - i)   
-for any sum[j] we need to find if there is a previous sum[i] such that sum[j] - sum[i] = k  
-Instead of scanning from 0 to j -1 to find such i, we use hashmap to do the job in constant time.  
-However, there might be duplicate value of of sum[i] we should avoid overriding its index as we want the max j - i, so we want to keep i as left as possible.  
+* sum[i] means the sum from 0 to i inclusively   
+* the sum from i to j is sum[j] - sum[i - 1] except that from 0 to j is sum[j]  
+* j-i is equal to the length of subarray of original array. we want to find the max(j - i)     
+* for any sum[j] we need to find if there is a previous sum[i] such that sum[j] - sum[i] = k    
+* Instead of scanning from 0 to j -1 to find such i, we use hashmap to do the job in constant time.    
+* However, there might be duplicate value of of sum[i] we should avoid overriding its index as we want the max j - i, so we want to keep i as left as possible.    
 
 The HashMap stores the sum of all elements before index i as key, and i as value. For each i, check not only the current sum but also (currentSum - previousSum) to see if there is any that equals k, and update max length.
 
