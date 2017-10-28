@@ -96,24 +96,24 @@ __BY NOW, it is very clear that, if the value A[ i ][ k ] from matrix is zero, w
 
 The smart Solution Code is as follow:
 
-```java
-public class Solution {
-    public int[][] multiply(int[][] A, int[][] B) {
-        int m = A.length, n = A[0].length, nB = B[0].length;
-        int[][] C = new int[m][nB];
-
-        for(int i = 0; i < m; i++) {
-            for(int k = 0; k < n; k++) {
-                if (A[i][k] != 0) {
-                    for (int j = 0; j < nB; j++) {
-                        if (B[k][j] != 0) C[i][j] += A[i][k] * B[k][j];
+```cpp
+class Solution {
+public:
+    vector<vector<int>> multiply(vector<vector<int>>& A, vector<vector<int>>& B) {
+        std::size_t p = A.size(), q = A[0].size(), r = B[0].size();
+        vector<vector<int>> reval(p, vector<int>(r, 0));
+        for (std::size_t i = 0; i < p; ++i) {
+            for (std::size_t j = 0; j < q; ++j) {
+                if (A[i][j] != 0) {
+                    for (std::size_t k = 0; k < r; ++k) {
+                        if (B[j][k] != 0) reval[i][k] += A[i][j] * B[j][k];
                     }
                 }
             }
         }
-        return C;   
+        return reval;
     }
-}
+};
 ```
 
 c) "Sparse matrix manipultion" helps, if we compress the first sparse matrix into rows of lists( in each row list, it contains ( value, index ) pair ), we actually don't need to go over all values in a row in matrix A when are calculating the final result matrix. But Overall, it does not help improve run time algorithmatically!!
