@@ -32,7 +32,7 @@ public:
             if (inter.start < pre_end) {
                 return false;
             }
-            pre_end = inter.end;
+            pre_end = inter.end; // We don't need to use std::max here since pre_end <= inter.end for sure
         }
         
         return true;
