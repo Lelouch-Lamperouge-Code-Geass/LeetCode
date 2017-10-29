@@ -139,3 +139,38 @@ public:
     }
 };
 ```
+
+I actually like below style, which checked p_index < p_size instead of rely on out-of-range p[p_index].
+
+```cpp
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+        const std::size_t s_size(s.size()), p_size(p.size());
+        std::size_t s_index(0), p_index(0);
+        std::size_t s_mark(-1), p_mark(-1);
+        while (s_index < s_size) {
+            if (p_index == p_size || p[p_index] != '*') {
+                if (p_index < p_size && (s[s_index] == p[p_index] || p[p_index] == '?')) {
+                    ++ s_index;
+                    ++ p_index;
+                } else {
+                    if (p_mark != -1) {
+                        p_index = p_mark + 1;
+                        s_index = ++ s_mark;
+                    } else {
+                        return false;
+                    }
+                }
+            } else {
+                p_mark = p_index;
+                s_mark = s_index;
+                ++ p_index;
+            }
+        }
+    
+        while (p_index < p_size && p[p_index] == '*') ++ p_index;
+        return p_index == p_size;
+    }
+};
+```
