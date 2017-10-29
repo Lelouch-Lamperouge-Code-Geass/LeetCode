@@ -78,6 +78,7 @@ Searching i in [0, m], to find an object `i` that:
 ```
 
 And we can do a binary search following steps described below:
+
 ```
 <1> Set imin = 0, imax = m, then start searching in [imin, imax]
 
@@ -124,6 +125,7 @@ Searching i in [0, m], to find an object `i` that:
 ```
 
 And in a searching loop, we will encounter only three situations:
+
 ```
 (1) (j == 0 or i == m or B[j-1] <= A[i]) and
     (i == 0 or j = n or A[i-1] <= B[j])
@@ -140,7 +142,7 @@ And we know that
 
 ```
 i < m ==> j > 0 and i > 0 ==> j < n 
-```. 
+```
 
 Because:
 
@@ -148,6 +150,7 @@ Because:
 m <= n, i < m ==> j = (m+n+1)/2 - i > (m+n+1)/2 - m >= (2*m+1)/2 - m >= 0    
 m <= n, i > 0 ==> j = (m+n+1)/2 - i < (m+n+1)/2 <= (2*n+1)/2 <= n
 ```
+
 
 So in situation (2) and (3), we don't need to check whether j > 0 and whether j < n.
     
