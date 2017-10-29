@@ -2,7 +2,7 @@ Given the running logs of n functions that are executed in a nonpreemptive singl
 
 Each function has a unique id, start from 0 to n-1. A function may be called recursively or by another function.
 
-A log is a string has this format : function_id:start_or_end:timestamp. For example, "0:start:0" means function 0 starts from the very beginning of time 0. "0:end:0" means function 0 ends to the very end of time 0.
+A log is a string has this format : function_id:start_or_end:timestamp. For example, ```"0:start:0"``` means function 0 starts from the very beginning of time 0. ```"0:end:0"``` means function 0 ends to the very end of time 0.
 
 Exclusive time of a function is defined as the time spent within this function, the time spent by calling other functions should not be considered as this function's exclusive time. You should return the exclusive time of each function sorted by their function id.
 
@@ -39,11 +39,11 @@ So function 0 totally execute 2 + 1 = 3 units of time, and function 1 totally ex
 The idea is simple everytime we see a start, we just push it to the stack. Now when we reach an end, we are guaranteed that the top of the stack is a start with the same id as the current item because all completed start/ends in between this start and end has been removed already. We just add current item timestamp - stack top timestamp + 1 to times[i].
 
 So for example
-[..., {0:start:3}] and item = {0:end:6} we add 6 - 3 + 1
+[..., {0:start:3}] and item = {0 : end :6} we add 6 - 3 + 1
 
 However, what if there are function calls in between the start and end of the function of id 0? We can account for this by subtracting the length of the function calls in between the function id 0 whenever we complete an inner function marked by an end.
 
-[..., {0:start:3}, {2:start:4}] and item = {2:end:5} so we increment times[2] by curr_length = 5 - 4 + 1 = 2 and then we subtract times[0] by curr_length as it takes up that amount of time out of the total time
+[..., {0:start:3}, {2:start:4}] and item = {2 : end : 5} so we increment times[2] by curr_length = 5 - 4 + 1 = 2 and then we subtract times[0] by curr_length as it takes up that amount of time out of the total time
 
 So whenever we see an end, we have to make sure to subtract our curr_length to whatever function is enclosing it if it exists.
 
