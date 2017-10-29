@@ -35,22 +35,27 @@ __Time complexity : O(s.size() * p.size()), Splace Complexity O(s.size() * p.siz
 class Solution {
 public:
     bool isMatch(string s, string p) {
-        const int s_size(s.size()), p_size(p.size());
-        vector< vector<bool> > is_match(s_size+1, vector<bool>(p_size+1,false) );
-        is_match[0][0] = true;
-        for (int i=1;i<=p_size && p[i-1]=='*' ;++i) is_match[0][i] = true;
+        const std::size_t m = s.size(), n = p.size();
         
-        for (int i=1;i<=s_size;++i) {
-            for (int j=1;j<=p_size;++j) {
-                if (p[j-1]!='*') {
-                    is_match[i][j] = is_match[i-1][j-1] && (p[j-1]=='?' || s[i-1]==p[j-1]);
-                } else {
-                  is_match[i][j] = is_match[i][j-1] // * is not used
-                    || is_match[i-1][j] ; // * is used to match current char
+        std::vector<std::vector<bool>> is_match(m + 1, std::vector<bool>(n + 1, false));
+        
+        is_match[0][0] = true;
+        for (std::size_t i = 0; i < n && p[i] == '*'; ++i) {
+            is_match[0][i + 1] = true; 
+        }
+        
+        for (std::size_t i = 1; i <= m; ++i) {
+            for (std::size_t j = 1; j <= n; ++j) {
+                if (p[j - 1] != '*') {
+                    is_match[i][j] = is_match[i - 1][j - 1] && (s[i-1] == p[j-1] || p[j-1] == '?');
+                } else { // p[j - 1] == '*'
+                    is_match[i][j] = is_match[i][j - 1] // * match none
+                                     ||  is_match[i - 1][j]; // * match one char in s
                 }
             }
         }
-        return is_match[s_size][p_size];
+        
+        return is_match[m][n];
     }
 };
 ```
