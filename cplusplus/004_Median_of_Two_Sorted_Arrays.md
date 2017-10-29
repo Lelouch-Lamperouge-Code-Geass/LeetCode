@@ -125,26 +125,31 @@ Searching i in [0, m], to find an object `i` that:
 
 And in a searching loop, we will encounter only three situations:
 ```
-<a> (j == 0 or i == m or B[j-1] <= A[i]) and
+(1) (j == 0 or i == m or B[j-1] <= A[i]) and
     (i == 0 or j = n or A[i-1] <= B[j])
     Means i is perfect, we can stop searching.
 
-<b> j > 0 and i < m and B[j - 1] > A[i]
+(2) j > 0 and i < m and B[j - 1] > A[i]
     Means i is too small, we must increase it.
 
-<c> i > 0 and j < n and A[i - 1] > B[j]
+(3) i > 0 and j < n and A[i - 1] > B[j]
     Means i is too big, we must decrease it.
 ```
 
 And we know that
-```i < m ==> j > 0 and i > 0 ==> j < n ```. Because:
+
+```
+i < m ==> j > 0 and i > 0 ==> j < n 
+```. 
+
+Because:
 
 ```
 m <= n, i < m ==> j = (m+n+1)/2 - i > (m+n+1)/2 - m >= (2*m+1)/2 - m >= 0    
 m <= n, i > 0 ==> j = (m+n+1)/2 - i < (m+n+1)/2 <= (2*n+1)/2 <= n
 ```
 
-So in situation <b> and <c>, we don't need to check whether j > 0 and whether j < n.
+So in situation (2) and (3), we don't need to check whether j > 0 and whether j < n.
     
 
 
@@ -152,58 +157,61 @@ So in situation <b> and <c>, we don't need to check whether j > 0 and whether j 
 class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        const std::size_t nums1_size(nums1.size()), nums2_size(nums2.size());
+        const std::size_t m = nums1.size(), n = nums2.size();
         
         // Make sure nums1 is always the shorter array
-        if (nums1_size > nums2_size) return findMedianSortedArrays(nums2, nums1);
+        if (m > n) return findMedianSortedArrays(nums2, nums1);
         
         // If total length is odd, the half_len will be the (total_length + 1) / 2
-        const std::size_t half_len = nums1_size + (nums2_size - nums1_size + 1) / 2;
+        std::size_t half_len = m + (n + 1 - m) / 2;
         
-        // Here left and right means the minimum/maximum number of elements we take from nums1
+        // Here len1 and len2 means the amount of left elements we take from nums1, nums2
         // to be contained in the final left array.
-        std::size_t left(0), right(nums1_size);
+        std::size_t len1(0), len2(0);
         
-         // i/j represents the amount of elements we take from nums1/nums2 to be contained in final left array
-        std::size_t i(0), j(0);
         
-        while (left <= right) {
-            i = left + (right - left) / 2;
+        std::size_t low(0), high(m);
+        
+        while (low <= high) {
+            len1 = low + (high - low) / 2;
+            len2 = half_len - len1;
             
-            j = half_len - i;
-            
-            if (i < nums1_size && nums1[i] < nums2[j-1]) {
-                left = i + 1; 
-            } else if (i >=1 && nums1[i-1] > nums2[j]) {
-                right  = i - 1;
+            if (len1 < m && nums1[len1] < nums2[len2 - 1]) {
+                low = len1 + 1;
+            } else if (len1 > 0 && nums1[len1 - 1] > nums2[len2]) {
+                high = len1 - 1;
             } else {
                 break;
             }
         }
         
-        int max_left(INT_MIN);
-        if (i == 0) { // take 0 elements from nums1 to be part of the final left array
-            max_left = nums2[j-1];
-        } else if (j == 0) { //  take 0 elements from nums2 to be part of the final left array
-            max_left = nums1[i-1];
+        double max_left_half(0);
+        
+        if (len1 == 0) { // take 0 elements from nums1 to be part of the final left array
+            max_left_half = nums2[len2 - 1];
+        } else if (len2 == 0) { //  take 0 elements from nums2 to be part of the final left array
+            max_left_half = nums1[len1 - 1];
         } else {
-            max_left = std::max(nums1[i-1], nums2[j-1]);
+            max_left_half = std::max(nums1[len1 - 1], nums2[len2 - 1]);
         }
         
-        if ((nums1_size + nums2_size) & 1 == 1) { // total length is odd
-            return max_left;
-        }
+        if ( (m + n) % 2 == 1) return max_left_half; // total length is odd, return max of left half
         
-        int min_right(INT_MAX);
-        if (i == nums1_size) { // take all elements from nums1 to be part of the final left array
-            min_right =  nums2[j];
-        } else if (j == nums2_size) { // take all elements from nums2 to be part of the final left array
-            min_right = nums1[i];
+        double min_right_half(0);
+        if (len1 == m) { 
+            // take all elements from nums1 to be part of the final left array,
+            // then final right array has no number of nums1
+            min_right_half = nums2[len2];
+        } else if (len2 == n) {
+            // take all elements from nums2 to be part of the final left array,
+            // then final right array has no number of nums2
+            min_right_half = nums1[len1];
         } else {
-            min_right = std::min(nums1[i], nums2[j]);
+            min_right_half = std::min(nums1[len1], nums2[len2]);
         }
         
-        return max_left + (double)(min_right - max_left) / 2.0;
+        
+        return max_left_half + (min_right_half - max_left_half) / 2.0;
     }
 };
 ```
