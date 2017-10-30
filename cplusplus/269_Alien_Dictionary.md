@@ -24,6 +24,12 @@ Note:
 
 # Solution
 
+This is a __topological sorting__ problem.
+The usual algorithms for topological sorting have running time linear in the number of nodes plus the number of edges, asymptotically, __O(V+E)__:
+
+1. Kahn's algorithm
+2. Depth-first search
+
 First, build a degree map for each character in all the words:
 
 ```
@@ -73,6 +79,9 @@ https://en.wikipedia.org/wiki/Topological_sorting
 然后有了这些order，我们需要整理出全局的order，这里需要一点抽象能力和经验，因为这个order本质是一种sort，而这种partial order的整理其实可以用topological sort解决。换句话说，我们把用到的字母当成node，之前得到的局部order当成directed edge，以此来建graph，然后利用topological sort来整理出全局order。想到这里就基本完成了，至于topological sort是用bfs还是dfs就看个人喜好了。
 
 具体实现的话还是有些小技巧值得一提，因为我们需要保存order，也就是edge list，会自然想到用list或者map一类的数据结构。这点来说本身是没有问题的，因为这样很规范，也很适用于大部分情况，但是考虑到现在我们只有26个字母需要考虑，利用array来存储和更新数据会更加迅速轻巧。
+
+
+### Kahn's algorithm
 
 ##### C++ solution
 
@@ -185,6 +194,80 @@ public String alienOrder(String[] words) {
     if(result.length()!=degree.size()) return "";
     return result;
 }
+```
+
+### DFS
+
+__When using DFS to do topological sorting, it is important to check whethere there is a cycle in the graph.__
+
+```cpp
+class Solution {
+private:
+    typedef unordered_map<char, unordered_set<char>> Graph;
+    
+    Graph make_graph(vector<string>& words) {
+        Graph g;
+        int n = words.size();
+        for (int i = 1; i < n; i++) {
+            bool found = false;
+            string word1 = words[i - 1], word2 = words[i];
+            int l1 = word1.length(), l2 = word2.length(), l = max(l1, l2);
+            for (int j = 0; j < l; j++) {
+                if (j < l1 && g.find(word1[j]) == g.end())
+                    g[word1[j]] = unordered_set<char>();
+                if (j < l2 && g.find(word2[j]) == g.end())
+                    g[word2[j]] = unordered_set<char>();
+                if (j < l1 && j < l2 && word1[j] != word2[j] && !found) {
+                    g[word1[j]].insert(word2[j]);
+                    found = true;
+                }
+            }
+        }
+        return g; 
+    }
+    
+    // Return false if there is a cycle
+    bool DFS(const Graph &graph,
+            std::unordered_set<char> &visited,
+            std::unordered_set<char> &in_dfs_cycle,
+            std::ostringstream &oss,
+            const char c) {
+        if (in_dfs_cycle.count(c) != 0) return false;
+        if (visited.count(c) == 0) {
+            visited.insert(c);
+            in_dfs_cycle.insert(c);
+            
+            for (const char to : graph.at(c)) {
+                if (!DFS(graph, visited, in_dfs_cycle, oss, to)) return false;
+            }
+            
+            in_dfs_cycle.erase(c);
+            oss << c;
+        }
+        return true;
+    }
+public:
+    string alienOrder(vector<string>& words) {
+        if (words.size() == 1) return words[0];
+        const Graph &graph = make_graph(words);
+        
+        std::unordered_set<char> visited, in_dfs_cycle;
+        std::ostringstream oss;
+        for (auto pair : graph) {
+            const char c = pair.first;
+            
+            if (visited.count(c) == 0) {
+                if (!DFS(graph, visited, in_dfs_cycle, oss, c)) return "";
+            }
+        }
+        
+        std::string reval = oss.str();
+        std::reverse(reval.begin(), reval.end());
+        
+        return reval;
+    }
+
+};
 ```
 
 # Summary
