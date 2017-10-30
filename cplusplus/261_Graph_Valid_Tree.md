@@ -56,3 +56,14 @@ public:
 };
 ```
 
+# Notes
+
+This problem can be solved with Union-Find, BFS and DFS.
+
+For BFS and DFS we need to build the graph first, so using Union-Find is just simply easier.
+
+And this also gives us an insight about when to use BFS/DFS or Union-Find.
+
+If the graph is there, BFS/DFS might make code shorter, otherwise, Union-Find can be a good candidate.
+
+Also, always try to perform path-compression when using Union-Find, it can improve performance.
