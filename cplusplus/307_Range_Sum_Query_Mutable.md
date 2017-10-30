@@ -107,50 +107,55 @@ When updating value, we keep adding __last set bit__ to index in order to go upw
 When getting range sum, we keep minus __last set bit__ to index in order to go upward to root node.
 
 
-
+__Note : be careful of using std::size_t, since it is not signed number.__
 
 ```cpp
 class NumArray {
 public:
-    NumArray(vector<int> nums) : m_nums(nums.size(),0), m_tree(nums.size() + 1,0) {
-        const std::size_t nums_size(nums.size());
-        for (std::size_t i = 0;i < nums_size; ++ i) {
-            update(i,nums[i]);
+    NumArray(vector<int> nums) : m_nums(nums.size(), 0), m_bit(nums.size() + 1, 0) {
+        for (std::size_t i = 0, n = nums.size(); i < n; ++i) {
+            update(i, nums[i]);
         }
     }
     
     void update(int i, int val) {
-        int diff = val - m_nums[i];
+        const int diff = val - m_nums[i]; 
         m_nums[i] = val;
-        
-        ++ i;
-        while (i < m_tree.size()) {
-            m_tree[i] += diff;
-            int last_set_bit = i & (-i);
-            i += last_set_bit;
+        int tree_index = i + 1; // BIT　index begins with 1
+        int tree_size = m_bit.size();
+        while (tree_index < tree_size) {
+            m_bit[tree_index] += diff;
+            int last_set_bit = tree_index & (-tree_index);
+            tree_index += last_set_bit;
         }
-    }
-    
-    int GetSum(int i) {
-        int sum(0);
-        ++ i;
-        while (i>0) {
-            sum += m_tree[i];
-            int last_set_bit = i & (-i);
-            i -= last_set_bit;
-        }
-        return sum;
     }
     
     int sumRange(int i, int j) {
-        return GetSum(j) - GetSum(i-1);
+        return getSum(j) - getSum(i - 1);
     }
     
 private:
+    int getSum(int i) {
+        int reval(0);
+        int tree_index = i + 1; // BIT　index begins with 1
+        while (tree_index > 0) {
+            reval += m_bit[tree_index];
+            int last_set_bit = tree_index & (-tree_index);
+            tree_index -= last_set_bit;
+        }
+        
+        return reval;
+    }
+    std::vector<int> m_bit;
     std::vector<int> m_nums;
-    std::vector<int> m_tree; // binary indexed tree
-    
 };
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray obj = new NumArray(nums);
+ * obj.update(i,val);
+ * int param_2 = obj.sumRange(i,j);
+ */
 ```
 
 # Segment tree vs Fenwick tree(BIT)
