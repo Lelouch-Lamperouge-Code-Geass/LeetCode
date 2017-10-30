@@ -35,17 +35,22 @@ Let's say the graph has V vertices and E edges, the find( ) function takes O(V) 
 class Solution {
 public:
     bool validTree(int n, vector<pair<int, int>>& edges) {
-        if (edges.size() != n-1) return false;
-        vector<int> nodes(n,0);
-        for(int i=0; i<n; i++) nodes[i] = i;
-        for(int i=0; i<edges.size(); i++){
-            int f = edges[i].first;
-            int s = edges[i].second;
-            while(nodes[f]!=f) nodes[f] = nodes[nodes[f]]; // path compression
-            while(nodes[s]!=s) nodes[s] = nodes[nodes[s]]; // path compression
-            if(nodes[f] == nodes[s]) return false;
-            nodes[s] = f;
+        if (edges.size() + 1 != n) return false;
+        
+        std::vector<int> parent(n, 0);
+        std::iota(parent.begin(), parent.end(), 0);
+        
+        for (const std::pair<int,int> & edge : edges) {
+            int from = edge.first, to = edge.second;
+            
+            while (parent[from] != from) from = parent[from] = parent[parent[from]]; // path compression
+            while (parent[to] != to) to = parent[to] = parent[parent[to]]; // path compression
+            
+            if (from == to) return false; // cycle exists!
+            
+            parent[from] = parent[to];
         }
+        
         return true;
     }
 };
