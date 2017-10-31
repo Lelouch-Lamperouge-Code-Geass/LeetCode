@@ -10,32 +10,37 @@ The cost of painting each house with a certain color is represented by a n x k c
 class Solution {
 public:
     int minCostII(vector<vector<int>>& costs) {
-        if (costs.empty() || costs[0].empty()) return 0;
-        vector<vector<int>> dp = costs;
-        // min1 is the index of the 1st-smallest cost till previous house
-        // min2 is the index of the 2nd-smallest cost till previous house
-        int min1 = -1, min2 = -1;
-        for (int i = 0; i < dp.size(); ++i) {
-            int last1 = min1, last2 = min2;
-            min1 = -1; min2 = -1;
-            for (int j = 0; j < dp[i].size(); ++j) {
-                // Choose last1 if we can, if not, choose last2
-                if (j != last1) {
-                    // current color j is different to last min1
-                    dp[i][j] += last1 < 0 ? 0 : dp[i - 1][last1];
+        if (costs.empty()) return 0;
+        
+        const std::size_t house_count(costs.size()), color_count(costs[0].size());
+        
+        std::vector<std::vector<int>> min_costs(house_count, std::vector<int>(color_count, INT_MAX));
+        
+        int min_one_color(-1), min_two_color(-1); // Record the color of minimal cost so far
+        
+        for (std::size_t house = 0; house < house_count; ++ house) {
+            int pre_min_one_color = min_one_color, pre_min_two_color = min_two_color;
+            min_one_color = -1, min_two_color = -1;
+            for (int color = 0; color < color_count; ++ color) {
+                if (color != pre_min_one_color) {
+                    min_costs[house][color] = house == 0 ? costs[house][color] 
+                            : min_costs[house - 1][pre_min_one_color] + costs[house][color];
                 } else {
-                    dp[i][j] += last2 < 0 ? 0 : dp[i - 1][last2];
+                    min_costs[house][color] = house == 0 ? costs[house][color] 
+                        :min_costs[house - 1][pre_min_two_color] + costs[house][color];
                 }
                 
-                // find the indices of 1st and 2nd smallest cost of painting current house i
-                if (min1 < 0 || dp[i][j] < dp[i][min1]) {
-                    min2 = min1; min1 = j;
-                } else if (min2 < 0 || dp[i][j] < dp[i][min2]) {
-                    min2 = j;
+                if (min_one_color < 0 || min_costs[house][color] < min_costs[house][min_one_color]) {
+                    min_two_color = min_one_color;
+                    min_one_color = color;
+                } else if (min_two_color < 0 || min_costs[house][color] < min_costs[house][min_two_color]) {
+                    min_two_color = color;
                 }
             }
+
         }
-        return dp.back()[min1];
+        
+        return min_costs[house_count - 1][min_one_color];
     }
 };
 ```
