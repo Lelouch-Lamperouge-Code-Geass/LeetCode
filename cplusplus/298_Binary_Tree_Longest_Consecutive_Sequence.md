@@ -62,40 +62,7 @@ This is the RIGHT solution!
 
 ### Solution 1
 
-```cpp
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
-class Solution {
-public:
-    int longestConsecutive(TreeNode* root) {
-        return DFS(root, nullptr, 0);
-    }
-private:
-    // For each node, return the max path len so far including that node
-    int DFS(TreeNode *root, TreeNode *parent, int len) {
-        if (!root) return len;
-        
-        if (parent && root->val == parent->val + 1) len += 1;
-        else len = 1; // New path begins
-        
-        int left = DFS(root->left, root, len);
-        int right = DFS(root->right, root, len);
-        
-        return std::max(len, std::max(left, right));
-    }
-};
-```
-
-### Solution 2
-
-I actually think this solution is more intuitive.
+A very intuitive solution.
 
 ```cpp
 /**
@@ -128,3 +95,38 @@ private:
     }
 };
 ```
+
+### Solution 2
+
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int longestConsecutive(TreeNode* root) {
+        return DFS(root, nullptr, 0);
+    }
+private:
+    // For each node, return the max path len so far including that node
+    int DFS(TreeNode *root, TreeNode *parent, int len) {
+        if (!root) return len;
+        
+        if (parent && root->val == parent->val + 1) len += 1;
+        else len = 1; // New path begins
+        
+        int left = DFS(root->left, root, len);
+        int right = DFS(root->right, root, len);
+        
+        return std::max(len, std::max(left, right));
+    }
+};
+```
+
+
