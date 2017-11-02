@@ -84,6 +84,23 @@ pos 0 1 2 4 4
 input[pos] 5 4 3 2 2
 ```
 
+Note that using largest_digit_behind[i] != i won't work here, e.g 98368 => 98368,  1993 => 9193.
+
+If for same digit, we record the rightmost.
+
+```
+input : 98368
+pos : 04444
+
+Then the second digit will be the first one that makes largest_digit_behind[i] != i
+```
+
+If for same digit we don't record the leftmost, that won't work.
+
+```
+input: 1993
+pos: 1123
+```
 __Time complexity O(N), space compleixty O(N).__
 
 ```cpp
@@ -104,7 +121,7 @@ public:
         }
         
         for (std::size_t i = 0; i < n; ++i) {
-            if (str[largest_digit_behind[i]] != str[i]) { // Note that largest_digit_behind[i] != i won't work here, e.g 98368 => 98368
+            if (str[largest_digit_behind[i]] != str[i]) { 
                 std::swap(str[i], str[largest_digit_behind[i]]);
                 return std::stoi(str);
             }
