@@ -104,7 +104,7 @@ public:
         }
         
         for (std::size_t i = 0; i < n; ++i) {
-            if (str[largest_digit_behind[i]] != str[i]) {
+            if (str[largest_digit_behind[i]] != str[i]) { // Note that largest_digit_behind[i] != i won't work here, e.g 98368 => 98368
                 std::swap(str[i], str[largest_digit_behind[i]]);
                 return std::stoi(str);
             }
