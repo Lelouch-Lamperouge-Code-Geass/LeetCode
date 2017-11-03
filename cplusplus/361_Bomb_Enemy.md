@@ -15,7 +15,9 @@ return 3. (Placing a bomb at (1,1) kills 3 enemies)
   
 # Solution
 
-Walk through the matrix. At the start of each non-wall-streak (row-wise or column-wise), count the number of hits in that streak and remember it. O(mn) time, O(n) space.
+Walk through the matrix. At the start of each non-wall-streak (row-wise or column-wise), count the number of hits in that streak and remember it. 
+
+__Time complexity O(row_size * column_size),  space complexity O(column_size).__
   
 ```cpp
 class Solution {
