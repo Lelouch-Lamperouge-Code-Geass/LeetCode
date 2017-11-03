@@ -34,27 +34,32 @@ A final note, since the problem statement has given that "az" and "ba" belong to
 class Solution {
 public:
     vector<vector<string>> groupStrings(vector<string>& strings) {
-        unordered_map<string, vector<string> > mp;
-        for (string  s : strings)
-            mp[shift(s)].push_back(s);
-        vector<vector<string> > groups;
-        for (auto m : mp) {
-            vector<string> group = m.second;
-            sort(group.begin(), group.end());
-            groups.push_back(group);
+        std::vector<std::vector<std::string>> reval;
+        
+        std::unordered_map<std::string, std::vector<std::string>> mapper;
+        
+        for (const std::string &str : strings) {
+            mapper[getHash(str)].emplace_back(str);
         }
-        return groups;
+        
+        for (const auto item : mapper) {
+            std::vector<std::string> group = item.second;
+            std::sort(group.begin(), group.end());
+            reval.emplace_back(group);
+        }
+        
+        return reval;
     }
 private:
-    string shift(string& s) {
-        string t;
-        int n = s.length();
-        for (int i = 1; i < n; i++) {
-            int diff = s[i] - s[i - 1];
+    std::string getHash(const std::string &str) {
+        std::ostringstream oss;
+        for (std::size_t i = 1, n = str.size(); i < n; ++i) {
+            int diff = str[i] - str[i-1];
             if (diff < 0) diff += 26;
-            t += 'a' + diff + ',';
+            oss << diff << ',';
         }
-        return t;
+        
+        return oss.str();
     }
 };
 ```
