@@ -20,27 +20,30 @@ The idea is: for every character, we can keep it or abbreviate it. To keep it, w
 class Solution {
 public:
     vector<string> generateAbbreviations(string word) {
-        vector<string> result;
-        dfs(result, word, 0, 0, "");
-        return result;
+        vector<string> reval;
+        std::string temp("");
+        helper(reval, temp, word, 0, 0);
+        return reval;
     }
-    
-    void dfs(vector<string>& result, string word, int pos, int count, string cur) {
-        if(pos == word.size()) {
-            if(count > 0)   cur += to_string(count);
-            result.push_back(cur);
-            return;
+private:
+    void helper(std::vector<std::string> &reval,
+                const std::string &temp,
+                const std::string &word,
+                const std::size_t pos,
+                const std::size_t count
+                ) {
+        if (pos == word.size()) {
+            std::string item = ( count != 0 ? temp + std::to_string(count) : temp);
+            reval.emplace_back(item);
+        } else {
+            // Just increase count
+            helper(reval, temp, word, pos + 1, count + 1);
+            
+         
+            // Add the count and current char. Then reset count
+            helper(reval, temp + (count > 0 ? std::to_string(count) : "") + word[pos], word, pos + 1, 0);
+            
         }
-        /** add previous count and the current character **/
-        if(count > 0) {
-            dfs(result, word, pos + 1, 0, cur + to_string(count) + word[pos]);
-        } 
-        else {
-            dfs(result, word, pos + 1, 0, cur + word[pos]);
-        }
-        /** just add the current character to count **/
-        dfs(result, word, pos + 1, count + 1, cur);
-        
     }
 };
 ```
