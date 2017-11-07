@@ -51,36 +51,46 @@ public:
 };
 ```
 
-My personal version.
+A different style.
 
 ```cpp
 class Vector2D {
 public:
-  Vector2D(std::vector<std::vector<int>> &vec2d) 
-    : m_begin(vec2d.begin()), m_end(vec2d.end()), m_index(0){
-    
-  }
-  int next() {
-    hasNext();
-    return (*m_begin)[m_index++];
-  }
-  bool hasNext() {
-    while (m_index == m_begin->size() && m_begin != m_end) {
-      ++ m_begin;
-      m_index = 0;
+    Vector2D(vector<vector<int>>& vec2d) : m_row_iter(vec2d.begin()), m_row_end(vec2d.end()){
+        if (m_row_iter != m_row_end) {
+            m_col_iter = m_row_iter->begin();
+            m_col_end = m_row_iter->end();
+        }
     }
-    return m_begin != m_end;
-  }
-private:
-  std::size_t m_index;
-  std::vector<std::vector<int>>::iterator m_begin, m_end;
-};
-void UnitTest() {
-  vector<vector<int>> vec2d = {{1,2}, {3},{},{},{}, {4,5,6},{7}};
-  Vector2D matrix(vec2d);
-  while (matrix.hasNext()) {
-    std::cout <<matrix.next() << std::endl;
-  }
-}
 
+    int next() {
+        if (hasNext()) {
+            int reval = *m_col_iter;
+            ++ m_col_iter;
+            return reval;
+        } else {
+            return -1;
+        }
+    }
+
+    bool hasNext() {
+        while (m_row_iter != m_row_end && m_col_iter == m_col_end) {
+            ++ m_row_iter;
+            if (m_row_iter != m_row_end) {
+                m_col_iter = m_row_iter->begin(), m_col_end = m_row_iter->end();
+            }
+        }
+        
+        return m_col_iter != m_col_end;
+    }
+private:
+    vector<vector<int>>::iterator m_row_iter, m_row_end;
+    vector<int>::iterator m_col_iter, m_col_end;
+};
+
+/**
+ * Your Vector2D object will be instantiated and called as such:
+ * Vector2D i(vec2d);
+ * while (i.hasNext()) cout << i.next();
+ */
 ```
