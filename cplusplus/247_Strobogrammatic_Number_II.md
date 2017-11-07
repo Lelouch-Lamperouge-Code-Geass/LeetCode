@@ -73,29 +73,37 @@ https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/248_Strobogrammatic
 Just initialize the string with n '0', and fill it with left and right pointers.
 
 ```cpp
-void fillString(vector<string> &reval,
-                std::string & temp,
-                const int left,
-                const int right) {
-  static std::unordered_map<char, char> mapper 
-     = {{'0', '0'}, {'1', '1'}, {'6', '9'}, {'8', '8'}, {'9', '6'}};
-  if (left > right) {
-    reval.emplace_back(temp);
-  } else {
-    for (const std::pair<char, char> & p : mapper) {
-      //  "0" cannot be add to the leftmost and rightmost position.
-      if (temp.size() > 1 && left == 0 &&  p.first == '0') continue;
-      temp[left] = p.first;
-      temp[right] = p.second;
-      fillString(reval, temp, left + 1, right - 1);
+class Solution {
+public:
+    vector<string> findStrobogrammatic(int n) {
+        vector<string> reval;
+        if (n <= 0) return reval;
+        string temp(n, '_');
+        fill(reval, temp, 0, n - 1);
+        return reval;
     }
-  }
-}
-
-vector<string> findStrobogrammatic(int n) {
-  std::string temp(n, '0');
-  vector<string> reval;
-  fillString(reval, temp, 0, n - 1);
-  return reval;
-}
+private:
+    void fill(vector<string> &reval, 
+              string temp, 
+              std::size_t left, 
+              std::size_t right) {
+        static unordered_map<char, char> rotation_mapper = {
+            {'0','0'},  {'1','1'}, {'6','9'}, {'8','8'}, {'9','6'} 
+        };
+        
+        if (left <= right) {
+            for (auto pair : rotation_mapper) {
+                 //  "0" cannot be add to the leftmost and rightmost position.
+                if (temp.size() > 1 && left == 0 &&  pair.first == '0') continue;
+                // When left == right, we can only add '0', '1', '8'
+                if (left == right && pair.first != pair.second) continue;
+                temp[left] = pair.first, temp[right] = pair.second;
+                fill(reval, temp, left + 1, right > 0 ? right - 1 : right);
+            }
+        } else {
+            reval.emplace_back(temp);
+        }
+        
+    }
+};
 ```
