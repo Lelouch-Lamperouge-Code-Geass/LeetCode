@@ -8,25 +8,35 @@ Note that in the description "a sorted integer array where the range of elements
 
 Otherwise we need to handle when lower is larger than the smallest number or the upper is bigger than the biggest number in the array.
 
+Other things we need to consider:
+
+1. What about ```[2147483647], lower = -2147483648 upper = 2147483647``` ? Overflow is possible here.
+2. The interval between lower and first number, and the interval between last number and upper. These two intervals are the most tricky part.
+
+
 ```cpp
 class Solution {
-public:
-    string get_range(int start, int end)
-    {
-        return start==end? to_string(start) : to_string(start)+"->"+to_string(end);
+private:
+    std::string getRange(long from, long to) {
+        return from == to ? std::to_string(from) : std::to_string(from) + "->" + std::to_string(to);
     }
+public:
     vector<string> findMissingRanges(vector<int>& nums, int lower, int upper) {
-        vector<string> result;
-        int pre = lower-1;
-        for(int i =0; i <= nums.size(); i++)
-        {
-           int cur = (i==nums.size()? upper+1:nums[i]);
-           if(cur-pre >= 2) {
-            result.push_back(get_range(pre+1,cur-1));
-           }
-           pre = cur;
+        vector<string> reval;
+
+        long pre((long)lower - 1);
+        
+        for (long num : nums) {
+            if (pre + 1 < num) {
+                reval.emplace_back(getRange(pre + 1, num - 1));
+            }
+            
+            pre = num;
         }
-        return result;
+        
+        if (pre < upper) reval.emplace_back(getRange(pre + 1, upper));
+        
+        return reval;
     }
 };
 ```
