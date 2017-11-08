@@ -107,3 +107,48 @@ public:
 
 };
 ```
+
+### Solution three
+
+Get inspiration from https://leetcode.com/problems/largest-bst-subtree/description/
+
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        int min_val(INT_MAX), max_val(INT_MIN);
+        return isBST(root, min_val, max_val);
+    }
+private:
+    bool isBST(TreeNode* root, int &min_val, int &max_val) {
+        if (!root) {
+            return true;
+        } else {
+            int left_min(INT_MAX), left_max(INT_MIN);
+            bool is_left_bst = isBST(root->left, left_min, left_max);
+            
+            int right_min(INT_MAX), right_max(INT_MIN);
+            bool is_right_bst = isBST(root->right, right_min, right_max);
+            
+            if (is_left_bst && is_right_bst) {
+                if (root->left && left_max >= root->val) return false;
+                if (root->right && right_min <= root->val) return false;
+                min_val = root->left ? left_min : root->val;
+                max_val = root->right ? right_max : root->val;
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+};
+```
