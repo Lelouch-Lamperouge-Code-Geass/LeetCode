@@ -155,3 +155,76 @@ While threads can execute in parallel with same context. Also, memory and other 
 
 # Difference between BIOS and Kernel
 
+Kernel is one of the most important part of Operating System. We use the word kernel to mean the part of operating system that runs in the privileged mode (Sometimes even a subset of this). Kernel is closer to the hardware and often performs tasks like memory management and system calls.
+
+Now for BIOS (Basic Input-Output System), it is the one which is responsible to provide drivers for new devices to OS. BIOS constitutes of the code that is stored in read-only memory (ROM) and some configuration data in non-volatile RAM.
+BIOS provides three primary functions:
+
+1. Power on self test (POST), so it knows where to load the boot program.
+2. Load and transfer control to boot program .
+3. Provide drivers for all devices.
+
+The main BIOS is supplied as a chip on the motherboard. It contains everything needed to perform the above three functions. Additional BIOSes on other boards can provide access to additional devices.
+
+# Booting Operating System : During Booting BIOS contain address of boot loader and boot loader load kernel .Why 2 step process . why can BIOS directly load kernel ?
+
+BIOS is in the ROM. It is made to look for the __MBR(master boot record)__, where 1st stage of bootloder is present.
+
+1. Stage 1 boot loader is read into memory from the MBR.  
+2. The Stage 1.5 boot loader is read into memory by the Stage 1 boot loader. The Stage 1.5 boot loader is found either on the /boot/ partition or on a small part of the MBR and the /boot/ partition.  
+3. The Stage 2 or secondary boot loader is read into memory. This is where you see grub menu.
+4. Stage 2 loads the kernel and intram onto the memory.  
+
+BIOS is so small, it cannot store and load kernel image.
+
+Also, BIOS does its job by showing us the MBR of each disk. MBR has bootloader which can be modified. BIOS code cannot be modified.
+
+This is the design aspect to achieve abstraction.
+
+# What is different of Logical address and Physical address between father process and child process？
+
+Initially both parent and child share the page(logically and physically) as long as they don't write to the page, when one of the processes attempts to write something to the page, then an extra copy of the page will be allocated. That is copy-on-write.
+
+Therefore, parent and child process could share same physical page as long as the page is read-only(like pages in text segment or some shared-library segment. it is different when saying the page is marked as read-only in page table, see reference below for more info) or no one attempts to write the page. When copy-on-write occurs, the logical and physical mappings should be different in parent and child process.
+
+# Brief introduction to the Operating System Scheduling algorithms
+
+1. First-Come, First-Served Scheduling : By far the simplest CPU-scheduling algorithm is the first-come, first-served (FCFS) scheduling algorithm. With this scheme, the process that requests the CPU first is allocated the CPU first.
+
+2. Shortest-Job-First Scheduling : This algorithm associates with each process the length of the process’s next CPU burst. When the CPU is available, it is assigned to the process that has the smallest next CPU burst.
+
+3. Priority Scheduling : Apriority is associated with each process, and the CPUis allocated to the process with the highest priority.
+
+4. Round-Robin Scheduling : It is similar to FCFS scheduling, but preemption is added to enable the system to switch between processes. A small unit of time, called a time quantum or time slice, is defined. A time quantumis generally from 10 to 100 milliseconds in length.
+
+5. Multilevel Queue Scheduling : Another class of scheduling algorithms has been created for situations in which processes are easily classified into different groups. A multilevel queue scheduling algorithm partitions the ready queue into several separate queues.
+
+6. Multilevel Feedback Queue Scheduling : The multilevel feedback queue scheduling algorithm, in contrast, allows a process tomove between queues. The idea is to separate processes according to the characteristics of their CPU bursts.
+
+# Operating system and kernel : Same or different?
+
+This is the topic I have heard in which people get confused inspite of knowing the answer. It's time to draw the clear line between the two keywords, "Operating System" and "Kernel"
+
+In simple terms, one line answer will be, kernel is a part of an operating system.
+
+### Explanation:  
+Let’s first define what an operating system is. We all have heard of the common definition that it acts as an interface between the application programs and the system hardware. It is also responsible for resource allocation, assigning CPU to the processes running, manages the hardware etc. But to point out, we have no universally accepted definition of what an operating system is. The fundamental goal of computer systems is to execute user programs and to make problem solving easier. Computer hardware is constructed towards this goal. Since bare hardware alone is not sufficient and easy to use, application programs are developed on top of them to provide users to interact with. These programs now may need various common operations such as memory, IO devices etc. These common operations are brought together into one piece of software known as operating system. A simple viewpoint is that it includes everything a vendor ships when you order operating system.
+Thus, Operating System is a generic name given to all of the elements (user interface, libraries, resources) which make up the system as a whole.
+
+The kernel is "brain" of the operating system, which controls everything from access to the hard disk to memory management.
+Whenever you want to do anything, it goes though the kernel. It provides low level services like device management, process management, memory management i.e. it provides all the core system calls to accomplish any task. OS includes this kernel, along with this, it also includes GUI components like shells, command interpreter, browser, compilers, text editors, windowing systems etc via which user asks the kernel to perform a certain job.
+Thus, when extra utilities and useful applications are added over the kernel, it becomes a package. So, it can easily be said that the OS consists of a user space and a kernel space.
+
+As a quick test, ask yourself now if LINUX is a kernel or an operating system?
+
+The answer will be Kernel. Linux is a kernel as it does not include any extra applications with it. That's why companies like ubuntu, redHat have added some extra utilities and interfaces and made that as an OS.
+
+# Can a posix thread modify another thread's stack variable within the same program ?
+
+Yes, a thread can modify the stack contents of another thread if they are in the same process. Stack is simply a region of memory in the process's address space and all threads of that process have same access rights to all its memory regions.
+For TLS, the compiler places all TLS variables in .tdata section. For each thread, the .tdata is copied to a new memory location. When threads switch, the .tdata is also switched.
+
+# What is the difference between process and service?
+
+# What is difference between top half and bottom half ?
+
