@@ -16,27 +16,34 @@ The number of ways decoding "12" is 2.
 
 # Solution
 
-I used a dp array of size n + 1 to save subproblem solutions. dp[0] means an empty string will have one way to decode, dp[1] means the way to decode a string of size 1. I then check one digit and two digit combination and save the results along the way. In the end, dp[n] will be the end result.
+Let's use decode_ways[i] to record how many decode ways we can have for substring [0, i] from input string s.
+
+If s[i] is from '1' to '9', we know that we can simply make ```decode_ways[i] += decode_ways[i-1]```, this means that s[i] can extend string[0,i-1] and maintain ths extended string valid by treating s[i] independent. No more no less. This encode way can be expressed as
+```[s[0,i-1], s[i]]```. And you can see, if s[i] == '0', this encode way won't work.
+
+And we can also use another expression ```[s[0,i-2], s[i-1, i-2]]```  if the number made of s[i-1, i-2] is within [10,26]. Here we have one edge case which is when i is equals to 1.
 
 ```cpp
 class Solution {
 public:
     int numDecodings(string s) {
-        if(s.empty()||s[0]=='0')
-            return 0;
-        const int s_size = s.size();
-        vector<int> dp(s_size,0);
-        dp[0]=1;
-        for(int i=1; i<s.size(); i++) {
-            int v = (s[i-1]-'0')*10 + (s[i]-'0');
-            // + dp[i-2] ?
-            if( v<=26 && v>=10) dp[i] =  (i>=2? dp[i-2]:1);
-            // + dp[i-1] ?
-            if(s[i]!='0') dp[i] += dp[i-1];
-            if(dp[i]==0)return 0;
+        if (s.empty()) return 0;
+        
+        const std::size_t n(s.size());
+        vector<int> decode_ways(n, 0);
+        
+        decode_ways[0] = s[0] != '0' ? 1 : 0;
+        
+        for (std::size_t i = 1; i < n; ++i) {
+            if (s[i] != '0') decode_ways[i] += decode_ways[i - 1];
+            
+            if (i >= 1) {
+                int val = (s[i-1] - '0') * 10 + (s[i] - '0');
+                if (val >= 10 && val <= 26) decode_ways[i] += (i >= 2 ? decode_ways[i - 2] : 1);
+            }
         }
-        return dp[s_size-1];
+        
+        return decode_ways[n - 1];
     }
-
 };
 ```
