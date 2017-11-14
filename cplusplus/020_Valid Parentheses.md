@@ -4,6 +4,8 @@ The brackets must close in the correct order, "()" and "()[]{}" are all valid bu
 
 # Solution
 
+### Solution one
+
 ```cpp
 class Solution {
 public:
@@ -30,17 +32,19 @@ public:
 };
 ```
 
+### Solution two
+
 ```cpp
 class Solution {
 public:
     bool isValid(string s) {
         std::stack<char> lefts;
-        for(std::size_t i=0;i<s.size();++i){
-            if(s[i]=='('||s[i]=='{'||s[i]=='['){
-                lefts.push(s[i]);
+        for(const char c : s){
+            if(c == '(' || c == '{' || c =='['){
+                lefts.push(c);
             } else {
-                const char lm ( get_left(s[i]) );
-                if(lefts.empty() || lefts.top()!=lm) {
+                const char lm ( get_left(c) );
+                if(lefts.empty() || lefts.top() != lm) {
                     return false;
                 } else {
                     lefts.pop();
