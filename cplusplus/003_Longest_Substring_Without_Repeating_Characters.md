@@ -12,18 +12,9 @@ __Note that the answer must be a substring, "pwke" is a subsequence and not a su
 
 # Solution
 
-Assume L[i] = s[m...i], denotes the longest substring without repeating characters that ends up at s[i], and we keep a hashmap for every characters between m ... i, while storing <character, index> in the hashmap.
+The basic idea is, keep a hashmap which stores the characters in string as keys and their positions as values, and keep two pointers which define the max substring. move the right pointer to scan through the string , and meanwhile update the hashmap. If the character is already in the hashmap, then move the left pointer to the right of the same character last found. Note that the two pointers can only move forward. 
 
-We know that each character will appear only once.
-Then to find s[i+1]:
-1. if s[i+1] does not appear in hashmap
-    we can just add s[i+1] to hash map. and L[i+1] = s[m...i+1]
-2. if s[i+1] exists in hashmap, and the hashmap value (the index) is k,
-   let m = max(m, k), then L[i+1] = s[m...i+1], we also need to update entry in hashmap to mark the latest occurency of s[i+1].
-
-Since we scan the string for only once, and the 'm' will also move from beginning to end for at most once. Overall complexity is O(n).
-
-If characters are all in ASCII, we could use array to mimic hashmap.
+In our solution, the left pointer is ```start```, right pointer is ```i```. On every ```i```, [start, i] should form the longest substring wihout repeating characters including ```s[i]```.
 
 Keynotes:
 
