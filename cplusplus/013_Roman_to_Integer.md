@@ -6,7 +6,9 @@ Input is guaranteed to be within the range from 1 to 3999.
 
 * https://en.wikipedia.org/wiki/Roman_numerals
 
-  __Time complexity is O(n), and space complexity is O(1).__
+We start from the end of string, if the char is smaller than next char, minus it, otherwise add it.
+ 
+__Time complexity is O(n), and space complexity is O(1).__
   
 ```cpp
 class Solution {
