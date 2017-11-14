@@ -16,6 +16,8 @@ The basic idea is, keep a hashmap which stores the characters in string as keys 
 
 In our solution, the left pointer is ```start```, right pointer is ```i```. On every ```i```, [start, i] should form the longest substring wihout repeating characters including ```s[i]```.
 
+__The time complexity is O(N)， and the spce complexity is O(1).__ (We use a vector with 256 entries.)
+
 Keynotes:
 
 1. We calculate the length of longest non-duplicate-char string including current char on each char, and compare it with final result.
