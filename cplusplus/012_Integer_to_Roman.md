@@ -1,3 +1,10 @@
+Given an integer, convert it to a roman numeral.
+
+Input is guaranteed to be within the range from 1 to 3999.
+
+# Solution
+ 
+```cpp  
 class Solution {
 public:
   string intToRoman(int num) {
@@ -8,3 +15,4 @@ public:
     return thousand[num/1000]+hundred[(num%1000)/100]+ten[(num%100)/10]+one[(num%10)];
   }
 };
+```
