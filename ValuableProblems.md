@@ -1,4 +1,7 @@
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/003_Longest_Substring_Without_Repeating_Characters.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/004_Median_of_Two_Sorted_Arrays.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/010_Regular_Expression_Matching.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/011_Container_With_Most_Water.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/008_String_to_Integer.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/159_Longest_Substring_with_At_Most_Two_Distinct.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/161_One_Edit_Distance.md  
