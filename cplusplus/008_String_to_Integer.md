@@ -18,6 +18,13 @@ If no valid conversion could be performed, a zero value is returned. If the corr
 
 # Solution
 
+Based on requirements, these cases need to be taken care of:
+
+1. discards all leading whitespaces
+2. sign of the number
+3. overflow
+4. invalid input
+
 ```cpp
 class Solution {
 public:
