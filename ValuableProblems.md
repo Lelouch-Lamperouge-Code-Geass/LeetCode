@@ -6,6 +6,8 @@ https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/011_Container_With_
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/022_Generate_Parentheses.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/023_Merge_k_Sorted_Lists.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/025_Reverse_Nodes_in_k-Group.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/029_Divide_Two_Integers.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/030_Substring_with_Concatenation_of_All_Words.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/159_Longest_Substring_with_At_Most_Two_Distinct.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/161_One_Edit_Distance.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/163_Missing_Ranges.md  
