@@ -37,7 +37,16 @@ But wait a minute. By sliding from beging of the string s only, is definitely no
 
 ```0, word_size, word_size * 2, word_size * 3,......```
 
-How about window begin with 1, 2, 3 ?
+How about window begin with 
+
+```
+1, word_size + 1, word_size * 2 + 1, word_size * 3 + 1,......
+2, word_size + 2, word_size * 2 + 2, word_size * 3 + 2,......
+3, word_size + 3, word_size * 2 + 3, word_size * 3 + 3,......
+....
+...
+```
+
  
 It turns out that one window sliding is not good enough, __we need word.size() times of window sliding__.
  
