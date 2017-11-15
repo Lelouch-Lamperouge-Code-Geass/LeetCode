@@ -22,7 +22,7 @@ We can make the window sliding from the begining of s untill its end. If everyti
  
 But wait a minute. By sliding from beging of the string s only, is definitely not enough. Because it only covers index begin with 
 
-```0, word_size, word_size * 2, word_size * 3,......````
+```0, word_size, word_size * 2, word_size * 3,......```
 
 How about window begin with 1, 2, 3 ?
  
