@@ -17,6 +17,22 @@ For k = 3, you should return: 3->2->1->4->5
   
 ### Solution 1 
 
+```
+-1 -> 1 -> 2 -> 3 -> 4 -> 5
+ |    |    |    | 
+pre  cur  nex  tmp
+
+-1 -> 2 -> 1 -> 3 -> 4 -> 5
+ |         |    |    | 
+pre       cur  nex  tmp
+
+-1 -> 3 -> 2 -> 1 -> 4 -> 5
+ |              |    |    | 
+pre            cur  nex  tmp
+```
+
+Above is how it works inside one group iteration(for example, k=3)
+
 ```cpp
 class Solution {
 public:
@@ -112,8 +128,8 @@ private:
 
 ###  Solution 3
 
-Please notice that since this solution uses recursion, its space complexity is not constant.
-  
+Please notice that since this solution uses recursion, its space complexity is not constant as required!
+
 ```cpp
 class Solution {
 public:
