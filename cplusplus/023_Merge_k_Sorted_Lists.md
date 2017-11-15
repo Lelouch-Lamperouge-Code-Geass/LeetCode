@@ -12,6 +12,14 @@ Note here that comparing to above brute-force solution which costs O(1) space co
 
 ### Solution with C++98
 ```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
 class Solution {
 public:
   ListNode* mergeKLists(vector<ListNode*>& lists) {
@@ -25,7 +33,7 @@ public:
     while( !pqueue.empty() ) {
       ListNode* curr = pqueue.top();
       pqueue.pop();
-      pre->next = curr;
+      pre->next = new ListNode(curr->val);
       pre = pre->next;
       if(curr->next) pqueue.push(curr->next);
     }
@@ -62,7 +70,7 @@ public:
         while (!min_heap.empty()) {
             ListNode *cur_node = min_heap.top();
             min_heap.pop();
-            pre->next = cur_node;
+            pre->next = new ListNode(cur_node->val);
             pre = pre->next;
             if (cur_node->next) {
                 min_heap.push(cur_node->next);
