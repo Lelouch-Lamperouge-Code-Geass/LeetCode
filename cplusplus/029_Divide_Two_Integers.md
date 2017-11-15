@@ -3,6 +3,8 @@ Divide two integers without using multiplication, division and mod operator.
 If it is overflow, return MAX_INT.
 
 # Solution
+
+__The division of two natural numbers is the process of calculating _the number of times one number is contained within one another_.__
   
 In this problem, we are asked to divide two integers. However, we are not allowed to use division, multiplication and mod operations. So, what else can we use? Yeah, bit manipulations.
 
