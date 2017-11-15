@@ -23,9 +23,12 @@ We can make the window sliding from the begining of s untill its end. If everyti
 ```
 For "conflict word", there are two scenarios:
 
-1. The conflict word doesn't in our words list at all, and in this case we need to shift the begin position of the window right after the conflict word.
+1. The conflict word doesn't in our words list at all, and in this case we need 
+   to shift the begin position of the window right after the conflict word.
 
-2. The conflict word is actually a word in our words list, but in this window we have more than we need. In this case, we need to shift the begin position of the window right after the first word matching our conflict word.
+2. The conflict word is actually a word in our words list, but in this window we 
+   have more than we need. In this case, we need to shift the begin position of the window right 
+   after the first word matching our conflict word.
 ```
 
 By closing look at these two cases, it turns out that all we need to do is to _shift the begin position right after the first word matching our conflict word_.
