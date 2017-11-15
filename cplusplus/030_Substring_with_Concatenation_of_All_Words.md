@@ -19,16 +19,26 @@ First of all, you need to know that above brute-force solution have many unneces
 How can we do better ?  
  
 We can make the window sliding from the begining of s untill its end. If everytime we find a 'conflict word', we can just shift the window_start right after the conflict word. For every window which meet the requirements, we just add the window_start into our final result.
- 
+
+```
+For "conflict word", there are two scenarios:
+
+1. The conflict word doesn't in our words list at all, and in this case we need to shift the begin position of the window right after the conflict word.
+
+2. The conflict word is actually a word in our words list, but in this window we have more than we need. In this case, we need to shift the begin position of the window right after the first word matching our conflict word.
+```
+
+By closing look at these two cases, it turns out that all we need to do is to _shift the begin position right after the first word matching our conflict word_.
+
 But wait a minute. By sliding from beging of the string s only, is definitely not enough. Because it only covers index begin with 
 
 ```0, word_size, word_size * 2, word_size * 3,......```
 
 How about window begin with 1, 2, 3 ?
  
-It turns out that one window sliding is not good enough, we need word.size() times of window sliding.
+It turns out that one window sliding is not good enough, __we need word.size() times of window sliding__.
  
-Since for each window sliding, every char comes into and out of the window only once, the time complexity for one window sliding is O(s.size()). And because we need to perform word.sizs() times of window sliding, the total time complexity is O(s.size() * word.size()).
+__Since for each window sliding, every char comes into and out of the window only once, the time complexity for one window sliding is O(s.size()). And because we need to perform word.sizs() times of window sliding, the total time complexity is O(s.size() * word.size()).__
  
 ```cpp
 class Solution {
@@ -73,8 +83,7 @@ public:
 //    In this case, we need to shift the begin position of the window right after the first word 
 //    matching our conflict word.
 // By closing look at these two cases, it turns out that all we need to do is to
-// shift the begin position right after
-//    the first word matching our conflict word! 
+// shift the begin position right after the first word matching our conflict word! 
 ******************************************************************************************/
 
                     
