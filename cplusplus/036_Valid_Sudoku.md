@@ -20,7 +20,7 @@ Below solution uses a 9x9 matrix as the "marker".
 
 If the interviewer ask you to improve the space complexity, note that theoretically you just need 9*9 entries in each marker and the entry can be a bit.
 
-Therefore, you can optimize the space complexity to 9*9*3 bits.
+Therefore, you can optimize the space complexity to ```9*9*3``` bits.
 
 The time complexity will always be O(N^2).
 
