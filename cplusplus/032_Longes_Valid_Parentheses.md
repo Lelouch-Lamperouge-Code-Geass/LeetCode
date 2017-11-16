@@ -13,7 +13,7 @@ Scan the string from beginning to end.
 3. After the scan is done, the stack will only contain the indices of characters which cannot be matched. Then let's use the opposite side - substring between adjacent indices should be valid parentheses.  
 4. If the stack is empty, the whole input string is valid. Otherwise, we can scan the stack to get longest valid substring as described in step 3.  
 
-```
+```cpp
 class Solution {
 public:
   int longestValidParentheses(string s) {
