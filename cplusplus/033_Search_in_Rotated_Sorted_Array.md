@@ -7,11 +7,38 @@ You are given a target value to search. If found in the array return its index, 
 You may assume no duplicate exists in the array.
   
 # Solution
+
+In this problem, the array is sorted in __ascending order__ and rotated at some pivot.
+
+In the description, it also mentioned that __no duplicate exists__ in the array. Note if there are duplicates, below solution needs to be adjusted.
+
+We all know how to do binary search on a sorted array. Right now the array is rotated, then this array will have two sorted sub-array.
+We can still do binary search here.
+
+We begin with ```low = 0, high = n -1```.
+
+Then ```mid = low + (high - low) / 2```.
   
-Notice that nums[mid] can have two status, each status divide the 
-vectory into two parts.
-(1) nums[mid] < nums[high], then [mid,high] is increasing
-(2) nums[mid] > nums[high], then [low,mid] is increasing
+Notice that nums[mid] can have two status, each status divide the vectory into two parts, at least one part is a sorted array, another part might be rotated or sorted. We can always check whether the target value is in the sorted part by comparing target with the minimum value and maximum value of the sorted part. 
+
+Once we confirmed that the target is within this range, we just need to change low and high pointers to point to this sorted range and in following steps we only need to do binary search here.
+
+If the target is not within the sorted range, we can adjust low and high pointers to discard the sorted part.
+
+__Time complexity is O(logN).__
+
+````
+If nums[mid] == target, return mid.
+
+Else :
+(1) nums[mid] < nums[high], then [mid,high] is increasing.
+    * Target is in this range, make low = mid + 1.
+    * Target is not in this range, make high = mid - 1
+(2) nums[mid] > nums[high], then [low,mid] is increasing.
+    * Target is in this range, make high = mid - 1.
+    * Target is not in this range, make low = mid + 1
+```
+
 We can use binary search based on the status.
 
 ```cpp  
