@@ -16,10 +16,13 @@ Here are some examples. Inputs are in the left-hand column and its corresponding
 
 Well, in fact the problem of next permutation has been studied long ago. From the [Wikipedia page](https://en.wikipedia.org/wiki/Permutation), in the 14th century, a man named Narayana Pandita gives the following classic and yet quite simple algorithm (with minor modifications in notations to fit the problem statement):
 
-1. Find the largest index k such that nums[k] < nums[k + 1]. If no such index exists, the permutation is sorted in descending order, just reverse it to ascending order and we are done. For example, the next permutation of [3, 2, 1] is [1, 2, 3].  
-2. Find the largest index l greater than k such that nums[k] < nums[l].  
-3. Swap the value of nums[k] with that of nums[l].  
-4. Reverse the sequence from nums[k + 1] up to and including the final element nums[nums.size() - 1].  
+1. Begin with right side of the input vector, and goes backwards. Find the first index which makes nums[i] < nums[i + 1]. If no such index exists, then the input vector is sorted in NON-increasing order, just sort the vector and return.
+
+2.  If such index exists, then nums{index + 1, end_index} is non-increasing, sort nums{index + 1, end_index} and make this range non-decreasing.
+
+3. Find the smallest number in range nums{index + 1, end_index} which is larger than nums[index]. We can call std::upper_bound.
+
+4. Swap nums[index] and nums[pos], here pos is the return value of std::upper_bound.
 
 
 __Note__:
