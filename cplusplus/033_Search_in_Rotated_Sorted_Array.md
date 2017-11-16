@@ -51,14 +51,18 @@ public:
       if(nums[mid] == target) return mid;
       if(nums[mid]<nums[high]){
         if(target>nums[mid] && target <= nums[high]){
+          // target is within the sorted range.
           low = mid + 1;
         } else {
+          // target is NOT　within the sorted range.
           high = mid -1;
         }
       } else {
         if(target>=nums[low] && target < nums[mid]){
+          // target is within the sorted range.
           high = mid - 1;
         } else {
+          // target is NOT　within the sorted range.
           low = mid + 1;
         }
       }
@@ -90,7 +94,7 @@ public:
                     } else {
                         low = mid + 1;
                     }
-                } else { // nums[high] >= nums[mid], [mid,high] monotonically increasing
+                } else { // nums[high] > nums[mid], [mid,high] monotonically increasing
                     if (target > nums[mid] && target <= nums[high]) {
                         low = mid + 1;
                     } else {
