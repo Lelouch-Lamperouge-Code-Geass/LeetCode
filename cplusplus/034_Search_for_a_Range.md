@@ -1,7 +1,29 @@
-/*
-Solution 1
-*/
+Given an array of integers sorted in ascending order, find the starting and ending position of a given target value.
 
+Your algorithm's runtime complexity must be in the order of O(log n).
+
+If the target is not found in the array, return [-1, -1].
+
+For example,
+Given [5, 7, 7, 8, 8, 10] and target value 8,
+return [3, 4].
+
+  
+# Solution
+  
+The problem can be simply broken down as two binary searches for the begining and end of the range, respectively. The time complexity is O(logN).
+  
+While there are some edge cases that you need to think about:
+
+* nums is empty  
+* all numbers in nums are smaller than target, in this case the low pointer will >= n  
+* all numbers in nums are larger than target, in this case, the low pointer won't move at all, and will stay at index == 0  
+
+As long as nums[low] is confirmed, we know that the range definitely exists.  
+  
+### Solution one  
+
+```cpp  
 class Solution {
 public:
   vector<int> searchRange(vector<int>& nums, int target) {
@@ -34,11 +56,11 @@ public:
     return reval;
   }
 };
+```
 
-/*
-Solution 2
-*/
+# Solution two
 
+```cpp
 class Solution {
 public:
   vector<int> searchRange(vector<int>& nums, int target) {
@@ -51,3 +73,4 @@ public:
     return result;
   }
 };
+```
