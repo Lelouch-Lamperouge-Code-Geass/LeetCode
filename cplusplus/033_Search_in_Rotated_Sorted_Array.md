@@ -27,7 +27,7 @@ If the target is not within the sorted range, we can adjust low and high pointer
 
 __Time complexity is O(logN).__
 
-````
+```
 If nums[mid] == target, return mid.
 
 Else :
