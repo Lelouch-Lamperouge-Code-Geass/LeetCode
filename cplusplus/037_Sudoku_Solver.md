@@ -30,7 +30,7 @@ This is a classic backtracking problem, another classic problem is [eight queens
 
 ### Solution 2 
 
-```       
+```cpp       
 class Solution {
  public:
   void solveSudoku(vector<vector<char>>& board) { TrySolve(board, 0, 0); }
@@ -75,7 +75,7 @@ class Solution {
 
 ### Solution 3
 
-```
+```cpp
 class Solution {
  public:
   void solveSudoku(vector<vector<char>>& board) { solve(board); }
