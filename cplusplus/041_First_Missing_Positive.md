@@ -12,9 +12,9 @@ Let's ignore the time and space complexity first. How can we solve this problem?
 
 One simple solution is to sort nums first, and then check from the first non-negative number. The time compleixty is O(NlogN) and space complexity is O(1).
 
-Another simple solution is, since in best scenario nums will cover [1,n] so we just need a n+1 counter. If a positive number is present in nums, we set ```counter[number - 1] = true```. And finally we scan the counter and find the first entry whose value is false. In this case, time complexity is O(N) but the space complexity is O(N) too.
+Another simple solution is, since in best scenario ```nums``` will cover [1,n] so we just need a n+1 counter. If a positive number is present in nums, we set ```counter[number - 1] = true```. And finally we scan the counter and find the first entry whose value is false. In this case, time complexity is O(N) but the space complexity is O(N) too.
 
-But wait, in this solution, if we can use the input vector as the counter then it is a O(N) time complexity O(1) space complexity solution! However, we can't use nums as a counter, instead we just __put every position number at their right position__!
+But wait, in the second solution, if we can use the input vector as the counter then it is a O(N) time complexity O(1) space complexity solution! However, we can't use ```nums``` as a counter, instead we just __put every positive number at their right position__!
 
 For every positive number ```pos_num```, it should be put at index ```pos_num - 1```.
 
@@ -25,6 +25,7 @@ There are below edge cases though:
 1. The number at correct_index might be the same as nums[i], which means there are duplicates in nums. There is no point to swap them.  
 2. After swap(nums[i], nums[correct_index]), don't move i forward yet! It's possible that the number just swapped to i-th entry is also a positive number which is not at the right position!  
 
+Why this solution is O(N)?  Every positive number only need O(1) to be put into the right position, and every non-positive number will be ignored.
 
 ```cpp
 class Solution {
