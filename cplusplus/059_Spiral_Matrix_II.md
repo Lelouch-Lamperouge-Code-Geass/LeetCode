@@ -38,8 +38,8 @@ public:
             }
             -- max_col; //strip off rightmost column
             
+            //bottom row
             if(min_col<=max_col){
-                //bottom row
                 for(int i=max_col;i>=min_col;--i){
                     reval[max_row][i] = val;
                     ++ val;
@@ -47,8 +47,8 @@ public:
                 -- max_row; // strip off bottom column
             }
             
+            // leftmost column
             if(min_row<=max_row){
-                //rightmost column
                 for(int i=max_row;i>=min_row;--i){
                     reval[i][min_col] = val;
                     ++ val;
