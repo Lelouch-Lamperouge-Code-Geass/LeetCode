@@ -84,6 +84,21 @@ private:
 };
 ```
 
+We can do better on checking a partailly filled chessboard is valid or not. Above is_valid function works, but if we can use some flag markers, we can simply check whether we can put a queen on a square by checking:
+
+```
+if (row_marker[row] == false 
+&& col_marker[col] == false 
+&& diag_45[row + col] = false
+&& diag_135[n - 1 + col - row] == false
+```
+
+This is a time-space tradeoff. 
+
+For more information, please refer https://discuss.leetcode.com/topic/13617/accepted-4ms-c-solution-use-backtracking-and-bitmask-easy-understand
+
+
+
 # Knowledge
 
 ### Backtracking
