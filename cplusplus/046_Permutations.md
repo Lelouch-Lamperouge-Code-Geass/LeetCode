@@ -55,7 +55,7 @@ public:
 
 
 
-### Solution 3
+### Solution 2
 
 It is said that the collection has DISTINCT numbers so we don't neet to worrry duplicates.
 Let's say that f[1,2,3] return the permutation results of [1,2,3]. Therefore, f[1,2,3] = (1,f[2,3]),(2,f[1,3]),(3,f[1,2]).
