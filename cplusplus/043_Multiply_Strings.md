@@ -19,6 +19,11 @@ Start from right to left, perform multiplication on every pair of digits, and ad
 We have to begin backwards since if we handle the most siginificant position first, how can we update if the product of lower position is 10~ , in which case the higher position need +1?
 Another thing need to be pointed out is, for example, let's say the higher position's value is 9, and we just calculated the product of lower position is 10. In this case, the higher position's value +1 ==10. But we don't need to worry about that since we're going to process the higher position later.
 
+Some edge cases:
+
+1. We need take care of leading '0'.  
+2. The final result can be "0".  
+
 ```cpp
 class Solution {
 public:
