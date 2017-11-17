@@ -15,11 +15,11 @@ Note: All inputs will be in lower-case.
 
 # Solution
 
-The simple solution is to use a std::unordered_map<string, vector<string>>, and for each string in strs, we get its hash code by sort it. And then add the push the string into the the related vector (HashMap[HashCode(str)]). Eventually, we add each vector in the HashMap to our result.
+The simple solution is to use a std::unordered_map<string, vector<string>>, and for each string in strs, we get its hash code by sorting it. And then push the string into the the related vector (HashMap[HashCode(str)]). Eventually, we add each vector in the HashMap to our result.
 
-While we can do better than this.
+We can do better than this.
 
-We still get the hashcode of each string by sorting it. While if the hashcode is not present in the hashmap, we add an empty vector in our final result first (this means that this group of anagrams has not be found yet). And in our hashmap, we store the <hashcode, index_of_the_anagram_group>. And in the following step, for string which belongs to the same anagram group, we just add it into our final result based on the relationship recorded in our hashmap. Lovely!
+We still get the hashcode of each string by sorting it. While if the hashcode is not present in the hashmap, we add an empty vector in our final result first (this means this is the first string found for this group of anagrams). And in our hashmap, we store the <hashcode, index_of_the_anagram_group> entry. And in the following step, for string which belongs to the same anagram group, we just add it into our final result based on the relationship recorded in our hashmap. Lovely!
 
 ```cpp
 class Solution {
