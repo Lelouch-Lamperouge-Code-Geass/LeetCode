@@ -15,7 +15,7 @@ You should return the following matrix:
 
 # Solution
 
-Note that start_row <= end_row && start_col <= end_col is the requirement to enter the while loop, which is in fact the INVARIANT we need. Therefore, whenever we need to update start_row, start_col, end_row, end_col, we need to check whether we violate the invariant or not.
+Note that start_row <= end_row && start_col <= end_col is the requirement to enter the while loop, which is in fact the INVARIANT we need. And every "strip" (increase start_row or start_col / decrease end_row or end_col) also has its own requirement too. Therefore, whenever we need to update start_row, start_col, end_row, end_col, we need to check whether we violate the invariant or not.
 
 ```cpp
 class Solution {
