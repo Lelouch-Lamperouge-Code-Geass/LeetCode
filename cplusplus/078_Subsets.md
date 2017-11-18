@@ -38,9 +38,9 @@ public:
     return reval;
   }
 private:
-  // quite similar to decision tree.
-  // each level/index decide whether choose that number or not.
-  // let's say go to left child means choose while go to right child means not choose that number.
+  // Formed a potential search tree.
+  // Each level/index decide whether choose that number or not.
+  // Let's say go to left child means choose while go to right child means not choose that number.
   // the whole process is depth first.
   void Backtracking(vector< vector<int> > & reval,
               vector<int> & temp,
