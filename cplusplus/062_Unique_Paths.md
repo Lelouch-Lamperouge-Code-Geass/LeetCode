@@ -12,7 +12,7 @@ __Note__ : m and n will be at most 100.
        
 # Solution  
        
-__In general, dynamic programming show a "matrix/grid pattern".(Check "Summary" section for more informaiont)__
+__In general, dynamic programming show a "matrix/grid pattern".(Check "Summary" section for more information)__
 
 And this problem show you a matrix/grid picture. You just can't get a better hint!
        
