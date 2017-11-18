@@ -6,9 +6,12 @@ Compute and return the square root of x.
 # Solution
 
 The sequence 1, 2, ... , n has no duplication.
+
 Near the very end, closest step, before while loop, left = mid = right.
+
+
 * In while, If mid < sqrt(x), left = mid + 1 executed, right pointer is not moving, and right is the answer.
-* If while, If mid > sqrt(x), right = mid - 1 executed, right pointer shifts left 1, closest to sqrt(x), right is also the answer.
+* In while, If mid > sqrt(x), right = mid - 1 executed, right pointer shifts left 1, closest to sqrt(x), right is also the answer.
 
 #### Pitfall
 
@@ -36,6 +39,7 @@ public:
             }
         }
         
+        // Now low = high + 1, otherwise it will still be in the loop
         return high;
     }
 };
