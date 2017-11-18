@@ -18,10 +18,23 @@ return 10.
        
        
 ### Solution 1
-       
+
+Let's begin with a naive solution for this problem. For each bar, if we expand it to left and to right until meet a bar with smaller height. Then we get a largest rectangle within this bar. And the final result is the largest rectangle of all this kind of rectangles.
+The expansion process will take O(N) in worst case, therefore the time complexity for this naive solution is O(N^2).
+
+How can we do better? The keypoint for this solution is to find the leftmost and rightmost index for each bar. By observation, we find that for bar at index ```i```, if previous bar is smaller, then the leftmost index will be ```i```. And if the following bar is larger, we can expand the bar to right, but if it is smaller, then the rightmost index will be ```i``` as well.
+
+We can use a stack to help us here. For each bar at index ```i```, if this bar is bigger than the bar at index ```stack.top()```, which means we now have the leftmost index for current bar, but we don't know the rightmost index yet. When will we get the rightmost index? We will know once we meet the first index ```j``` after ```i``` makes ```heights[j] < heights[i]```. At that moment we know the leftmost index and rightmost index. 
+     
 The idea is simple, use a stack to save the index of each vector entry in a non-descending order; once the current entry is smaller than the one with the index s.top(), then that means the rectangle with the height height[s.top()] ends at the current position, so calculate its area and update the maximum.
 
 The only trick I use to avoid checking whether the stack is empty (due to pop) and also avoiding emptying the stack at the end (i.e. after going through the vector, s is not empty and we have to consider those in the stack) is to put a dummy "0" at the beginning of vector "height" and the end of "height": the first one makes sure the stack will never be empty (since all the height entries are >=0) and the last one will flush all the remaining non-zero entries of the stack at the end of "for" iteration. This trick helps us keep the code concise.
+
+Some corner cases:
+
+1. [2,1,2]   
+2. [1,2,3,4,5]  
+3. []  
 
 ```cpp       
 class Solution {
