@@ -8,6 +8,10 @@ Return "100".
 
 # Solution
 
+Begin add number from back of string a, b.
+
+Since we get the final string from back, don't forget to reverse it before return it.
+
 ```cpp
 class Solution {
 public:
