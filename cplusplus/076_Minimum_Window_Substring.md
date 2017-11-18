@@ -5,50 +5,67 @@ S = "ADOBECODEBANC"
 T = "ABC"
 Minimum window is "BANC".
 
-Note:
+__Note:__
+
 If there is no such window in S that covers all characters in T, return the empty string "".
 
 If there are multiple such windows, you are guaranteed that there will always be only one unique minimum window in S.
 
 
 # Solution
+
+The simplest solution for this problem is : for each index in s, we create a window which ends with that index, and expand the start position of that window backwards until we find a valid window. That valid window is the minimum window in S whcih contains all the characters in T. The and final result is the minimal window of all the minimal windows ends with each index. The time complexity is obviously O(N^2).
+
+How can we do better?
+
+One observation from above solution is that, when we move from index ```i``` to index ```i + 1```, there is actually only one char changes. If on index ```i``` we don't have a valid window but just one char is missing, and that missing char  is on index ```i+1```. Then on index ```i+1``` we just update the based on the window of index ```i```, and there is no need to create a new window again.
+
+We can reduce these kind of recalculations by using a sliding window.
+
+We use a sliding window and begin expand the end index of that window, in our solution the window end index is ```i``` (you can rename it to ```window_end``` if you want). Once we find a valid window, we begin increase ```window_start```  and check the smaller window is valid or not. If it is valid, compare with our result so far; if it is not valid, which means all the valid window on ```i``` has been considered, and it is time to increase ```i```.
+
+Since every char in s goes into and out of the sliding window only once, the time complexity is O(size of s).
+
 ```cpp
 class Solution {
 public:
     string minWindow(string s, string t) {
-        vector<int> counter(256, 0);
-        std::size_t t_chars_count(0);
+        std::vector<int> char_counter(256, 0);
+        
         for (char c : t) {
-            ++ counter[c];
-            ++ t_chars_count;
+            ++ char_counter[c];
         }
         
-        std::size_t start(0), min_len(SIZE_MAX), min_start(0);
-        std::size_t count(t_chars_count);
+        std::size_t total_chars(t.size()), char_to_find(t.size());
+        
+        std::size_t window_start(0), min_start(0), min_len(INT_MAX);
         for (std::size_t i = 0, n = s.size(); i < n; ++i) {
-            if (counter[s[i]] > 0) {
-                -- count;
+            -- char_counter[s[i]];
+            
+            if (char_counter[s[i]] >= 0) {
+                -- char_to_find;
             }
             
-            -- counter[s[i]];
-            
-            while (count == 0) {
-                std::size_t len = i + 1 - start;
-                if (len < min_len) {
-                    min_start = start;
-                    min_len = len;
+            while (char_to_find == 0) { // A match window
+                std::size_t cur_window_len = i + 1 - window_start;
+                if (cur_window_len < min_len) {
+                    min_start = window_start;
+                    min_len = cur_window_len;
                 }
                 
-                // move start out of window
-                ++ counter[s[start]];
-                if (counter[s[start]] > 0) {
-                    ++ count;
+                // Begin incrase window_start
+                ++ char_counter[s[window_start]];
+                if (char_counter[s[window_start]] > 0) {
+                    // Chars which are not in t, its count will never be positive.
+                    // Chars which are in t but if current window has more than we need, 
+                    // its count will still be 0 or negative.
+                    ++ char_to_find;
                 }
-                ++ start;
+                ++ window_start;
             }
         }
         
-        return min_len == SIZE_MAX ? "" : s.substr(min_start, min_len);
+        return min_len == INT_MAX ? "" : s.substr(min_start, min_len);
     }
 };
 ```  
