@@ -16,7 +16,7 @@ The array may contain duplicates.
 
 When there could be duplicates in the array, the worst case time complexity is __O(n)__.  
   
-```
+```cpp
 class Solution {
 public:
   bool search(vector<int>& nums, int target) {
