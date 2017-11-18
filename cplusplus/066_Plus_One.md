@@ -5,7 +5,9 @@ You may assume the integer do not contain any leading zero, except the number 0 
 The digits are stored such that the most significant digit is at the head of the list.
 
 
- # Solution
+# Solution
+
+One edge case is how to handle number like "9999...".
 
 ```cpp
 class Solution {
