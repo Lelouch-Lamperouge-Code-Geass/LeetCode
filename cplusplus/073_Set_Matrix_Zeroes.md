@@ -12,11 +12,12 @@ Could you devise a constant space solution?
 
 Using O(mn) space is to naive. Will not discuss that solution here.
   
-
   
 This solution is uses O(m + n) space. We use two vectors, one row marker and one column marker.
 
-Everytime we meet a zero element, mark the row_marker[i] and col_marker[j] to be ```true```(means it the row/column should be all '0').  
+Everytime we meet a zero element, mark the row_marker[i] and col_marker[j] to be ```true```(means it the row/column should be all '0'). 
+
+Note that when we set matrix elements zero, we do it from bottom-right to top-left.
 
 ```cpp  
 class Solution {
@@ -34,8 +35,8 @@ public:
       }
     }
 
-    for (int i=row_size-1;i<row_size;--i) {
-      for (int j=col_size-1;j<col_size;--j) {
+    for (int i=0;i<row_size;++i) {
+      for (int j=0;j<col_size;++j) {
         if(zero_row[i] || zero_col[j])
           matrix[i][j] = 0;
       }
@@ -49,8 +50,6 @@ This solution use O(1).
   
 My idea is simple: store states of each row in the first of that row, and store states of each column in the first of that column. Because the state of row0 and the state of column0 would occupy the same cell, I let it be the state of row0, and use another variable "col0" for column0. In the first phase, use matrix elements to set states in a top-down way. In the second phase, use states to set matrix elements in a bottom-up way.
   
-Notice that the first column is handled different here.
-
 ```cpp  
 class Solution {
 public:
