@@ -17,6 +17,12 @@ Some corner cases:
 4. [1,1,2]  
 ```
 
+There are two cases:
+
+1. A node is "duplicate type node", int this case, skip all the nodes with the same value. And make pre->next points to the node right after this group.  
+
+2. A node is "non-duplciate type node", since pre->next should already point to this node, all we need to do right now is make curr as the new pre node and keep processing the following nodes.  
+
 ```cpp
 /**
  * Definition for singly-linked list.
@@ -34,6 +40,8 @@ public:
         dummy.next = head;
         while(cur){
             if(cur && cur->next && cur->val == cur->next->val){
+                // Duplicate type node, skip the nodes with same value,
+                // and make pre->next point to the node right after this group.
                 const int dup_val(cur->val);
                 while(cur && cur->val == dup_val) cur = cur->next;
                 
@@ -42,6 +50,8 @@ public:
                 // We do this to take care of corner case like [1,1].
                 pre->next = cur; 
             } else {
+                // Non-duplciate node, pre->next already point to this.
+                // Now use cur as pre for following steps.
                 pre = cur;
                 cur = cur->next;
             }
