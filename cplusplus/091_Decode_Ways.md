@@ -65,7 +65,7 @@ Here we use:
 
 (Here, an "open 1" means a 1 that may later be used as the first digit of a 2 digit number, because it has not been used in a previous 2 digit number.)
 
-Then the number of ways to finish in total is: we could put c as a single digit if it is not zero (```(c>'0')*e0```), or we could pair c with our open 1, or we could pair c with our open 2 if it is 6 or less (```(c<='6')*e2```). The number of ways to finish with an open 1 (or 2) is e0 iff ```c == '1'``` (or ```c == '2'```).
+__Then the number of ways to finish in total is: we could put c as a single digit if it is not zero (```(c>'0')*e0```), or we could pair c with our open 1, or we could pair c with our open 2 if it is 6 or less (```(c<='6')*e2```).__ The number of ways to finish with an open 1 (or 2) is e0 iff ```c == '1'``` (or ```c == '2'```).
 
 ```cpp
 class Solution {
