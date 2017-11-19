@@ -38,13 +38,14 @@ public:
 
 __However, there are many re-calculations in this solution.__
 
-```
-Dynamic programming can be used to :
 
-1. optimal solutions to some problems  
-2. counting the number of solutions
+Dynamic programming can be used to :  
 
-```
+1. Optimal solutions to some problems : The reason that dynamic programming can be used to find an optimal solutions is since we already "memorized" the solutions of all our sub-problems. We can just find current optimal solution based on those.   
+
+2. Counting the number of solutions : The reason that dynamic programming can be used to counting the number of solutions is because we already "memorized" the count information of all sub-problems.
+
+
 
 The problem can be solved in a dynamic programming way. I’ll explain the intuition and formulas in the following.
 
