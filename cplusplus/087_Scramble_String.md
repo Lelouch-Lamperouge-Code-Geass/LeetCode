@@ -90,6 +90,8 @@ public:
                 && isScramble(s1.substr(i), s2.substr(i))) {
                 return true;
             }
+            // Note that the most important thing here is the substring pairs' length 
+            // are the same. It's quite common to mess up the index here.
             if (isScramble(s1.substr(0, i), s2.substr(n - i)) 
                 && isScramble(s1.substr(i), s2.substr(0, n - i))) {
                 return true;
