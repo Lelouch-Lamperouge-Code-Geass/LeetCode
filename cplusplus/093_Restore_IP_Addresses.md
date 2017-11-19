@@ -10,6 +10,8 @@ return ["255.255.11.135", "255.255.111.35"]. (Order does not matter)
 
 # Solution
 
+### Solution 1
+
 This problem is asking for "all possible valid" ip address based on input string. So it is asking for all solutions to a problem, and these solutions need to be checked in order to meet some requirements. What does this tell you? Right, this is a backtracking problem.
 
 > Backtracking is a general algorithm for finding all (or some) solutions to some computational problems, notably constraint satisfaction problems, that incrementally builds candidates to the solutions, and abandons each partial candidate ("backtracks") as soon as it determines that the candidate cannot possibly be completed to a valid solution.
@@ -60,7 +62,7 @@ private:
 };
 ```
 
-A different solution.
+### Solution 2
 
 ```cpp
 class Solution {
@@ -81,7 +83,8 @@ public:
                 int c_val = std::stoi( s.substr(a+b,c) );
                 int d_val = std::stoi( s.substr(a+b+c,d) );
                 if(a_val>255||b_val>255||c_val>255||d_val>255) continue;
-                string cur_str = std::to_string(a_val)+'.'+std::to_string(b_val)+'.'+std::to_string(c_val)+'.'+std::to_string(d_val);
+                string cur_str = std::to_string(a_val)+'.'+std::to_string(b_val)
+                                +'.'+std::to_string(c_val)+'.'+std::to_string(d_val);
                 if(cur_str.size() == s.size()+3)
                     res.push_back(cur_str);
             }
