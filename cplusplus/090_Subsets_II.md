@@ -18,14 +18,10 @@ If nums = [1,2,2], a solution is:
 
 # Solution
 
-__For subset problem, backtracking is not the best way to be used in interview. It works, while how to handle the duplicates can be hard to understand and explain to interviwer. For interview, always choose the methology of solution 1 might be easier for you to explain it to interviewer.__ 
-
 ### Solution 1 
 
-  We can treat duplicate element as a spacial element. 
-  For example, if we have duplicate elements (5, 5), instead of treating them as two elements that are duplicate, 
-  we can treat it as one special element 5, but this element has more than two choices: 
-  you can either NOT put it into the subset, or put ONE 5 into the subset, or put TWO 5s into the subset. 
+We can treat duplicate element as a spacial element.   
+For example, if we have duplicate elements (5, 5), instead of treating them as two elements that are duplicate, we can treat it as one special element 5, but this element has more than two choices: you can either NOT put it into the subset, or put ONE 5 into the subset, or put TWO 5s into the subset. 
 
 ```cpp
 class Solution {
@@ -65,6 +61,35 @@ public:
 
 ### Solution 2 
 
+Note that here the numbers can have duplciates!
+
+The brute-force solution here is to exhaust all the possible subsets, and remove all duplicates. The time complexity is combinatorial.
+
+How can we improve this?   In general, we have two options:
+
+Keep the input pattern, which is unsorted, and use an auxiliary data structure to help us.  
+Reorder the input pattern, for example sorting the input vector. And build algorithm based above the sorted array. Note that in this condition, our time complexity will be at least the same as the sorting algorithm.  
+
+Here it is obvious that option 2 might be a better idea.  
+
+Imagine that we begin with an empty basket. For each number, we have two options, choose or not choose. Once we made that decision, we move forward for next number.
+
+As you can see, this is a backtracking problem.
+
+A backtracking problem enumerates a set of partial candidates that, in principle, could be completed in various ways to give all the possible solutions to the given problem. The completion is done incrementally, by a sequence of candidate extension steps. Conceptually, the partial candidates are represented as the nodes of a tree structure, the potential search tree.
+
+For example, let the input array to be [1,1,1,2,2,3,3,4].
+
+Now let's begin with an empty basket, the root node is an empty node. How many children this root node should have?
+
+If you are saying "3 nodes begin with 1, 2 nodes begin with 2, 2 nodes begin with 3, 1 node begin with 4", then dude you are in big trouble. Because the second child begin with the second 1 is just a subtree of the first child! You will definitely have duplicates unless you use a HashSet to filter them out before return the results.
+
+Therefore, the children of our root node should be "1 node begin with 1, 1 node begin with 2, 1 node begin with 3, and 1 node begin with 4". For each tree node in this potential search tree, it can't have two children which have the same value! And you will notice that for the iterative part in below solution.
+
+On each node, we try to choose following numbers as its children. However, if one child is identified to have the same value as its previous sibling, ignore this child. This "choose children" is the iterative part. For each child, we add it to the temp result, and keep doing the same thing. This is the recursive part, which is DFS.
+
+Another different perspectie is like this :
+
 ```      
 subsets([1,2,3,4]) = []
                      // push(1)
@@ -79,6 +104,8 @@ subsets([1,2,3,4]) = []
                      [4, subsets([])]
                      // pop()
 ```
+
+
                      
 ```cpp
 class Solution2 {
