@@ -41,21 +41,21 @@ row 0:
 
 ```
 l: 0 0 0 3 0 0 0
-r: 7 7 7 3 7 7 7
+r: 6 6 6 3 6 6 6
 ```
 
 row 1:
 
 ```
 l: 0 0 2 3 2 0 0
-r: 7 7 4 3 4 7 7 
+r: 6 6 4 3 4 6 6 
 ```
 
 row 2:
 
 ```
 l: 0 1 2 3 2 1 0
-r: 7 5 4 3 4 5 7
+r: 6 5 4 3 4 5 6
 ```
 
 The key is to understand what does height, right, left vectors mean.
