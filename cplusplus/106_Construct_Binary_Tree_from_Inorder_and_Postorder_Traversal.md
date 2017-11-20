@@ -6,6 +6,8 @@ You may assume that duplicates do not exist in the tree.
 
 # Solution
 
+The the basic idea is to take the last element in postorder array as the root, find the position of the root in the inorder array; then locate the range for left sub-tree and right sub-tree and do recursion.
+
 Here are the postorder and inorder traversal of one tree. __Note that it doesn't have to be a BST, just binary tree is fine.__
 
 I use this BST as an example so that you can draw the picture more easily.
