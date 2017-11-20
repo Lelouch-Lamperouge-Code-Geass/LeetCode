@@ -25,6 +25,29 @@ https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/052_N-Queens_II.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/053_Maximum_Subarray.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/054_Spiral_Matrix.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/059_Spiral_Matrix_II.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/060_Permutation_Sequence.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/069_Sqrt.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/072_Edit_Distance.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/073_Set_Matrix_Zeroes.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/074_Search_a_2D_Matrix.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/076_Minimum_Window_Substring.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/077_Combinations.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/081_Search_in_Rotated_Sorted_Array_II.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/084_Largest_Rectangle_in_Histogram.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/085_Maximal_Rectangle.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/087_Scramble_String.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/090_Subsets_II.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/094_Binary_Tree_Inorder_Traversal.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/095_Unique_Binary_Search_Trees_II.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/096_Unique_Binary_Search_Trees.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/097_Interleaving_String.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/098_Validate_Binary_Search_Tree.md  
+
+
+
+
+
+
 
 
 
