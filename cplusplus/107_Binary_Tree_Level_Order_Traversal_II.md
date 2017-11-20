@@ -24,6 +24,12 @@ return its bottom-up level order traversal as:
 
 # Solution
 
+We need make sure our solution meet below requirements:
+
+1. Nodes on the same level should be on the same container.  
+2. For each level, nodes should be arranged from left to right.  
+3. The final result should be bottom-up.
+
 ```cpp
 /**
  * Definition for a binary tree node.
