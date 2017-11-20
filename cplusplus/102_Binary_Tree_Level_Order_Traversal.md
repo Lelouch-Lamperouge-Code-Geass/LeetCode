@@ -23,7 +23,15 @@ Given binary tree [3,9,20,null,null,15,7],
 
 # Solution
 
+Another intersting problem https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/314_Binary_Tree_Vertical_Order_Traversal.md.
+
+In this problem, we need to make sure nodes on different level are in their related container in final result.
+
+And for the nodes on the same leve, we need to make sure they are ordered from left to right.
+
 ### Solution one
+
+In this solution, we perform depth-first search on left child first, and then right child. We pass down the "level" information.
 
 ```cpp
 class Solution {
@@ -53,6 +61,10 @@ private:
 ```
 
 ### Solution two
+
+In this solution, we use a queue and push nodes into the queue level by level.
+
+But how can we know where is the the begin of a new level? For that, we add a null node to mark the end of each level.
 
 ```cpp
 class Solution {
