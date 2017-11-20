@@ -67,7 +67,8 @@ private:
         } else {
             int cur_val = preorder[pb];
             
-            std::size_t inorder_pos = std::find(inorder.begin() + ib, inorder.begin() + ie + 1, cur_val) - inorder.begin();
+            std::size_t inorder_pos = std::find(inorder.begin() + ib, 
+                                                inorder.begin() + ie + 1, cur_val) - inorder.begin();
             std::size_t left_nodes(inorder_pos - ib), right_nodes(ie - inorder_pos);    
             TreeNode *root = new TreeNode(cur_val);
             
