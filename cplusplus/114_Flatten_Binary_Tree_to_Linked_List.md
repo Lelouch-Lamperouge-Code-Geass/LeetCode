@@ -31,6 +31,9 @@ The flattened tree should look like:
 # Solution
 
 ### Solution 1
+
+__The time complexity is O(N) because each node get visited at most once. It's space complexity is O(1).__
+
 ```cpp
 /**
  * Definition for a binary tree node.
@@ -71,6 +74,8 @@ private:
 Post order traversal.
 
 This solution uses divide-and-conquer paradigm. We first assume that what if we already flattened left tree and right tree, in that case how can we combine them with root node to form a list?
+
+__The time complexity is O(N) because each node get visited at most once. It's space complexity is O(depth of recursion).__
 
 ```cpp
 /**
