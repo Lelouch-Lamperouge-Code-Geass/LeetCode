@@ -24,17 +24,21 @@ Intuitively, start from every cell and try to build a word in the dictionary. Ba
 * How do we instantly know what's the next valid character? LinkedList?  
 * But the next character can be chosen from a list of characters. "Mutil-LinkedList"?  
   
-Combing them, Trie is the natural choice. Notice that:
+Combing them, Trie is the natural choice. 
 
-* TrieNode is all we need. search and startsWith are useless.  
-* No need to store character at TrieNode. c.next[i] != null is enough.  
-* Never use c1 + c2 + c3. Use StringBuilder.  
-* No need to use O(n^2) extra space visited[m][n].  
-* No need to use StringBuilder. Storing word itself at leaf node is enough.  
-* No need to use HashSet to de-duplicate. Use "one time search" trie.  
-  
-The time complexity to make a trie structure is O(words_count * word_length).
-The time complexity to lookup a word in a trie structure is O(word_length).
+__Note that:__
+
+1. Be careful about when to ```res.push_back(temp)``. Once we know that a child node we need is there and it is time to "slide" from current node to its child node, we add the child's ```m_char``` to ```temp``` and check its ```m_word_count``` and if it is positive we add the temp to final list. Note that if you check ```m_word_count``` when we "slide" away from this node, you will have trouble. 
+
+2. I use ```m_word_count``` here which is quite flexible because : (1) If we want to de-duplicate, whenever we add a word, set ```m_word_count``` to be 0; (2) If we don't want to perform deduplication, we just decrease ```m_word_count``` once we add one into final list.
+
+3. Be careful about dynamic allocated memory. If you are using raw pointer, don't forget to release memory.
+
+4. During each depth-first search, don't forget to "mark" the DFS path. Otherwise, you DFS path might go back and it will become infinite loop. 
+
+
+The time complexity to make a trie structure is __O(words_count * word_length)__.  
+The time complexity to lookup a word in a trie structure is __O(word_length)__.  
   
 # Solution one 
 
