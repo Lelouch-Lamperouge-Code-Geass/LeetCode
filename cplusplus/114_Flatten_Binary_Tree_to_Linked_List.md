@@ -70,27 +70,39 @@ private:
 
 Post order traversal.
 
+This solution uses divide-and-conquer paradigm. We first assume that what if we already flattened left tree and right tree, in that case how can we combine them with root node to form a list?
+
 ```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
 class Solution {
 public:
     void flatten(TreeNode* root) {
-        getFlatten(root);
-        
+        flattenTreeAndReturnTailNode(root);
     }
+
 private:
-    TreeNode* getFlatten(TreeNode* root) {
+    TreeNode* flattenTreeAndReturnTailNode(TreeNode* root) {
         if (!root) return nullptr;
-        TreeNode* left_tail = getFlatten(root->left);
-        TreeNode* right_tail = getFlatten(root->right);
-        if (left_tail) {
+        if (!root->left && !root->right) return root; // leaf node
+        
+        TreeNode* left_tail = flattenTreeAndReturnTailNode(root->left); // Flatten left tree
+        TreeNode* right_tail = flattenTreeAndReturnTailNode(root->right); // Flatten right tree
+
+        if (left_tail) { // Note that we need to check whether left tree is empty
             left_tail->right = root->right;
-            left_tail->left = nullptr;
             root->right = root->left;
             root->left = nullptr;
         }
-        if(right_tail) return right_tail;
-        if(left_tail) return left_tail;
-        return root;
+        
+        return right_tail ? right_tail : left_tail; // Note that right tree might be empty.
     }
 };
 ```
