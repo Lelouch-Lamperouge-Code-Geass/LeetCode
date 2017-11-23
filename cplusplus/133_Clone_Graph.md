@@ -26,6 +26,9 @@ Visually, the graph looks like the following:
 
 # Solution
 
+_First of all, this problem's description needs more clarification. It gives you only one input graph node, which is implying that the whole graph is __connected__. This problem's title should be changed to "clone connected graph"._
+
+
 This problem is an application of graph traversal, which has two systematic methods: Bread-First Search (BFS) and Depth-First Search (DFS).
 
 We need to maintain a hashmap from original node to the "clone" node. And use BFS or DFS to visit original nodes. Everytime we visit an original node, we need to create the "clone" node if it is null. And we also need to create the clone nodes for its neighbors and generate the clone edges from the cloned-original node to the clone neighbors.  
