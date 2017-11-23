@@ -8,8 +8,8 @@ Your algorithm should have a linear runtime complexity. Could you implement it w
 
 As we known, an integer is generally 32-bit or 64-bit. For each bit position, here is the status 0=>1=>2=>0, so we reset it to 0 once the bit position has been hit 3 times. Here we need two status:
 
-1. ones represent the first bit on that position
-2. twos represent the second bit on that position
+1. ones represent the lowest bit on that position
+2. twos represent the second lowest bit on that position
 
 ```
 hits : 0    1    2    3                 
