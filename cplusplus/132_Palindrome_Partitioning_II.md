@@ -9,6 +9,17 @@ Return 1 since the palindrome partitioning ["aa","b"] could be produced using 1 
 
 # Solution
 
+First of all, we need ask ourself one question, what do I need to know to find out the minimum cuts for a string whose length is n?
+
+If we know the minimum cuts for its substring s.substr(0,i) where i can be 0~n-1,  then we can check whether s.substr(i, n - i) is a palindrome or not. If it is, we can compare ```min_cut[n] = std::min(min_cut[n], min_cut[i] + 1)```. Note that the maximum of min_cut[n] is n - 1.
+
+Therefore, we have a dynamic programming solution here. Dynamic programming can be used for :
+
+1. optimization problem.  
+2. counting number of solutions.  
+
+> Dynamic programming algorithms are often used for optimization. A dynamic programming algorithm will examine the previously solved subproblems and will combine their solutions to give the best solution for the given problem. In addition to finding optimal solutions to some problems, dynamic programming can also be used for counting the number of solutions.
+
 ### Solution 1
 
 __O(n^2) time and O(n) space.__
