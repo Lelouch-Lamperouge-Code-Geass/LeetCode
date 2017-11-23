@@ -6,6 +6,22 @@ Design an algorithm to find the maximum profit. You may complete as many transac
 
 ### Solution one
 
+```cpp
+class Solution {
+public:
+  int maxProfit(vector<int>& prices) {
+    int max_profit(0);
+    for(std::size_t i=1;i<prices.size();++i){
+      max_profit += std::max(0,prices[i]-prices[i-1]);
+    }
+    return max_profit;
+  }
+};
+```
+
+
+### Solution two
+
 
 Let's define buy[i] means the max profit for all the transactions within [0,i] whose last trading operation is BUY.  
 Example, if i == 2, then the transaction can be [rest, buy], [buy, rest](rest is not trading operation).  
@@ -61,17 +77,3 @@ public:
 };
 ```
 
-### Solution two
-
-```cpp
-class Solution {
-public:
-  int maxProfit(vector<int>& prices) {
-    int max_profit(0);
-    for(std::size_t i=1;i<prices.size();++i){
-      max_profit += std::max(0,prices[i]-prices[i-1]);
-    }
-    return max_profit;
-  }
-};
-```
