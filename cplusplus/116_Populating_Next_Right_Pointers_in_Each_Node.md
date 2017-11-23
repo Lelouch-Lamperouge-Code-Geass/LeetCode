@@ -132,3 +132,7 @@ public:
   }
 };
 ```
+
+# Knowledge
+
+![alt](http://www.csie.ntnu.edu.tw/~u91029/BinaryTree2.png)
