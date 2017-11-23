@@ -36,6 +36,30 @@ public:
 };
 ```
 
+a different style.
+
+```cpp
+class Solution {
+public:
+    int minCut(string s) {
+     const int n( s.size() );
+      vector<int> cut(n+1,n);
+      for (int i = 0; i <= n; i++) cut[i] = i-1;
+      for (int i=0;i<=n;++i) {
+        // odd length palindrome, left and right here represents index
+        for (int left=i,right=i;left>=0 && right<n && s[left] == s[right]; --left,++right) {
+          cut[right+1] = std::min( cut[right+1], 1 + cut[left] );
+        }
+        // even length palindrome, left and right here represents index
+        for (int left=i,right=i+1;left>=0 && right<n && s[left] == s[right]; --left,++right) {
+          cut[right+1] = std::min( cut[right+1], 1 + cut[left] );
+        }
+      }
+      return cut[n];
+    }
+};
+```
+
 ### Solution 2
 
 __O(n^2) time and O(n^2) space.__
