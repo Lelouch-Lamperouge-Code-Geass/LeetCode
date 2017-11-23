@@ -1,6 +1,20 @@
-/* 
-Solution 1
- */
+Given a string s, partition s such that every substring of the partition is a palindrome.  
+
+Return all possible palindrome partitioning of s.  
+
+For example, given s = "aab",  
+Return  
+
+```
+[
+  ["aa","b"],
+  ["a","a","b"]
+]
+```
+
+### Solution 1
+
+```cpp
 class Solution {
 public:
   vector<vector<string>> partition(string s) {
@@ -35,12 +49,11 @@ private:
     return true;
   }
 };
+```
 
-/*
-Solution 2 : optimized based on solution 1.
-Using dynamic programming to check is_palindrom[start][end]
-based on start+1,end-1.
-*/
+We can optimize based on solution 1. Using dynamic programming to check is_palindrom[start][end] based on start+1,end-1.
+
+```cpp
 class Solution {
 public:
   vector<vector<string>> partition(string s) {
@@ -78,10 +91,11 @@ private:
     }
   }
 };
+```
 
-/*
-Solution 3 : Iterative.
-*/
+### Solution 2
+
+```cpp
 class Solution {
 public:
   vector<vector<string>> partition(string s) {
@@ -110,3 +124,4 @@ public:
   }
 
 };
+```
