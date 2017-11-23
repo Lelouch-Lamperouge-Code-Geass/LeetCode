@@ -39,7 +39,7 @@ After calling your function, the tree should look like:
 ```
 ### Solution one. 
 
-__Space complexity  O(1). Time complexity O(n), n is the number of nodes.
+__Space complexity  O(1). Time complexity O(n), n is the number of nodes.__
 
 ```cpp
 class Solution {
