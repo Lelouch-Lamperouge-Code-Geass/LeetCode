@@ -23,6 +23,11 @@ This problem is asking for "finding all (or some) solutions", and it is also "co
 > Backtracking can be applied only for problems which admit the concept of a _"partial candidate solution"_ and a relatively quick test of whether it can possibly be completed to a valid solution. It is useless, for example, for locating a given value in an unordered table. When it is applicable, however, backtracking is often much faster than brute force enumeration of all complete candidates, since it can eliminate a large number of candidates with a single test.
 
 
+__Time complexity: O(n\*(2^n))__.
+For a string with length n, there will be (n - 1) intervals between chars.
+For every interval, we can cut it or not cut it, so there will be 2^(n - 1) ways to partition the string.
+For every partition way, we need to check if it is palindrome, which is O(n).
+So the time complexity is O(n\*(2^n)).
 
 ```cpp
 class Solution {
