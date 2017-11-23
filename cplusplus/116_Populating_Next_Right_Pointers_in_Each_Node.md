@@ -1,7 +1,47 @@
-/***
-   Solution one. Space complexity  O(1). Time complexity O(n), n is the number of nodes.
- ***/
+Given a binary tree
 
+```
+struct TreeLinkNode {
+   TreeLinkNode *left;
+   TreeLinkNode *right;
+   TreeLinkNode *next;
+}
+```
+
+Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+
+Initially, all next pointers are set to NULL.
+
+__Note:__
+
+* You may only use constant extra space.
+* You may assume that it is a perfect binary tree (ie, all leaves are at the same level, and every parent has two children).
+
+For example,  
+Given the following perfect binary tree,   
+
+```
+         1
+       /  \
+      2    3
+     / \  / \
+    4  5  6  7
+```
+
+After calling your function, the tree should look like:
+
+```
+         1 -> NULL
+       /  \
+      2 -> 3 -> NULL
+     / \  / \
+    4->5->6->7 -> NULL
+```
+### Solution one. 
+
+__Space complexity  O(1). Time complexity O(n), n is the number of nodes.
+
+```cpp
 class Solution {
 public:
   void connect(TreeLinkNode *root) {
@@ -17,11 +57,13 @@ public:
     }
   }
 };
+```
 
-/***
-    Solution two. Time complexity is O(N), but space complexity is O(logN) considering the recursion stack.
- ***/
+### Solution two. 
 
+__Time complexity is O(N), but space complexity is O(logN) considering the recursion stack.__
+
+```cpp
 class Solution {
 public:
   void connect(TreeLinkNode *root) {
@@ -38,11 +80,11 @@ public:
     connect(root->right);
   }
 };
+```
 
-/***
-    Solution three
- ***/
+# Solution three
 
+```cpp
 class Solution {
 public:
   void connect(TreeLinkNode *root) {
@@ -72,3 +114,4 @@ public:
     }
   }
 };
+```
