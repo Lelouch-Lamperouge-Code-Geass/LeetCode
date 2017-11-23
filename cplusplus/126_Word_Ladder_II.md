@@ -42,10 +42,14 @@ Bidirectional search replaces single search graph(which is likely to grow expone
 
 # Solution
 
+### Solution 1
+
 We are required to return the SHORTEST transformation sequences in the end. How to build the transformation sequence then? It turns out if we can store the next transformation words for each word, then we can build the paths based on that.
 Therefore, a HashMap stores <word, vector<next-transformation>> pairs will be a good choice.
 
 How to generate the transformation mapper? Using BFS! Moreover, we can use Bi-directional BFS. Bi-direction BFS means simultaneously run two BFS's from both source and target vertices, terminating once a vertex common to both runs is discovered. We can return the transformation mapper once the common vertices are found, because we are find __SHORTEST__ sequences.
+
+The principle of this solution is : we can generate a graph from begin_word to end_word. The graph is similar from one geo-location to another geo-location, and there are many paths to it. "nexts" gives all the next stops every word can reach (the direction is from beginWord to endWord). Once we complete "nexts", we can generate the all the shortest ladders based on it.
 
 ```cpp
 class Solution {
@@ -54,8 +58,7 @@ public:
         unordered_set<string> begin_words = {beginWord}, end_words= {endWord};
         unordered_set<string> word_set(wordList.begin(), wordList.end());
         if (word_set.count(endWord) == 0) {
-            // Ok, one unit test requires that if endWord is not in wordList,
-            // return empty container
+            // Note that endWord is required to be a transformed word, but beginWord is not
             return vector<vector<string>>();
         }
         unordered_map<string, vector<string>> nexts;
@@ -69,6 +72,9 @@ public:
     }
     
 private:
+      // This function will generate the final ladders based on the relationship defined in "nexts".
+     // nexts record the next word each word can reach based on dictionary.
+     // If you think of each word as a tree node, then next[word] returns a vector of children it can reach.
      void generateLadders(const string &begin_word,
                           const string &end_word,
                           unordered_map<string, vector<string>> &nexts,
@@ -114,13 +120,17 @@ private:
             }
         }
     }
-    // get next reachable words based on word dictionary
+    // Get next reachable words based on word dictionary.
+    // For each word in begin_words, we do BFS　to get next reacheable words.
+    // If such word "vary" exsits, we make nexts["begin_word"].push_back("vary") if path is not reversed.
+    // If path is reversed, then next["vary"].push_back("begin_word").
+    // Return true if path meet.
     bool getNextWords(unordered_set<string> & begin_words,
                    unordered_set<string> & end_words,
                    unordered_set<string> & word_set,
                    unordered_map<string, vector<string>> &nexts,
                    bool path_not_reversed) {
-        bool reval(false);
+        bool path_meet(false);
         unordered_set<string> next_words;
         for (const string &word : begin_words) {
             string vary(word);
@@ -132,7 +142,7 @@ private:
                         // Now we changed one char of original word
                         if (end_words.count(vary) > 0) {
                             // Meet
-                            reval = true;
+                            path_meet = true;
                             path_not_reversed? nexts[word].emplace_back(vary) 
                                 : nexts[vary].emplace_back(word);
                         } else if (word_set.count(vary) > 0) {
@@ -146,7 +156,7 @@ private:
             }
         }
         begin_words =  next_words;
-        return reval;
+        return path_meet;
     }
 };
 ```
