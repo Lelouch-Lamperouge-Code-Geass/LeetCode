@@ -23,6 +23,8 @@ __Why not let buy_two[i] means "the max profit to buy second stock on day i"?__
 
 Let's see if we define it like this, then the value of ```buy_two[i] = Max{sell_one[k], k from 0 to i-1} - prices[i]```, because sell_one means "the max profit to sell one stock on day i"! This is hard to track.  
 
+Another example is that the maximum profit of selling first stock on day i is depends on "maximum profit of buying first stock from day 0 to day i - 1".  Therefore, we can't define like this.
+
 ```cpp
 class Solution {
 public:
@@ -64,7 +66,6 @@ In summary, our maximum profix is depend on "maximum profit of each day". And ma
 2. The maximum if we've just sold 1nd stock so far.
 3. The maximum if we've just buy  2nd stock so far.
 4. The maximum if we've just sold 2nd stock so far.
-
 
 ```cpp
 class Solution {
