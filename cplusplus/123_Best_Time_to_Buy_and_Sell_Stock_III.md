@@ -58,6 +58,14 @@ The max profit of any day, is depend on the status of
 
 We only need these four information to choose the optimal operation.
 
+In summary, our maximum profix is depend on "maximum profit of each day". And maximum profit of each day is depend on :
+
+1. The maximum if we've just buy  1st stock so far. 
+2. The maximum if we've just sold 1nd stock so far.
+3. The maximum if we've just buy  2nd stock so far.
+4. The maximum if we've just sold 2nd stock so far.
+
+
 ```cpp
 class Solution {
 public:
