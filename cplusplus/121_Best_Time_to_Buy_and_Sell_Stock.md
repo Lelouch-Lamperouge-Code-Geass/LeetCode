@@ -20,8 +20,28 @@ In this case, no transaction is done, i.e. max profit = 0.
 
 # Solution
 
+The maximum profit  is ```maximum of {maximum profit of selling the stock on day i}```.
+
+For each day i, if we sell the stock on that day then its maximum profit is ```price[i] - min_price_so_far```.
 
 ### Solution one
+
+```cpp
+class Solution {
+public:
+  int maxProfit(vector<int>& prices) {
+    int min_so_far(INT_MAX),reval(0);
+    for(std::size_t i=0;i<prices.size();++i){
+      reval = std::max(reval, prices[i] - min_so_far);
+      min_so_far = std::min(min_so_far,prices[i]);
+    }
+    return reval;
+  }
+};
+```
+
+
+### Solution two
 
 Let's define buy[i] means buy the stock at any day between [0,i].  
 Therefore, it is the max value between   
@@ -50,9 +70,6 @@ public:
 };
 ```
 
-
-###  Solution two
-
 If you look at above solutions, it can be optimized.
 
 ```cpp
@@ -69,18 +86,3 @@ public:
 };
 ```
 
-### Solution three
-
-```cpp
-class Solution {
-public:
-  int maxProfit(vector<int>& prices) {
-    int min_so_far(INT_MAX),reval(0);
-    for(std::size_t i=0;i<prices.size();++i){
-      reval = std::max(reval,prices[i]-min_so_far);
-      min_so_far = std::min(min_so_far,prices[i]);
-    }
-    return reval;
-  }
-};
-```
