@@ -17,8 +17,19 @@ one  : 0 => 1 => 0 => 0
 two  : 0 => 0 => 1 => 0
 ```
 
-For 'ones', we can get 'ones = ones ^ A[i]; if (twos == 1) then ones = 0', that can be tansformed to 'ones = (ones ^ A[i]) & ~twos'.
-Similarly, for 'twos', we can get 'twos = twos ^ A[i]; if (ones == 1) then twos = 0' and 'twos = (twos ^ A[i]) & ~ones'.
+For 'ones', we can get 
+
+```
+ones = ones ^ A[i]; if (twos == 1) then ones = 0
+```
+
+that can be tansformed to 
+
+```
+ones = (ones ^ A[i]) & ~twos
+```
+
+Similarly, for 'twos', we can get ```twos = twos ^ A[i]; if (ones == 1) then twos = 0``` and ```twos = (twos ^ A[i]) & ~ones```.
 
 ```cpp
 int singleNumber(vector<int>& nums) {
