@@ -39,27 +39,44 @@ After calling your function, the tree should look like:
 ```
 ### Solution one. 
 
+This solution is straightforward. We traverse the nodes level by level.
+
+And in the inner loop when we are scanning one level, we adjust the nodes' next pointers on the next level.
+
 __Space complexity  O(1). Time complexity O(n), n is the number of nodes.__
 
 ```cpp
+/**
+ * Definition for binary tree with next pointer.
+ * struct TreeLinkNode {
+ *  int val;
+ *  TreeLinkNode *left, *right, *next;
+ *  TreeLinkNode(int x) : val(x), left(NULL), right(NULL), next(NULL) {}
+ * };
+ */
 class Solution {
 public:
-  void connect(TreeLinkNode *root) {
-    TreeLinkNode *pre(root), *curr(nullptr);
-    while (pre && pre->left) {
-      curr = pre;
-      while (curr) {
-        curr->left->next = curr->right;
-        if (curr->next) curr->right->next = curr->next->left;
-        curr = curr->next;
-      }
-      pre = pre->left;
-    }
+    void connect(TreeLinkNode *root) {
+        TreeLinkNode *head(root), *curr(nullptr);
+        while (head && head->left) {
+          // Begin traversing nodes on this level, and adjust 
+          // the nodes' next pointers in the next level.  
+          curr = head;
+          while (curr) {
+            curr->left->next = curr->right;
+            if (curr->next) curr->right->next = curr->next->left;
+            curr = curr->next;
+          }
+          // Traversal complete, let's go to next level.  
+          head = head->left; 
+        }
   }
 };
 ```
 
 ### Solution two. 
+
+This works like preorder traversal. 
 
 __Time complexity is O(N), but space complexity is O(logN) considering the recursion stack.__
 
