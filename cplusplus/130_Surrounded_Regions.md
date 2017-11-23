@@ -107,3 +107,46 @@ private:
     }
 };
 ```
+
+### Solution 2, DFS
+
+```cpp
+class Solution {
+public:
+    void solve(vector<vector<char>>& board) {
+      if (board.empty()) return;
+        
+      const int row_size(board.size()), col_size(board[0].size());
+        
+      // first row and last row
+      for (int i=0;i<col_size;++i) {
+        if (board[0][i] == 'O') exploreWithDFS(board,0,i);
+        if (board[row_size-1][i] == 'O') exploreWithDFS(board,row_size-1,i);
+      }  
+        
+      // first col and last col
+      for (int i=0;i<row_size;++i) {
+        if (board[i][0] == 'O') exploreWithDFS(board,i,0);
+        if (board[i][col_size-1] == 'O') exploreWithDFS(board,i,col_size-1);
+      }
+      
+      // if not '#', set it as 'X'
+      for (int i=0;i<row_size;++i) {
+        for (int j=0;j<col_size;++j) {
+          board[i][j] = ( board[i][j] == '#' ? 'O' : 'X'); 
+        }
+      }
+    }
+    
+    void exploreWithDFS(vector<vector<char>> & board,int row, int col) {
+      const int row_size(board.size()), col_size(board[0].size());
+        if (row < 0 || row >= row_size || col < 0 || col >= col_size) return;
+        if (board[row][col] != 'O') return;
+        board[row][col] = '#';
+        if(row - 1 >= 0 && board[row - 1][col]=='O') exploreWithDFS(board, row - 1, col);
+        if(row + 1 < row_size && board[row+1][col]=='O') exploreWithDFS(board, row + 1,col);
+        if(col - 1 >= 0 && board[row][col-1]=='O') exploreWithDFS(board, row, col - 1);
+        if(col + 1 < col_size && board[row][col+1]=='O') exploreWithDFS(board, row, col + 1);
+    }
+};
+```
