@@ -27,6 +27,9 @@ After calling your function, the tree should look like:
 ```
                                                                       
 # Solution
+
+This solution is based on level order traversal. We traverse nodes level by level, and in the meantime, adjust the "next pointers" of nodes on the next level.
+
 __Time complexity O(N), space complexity O(1)__
 
 ```cpp
