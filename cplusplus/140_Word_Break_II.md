@@ -13,7 +13,21 @@ A solution is ["cats and dog", "cat sand dog"].
 
 # Solution
 
+The most intuitive solution for this problem is using backtracking algorithm. If s.substr(pos, len) is a word, we can add it to the temporary vector, and keep looking forward with DFS. However, we will get TLE here.
+
+How can we do better?
+
+We know that one string can be broke into two parts, left part and right part. If the right part is a valid word, then we just need to get all the possible sentences from left part, and concatenate their combinations together. One corner case here is that the whole string is a valid word.
+
+And to "get all the possible sentences from left part" is just a subproblem with smaller input.
+
+In order to improve performance, we use memoization here to record each string and its possible sentences into a HashMap.
+
+
+
 ##### Solution one
+
+__Time complexity O(n^2) ? __
 
 ```cpp
 class Solution {
@@ -33,10 +47,12 @@ private:
             return sentence_mapper[s];
         } else {
             std::unordered_set<std::string> reval;
+            
+            // The whole string is a word
             if (word_set.count(s) > 0) {
                 reval.insert(s);
             }
-            
+            // Break the string into two parts
             for (std::size_t cut = 1; cut < s.size(); ++ cut) {
                 std::string left(s.substr(0, cut)), right(s.substr(cut));
                 if (word_set.count(right) > 0) {
