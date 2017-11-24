@@ -1,3 +1,12 @@
+Given a linked list, determine if it has a cycle in it.  
+
+Follow up:  
+
+Can you solve it without using extra space?  
+
+# Solution
+  
+```cpp  
 bool hasCycle(ListNode *head) {
   ListNode *slow(head),*fast(head);
   while (fast && fast->next) {
@@ -7,3 +16,4 @@ bool hasCycle(ListNode *head) {
   }
   return false;
 }
+```
