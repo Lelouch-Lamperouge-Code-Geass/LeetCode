@@ -27,7 +27,8 @@ public:
 private:
     std::unordered_set<std::string> getSentences(const std::string &s, 
                                        std::unordered_set<std::string> &word_set,
-                                       std::unordered_map<std::string, std::unordered_set<std::string>> &sentence_mapper) {
+                                       std::unordered_map<std::string, 
+                                       std::unordered_set<std::string>> &sentence_mapper) {
         if (sentence_mapper.count(s) > 0) {
             return sentence_mapper[s];
         } else {
@@ -39,7 +40,8 @@ private:
             for (std::size_t cut = 1; cut < s.size(); ++ cut) {
                 std::string left(s.substr(0, cut)), right(s.substr(cut));
                 if (word_set.count(right) > 0) {
-                    const std::unordered_set<std::string> &left_parts = getSentences(left, word_set, sentence_mapper);
+                    const std::unordered_set<std::string> &left_parts 
+                    = getSentences(left, word_set, sentence_mapper);
                     for (const std::string &left : left_parts) {
                         reval.insert(left + ' ' + right);
                     }
