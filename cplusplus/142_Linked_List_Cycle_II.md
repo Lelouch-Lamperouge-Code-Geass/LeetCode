@@ -39,12 +39,14 @@ Because the total distance the fast pointer traveled is twice as the slow pointe
 ```
 2 * (L1+L2) = L1 + L2 + n * C => L1 + L2 = n * C => L1 = (n - 1) C + (C - L2)
 ```  
-  
-__It can be concluded that the distance between the head location and entry location is equal to the distance between the meeting location and the entry location along the direction of forward movement.__  
+ 
+Here we can prove that ```n == 1```, and above equation can become ```L1 = C - L2  => L1 + L2 = C```.  
 
 It is guaranteed that slow pointer won't travel more than 1 full circle, and that the fast pointer will only travel exactly one more circle than slow pointer before meeting slow pointer again.
 
 The key observation is that the speed of fast pointer is 2 times than that of slow pointer. Think of it this way: if two runners start running on a circle at the same time, fast runner is twice the speed of the slow runner, then when the slow runner finish the first circle, the fast runner will just finish second circle, and this is the first time they meet after starting. In this problem, when slow pointer start at the "entry point", the fast pointer is at the same point or ahead of the slow pointer, so you can apply the runners'situation here: they will meet before slow pointer start its second circle.
+
+__It can be concluded that the distance between the head location and entry location is equal to the distance between the meeting location and the entry location along the direction of forward movement.__  
   
 ```cpp  
 ListNode *detectCycle(ListNode *head) {
