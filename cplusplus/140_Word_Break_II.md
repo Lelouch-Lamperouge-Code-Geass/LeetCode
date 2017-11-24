@@ -108,7 +108,8 @@ public:
 private:
     std::unordered_set<std::string> getSentences(const std::string &s, 
                                        std::unordered_set<std::string> &word_set,
-                                       std::unordered_map<std::string, std::unordered_set<std::string>> &sentence_mapper) {
+                                       std::unordered_map<std::string, 
+                                       std::unordered_set<std::string>> &sentence_mapper) {
         if (sentence_mapper.count(s) > 0) {
             return sentence_mapper[s];
         } else {
