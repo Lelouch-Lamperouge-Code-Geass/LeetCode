@@ -53,4 +53,6 @@ In reverse Polish notation, the operators follow their operands; for instance, t
                                                                             
 ##### Converting from infix notation
                                                                             
-                                                                            
+Edsger Dijkstra invented the __shunting-yard algorithm__ to convert infix expressions to postfix expressions (reverse Polish notation), so named because its operation resembles that of a railroad shunting yard.
+
+There are other ways of producing postfix expressions from infix expressions. Most operator-precedence parsers can be modified to produce postfix expressions; in particular, once an __abstract syntax tree__ has been constructed, the corresponding postfix expression is given by a simple post-order traversal of that tree.                                                                            
