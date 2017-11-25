@@ -1,3 +1,21 @@
+Given an input string, reverse the string word by word.
+
+For example,
+
+```
+Given s = "the sky is blue",
+return "blue is sky the".
+```  
+
+__Update (2015-02-12):__
+
+For C programmers: Try to solve it in-place in O(1) space.
+ 
+# Solution
+
+The idea is,  we reverse the whole string first and then reverse each word one by one.
+  
+```cpp
 class Solution {
 public:
   void reverseWords(string &s) {
@@ -17,3 +35,4 @@ public:
 
   }
 };
+```
