@@ -64,6 +64,14 @@ https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/132_Palindrome_Part
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/133_Clone_Graph.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/134_Gas_Station.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/137_Single_Number_II.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/138_Copy_List_with_Random_Pointer.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/139_Word_Break.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/140_Word_Break_II.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/142_Linked_List_Cycle_II.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/144_Binary_Tree_Preorder_Traversal.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/145_Binary_Tree_Postorder_Traversal.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/148_Sort_List.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/149_Max_Points_on_a_Line.md  
 
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/159_Longest_Substring_with_At_Most_Two_Distinct.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/161_One_Edit_Distance.md  
