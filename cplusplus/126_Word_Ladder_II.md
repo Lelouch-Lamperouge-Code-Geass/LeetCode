@@ -32,6 +32,8 @@ Note:
 
 __Bidirectional search__ is a graph search algorithm that finds a shortest path from an initial vertex to a goal vertex in a directed graph. It runs two simultaneous searches: one forward from the initial state, and one backward from the goal, stopping when the two meet in the middle. The reason for this approach is that in many cases it is faster.
 
+__Note that this graph doesn't have weight, therefore we can use BFS to solve it. If the edge here has weight, we need to use Dijkstra algorithm.__
+
 In normal graph search using BFS/DFS we begin our search in one direction usually from source vertex toward the goal vertex, but what if we start search form both direction simultaneously. Bidirectional search is a graph search algorithm which find smallest path form source to goal vertex. It runs two simultaneous search 
 
 1. Forward search form source/initial vertex toward goal vertex
