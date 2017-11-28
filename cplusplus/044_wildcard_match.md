@@ -22,12 +22,16 @@ isMatch("aab", "c*a*b") ? false
 # Solution
 
 ### Solution 1 with dynamic programming :
-Let's briefly summarize the idea of DP. We define the state P[i][j] to be whether s[0..i) matches p[0..j). The state equations are as follows:
+Let's briefly summarize the idea of DP. We define the state P[i][j] to be whether s[0..i) matches p[0..j), here i, j represents length. The state equations are as follows:
     
 ```
 P[i][j] = P[i - 1][j - 1] && (s[i - 1] == p[j - 1] || p[j - 1] == '?'), if p[j - 1] != '*';
 P[i][j] = P[i][j - 1] || P[i - 1][j], if p[j - 1] == '*'.
 ```
+
+Note that the key is :
+1. When P[j-1] !=  '\*' : we have to derive from P[i-1][j-1].
+2. When P[j-1] == '\*' : we can derive from P[i-1][j](use '\*') or P[i][j-1](not use '\*' at all). We don't need to check P[i-1][j-1].
 
 __Time complexity : O(s.size() * p.size()), Splace Complexity O(s.size() * p.size())__
 
