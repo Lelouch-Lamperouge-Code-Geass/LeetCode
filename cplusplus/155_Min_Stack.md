@@ -26,7 +26,9 @@ Using one extra space to store m_min. m_min always stores the minimal value.
 
 What the stack stores is the gap between current number and the minimum value if we pop current number out, it equals 
 
-```current_number - minimum_value_we_get_if_pop_current_number```.
+```current_number - minimum_value_we_get_if_pop_current_number```, or you can say
+
+```current_number - pre_minimal_value_before_add_current_number```.
 
 Therefore, when we call top(). There are two scenarios:
 
