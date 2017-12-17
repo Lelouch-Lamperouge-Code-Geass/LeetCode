@@ -20,11 +20,84 @@ minStack.getMin();   --> Returns -2.
 
 # Solution
 
-##### Solution one
+### Solution one
 
+Using one extra space to store m_min. m_min always stores the minimal value.
 
+What the stack stores is the gap between current number and the minimum value if we pop current number out, it equals 
+
+```current_number - minimum_value_we_get_if_pop_current_number```.
+
+Therefore, when we call top(). There are two scenarios:
+
+1. top() <= 0 : which means current value is even smaller or at least equal to minimum value we can get if we pop current number out. So just return m_min.
+2. top() is positive : which means current value is bigger than previous value, so return top() + m_min. This means that we did not modify m_min when we add this number.
+
+When we call pop(), we just need to make sure update m_min when top() is negative.
+
+Using long here to handle overflow.
+  
+```cpp
+class MinStack {
+public:
+    /** initialize your data structure here. */
+    MinStack() {
+        
+    }
+    
+    void push(int x) {
+        if (m_diff.empty()) {
+            m_min = x;
+            m_diff.push(x - m_min);
+        } else {
+            m_diff.push(x - m_min);
+            if (x < m_min) {
+                m_min = x;
+            }
+        }
+    }
+    
+    void pop() {
+        if (m_diff.top() < 0) { // need update m_min
+            m_min = m_min - m_diff.top(); 
+        }
+        
+        m_diff.pop();
+    }
+    
+    int top() {
+        if (m_diff.top() < 0) {
+            return m_min;
+        } else {
+            return m_min + m_diff.top();
+        }
+    }
+    
+    int getMin() {
+        return  m_min;
+    }
+private:
+    // m_diff stores the difference of each number and the minimal value
+    // if pop this number out.
+    std::stack<long> m_diff;
+    long m_min;
+};
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(x);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */
+```
+
+### Solution two
 
 The most intuitive solution is storing number as well as minimal value as a pair on each entry.
+
+But this solution uses way much more space than solution 1.
 
   ```cpp
 class MinStack {
@@ -59,106 +132,6 @@ private:
 };
 ```
 
-##### Solution two
-
-```cpp
-class MinStack {
-public:
-    /** initialize your data structure here. */
-    MinStack() : m_min(INT_MAX)  {
-        
-    }
-    
-    void push(int x) {
-        if (x <= m_min) {
-            // a new minimum value comes in,
-            // push previous minimum value into stack
-            // so that when pop up values, we can recover the previous minimum value
-            // directly from stack
-            m_values.push(m_min);
-            m_min = x;
-        }
-        
-        m_values.push(x);
-    }
-    
-    void pop() {
-        const int cur_val = m_values.top();
-        if (cur_val == m_min) {
-            // we are popping our minimal value now,
-            // need recover previous minimal value 
-            m_values.pop();
-            m_min = m_values.top();
-            m_values.pop();
-        } else {
-            m_values.pop();
-        }
-        
-     
-    }
-    
-    int top() {
-        return m_values.top();
-    }
-    
-    int getMin() {
-        return m_min;
-    }
-private:
-    int m_min;
-    std::stack<int> m_values;
-};
-```
 
 
-##### Solution three
-Using one extra space to store m_min.
-What the stack stores is the gap between current value and previous minimum value, it equals 
 
-```current_value - previous_minimum_value```.
-
-Therefore, when we call top(). There are two scenarios:
-1. top() <= : which means current value is even smaller or at least equal to previous minimum value. So just return m_min.
-2. top() is positive : which means current value is bigger than previous value, so return top() + m_min
-
-When we call pop(), we just need to make sure update m_min when top() is negative.
-
-Using long here to handle overflow.
-  
-```cpp
-class MinStack {
-public:
-
-MinStack() {
-
-}
-
-void push(int x) {
-  if ( m_stack.empty() ) {
-    m_stack.push(0);
-    m_min = x;
-  } else {
-    m_stack.push(x - m_min);
-    if( x<m_min ) m_min = x;
-  }
-}
-
-void pop() {
-  if (m_stack.top()<0) {
-    m_min -= m_stack.top();
-  }
-  m_stack.pop();
-}
-
-int top() {
-  return  m_stack.top() <= 0 ? m_min : m_min+m_stack.top();
-}
-
-int getMin() {
-  return m_min;
-}
-private:
-long m_min;
-std::stack<long> m_stack;
-};
-```
