@@ -45,7 +45,8 @@ public:
         TreeNode* new_root = upsideDownBinaryTree(root->left);
         cur_left->right = root;
         cur_left->left = cur_right;
-        /** now the root node become the child node, so we need to clear the left & right sub node to avoid cycles**/
+        // Now the root node become the child node, so we need to clear 
+        // the left & right sub node to avoid cycles.
         root->left = nullptr;
         root->right = nullptr;
         return new_root;
