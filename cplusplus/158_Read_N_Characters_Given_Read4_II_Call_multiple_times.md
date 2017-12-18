@@ -23,6 +23,8 @@ read(buf, 3); // should return 'b, c, d'
 
 All the 4 chars will be consumed in the first call. So the tricky part of this question is how can you preserve the remaining 'b, c, d' to the second call.
 
+Therefore, we maintain a private buffer, and we need to read from file whenever m_pos is 0. Otherwise, we need to copy chars from private buffer to final buffer.
+
 ```cpp
 // Forward declaration of the read4 API.
 int read4(char *buf);
