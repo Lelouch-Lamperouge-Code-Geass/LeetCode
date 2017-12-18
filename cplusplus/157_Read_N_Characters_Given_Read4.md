@@ -9,7 +9,7 @@ By using the read4 API, implement the function ```int read(char *buf, int n)``` 
 Edge cases:
 
 1. The final read may not need 4 chars.
-2. The ``` read4(char *buf)``` function does not move buff pointer forward.
+2. The ``` read4(char *buf)``` function does not move buff pointer forward, notice that here it is passed by copy pointer.
 
 ```cpp
 // Forward declaration of the read4 API.
