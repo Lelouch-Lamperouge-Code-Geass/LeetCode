@@ -6,6 +6,11 @@ By using the read4 API, implement the function ```int read(char *buf, int n)``` 
 
 # Solution
 
+Edge cases:
+
+1. The final read may not need 4 chars.
+2. The ``` read4(char *buf)``` function does not move buff pointer forward.
+
 ```cpp
 // Forward declaration of the read4 API.
 int read4(char *buf);
