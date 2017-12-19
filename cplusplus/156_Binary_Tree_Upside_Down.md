@@ -33,23 +33,25 @@ As the recursive solution, we will keep recurse on the left child and once we ar
 ### Recursive
 
 ```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
 class Solution {
 public:
     TreeNode* upsideDownBinaryTree(TreeNode* root) {
-        /** the left most node, when backtrack we need to set the parent node left & right point to null **/
-        if(!root || !root->left) return root;
-        /** record the current left & right node before DFS **/
-        TreeNode* cur_left = root->left;
-        TreeNode* cur_right = root->right;
-        /** DFS call to build the right sub tree **/
-        TreeNode* new_root = upsideDownBinaryTree(root->left);
-        cur_left->right = root;
-        cur_left->left = cur_right;
-        // Now the root node become the child node, so we need to clear 
-        // the left & right sub node to avoid cycles.
-        root->left = nullptr;
-        root->right = nullptr;
-        return new_root;
+        if (!root) return nullptr;
+        if (!root->left) return root; // No left, no right
+        TreeNode*  reval = upsideDownBinaryTree(root->left);
+        root->left->left = root->right;
+        root->left->right = root;
+        root->left = root->right = nullptr; // Important!
+        return reval;
     }
 };
 ```
@@ -61,27 +63,29 @@ For the iterative solution, it follows the same thought, the only thing we need 
 ![alt](http://i68.tinypic.com/2nkj582.jpg)
 
 ```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
 class Solution {
 public:
     TreeNode* upsideDownBinaryTree(TreeNode* root) {
-        /** cur   : record the current root node 
-         * parent : record the parent node of the current node
-         * right  : record the right child node of the parent node 
-         * next   : record the next level left child node **/
-        TreeNode* cur = root;
-        TreeNode* parent = NULL;
-        TreeNode* right = NULL;
-        TreeNode* next = NULL;
-        while(cur != NULL) {
-            next = cur->left;
-            /** set the cur->left point to right and cur->right point to parent **/
-            cur->left = right;
-            right = cur->right;
-            cur->right = parent;
-            parent = cur;
-            /** move left down to the next node **/
-            cur = next;
+        TreeNode *parent(nullptr), *right_sibling(nullptr), *next(nullptr);
+        while (root) {
+            next = root->left;
+            root->left = right_sibling;
+            right_sibling = root->right; // save right sibling
+            root->right = parent;
+            
+            parent = root;
+            root = next;
         }
+        
         return parent;
     }
 };
