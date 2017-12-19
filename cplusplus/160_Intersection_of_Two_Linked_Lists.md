@@ -23,8 +23,10 @@ begin to intersect at node c1.
 
 
 # Solution
-    
-Let's assume that these two linkedlist have intersection. We let L1 represents the length from headA to intersection point, L2 represents the length from headB to intersction point, C represents the overlapped length. Then we know that if we make pointer p begin at headA and travel L1 + C + L2 distance, and make pointer q begin ad headB and travel L2 + C + L1, then they will definitely meet at intersection point if there is one.
+
+Let's assume that these two linkedlist have intersection. We let L1 represents the length from headA to intersection point, L2 represents the length from headB to intersction point, C represents the overlapped length. Then we know that if we make pointer p begin at headA and travel L1 + C + L2 distance, and make pointer q begin at headB and travel L2 + C + L1, then they will definitely meet at intersection point if there is one.
+
+What if they have no intersection? The p and q will be null at the same time.
     
     
 Edge cases:
