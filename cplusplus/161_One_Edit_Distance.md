@@ -20,6 +20,9 @@ __Note that if two strings are the same, should return false because their edit 
  */
  ```
  
+ 
+### Solution 1
+
  ```cpp
 bool isOneEditDistance(string s, string t) {
   const std::size_t s_size(s.size()), t_size(t.size());
@@ -53,4 +56,45 @@ void UnitTest() {
   assert(isOneEditDistance("geeks", "geksd") == false);
 }
 
+ ```
+ 
+ ### Solution 2
+ 
+ ```cpp
+ class Solution {
+public:
+    bool isOneEditDistance(string s, string t) {
+        const int s_size(s.size()), t_size(t.size());
+        if (std::abs(s_size - t_size) > 1) return false;
+        int len = std::min(s_size, t_size);
+        for (int i = 0; i < len; ++i) {
+            if (s[i] != t[i]) {
+                if (s_size > t_size) {
+                    return isEqual(s, t, i + 1, i);
+                } else if (s_size < t_size) {
+                    return isEqual(s, t, i, i + 1);
+                } else {
+                    return isEqual(s, t, i + 1, i + 1);
+                }
+            }
+        }
+        // All pre len characters are the same
+        return s_size != t_size;
+    }
+private:
+    bool isEqual(const std::string &s, 
+                 const std::string &t,
+                 int s_pos,
+                 int t_pos) {
+        const int s_size(s.size()), t_size(t.size());
+        while (s_pos < s_size && t_pos < t_size) {
+            if (s[s_pos] != t[t_pos]) {
+                return false;
+            } else {
+                ++ s_pos, ++ t_pos;
+            }
+        }
+        return s_pos == s_size && t_pos == t_size;
+    }
+};
  ```
