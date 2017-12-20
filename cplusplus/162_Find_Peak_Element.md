@@ -22,6 +22,8 @@ Why ?
    Does that mean there is definitely a peak between [mid, high] ? NO!
 2. Same for nums[mid] < nums[high].  
 
+Therefore, we can't halve the searching range by comparing mid with low or high.
+
 While if we choose to compare nums[mid] with nums[mid + 1]:
 
 1. If nums[mid] > nums[mid + 1], there is definitely a peak between [low, mid].
