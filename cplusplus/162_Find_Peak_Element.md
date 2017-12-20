@@ -78,3 +78,28 @@ public:
   }
 };
 ```
+
+##### Solution two
+
+If we make mid point more inclined to high, then the solution will be :
+
+```cpp
+class Solution {
+public:
+    int findPeakElement(vector<int>& nums) {
+        if (nums.empty()) throw std::invalid_argument("nums can't be empty!");
+        int low(0), high(nums.size() - 1);
+        
+        while (low < high) {
+            int mid = low + (high + 1 - low)/ 2;
+            if (nums[mid] > nums[mid - 1]) {
+                low = mid;
+            } else { // nums[mid] < nums[mid - 1]
+                high = mid - 1;
+            }
+        }
+        
+        return low;
+    }
+};
+```
