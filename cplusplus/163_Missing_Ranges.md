@@ -14,6 +14,12 @@ Other things we need to consider:
 2. The interval between lower and first number, and the interval between last number and upper. These two intervals are the most tricky part.
 
 
+Here is my thought: 
+
+1. For numbers within nums, we store previous number in pre, and check ```pre + 1 < cur\_number``` or not. If it is so, we should add range ```[pre + 1, cur\_number - 1]```.
+2. One edge case is how to handle lower and the first number. We know that ```lower <= first number```, we can set ```pre = lower - 1```.
+3. Another edge case is how to handle the last range, ```[last number, upper]```. We know that ```last number <= upper```, we need add the range if ```last number < upper```.
+
 ```cpp
 class Solution {
 private:
