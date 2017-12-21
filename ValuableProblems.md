@@ -72,10 +72,16 @@ https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/144_Binary_Tree_Pre
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/145_Binary_Tree_Postorder_Traversal.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/148_Sort_List.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/149_Max_Points_on_a_Line.md  
-
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/152_Maximum_Product_Subarray.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/154_Find_Minimum_in_Rotated_Sorted_Array_II.md
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/155_Min_Stack.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/159_Longest_Substring_with_At_Most_Two_Distinct.md
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/161_One_Edit_Distance.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/163_Missing_Ranges.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/164_Maximum_Gap.md  
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/165_Compare_Version_Numbers.md  
+
+
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/166_Fraction_to_Recurring_Decimal.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/168_Excel_Sheet_Column_Title.md  
 https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/173_Binary_Search_Tree_Iterator.md  
