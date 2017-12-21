@@ -74,6 +74,13 @@ next number is AAA = 1*R^2 + 1 * R + 1 = ZZ +1
 ```
 so from the AAA notation to their sequence number (decimal) it's easy, but the other way is a bit tricky due to the way % and / operates
 
+### Solution 1
+
+To convert a radix-10 number to a different radix, here is what we need to do. We keep using ```mod``` operation on the number in order to get the "digit" on the new radix, and since we get the representation from least siginificant position to most significant position, eventually we need to reverse the representation string.
+
+Our new number system's radix is 26, therefore we know that every postion can have 26 different digit.
+Now the tricky part here is, in the new radix system, the beginning position is 1 not 0. Therefore, we need to make sure that ```1->A, 26->Z```.
+
 ```cpp
 class Solution {
  public:
@@ -94,3 +101,11 @@ class Solution {
     }
 };
 ```
+
+# Knowledge
+
+Simply put, a __number system__ is a way to represent numbers. We are used to using the base-10 number system, which is also called decimal. Other common number systems include base-16 (hexadecimal), base-8 (octal), and base-2 (binary).
+
+In mathematical numeral systems, the __radix__ or __base__ is the number of unique digits, including zero, used to represent numbers in a positional numeral system. For example, for the decimal system (the most common system in use today) the radix is ten, because it uses the ten digits from 0 through 9.
+
+
