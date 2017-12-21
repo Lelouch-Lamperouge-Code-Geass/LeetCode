@@ -46,6 +46,8 @@ class Solution {
 public:
     int majorityElement(vector<int>& nums) {
         int major = 0, n = nums.size();
+        // For every bit position(32-bit in total), we count how many
+        // numbers have set its to be 1.
         for (int i = 0, mask = 1; i < 32; i++, mask <<= 1) {
             int bitCounts = 0;
             for (int j = 0; j < n; j++) {
