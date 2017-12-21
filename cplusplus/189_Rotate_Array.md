@@ -36,7 +36,7 @@ public:
 
 ### Solution 2
 
-Every swap will put one number into its correct position, so the running time is O(n)
+Every swap will put one number into its correct position, so the running time is O(n).
 
 For example,
 
@@ -49,6 +49,8 @@ after second outer loop, nums[] is [4], n is 1, k is 0
 
 loop ends.
 ```
+
+We are basically keeping put k numbers from the end at the right positions every inner loop.
 
 __Time complexity: O(n). Space complexity: O(1).__
 
