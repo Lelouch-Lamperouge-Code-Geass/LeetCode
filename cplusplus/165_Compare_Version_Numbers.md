@@ -13,6 +13,15 @@ Here is an example of version numbers ordering:
 
 # Solution
 
+Some cases:
+
+```
+"1.2.3" , "1.2.4" return -1
+"1.2.34", "1.2.4" return  1
+"01.2.34", "1.2.34" return 0
+"01.2.34", "1.0002.34" return 0
+```
+
 ```cpp
 class Solution {
 public:
