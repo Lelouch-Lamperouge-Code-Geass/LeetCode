@@ -33,7 +33,7 @@ __BTW, If we use Morris Traversal, can reduce the space complexity to O(1)__
 class BSTIterator {
 public:
     BSTIterator(TreeNode *root) {
-        addNodesOnLeftmostPath(root);
+        pushNodes(root);
     }
 
     /** @return whether we have a next smallest number */
@@ -43,17 +43,16 @@ public:
 
     /** @return the next smallest number */
     int next() {
-        int reval = m_nodes.top()->val;
-        TreeNode *right_child = m_nodes.top()->right;
+        TreeNode *curr = m_nodes.top();
         m_nodes.pop();
-        addNodesOnLeftmostPath(right_child);
-        return reval;
+        pushNodes(curr->right);
+        return curr->val;
     }
 private:
-    void addNodesOnLeftmostPath(TreeNode *node) {
-        while (node) {
-            m_nodes.emplace(node);
-            node = node->left;
+    void pushNodes(TreeNode *root){
+        while (root) {
+            m_nodes.push(root);
+            root = root->left;
         }
     }
     std::stack<TreeNode*> m_nodes;
