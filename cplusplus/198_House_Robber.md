@@ -50,3 +50,33 @@ public:
     }
 };
 ```
+
+### Solution 2
+
+Basically the same idea as above solution, we use even and odd to record the maximum money of even/odd index house.
+
+This is still a DP solution.
+
+```cpp
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int even = 0;
+        int odd = 0;
+    
+        for (int i=0; i<nums.size(); i++)
+        {
+            if (i%2==0)
+            {
+                even = max(even+nums[i], odd);
+            }
+            else
+            {
+                odd = max(odd+nums[i],even);
+            }
+        }
+    
+        return max(even, odd);
+    }
+};
+```
