@@ -42,7 +42,7 @@ public:
 };
 ```
 
-### Solution from Wikipedia
+### Several method of O(1) time complexity from Wikipedia
 
 ```cpp
 // This is a naive implementation, shown for comparison, and to help in understanding the better functions. 
