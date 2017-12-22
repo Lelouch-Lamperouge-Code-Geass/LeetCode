@@ -8,6 +8,8 @@ If this function is called many times, how would you optimize it?
 
 # Solution
 
+### Solution 1
+
 ```cpp
 class Solution {
 public:
