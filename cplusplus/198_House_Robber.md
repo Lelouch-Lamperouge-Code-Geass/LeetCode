@@ -4,6 +4,8 @@ Given a list of non-negative integers representing the amount of money of each h
 
 # Solution
 
+### Solution 1
+
 If we know that the maximum amount of money we can rob ending with each house(a consecutive array ending with each house), then we know that the maximum amount of money we can rob tonight.
 
 For each house, we have
