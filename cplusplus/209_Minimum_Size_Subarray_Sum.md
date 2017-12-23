@@ -10,6 +10,23 @@ If you have figured out the O(n) solution, try coding another solution of which 
 
 ### Solution one
 
+If we know the minimal length of contiguous subarray ending with each index, then our final result will be the min value among all of them. Therefore, this problem  can be broken down into a collection of simpler subproblems, solving each of those subproblems just once, and storing their solutions. It is a dynamic programming problem.
+
+In fact, this is a special dynamic programming problem, in general called "sliding-window problem".
+
+
+
+We maintain a sliding window. For each index, we have a sliding window ending with this index.
+
+1. If the ```window_sum``` is smaller than ```s```, it is either because we never have ```window_sum``` big enough to reach ```s```, or it is because previous we have such ```window_sum``` but we pop the ```window_start``` out (by shifting ```window_start``` to right). You may ask, why pop that ```window_start``` out? If we did not, for current index, don't we can have a window that makes ```window_sum``` larger or equals to ```s``` so that we can have a window meet requirement? The reason is that for any index we discarded from the sliding window, we have found the minimum window begin with that index, which will be definitely <= the window we can form right now. __In other words, when we discard the start index of the sliding window(by shifting window_start to right), the minimum window starting with that index have been found.__ 
+
+For example, [...i...j...k...], if [i,j] can form a satisfied window, and we will pop i out of the sliding window after visited j(and we can say that we already find the minimum window begin with i). Even thourhg [i, k] can for a satisfied window too, but it will not be smaller than the window [i,j]. 
+
+2. If the ```window_sum``` is larger than ```s```, the minimum window ending with current index have been found. Then we begin to discard the front elements of this sliding window until ```window_sum``` is smaller than ```s``` again. For each discarded indexes, the minimal window begin with it has been found.
+
+
+__It is so important that I need to emphasize again. We can pop front index of the sliding window only because the minimum window begins with that index has been found, and there is no point to keep that index within sliding window.__
+
 __Time Complexity O(N), Space Complexity O(1)__
 
 ```cpp
