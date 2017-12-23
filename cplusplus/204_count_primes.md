@@ -46,6 +46,9 @@ public:
             // If prime[i] is false, which means it has been marked before,
             // we can skip this.
             if (prime[i]) {
+                // Here j can begin with i * i.
+                // And also it can increase with j += i.
+                // Check item 3 in above explaination.
                 for (int j = i*i; j < n; j += i) {
                     prime[j] = false;
                 }    
