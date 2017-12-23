@@ -100,34 +100,43 @@ public:
 ```cpp
 class Solution {
 public:
-
-  bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
-    vector<vector<int>> graph(numCourses,vector<int>());
-
-    for(const pair<int, int> & pre : prerequisites){
-      graph[pre.second].push_back(pre.first);
+    bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
+        // Build graph
+        std::vector<std::unordered_set<int>> graph(numCourses, std::unordered_set<int>());
+        for (const auto &pair_item : prerequisites) {
+            graph[pair_item.first].insert(pair_item.second);
+        }
+        // Visit each node with DFS
+        std::vector<bool> visited(numCourses, false), in_circle(numCourses, false);
+        for (int course_id = 0; course_id < numCourses; ++ course_id) {
+            if (hasCircle(visited, in_circle, course_id, graph)) {
+                return false;
+            }
+        }
+        
+        return true;
     }
-    vector<bool> visited(numCourses,false),onpath(numCourses,false);
-    for(int i=0;i<numCourses;++i){
-      if(!visited[i] && !dfs(i,graph,visited,onpath)){
-        return false;
-      }
-    }
-    return true;
-  }
+    
 private:
-  // Return value means DFS succeed or not. True means no cycle, false means it has a cycle.
-  bool dfs(const int course,vector<vector<int>> & graph,vector<bool> & visited,vector<bool> & onpath){
-    if(onpath[course]) return false; // On the same dfs path
-    if(visited[course]) return true;  // Visited, no need to go further
-    onpath[course] = visited[course] = true;
-    for(const int num : graph[course]){
-      if(onpath[num] || !dfs(num,graph,visited,onpath)){
+    bool hasCircle(std::vector<bool> &visited, 
+                   std::vector<bool> &in_circle, 
+                   int course_id, 
+                   const std::vector<std::unordered_set<int>> &graph){
+        // If you switch these two IF clause, it won't work.
+        // e.g. [0,1], [1,0]
+        if (in_circle[course_id]) return true;
+        if (visited[course_id]) return false;
+        
+        visited[course_id] = in_circle[course_id] = true;
+        
+        for (int next : graph[course_id]) {
+            if (hasCircle(visited, in_circle, next, graph)) {
+                return true;
+            }
+        }
+        
+        in_circle[course_id] = false; // Need revert back for next usage
         return false;
-      }
     }
-    onpath[course] = false;//rewind onpath status
-    return true;
-  }
 };
 ```
