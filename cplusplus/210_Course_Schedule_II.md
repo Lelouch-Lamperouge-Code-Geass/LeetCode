@@ -24,11 +24,21 @@ You may assume that there are no duplicate edges in the input prerequisites.
 
 This question asks for an order in which prerequisite courses must be taken first. This prerequisite relationship reminds one of directed graphs. Then, the problem reduces to find a topological sort order of the courses, which would be a DAG if it has a valid order.
 
-### Solution 1 with BFS
+In the field of computer science, a __topological sort__ or __topological ordering__ of a __directed graph__ is a linear ordering of its vertices such that for every directed edge uv from vertex u to vertex v, u comes before v in the ordering. For instance, the vertices of the graph may represent tasks to be performed, and the edges may represent constraints that one task must be performed before another; in this application, a topological ordering is just a valid sequence for the tasks. A topological ordering is possible if and only if the graph has no directed cycles, that is, if it is a __directed acyclic graph (DAG)__. Any DAG has at least one topological ordering, and algorithms are known for constructing a topological ordering of any DAG in linear time.
+
+
+The usual algorithms for topological sorting have running time linear in the number of nodes plus the number of edges, asymptotically, __O(V + E)__ :
+
+1. Kahn's algorithm
+2. Depth-first search
+
+### Solution 1 with Kahn's algorithm
 
 We observe that if a node has incoming edges, it has prerequisites. Therefore, the first few in the order must be those with no prerequisites, i.e. no incoming edges. Any non-empty DAG must have at least one node without incoming links. You can draw a small graph to convince yourself. If we visit these few and remove all edges attached to them, we are left with a smaller DAG, which is the same problem. This will then give our BFS solution.
 
-__Please note in this BFS solution here, we fist of all put all the zero-indegree nodes into the queue. If we only put one zero-indegree node, it will be a problem. Think about we have two zero-indegree nodes, and we push only one node as the begin node into the queue, and after take out it from the queue and reduce the indegree of its neighbors. It is possible that all its neighbors's indegree are all larger than zero. And another zero-indegree node has never been put into the queue.__
+__Please note, we fist of all put all the zero-indegree nodes into the queue. If we only put one zero-indegree node, it will be a problem. Think about we have two zero-indegree nodes, and we push only one node as the begin node into the queue, and after take out it from the queue and reduce the indegree of its neighbors. It is possible that all its neighbors's indegree are all larger than zero. And another zero-indegree node has never been put into the queue.__
+
+
 
 ```cpp           
 class Solution {
@@ -160,37 +170,4 @@ private:
 ```
 
 
-###  Solution 3
 
-
-```cpp           
-class Solution {
-public:
-  vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
-    vector< vector<int> > graph( numCourses,vector<int>() );
-    vector<int> indegree(numCourses,0);
-    for (const pair<int,int> & item : prerequisites) {
-      graph[item.second].push_back(item.first);
-      ++ indegree[item.first];
-    }
-
-    vector<int> res;
-    for (int i=0;i<numCourses;++i) {
-      int k = get_zero_indegree(indegree);
-      if (k==-1) return vector<int>();
-      for (int next : graph[k]) {
-        -- indegree[next];
-      }
-      res.push_back(k);
-    }
-    return res;
-  }
-private:
-  int get_zero_indegree (std::vector<int> & indegree) {
-    std::vector<int>::iterator iter = std::find(indegree.begin(),indegree.end(),0);
-    if (iter == indegree.end()) return -1;
-    *iter = -1; // set its indegree to be -1
-    return iter-indegree.begin(); //return index
-  }
-};
-```
