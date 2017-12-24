@@ -60,27 +60,47 @@ public:
 
 ### Solution 2
 
+
+Since there is now a constraint on the range of the values of the elements to be considered duplicates, it reminds us of doing a range check which is implemented in tree data structure and would take O(LogN) if a balanced tree structure is used, or doing a bucket check which is constant time. We shall just discuss the idea using bucket here.
+
+Bucketing means we map a range of values to the a bucket. For example, if t is 2 then the bucket size should be 3 and  0, 1, 2 should all map to the same bucket. However, 2 and 4 are a considered duplicates but does not map to the same bucket. This is fine since we are checking the buckets immediately before and after as well. So, as a rule of thumb, just make sure the size of the bucket is reasonable such that elements having the same bucket is immediately considered duplicates or duplicates must lie within adjacent buckets. 
+
+
+Here each bucket at most should only store one value, if it tried to store two, then in ur previous check map.containsKey() already return true, and this is counted as duplicate. It doesn't even check bucket+1 or bucket-1 anymore.
+
+I know u must concern the second map.put override the (bucket-1), puts a value which is further from (bucket), then it messed up the (bucket-1) check. But the thing is: if that is the case, u already tried to put two value into one bucket, which already terminates the program.
+
+__We maintains a k size buckets, so the space complexity is O(k). And the time compleixty is O(n) since check/udpate bucket cost O(1).__
+
 ```cpp
 class Solution {
 public:
-  bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {
-    if (nums.empty() || k < 0 || t < 0) return false;
-    int min_val = *std::min_element(nums.begin(),nums.end());
-    unordered_map<long,long> buckets; // <bucket_id,value>
-    const std::size_t nums_size(nums.size()),bucket_size(t+1);
-    for (std::size_t i=0;i<nums_size;++i) {
-      if (buckets.size()==k+1) {
-        long old_id = (nums[i-k-1]-min_val) / bucket_size;
-        buckets.erase(old_id);
-      }
-      long id = (nums[i]-min_val) / bucket_size;
-      if (buckets.count(id)
-          || buckets.count(id-1)!=0 && std::labs(nums[i]-buckets[id-1]) <=t
-          || buckets.count(id+1)!=0 && std::labs(nums[i]-buckets[id+1]) <=t
-          ) return true;
-      buckets[id] = nums[i];
+    bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {
+        if (nums.empty() || t < 0) return false;
+        
+        int min_val = *std::min_element(nums.begin(), nums.end());
+        
+        // Each bucket should contains only one number.
+        // If it contains two which means we already have a pair meets
+        // the requirement, and should return true.
+        std::unordered_map<long, long> buckets; // <bucket_id, value>
+        const long bucket_size(t + 1);
+        for (int i = 0, n = nums.size(); i < n; ++i) {
+            if (buckets.size() == k + 1) {
+                long remove_id = ((long)nums[i - k - 1] - (long)min_val) / bucket_size;
+                buckets.erase(remove_id);
+            }
+            long bucket_id = ((long)nums[i] - min_val) / bucket_size;
+            if (buckets.count(bucket_id)
+               || buckets.count(bucket_id - 1) != 0 && std::abs(nums[i] - buckets[bucket_id - 1]) <= t
+               || buckets.count(bucket_id + 1) != 0 && std::abs(nums[i] - buckets[bucket_id + 1]) <= t) {
+                return true;
+            }
+            
+            buckets[bucket_id] = nums[i];
+        }
+        
+        return false;
     }
-    return false;
-  }
 };
 ```
