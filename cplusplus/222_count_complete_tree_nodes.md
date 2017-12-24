@@ -34,6 +34,8 @@ Since this is a complete binary tree, for any tree node, if its left child tree'
 
 If current node's left child tree's height is the same as right child tree, then its right child tree is a perferct binary tree. We can do the same thing like above, collecting the nodes of right tree plus current node.
 
+Finding a height costs O(log(n)) and we need to do that O(log(n)) times. So overall time complexity is __O(log(n)^2)__.
+
 ```cpp
 /**
  * Definition for a binary tree node.
@@ -82,32 +84,50 @@ public:
 };
 ```
 
-### Solution 2
+A different style.
 
 ```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
 class Solution {
 public:
     int countNodes(TreeNode* root) {
-        if(!root) return 0;
-        int height(0), sum(0), i(0);
-        TreeNode *t(root), *t0(nullptr);
-        //get the height of the tree;
-        while(t) {
-            t = t->left, ++ height;
-        }
-        t = root;
-        int level = height - 2; //levels under the child of root;
-        while(level >=0 ) //collect the bottom-level nodes by halving them apart;
-        {
-            t0 = t->left;
-            for(i = 0; i < level; ++i) t0 = t0->right; 
-            if(t0) { sum += 1<<level; t = t->right; } //rightmost node is not null;
-            else t = t->left;
+        int reval(0);
+        TreeNode *curr(nullptr);
+        while(root) {
+            curr = root->left;
             
-            -- level; //move to the next level;
+            // Get height of left child tree plus one.
+            int left_height_plus_one(0);
+            while (curr) {
+                ++ left_height_plus_one;
+                curr = curr->left;
+            }
+            
+            // Get height of right child tree plus one.
+            curr = root->right;
+            int right_height_plus_one(0);
+            while (curr) {
+                ++ right_height_plus_one;
+                curr = curr->left;
+            }
+            
+            if (left_height_plus_one > right_height_plus_one) {
+                reval += (1 << right_height_plus_one);
+                root = root->left;
+            } else {
+                reval += (1 << left_height_plus_one);
+                root = root->right;
+            }
         }
-        if(t) sum++; //if it's a complete tree, collect the last right node;
-        return sum+((1<<(height-1))-1);
+        return reval;
     }
 };
 ```
