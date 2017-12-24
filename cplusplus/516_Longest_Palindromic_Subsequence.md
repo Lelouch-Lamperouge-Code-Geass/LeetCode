@@ -18,7 +18,10 @@ One possible longest palindromic subsequence is "bb".
 
 # Solution
 
-__Be careful about subsequence vs substring!__
+__Be careful about subsequence vs substring! This is the first thing you need to get clarification from interviwer.__
+
+
+### Solution 1
 
 Let's define max_len[left][right] means the longest palindromic subsequence's length of substring [left, right].
 
