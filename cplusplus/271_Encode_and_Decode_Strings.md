@@ -97,5 +97,33 @@ public:
 // codec.decode(codec.encode(strs));
 ```
 
+# Knowledge
+
+__Encoding__ is the process of converting the data or a given sequence of characters, symbols, alphabets etc., into a specified format, for the secured transmission of data. __Decoding__ is the reverse process of encoding which is to extract the information from the converted format.
 
 
+### Encoding
+
+Encoding is the process of converting data into a format required for a number of information processing needs, including:
+
+* Program compiling and execution
+* Data transmission, storage and compression/decompression
+* Application data processing, such as file conversion
+
+Encoding can have two meanings:
+
+* In computer technology, encoding is the process of applying a specific code, such as letters, symbols and numbers, to data for conversion into an equivalent cipher.
+* In electronics, encoding refers to analog to digital conversion.
+
+
+Techopedia explains Encoding
+
+Encoding involves the use of a code to change original data into a form that can be used by an external process. 
+
+The type of code used for converting characters is known as American Standard Code for Information Interchange (ASCII), the most commonly used encoding scheme for files that contain text. ASCII contains printable and nonprintable characters that represent uppercase and lowercase letters, symbols, punctuation marks and numbers. A unique number is assigned to some characters. 
+
+The standard ASCII scheme has only zero to 127 character positions; 128 through 255 are undefined. The problem of undefined characters is solved by Unicode encoding, which assigns a number to every character used worldwide. Other types of codes include BinHex, Uuencode (UNIX to UNIX encoding) and Multipurpose Internet Mail Extensions (MIME).
+
+Encoding is also used to reduce the size of audio and video files. Each audio and video file format has a corresponding coder-decoder (codec) program that is used to code it into the appropriate format and then decodes for playback.
+
+Encoding should not be confused with encryption, which hides content. Both techniques are used extensively in the networking, software programming, wireless communication and storage fields.
