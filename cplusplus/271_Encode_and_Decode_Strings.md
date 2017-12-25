@@ -52,28 +52,26 @@ public:
 
     // Encodes a list of strings to a single string.
     string encode(vector<string>& strs) {
-        string encoded = "";
-        for (string &str: strs) {
-            int len = str.size();
-            encoded += to_string(len) + "@" + str;
+        std::ostringstream oss;
+        for (const std::string &str : strs) {
+            oss << str.size() << '@' << str;
         }
-        
-        return encoded;
+        return oss.str();
     }
 
     // Decodes a single string to a list of strings.
     vector<string> decode(string s) {
-        vector<string> r;
-        int head = 0;
-        while (head < s.size())    {
-            int at_pos = s.find_first_of('@', head);
-            int len = stoi(s.substr(head, at_pos - head));
-            head = at_pos + 1;
-            r.push_back(s.substr(head, len));
-            head += len;
+        vector<string> reval;
+        std::size_t pos(0), s_size(s.size());
+        
+        while (pos < s_size) {
+            std::size_t at_sign = s.find_first_of('@', pos);
+            std::size_t str_len = std::stoi(s.substr(pos, at_sign - pos));
+            reval.emplace_back(s.substr(at_sign + 1, str_len));
+            pos = at_sign + str_len + 1;
         }
         
-        return r;
+        return reval;
     }
 };
 
