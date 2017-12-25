@@ -12,34 +12,48 @@ Depending on your language, queue may not be supported natively. You may simulat
 You may assume that all operations are valid (for example, no pop or top operations will be called on an empty stack).
 
 ```cpp
-class Stack {
+class MyStack {
 public:
-	// Push element x onto stack.
-	void push(int x) {
-		m_queue.push(x);
-		const int n = m_queue.size()-1;
-		for(int i=0;i<n;++i){
-			m_queue.push(m_queue.front());
-			m_queue.pop();
-		}
-	}
-
-	// Removes the element on top of the stack.
-	void pop() {
-	    if(!m_queue.empty())
-		    m_queue.pop();
-	}
-
-	// Get the top element.
-	int top() {
-		return m_queue.front();
-	}
-
-	// Return whether the stack is empty.
-	bool empty() {
-		return m_queue.empty();
-	}
+    /** Initialize your data structure here. */
+    MyStack() {
+        
+    }
+    
+    /** Push element x onto stack. */
+    void push(int x) {
+        m_queue.push(x);
+        for (std::size_t i = 0, n = m_queue.size() - 1; i < n; ++i) {
+            m_queue.push(m_queue.front());
+            m_queue.pop();
+        }
+    }
+    
+    /** Removes the element on top of the stack and returns that element. */
+    int pop() {
+        int reval = top();
+        m_queue.pop();
+        return reval;
+    }
+    
+    /** Get the top element. */
+    int top() {
+        return m_queue.front();
+    }
+    
+    /** Returns whether the stack is empty. */
+    bool empty() {
+        return m_queue.empty();
+    }
 private:
     queue<int> m_queue;
 };
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack obj = new MyStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.top();
+ * bool param_4 = obj.empty();
+ */
 ```
