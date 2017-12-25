@@ -24,7 +24,7 @@ public:
     int calculate(string s) {
         vector<int> numbers;
         std::size_t n(s.size());
-        int result(0), sign(1);
+        int sum_within_cur_paren(0), sign(1);
         for (std::size_t i = 0, n = s.size(); i < n; ) {
             if (isdigit(s[i])) {
                 int cur_number(0);
@@ -32,7 +32,7 @@ public:
                     cur_number = cur_number * 10 + (s[i] - '0');
                     ++ i;
                 }
-                result += cur_number * sign;
+                sum_within_cur_paren += cur_number * sign;
                 
             } else {
                 if ('+' == s[i]) {
@@ -40,24 +40,32 @@ public:
                 } else if ('-' == s[i]) {
                     sign = -1;
                 } else if ('(' == s[i]) {
-                    numbers.emplace_back(result);
+                    // A new parenthesis begin.
+                    // Let's push the sum of current parenthesis into
+                    // our stack, and then also push the sign of the new
+                    // parenthesis into the stack.
+                    numbers.emplace_back(sum_within_cur_paren);
                     numbers.emplace_back(sign);
-                    result = 0;
+                    
+                    // Reset for new parenthesis
+                    sum_within_cur_paren = 0;
                     sign = 1;
                 } else if (')' == s[i]) {
-                    // Right now result represents the value within ()
-                    // numbers stores sign and result before (
+                    // Time to clear current parenthesis,
+                    // and add its value to outer parenthesis sum.
                     int sign_of_paren = numbers.back();
                     numbers.pop_back();
-                    int pre_result = numbers.back();
+                    int result_of_outer_parenthesis = numbers.back();
                     numbers.pop_back();
-                    result = result * sign_of_paren + pre_result;
+                    
+                    // Right now sum_within_cur_paren is the sum value of outer parenthesis
+                    sum_within_cur_paren = sum_within_cur_paren * sign_of_paren + result_of_outer_parenthesis;
                 }
                 
                 ++ i;
             }
         }
-        return result;
+        return sum_within_cur_paren;
     }
 };
 ```
