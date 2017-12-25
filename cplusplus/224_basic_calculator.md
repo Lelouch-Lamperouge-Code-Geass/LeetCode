@@ -18,6 +18,12 @@ Some examples:
 
 ### Solution 1
 
+We use ```sum_within_cur_paren``` to represents the sum of current parenthesis, we keep adding number to it until we meet a '(', which means a new parenthesis begin. In this case, we push sum of current parenthesis which is still in progress into a stack as well as the sign of the new parenthesis. Then we begin to process the new parenthesis. 
+
+Whenever we meet a ')', we know that the job within this parenthesis is done, and we need to add its sum to the outer parenthesis which is stored in the stack now.
+
+Eventually ```sum_within_cur_paren``` is the final result.
+
 ```cpp
 class Solution {
 public:
