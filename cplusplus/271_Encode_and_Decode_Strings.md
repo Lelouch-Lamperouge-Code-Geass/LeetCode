@@ -46,6 +46,23 @@ What if str itself contains @ ?
 It does not matter because, for each encoded string, decode only looks for the first @ char and then read the whole string as a whole: even though the string has @ char in it, it is considered as a part of the string as decoder knows the length of the string.
 
 
+##### Encoding
+
+```
+""  => "0@"
+"  " => "2@  "
+"A@@@AA" => "6@A@@@AA"
+```
+
+##### Decoding
+
+```
+"0@"  =>  ""  
+"2@  " => "  "
+"6@A@@@AA" => "A@@@AA" 
+```
+
+
 ```cpp
 class Codec {
 public:
