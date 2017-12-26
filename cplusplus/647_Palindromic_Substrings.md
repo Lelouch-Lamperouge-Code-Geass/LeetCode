@@ -67,6 +67,8 @@ Idea is start from each index and try to extend palindrome for both odd and even
 
 The time complexity is O(n^2), when the case is like "aaaa....aaaaa", however this is not often the case. Unlike the Dynamic programming solution, whose time complexity is O(n^2) in whichever case. In practical, this solution will yield better performance.
 
+Also the space complexity is O(1), which is much better than the DP solution.
+
 ```cpp
 class Solution {
 private:
