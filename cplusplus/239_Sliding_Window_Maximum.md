@@ -47,21 +47,32 @@ At each i, we keep "promising" elements, which are potentially max number in win
 class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
-       const std::size_t nums_size(nums.size());
-        std::deque<std::size_t> decreasing_numbers;
-        vector<int> reval;
-        for(std::size_t i = 0;i < nums_size; ++i){
-          if (!decreasing_numbers.empty() && decreasing_numbers.front() == i-k)  {
-              decreasing_numbers.pop_front();
-          }
-          while(!decreasing_numbers.empty() && nums[decreasing_numbers.back()] < nums[i]){
-            decreasing_numbers.pop_back();
-          }
+        std::vector<int> reval;
+        if (k <= 0) return reval;
+        
+        std::size_t i(0), n(nums.size());
+        std::deque<std::size_t> indexes_of_max_in_window;
+        for (std::size_t i(0), n(nums.size()); i < n; ++i) {
+            // At first, pop indexes out of window if they are out of k range
+            while (!indexes_of_max_in_window.empty()
+                  && indexes_of_max_in_window.front() + k <= i) {
+                indexes_of_max_in_window.pop_front();
+            }
             
-          decreasing_numbers.push_back(i);
+            // We maintain the indexes within this window in descending order
+            while (!indexes_of_max_in_window.empty()
+                  && nums[indexes_of_max_in_window.back()] < nums[i]) {
+                indexes_of_max_in_window.pop_back();
+            }
             
-          if(i + 1 >= k) reval.push_back(nums[decreasing_numbers.front()]);
+            indexes_of_max_in_window.push_back(i);
+            
+            // Note that we can only add number when i + 1 >= k
+            if (i + 1 >= k) {
+                reval.emplace_back(nums[indexes_of_max_in_window.front()]);
+            }
         }
+        
         return reval;
     }
 };
