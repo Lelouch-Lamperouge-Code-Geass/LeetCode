@@ -8,7 +8,9 @@ What if the BST is modified (insert/delete operations) often and you need to fin
 
 # Solution
 
-##### Solution 1 : Depth-frst in-order recursive traversel
+Note that we can assume k is always valid, 1 ≤ k ≤ BST's total elements here. Otherwise, we need to handle those edge cases.
+
+### Solution 1 : In-order recursive traversel
 
   __Worst time complexity is O(number of nodes), when it is a skew tree. Space complexity is O(depth of recursion), or you can say O(tree height).  The call stack is the part of the computer memory, where a recursive algorithm allocates its temporary data.__
   
@@ -31,7 +33,7 @@ private:
 };
 ```
 
-##### Solution 2 : Depth-frst in-order iterative traversel
+##### Solution 2 : In-order iterative traversel
 
 __Worst time complexity is O(number of nodes), when it is a skew tree. Space complexity is O(depth of recursion), or you can say O(tree height).__
 
