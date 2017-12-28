@@ -28,6 +28,12 @@ Follow up:
 
 # Solution
 
+Note that both hasNext() and next() can be called many many times. In this case, we need to make sure that hasNext() don't move pointer forward, and next() should always move pointer forward.
+
+Also check above hints for corner cases.
+
+### Solution 1
+
 ```cpp
 class Vector2D {
     vector<vector<int>>::iterator i, iEnd;
@@ -51,33 +57,44 @@ public:
 };
 ```
 
-A different style.
+### Solution 2,  using only iterators in C++
 
 ```cpp
 class Vector2D {
 public:
-    Vector2D(vector<vector<int>>& vec2d) : m_row_iter(vec2d.begin()), m_row_end(vec2d.end()){
+    Vector2D(vector<vector<int>>& vec2d) {
+        m_row_iter = vec2d.begin();
+        m_row_end = vec2d.end();
+        
         if (m_row_iter != m_row_end) {
             m_col_iter = m_row_iter->begin();
             m_col_end = m_row_iter->end();
         }
     }
 
+    // We should modify pointers here, and this
+    // method can be called multiple times.
     int next() {
-        if (hasNext()) {
-            int reval = *m_col_iter;
-            ++ m_col_iter;
-            return reval;
-        } else {
-            return -1;
-        }
+        hasNext(); // Will not modify pointers unless it is necessary
+        int reval = *m_col_iter;
+        ++ m_col_iter;
+        return reval;
     }
-
+    
+    // hasNext() should not change pointers unless it is necessary.
+    // If current pointer is pointing the next value, we should not 
+    // move it no matter how many times we call this method.
     bool hasNext() {
-        while (m_row_iter != m_row_end && m_col_iter == m_col_end) {
+        // If current row have been all visited, we need to move 
+        // to next row. While it is possible that next row is empty.
+        while (m_col_iter == m_col_end 
+               && m_row_iter != m_row_end) {
             ++ m_row_iter;
+            
+            // Need to check this row is empty or not.
             if (m_row_iter != m_row_end) {
-                m_col_iter = m_row_iter->begin(), m_col_end = m_row_iter->end();
+                m_col_iter = m_row_iter->begin();
+                m_col_end = m_row_iter->end();
             }
         }
         
