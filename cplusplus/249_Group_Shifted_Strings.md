@@ -63,3 +63,19 @@ private:
     }
 };
 ```
+
+# Knowledge
+
+### Lexicographical order
+
+In mathematics, the __lexicographic__ or __lexicographical order__ (also known as lexical order, __dictionary order__, alphabetical order or lexicographic(al) product) is a generalization of the way words are alphabetically ordered based on the alphabetical order of their component letters. This generalization consists primarily in defining a total order over the sequences (often called words in computer science) of elements of a finite totally ordered set, often called alphabet.
+
+A string s precedes a string t in lexicographic order if
+
+* s is a prefix of t, or
+* if c and d are respectively the first character of s and t in which s and t differ, then c precedes d in character order.
+
+
+Both C++ and Java support lexicographical order for their string class's "comparison method"
+
+.
