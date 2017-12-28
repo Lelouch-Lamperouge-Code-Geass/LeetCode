@@ -85,20 +85,20 @@ public:
 private:
     void fill(vector<string> &reval, 
               string temp, 
-              std::size_t left, 
-              std::size_t right) {
+              int left, 
+              int right) {
         static unordered_map<char, char> rotation_mapper = {
             {'0','0'},  {'1','1'}, {'6','9'}, {'8','8'}, {'9','6'} 
         };
         
         if (left <= right) {
-            for (auto pair : rotation_mapper) {
+            for (auto &pair : rotation_mapper) {
                  //  "0" cannot be add to the leftmost and rightmost position.
                 if (temp.size() > 1 && left == 0 &&  pair.first == '0') continue;
                 // When left == right, we can only add '0', '1', '8'
                 if (left == right && pair.first != pair.second) continue;
                 temp[left] = pair.first, temp[right] = pair.second;
-                fill(reval, temp, left + 1, right > 0 ? right - 1 : right);
+                fill(reval, temp, left + 1, right - 1);
             }
         } else {
             reval.emplace_back(temp);
