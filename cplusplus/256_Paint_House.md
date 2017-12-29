@@ -21,19 +21,22 @@ int minCost(vector<vector<int>>& costs) {
 We can optimize above solution to have O(1) space complexity.
 
 ```cpp
-class Solution {  
-public:  
-    int minCost(vector<vector<int>>& costs) {  
-        if (costs.empty()) return 0;  
-        int n = costs.size(), r = 0, g = 0, b = 0;  
-        for (int i = 0; i < n; i++) {  
-            int rr = r, bb = b, gg = g;   
-            r = costs[i][0] + min(bb, gg);  
-            b = costs[i][1] + min(rr, gg);  
-            g = costs[i][2] + min(rr, bb);  
-        }  
-        return min(r, min(b, g));  
-    }   
+class Solution {
+public:
+    int minCost(vector<vector<int>>& costs) {
+        int paint_red(0), paint_blue(0), paint_green(0);
+
+        for (const std::vector<int> &cur_cost : costs) {
+            int pre_red = paint_red, pre_blue = paint_blue, pre_green = paint_green;
+            
+            paint_red = std::min(pre_blue, pre_green) + cur_cost[0];
+            paint_blue = std::min(pre_red, pre_green) + cur_cost[1];
+            paint_green = std::min(pre_red, pre_blue) + cur_cost[2];
+            
+        }
+        
+       return std::min(paint_red, std::min(paint_blue, paint_green));
+    }
 };
 ```
 
