@@ -10,6 +10,65 @@ The cost of painting each house with a certain color is represented by a n x k c
 class Solution {
 public:
     int minCostII(vector<vector<int>>& costs) {
+        if (costs.empty() || costs[0].empty()) return 0;
+        
+        const int num_of_house = costs.size(), number_of_color = costs[0].size();
+        
+        std::vector<std::vector<int>> min_costs(num_of_house, std::vector<int>(number_of_color, INT_MAX));
+        
+        int pre_min1_color(-1), pre_min2_color(-1);
+        
+        for (int color = 0; color < number_of_color; ++color) {
+            min_costs[0][color] = costs[0][color];
+            
+            if (pre_min1_color == -1 || min_costs[0][color] < min_costs[0][pre_min1_color]) {
+                pre_min2_color = pre_min1_color;
+                pre_min1_color = color;
+            } else if (pre_min2_color == -1  || min_costs[0][color] < min_costs[0][pre_min2_color]) {
+                pre_min2_color = color;
+            }
+        }
+        
+        for (int house = 1; house < num_of_house; ++house) {
+            // Now let's try to paint current house with different colors.
+            // And we also need to record the color(index) of the minimum cost
+            // and the second minimum cost.
+            int cur_min1_color(-1), cur_min2_color(-1);
+            for (int color = 0; color < number_of_color; ++color) {
+                // To paint this color, in order to minimize the cost,
+                // we need to derive from the previous minimum cost color if we can,
+                // otherwise , derive from the previous second minimum cost color.
+                if (color != pre_min1_color) {
+                    min_costs[house][color] = min_costs[house - 1][pre_min1_color] + costs[house][color];
+                } else {
+                    min_costs[house][color] = min_costs[house - 1][pre_min2_color] + costs[house][color];
+                }
+                
+                if (cur_min1_color == -1 || min_costs[house][color] < min_costs[house][cur_min1_color]) {
+                    cur_min2_color = cur_min1_color;
+                    cur_min1_color = color;
+                } else if (cur_min2_color == -1 || min_costs[house][color] < min_costs[house][cur_min2_color]) {
+                    cur_min2_color = color;
+                }
+            }
+            
+            // Need to update these two variables.
+            pre_min1_color = cur_min1_color;
+            pre_min2_color = cur_min2_color;
+            
+        }
+        
+        return min_costs.back()[pre_min1_color];
+    }
+};
+```
+
+Simplify a little bit.
+
+```cpp
+class Solution {
+public:
+    int minCostII(vector<vector<int>>& costs) {
         if (costs.empty()) return 0;
         
         const std::size_t house_count(costs.size()), color_count(costs[0].size());
