@@ -23,7 +23,8 @@ Since the input array is "rambled", means it has no internal pattern that we can
 
 Here we will go with the second option.
 
-We sort the array first. Then, for each element, we use the two pointer approach to find the number of triplets that meet the requirements.
+
+We sort the array first. Then, for each element, we use the two pointer approach to find the number of triplets that meet the requirements. 
 
 Let me illustrate how the two pointer technique works with an example:
 
@@ -46,6 +47,8 @@ Let triplet_sum = nums[i] + nums[lo] + nums[hi], and we compare triplet_sum to t
 
 1. The input array can be empty or smaller than 3.
 2. The array can contain duplciates.
+
+__Time complexity O(n ^ 2), space complexity O(1).__
 
 ```cpp
 class Solution {
