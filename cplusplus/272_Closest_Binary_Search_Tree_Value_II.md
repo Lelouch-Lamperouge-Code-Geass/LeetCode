@@ -120,6 +120,76 @@ As we know, inorder traversal gives us sorted predecessors, whereas reverse-inor
  */
 class Solution {
 private:
+    void initializeStackWithInOrder(TreeNode* root, 
+                                    double target, 
+                                    int k, 
+                                    stack<TreeNode*> &nodes, 
+                                    bool is_adding_successor) {
+        if (root) {
+            initializeStackWithInOrder(is_adding_successor ? root->right : root->left, 
+                                       target, k, nodes, is_adding_successor);
+            
+            // early terminate, no need to traverse the whole tree
+            if ((is_adding_successor && root->val <= target) 
+                || (!is_adding_successor && root->val > target)) {
+                return;
+            }
+            
+            // track the value of current node
+            nodes.push(root);
+            
+            initializeStackWithInOrder(is_adding_successor ? root->left : root->right, 
+                                       target, k, nodes, is_adding_successor);
+        }
+    }
+public:
+    vector<int> closestKValues(TreeNode* root, double target, int k) {
+        // Initialize predecessors and successors stacks.
+        stack<TreeNode*> predecessors, successors;
+        initializeStackWithInOrder(root, target, k, predecessors, false);
+        initializeStackWithInOrder(root, target, k, successors, true);
+        
+        vector<int> reval;
+        while (k-- > 0) {
+            if (successors.empty()) {
+                // No sucessors anymore
+                reval.emplace_back(predecessors.top()->val);
+                predecessors.pop();
+            } else if(predecessors.empty()) {
+                // No predecessors anymore
+                reval.emplace_back(successors.top()->val);
+                successors.pop();
+            } else {
+                double succ_diff  = std::fabs(successors.top()->val - target);
+                double pred_diff  = std::fabs(predecessors.top()->val - target);
+                if (succ_diff < pred_diff) {
+                    reval.emplace_back(successors.top()->val);
+                    successors.pop();
+                } else {
+                    reval.emplace_back(predecessors.top()->val);
+                    predecessors.pop();
+                }
+            }
+        }
+        return reval;
+    }
+};
+```
+
+A different style.
+
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+private:
     // Travelling down the BST from root, keep adding predecessors and successors
     // of target value on the path, stop when root is null or meet a node equals the target.
     void initializePredecessorsAndSuccessorsStack(TreeNode* root,
@@ -197,91 +267,5 @@ public:
         return reval;
     }
 };
-```
-
-A java version.
-
-
-```java
-public class Solution {
-    public List<Integer> closestKValues(TreeNode root, double target, int k) {
-        List<Integer> ret = new LinkedList<>();
-        Stack<TreeNode> succ = new Stack<>();
-        Stack<TreeNode> pred = new Stack<>();
-        initializePredecessorStack(root, target, pred);
-        initializeSuccessorStack(root, target, succ);
-        if(!succ.isEmpty() && !pred.isEmpty() && succ.peek().val == pred.peek().val) {
-            getNextPredecessor(pred);
-        }
-        while(k-- > 0) {
-            if(succ.isEmpty()) { // No sucessor anymore
-                ret.add(getNextPredecessor(pred));
-            } else if(pred.isEmpty()) { // No predecessor anymore
-                ret.add(getNextSuccessor(succ));
-            } else {
-                double succ_diff = Math.abs((double)succ.peek().val - target);
-                double pred_diff = Math.abs((double)pred.peek().val - target);
-                if(succ_diff < pred_diff) {
-                    ret.add(getNextSuccessor(succ));
-                } else {
-                    ret.add(getNextPredecessor(pred));
-                }
-            }
-        }
-        return ret;
-    }
-
-    // Binary search, only add node to stack if its value is larger than target.
-    private void initializeSuccessorStack(TreeNode root, double target, Stack<TreeNode> succ) {
-        while(root != null) {
-            if(root.val == target) {
-                succ.push(root);
-                break;
-            } else if(root.val > target) {
-                succ.push(root);
-                root = root.left;
-            } else {
-                root = root.right;
-            }
-        }
-    }
-
-     // Binary search, only add node to stack if its value is smaller than target.
-    private void initializePredecessorStack(TreeNode root, double target, Stack<TreeNode> pred) {
-        while(root != null){
-            if(root.val == target){
-                pred.push(root);
-                break;
-            } else if(root.val < target){
-                pred.push(root);
-                root = root.right;
-            } else{
-                root = root.left;
-            }
-        }
-    }
-    
-    private int getNextSuccessor(Stack<TreeNode> succ) {
-        TreeNode curr = succ.pop();
-        int ret = curr.val;
-        curr = curr.right;
-        while(curr != null) {
-            succ.push(curr);
-            curr = curr.left;
-        }
-        return ret;
-    }
-
-    private int getNextPredecessor(Stack<TreeNode> pred) {
-        TreeNode curr = pred.pop();
-        int ret = curr.val;
-        curr = curr.left;
-        while(curr != null) {
-            pred.push(curr);
-            curr = curr.right;
-        }
-        return ret;
-    }
-}
 ```
 
