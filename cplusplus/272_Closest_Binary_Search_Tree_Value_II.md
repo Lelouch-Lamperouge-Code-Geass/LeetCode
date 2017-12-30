@@ -24,7 +24,7 @@ Hint:
 
 ### Solution one
 
-Maintain a k-size min-heap. The heap stores <diff(val, target), val> pairs.
+Maintain a k-size max-heap. The heap stores <diff(val, target), val> pairs.
 We traversal the whole tree, and add each node to this heap, eventually we will get result from this heap.
 
 Time complexity is O(klogn), worst case when k==n it is O(nlogn).
@@ -36,7 +36,7 @@ void dfs(TreeNode* root, priority_queue<pair<double, int>>& pq, double target, i
     pq.push(make_pair(fabs(target - double(root->val)), root->val));
     
     if(pq.size() > k) 
-        pq.pop();
+        pq.pop(); // Pop max element out
         
     dfs(root->left, pq, target, k);
     dfs(root->right, pq, target, k);
@@ -54,6 +54,49 @@ vector<int> closestKValues(TreeNode* root, double target, int k) {
     
     return result;
 }
+```
+
+A different style.
+
+```cpp
+class Solution {
+private:
+    struct CompareTo{
+         bool operator () (const pair<double, int> &left, const pair<double, int> &right){
+            return left.first < right.first;
+        }
+    };
+    void dfs(TreeNode* root, 
+             priority_queue<pair<double, int>, vector<pair<double, int>>, CompareTo> &pq, 
+             double target, 
+             int k) {
+        if(!root) return;
+
+        pq.push(make_pair(fabs(target - double(root->val)), root->val));
+
+        if(pq.size() > k) 
+            pq.pop(); // Pop max element out
+
+        dfs(root->left, pq, target, k);
+        dfs(root->right, pq, target, k);
+    }
+
+public:
+    vector<int> closestKValues(TreeNode* root, double target, int k) {
+          priority_queue<pair<double, int>, 
+                        vector<pair<double, int>>, 
+                        CompareTo> pq;
+         vector<int> result;
+
+        dfs(root, pq, target, k);
+        while(!pq.empty()) {
+            result.push_back(pq.top().second);
+            pq.pop();
+        }
+
+        return result;
+    }
+};
 ```
 
 ### Solution two
