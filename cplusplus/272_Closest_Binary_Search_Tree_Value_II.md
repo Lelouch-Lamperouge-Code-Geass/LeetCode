@@ -120,6 +120,7 @@ As we know, inorder traversal gives us sorted predecessors, whereas reverse-inor
  */
 class Solution {
 private:
+    // Populate all the precessors or successors based on target.
     void initializeStackWithInOrder(TreeNode* root, 
                                     double target, 
                                     int k, 
