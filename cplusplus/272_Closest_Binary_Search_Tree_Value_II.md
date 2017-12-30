@@ -25,9 +25,9 @@ Hint:
 ### Solution one
 
 Maintain a k-size max-heap. The heap stores <diff(val, target), val> pairs.
-We traversal the whole tree, and add each node to this heap, eventually we will get result from this heap.
+We traversal the whole tree, and add each node to this heap, whenever the heap size is larger than k, we pop the one with _maximum difference_ out.
 
-Time complexity is O(klogn), worst case when k==n it is O(nlogn).
+__Time complexity is O(N * logK)__.
 
 ```cpp
 void dfs(TreeNode* root, priority_queue<pair<double, int>>& pq, double target, int k) {
@@ -101,14 +101,105 @@ public:
 
 ### Solution two
 
-The idea is to compare the predecessors and successors of the closest node to the target, we can use two stacks to track the predecessors and successors, then we compare and pick the closest one to the target and put it to the result list.
+This problem reveals an interesting property of BST, for any number, the ones which are closer(equal) to it will be on the "search path"(the path to search the node from root, note that the search path here will keep going even after find the node) of the BST. You can draw a picture to understand it better. 
 
-Following the hint, I use a predecessor stack and successor stack. I do a logn traversal to initialize them until I reach the null node. Then I use the getPredecessor and getSuccessor method to pop k closest nodes and update the stacks.
+Therefore, the closest predecessors and successors of that target will be on this path. The idea is to compare the predecessors and successors of the closest node to the target, we can use two stacks to track the predecessors and successors, then we compare and pick the closest one to the target and put it to the result list.  A special case is when the BST contains a node whose value equals target.
 
-I think this is a O(k + logN) solution.
+As we know, inorder traversal gives us sorted predecessors, whereas reverse-inorder traversal gives us sorted successors.
 
-According the follow up question, for a balanced BST, the size of "prec" and "suc" is bounded by logN. Each time, we call getPrec or getSuc, we may kind of shrink/enlarge the stack, but they are still bounded by logN. The amortized complexity will be O(1) for get, since we can consider it like "lazy traverse".
 
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+private:
+    // Travelling down the BST from root, keep adding predecessors and successors
+    // of target value on the path, stop when root is null or meet a node equals the target.
+    void initializePredecessorsAndSuccessorsStack(TreeNode* root,
+                                                  const double target,
+                                                  stack<TreeNode*> &predecessors,
+                                                  stack<TreeNode*> &successors) {
+        while (root) {
+            if (root->val > target) {
+                successors.push(root);
+                root = root->left;
+            } else if (root->val < target) {
+                predecessors.push(root);
+                root = root->right;
+            } else {
+                successors.push(root);
+                predecessors.push(root);
+                break;
+            }
+        }
+    }
+    // Return the value of current predecessor.
+    // And add predecessors before current predecessor.
+    int getNextPredecessor(stack<TreeNode*> &predecessors) {
+        int reval = predecessors.top()->val;
+        TreeNode *curr = predecessors.top();
+        predecessors.pop();
+        curr = curr->left;
+        while (curr) {
+            predecessors.push(curr);
+            curr = curr->right;
+        }
+        return reval;
+    }
+    // Return the value of current successor.
+    // And add successors before current successor.
+    int getNextSuccessors(stack<TreeNode*> &successors) {
+        int reval = successors.top()->val;
+        TreeNode *curr = successors.top();
+        successors.pop();
+        curr = curr->right;
+        while (curr) {
+            successors.push(curr);
+            curr = curr->left;
+        }
+        return reval;
+    }
+public:
+    vector<int> closestKValues(TreeNode* root, double target, int k) {
+        stack<TreeNode*> predecessors, successors;
+        initializePredecessorsAndSuccessorsStack(root, target, predecessors, successors);
+        if (!predecessors.empty() && !successors.empty() 
+            && predecessors.top() == successors.top()) {
+            // If there is a node equals to target, then both stacks will have that node on top.
+            // Need pop one out.
+            getNextPredecessor(predecessors);
+        }
+        vector<int> reval;
+        while (k-- > 0) {
+            if (successors.empty()) {
+                // No sucessors anymore
+                reval.emplace_back(getNextPredecessor(predecessors));
+            } else if(predecessors.empty()) {
+                // No predecessors anymore
+                reval.emplace_back(getNextSuccessors(successors));
+            } else {
+                double succ_diff  = std::fabs(successors.top()->val - target);
+                double pred_diff  = std::fabs(predecessors.top()->val - target);
+                if (succ_diff < pred_diff) {
+                    reval.emplace_back(getNextSuccessors(successors));
+                } else {
+                    reval.emplace_back(getNextPredecessor(predecessors));
+                }
+            }
+        }
+        return reval;
+    }
+};
+```
+
+A java version.
 
 
 ```java
