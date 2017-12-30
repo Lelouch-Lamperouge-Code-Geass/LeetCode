@@ -129,7 +129,9 @@ private:
             initializeStackWithInOrder(is_adding_successor ? root->right : root->left, 
                                        target, k, nodes, is_adding_successor);
             
-            // early terminate, no need to traverse the whole tree
+            // Early terminate, no need to traverse the whole tree.
+            // Note that, if we find a node whose value is same as target,
+            // we add to predecessor. That's why here we have one <= and one <.
             if ((is_adding_successor && root->val <= target) 
                 || (!is_adding_successor && root->val > target)) {
                 return;
