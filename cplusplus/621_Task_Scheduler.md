@@ -19,14 +19,17 @@ Explanation: A -> B -> idle -> A -> B -> idle -> A -> B.
 
 # Solution
 
+If you have t identical tasks and need to separate by n steps, it needs ```(n+1)*(t-1) + 1``` steps. Similar to problem "plant t trees every n meters". 
 
-If you have n identical tasks and need to separate by k steps, it needs ```(k+1)*(n-1) + 1``` steps. If you have m tasks all appear n times, it would take ```(k+1)*(n-1) + m``` when m <= k. All other tasks should be able to fill in the empty steps.
+Now if we have m tasks with highest frequency, and same task are required to be at least n steps away, then it would take ```(n+1)*(m-1) + m``` when m <= n. We basically here use tasks with max frequency to make frame, here ```n + 1``` is the frame size, and ```m-1``` is the number of frames we initially used, and we still have m max-frequency tasks left so we just append them at the end. 
 
-If all empty steps are filled out, then we do not need empty steps, the overall cost would be the size of input tasks.
+Now we have a total size with ```(n+1)*(m-1) + m```.
 
+When m <= n, all other tasks with lower frequency will just fill the empty spaces.
 
-The idea is pretty simple.
-for example, you have (aaaabbbbcccddeef, 4) how would you do it:
+When m > n, there will be no empty spaces left in the size we have so far, but all the tasks with lower frequency will just increase the gap if we fill them at end of each frame, and because their frequency is less than frame numbers we have, the gap between each same tasks will not be smaller for these tasks. In this case, we will find ```(n+1)*(m-1) + m``` is smaller than ```tasks.size()```, and latter should be the return value. For example, we have AAABBBCCCDD, and k = 2. Firstly we arrange sth like ABCABCABC, but we still got 2 "D"s remained.So now we simply insert each 'D' to the end of each "ABC" sequence, and generate the asnwer ABCDABCDABC. That is to say, if we get m > k, by applying such strategy, in the end we will have a sequence without idle, so the final answer is the size of the input array.
+
+The idea is pretty simple. for example, you have (aaaabbbbcccddeef, 4) how would you do it:
 
 ```
 0. Count how many occurrences of each character: a:4, b:4, c:3, d:2, e:1 
@@ -59,8 +62,15 @@ public:
             max_freq = std::max(max_freq, task_freq_mapper[task]);
         }
         
+        // Here "n + 1" is the frame size, "max_freq - 1" is the number of frames
+        // we initialized. For example, for "AAAABBBBCC" with n == 2, 
+        // the frame size is 3 and the number of frames is 3.
+        // This is enough for us to put down "AB_AB_AB_".
         std::size_t reval = (n + 1) * (max_freq - 1);
         
+        // Continue with above example, we still have "AB" left.
+        // So after this we will have "AB_AB_AB_AB"
+        // As for "CC", they will just fill the gap, "ABCABCAB_AB"
         for (const std::pair<char, std::size_t> &item : task_freq_mapper) {
             if (item.second == max_freq) ++ reval;
         }
