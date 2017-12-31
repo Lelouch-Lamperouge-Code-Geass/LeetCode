@@ -37,45 +37,54 @@ Caution. In order to get lexicographical smallest order, when there are two inte
 class Solution {
 public:
     vector<int> maxSumOfThreeSubarrays(vector<int>& nums, int k) {
-        std::size_t n = nums.size();
-        std::vector<int> range_sum = {0};
+        const int nums_size = nums.size();
         
-        for (int num : nums) {
-            range_sum.push_back(range_sum.back() + num);
+        vector<int> range_sum(nums_size + 1, 0);
+        for (int i = 0; i < nums_size; ++i) {
+            range_sum[i + 1] = range_sum[i] + nums[i];
         }
         
-        // DP for starting index of the left max sum interval
-        std::vector<int> pos_left(n, 0);
-        for (int i = k, temp_max = range_sum[k] - range_sum[0]; i < n; i++) {
-            if (range_sum[i + 1] - range_sum[i + 1 - k] > temp_max) {
-                pos_left[i] = i + 1 - k;
-                temp_max = range_sum[i + 1] - range_sum[i + 1 - k];
+        // DP for starting index of the left max sum interval.
+        // It means for the subarray ending at index i(range [0,i]), what's the start index
+        // of a k-size subarray with maximum sum.
+        vector<int> start_of_max_sum_interval_end_at_index(nums_size, 0);
+        for (int i = k, cur_max(range_sum[k] - range_sum[0]); i < nums_size; ++i) {
+            if (range_sum[i + 1] - range_sum[i + 1 - k] > cur_max) {
+                start_of_max_sum_interval_end_at_index[i] = i + 1 - k;
+                cur_max = range_sum[i + 1] - range_sum[i + 1 - k];
             } else {
-                pos_left[i] = pos_left[i-1];
+                start_of_max_sum_interval_end_at_index[i] = start_of_max_sum_interval_end_at_index[i - 1];
             }
         }
         
-        // DP for starting index of the right max sum interval
-        // caution: the condition is ">= tot" for right interval, and "> tot" for left interval
-        std::vector<int> pos_right(n, n - k);
-        for (int i = n - k - 1, temp_max = range_sum[n] - range_sum[n - k]; i >= 0; --i) {
-            if (range_sum[i + k] - range_sum[i] >= temp_max) {
-                pos_right[i] = i;
-                temp_max = range_sum[i+k] - range_sum[i];
+        // DP for starting index of the right max sum interval.
+        // It means for the array begining at index i(range [i, n]), what's the start index
+        // of a k-size subarray with maximum sum.
+        // Caution: the condition here for sum comparision is ">=" for right interval, 
+        // unlike ">" for left interval above. This is because "If there are multiple answers, 
+        // return the lexicographically smallest one."
+        vector<int> start_of_max_sum_interval_begin_at_index(nums_size, nums_size - k);
+        for (int i = nums_size - k - 1, cur_max(range_sum[nums_size] - range_sum[nums_size - k]); i >= 0; --i) {
+            if (range_sum[i + k] - range_sum[i] >= cur_max) {
+                start_of_max_sum_interval_begin_at_index[i] = i;
+                cur_max= range_sum[i + k] - range_sum[i] ;
             } else {
-                pos_right[i] = pos_right[i + 1];
+                start_of_max_sum_interval_begin_at_index[i] = start_of_max_sum_interval_begin_at_index[i + 1];
             }
         }
         
-        // test all possible middle interval
-        std::vector<int> reval(3, 0);
+        vector<int> reval;
         int max_sum(0);
-        for (int i = k; i <= n - 2 * k; ++i) {
-            int l = pos_left[i - 1], r = pos_right[i + k];
-            int temp_max = (range_sum[i+k]-range_sum[i]) + (range_sum[l+k]-range_sum[l]) + (range_sum[r+k]-range_sum[r]);
-            if (temp_max > max_sum) {
-                max_sum = temp_max;
-                reval = {l, i, r};
+        for (int i = k, n = nums.size(); i <= n - 2 * k; ++i) {
+            int left = start_of_max_sum_interval_end_at_index[i - 1];
+            int right = start_of_max_sum_interval_begin_at_index[i + k];
+            
+            int cur_sum = (range_sum[left + k] - range_sum[left]) 
+                          + (range_sum[i + k] - range_sum[i]) 
+                          + (range_sum[right + k] - range_sum[right]);
+            if (cur_sum > max_sum) {
+                max_sum = cur_sum;
+                reval = {left, i, right};
             }
         }
         
