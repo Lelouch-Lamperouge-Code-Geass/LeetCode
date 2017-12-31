@@ -25,12 +25,14 @@ The question asks for three non-overlapping intervals with maximum sum of all 3 
 
 So the following solution is based on DP.
 
+```
 * posLeft[i] is the starting index for the left interval in range [0, i];
 * posRight[i] is the starting index for the right interval in range [i, n-1]; 
+```
 
 Then we test every possible starting index of middle interval, i.e. k <= i <= n-2k, and we can get the corresponding left and right max sum intervals easily from DP. And the run time is O(n).
 
-Caution. In order to get lexicographical smallest order, when there are two intervals with equal max sum, always select the left most one. So in the code, the if condition is ">= tot" for right interval due to backward searching, and "> tot" for left interval.
+__Caution__. In order to get lexicographical smallest order, when there are two intervals with equal max sum, always select the left most one. So in the code, the if condition is ">= tot" for right interval due to backward searching, and "> tot" for left interval.
 
 
 ```cpp
