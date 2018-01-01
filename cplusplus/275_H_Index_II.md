@@ -2,7 +2,7 @@ Follow up for [H-Index](https://leetcode.com/problems/h-index/description/): Wha
 
 # Solution
 
-Note that the citation vector here is different from the counting-sort style citation vector in LeetCode 274, in the latter the counting-sort style citation vector is increasing continuously, but here the citation vector is not. Another difference is that in the counting-sort style citation vector whose indexes represting citation times, are obviously unique. So if you want to use the same method as LeetCode 274, you need create the counting-sort style citation vector too. 
+__Note that the citation vector here is different from the counting-sort style citation vector in LeetCode 274, in the latter the counting-sort style citation vector is increasing continuously, but here the citation vector is not. Another difference is that in the counting-sort style citation vector whose indexes represting citation times, are obviously unique. So if you want to use the same method as LeetCode 274, you need create the counting-sort style citation vector too.__
 
 Now let's think an alternative solution.
  
