@@ -74,6 +74,7 @@ public:
             }
         }
         
+        // We should not reach here unless the input is empty vector.
         return 0;
     }
 };
