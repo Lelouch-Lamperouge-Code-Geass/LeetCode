@@ -15,14 +15,14 @@ Examples:
 
 ### Solution one
 We all know how to check a string of parentheses is valid using a stack. Or even simpler use a counter.
-The counter will increase when it is ‘(‘ and decrease when it is ‘)’. Whenever the counter is negative, we have more ‘)’ than ‘(‘ in the prefix.
+The counter will increase when it is '(' and decrease when it is ')'. Whenever the counter is negative, we have more ')' than '(' in the prefix.
 
-To make the prefix valid, we need to remove a ‘)’. The problem is: which one? The answer is any one in the prefix. However, if we remove any one, we will generate duplicate results, for example: s = ()), we can remove s[1] or s[2] but the result is the same (). Thus, we restrict ourself to remove the first ) in a series of concecutive )s.
+To make the prefix valid, we need to remove a ')'. The problem is: which one? The answer is any one in the prefix. However, if we remove any one, we will generate duplicate results, for example: s = ()), we can remove s[1] or s[2] but the result is the same (). Thus, we restrict ourself to remove the first ) in a series of concecutive )s.
 
 After the removal, the prefix is then valid. We then call the function recursively to solve the rest of the string. However, we need to keep another information: the last removal position. If we do not have this position, we will generate duplicate by removing two ‘)’ in two steps only with a different order.
 For this, we keep tracking the last removal position and only remove ‘)’ after that.
 
-Now one may ask. What about ‘(‘? What if s = ‘(()(()’ in which we need remove ‘(‘?
+Now one may ask. What about '('? What if s = "(()(()" in which we need remove '('?
 The answer is: do the same from right to left.
 However a cleverer idea is: reverse the string and reuse the code!
 
@@ -50,8 +50,8 @@ private:
                     for (int j = last_remove_pos; j <= i; ++j) {
                         if (s[j] == parentheses.second 
                             && (j == last_remove_pos || s[j - 1] != parentheses.second)) {
-                            // Here we remove one char, but it doesn't affect us to decide the pos and last_revemo_pos
-                            // using by the new string. We have cleared the segment [0, i]
+                            // Here we remove one char, but it doesn't affect us to decide 
+                            // the pos and last_revemo_pos using by the new string.
                             removeInvalidParenthesesWithDFS(result, s.substr(0, j) + s.substr(j + 1), i, j, parentheses );
                         }
                     }
@@ -65,7 +65,6 @@ private:
         // When i == s.size(), we will be here.
         // This means that we have complete removing invalid parentheses from one direction.
         // It could be from left to right, or from right to left.
-
 
         if (parentheses.first == '(') {
             // Means it is time to reverse string and process it backwards.
