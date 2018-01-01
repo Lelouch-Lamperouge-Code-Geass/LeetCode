@@ -28,6 +28,73 @@ However a cleverer idea is: reverse the string and reuse the code!
 
 ```cpp
 class Solution {
+private:
+    void removeInvalidParenthesesWithDFS(vector<string> &result,
+                                         const string &s,
+                                         int pos,
+                                         int last_remove_pos,
+                                         const pair<char, char> &parentheses ) {
+        int left_paren_count(0);
+        for (int i = pos, n = s.size(); i < n; ++i) {
+            if (s[i] == parentheses.first) {
+                ++ left_paren_count;
+            } else if (s[i] == parentheses.second) {
+                if (left_paren_count > 0) {
+                    -- left_paren_count;
+                } else { // more ')' than '('
+                    // Right now during the segment [last_remove_pos, pos],
+                    // we have need to remove one ')'.
+                    // For example, "()())" here our pos is 4, and we can remove one ')'
+                    // at index 1, 3, 4. However, remove 3 or 4 will generate duplicates.
+                    // Therefore, for consecutive )) we only remove the first one.
+                    for (int j = last_remove_pos; j <= i; ++j) {
+                        if (s[j] == parentheses.second 
+                            && (j == last_remove_pos || s[j - 1] != parentheses.second)) {
+                            // Here we remove one char, but it doesn't affect us to decide the pos and last_revemo_pos
+                            // using by the new string. We have cleared the segment [0, i]
+                            removeInvalidParenthesesWithDFS(result, s.substr(0, j) + s.substr(j + 1), i, j, parentheses );
+                        }
+                    }
+                    
+                    // Here we have tried to remove all the possible invalid (
+                    return;
+                }
+            }
+        }
+        
+        // When i == s.size(), we will be here.
+        // This means that we have complete removing invalid parentheses from one direction.
+        // It could be from left to right, or from right to left.
+
+
+        if (parentheses.first == '(') {
+            // Means it is time to reverse string and process it backwards.
+            std::string rs(s);
+            std::reverse(rs.begin(), rs.end());
+            removeInvalidParenthesesWithDFS(result, rs, 0, 0, std::make_pair(')', '('));
+        }
+        else {
+            // Alreay processed this string from both direction.
+            // Previously, we reversed the string and processed it.
+            // Need to reverse back.
+            result.push_back(std::string(s.rbegin(), s.rend()));
+        }
+    }
+    
+public:
+    vector<string> removeInvalidParentheses(string s) {
+        std::vector<std::string> result;
+        removeInvalidParenthesesWithDFS(result, s, 0, 0, std::make_pair('(', ')'));
+        return result;
+    }
+};
+```
+
+
+A different style.
+
+```cpp
+class Solution {
 public:
     vector<string> removeInvalidParentheses(string s)
     {
