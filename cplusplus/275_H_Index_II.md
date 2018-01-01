@@ -33,14 +33,20 @@ public:
             int mid = low + (high-low) / 2;
             int paper_num = n_size - mid;
             if (paper_num < citations[mid]) { 
+                // We need decrease the expecting citation value, since there
+                // are not enough papers meet current citation requirement.
                 high = mid - 1;
             } else if (paper_num > citations[mid]) {
+                // We have enough papers to meet current citation requirement,
+                // but maybe there is a bigger citation value which is bigger than
+                // current citation value but still less than paper_num.
                 low = mid + 1;
-            } else { // paper_num==citations[mid]) {
+            } else { // paper_num == citations[mid]) 
                 return paper_num;
             } 
         }
-        return n_size-low;
+        
+        return n_size - low;
     }
 };
 ```
