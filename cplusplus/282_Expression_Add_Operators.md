@@ -55,11 +55,14 @@ private:
                     addOperatorWithDFS(reval, str, num, target, pos + len, val,  val);
                 } else {
                     // add '*'
-                    addOperatorWithDFS(reval, temp + '*' + str, num, target, pos + len, pre_num * val, cur_val - pre_num + pre_num * val);
+                    addOperatorWithDFS(reval, temp + '*' + str, num, target, 
+                                        pos + len, pre_num * val, cur_val - pre_num + pre_num * val);
                     // add '+'
-                    addOperatorWithDFS(reval, temp + '+' + str, num, target, pos + len, val, cur_val + val);
+                    addOperatorWithDFS(reval, temp + '+' + str, num, target, 
+                                        pos + len, val, cur_val + val);
                     // add '-'
-                    addOperatorWithDFS(reval, temp + '-' + str, num, target, pos + len, -val, cur_val - val);
+                    addOperatorWithDFS(reval, temp + '-' + str, num, target, 
+                                        pos + len, -val, cur_val - val);
                 }
             }
         }
