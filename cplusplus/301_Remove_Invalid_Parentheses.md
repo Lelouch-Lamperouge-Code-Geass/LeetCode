@@ -52,7 +52,8 @@ private:
                             && (j == last_remove_pos || s[j - 1] != parentheses.second)) {
                             // Here we remove one char, but it doesn't affect us to decide 
                             // the pos and last_revemo_pos using by the new string.
-                            removeInvalidParenthesesWithDFS(result, s.substr(0, j) + s.substr(j + 1), i, j, parentheses );
+                            removeInvalidParenthesesWithDFS(result, s.substr(0, j) + s.substr(j + 1), 
+                                                            i, j, parentheses );
                         }
                     }
                     
