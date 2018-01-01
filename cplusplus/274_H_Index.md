@@ -45,22 +45,31 @@ Time complexity O(n), space complexity O(n).
 class Solution {
 public:
     int hIndex(vector<int>& citations) {
-        const std::size_t total_paper(citations.size());
-        vector<int> citation_count(total_paper + 1, 0);
+        int num_of_papers(citations.size());
         
-        // citation_count stores how many papaers are citated in
-        // 0, 1, ...  times. One special case is when
-        // citation is larger than total_paper, we count it into the last
-        // bucket. 
-        for (int temp : citations) {
-            ++ citation_count[std::min((std::size_t)temp, total_paper)];
+        // Here the indexes are the citation times,
+        // the values store how many papers have that specific citation times.
+        vector<int> citations_count(num_of_papers + 1, 0);
+        
+        for (int cita : citations) {
+            if (cita > num_of_papers) { 
+                // We know that the H-index will not be larger than
+                // the number of papers, so for citation larger than number of papers,
+                // we can just count it into the last counter.
+                ++ citations_count[num_of_papers];
+            } else {
+                ++ citations_count[cita];
+            }
         }
         
-        int citation_so_far(0);
-        
-        for (std::size_t i = total_paper + 1; i-- > 0; ) {
-            citation_so_far += citation_count[i];
-            if (citation_so_far >= i) {
+        // Here paper_count_so_far will keep increasing, 
+        // untill it is not less than i, i here means the citation times.
+        // We need to find the first i(citation times) which is not bigger than
+        // the paper_count_so_far.
+        int paper_count_so_far(0);
+        for (int i = num_of_papers; i >= 0; --i) {
+            paper_count_so_far += citations_count[i];
+            if (paper_count_so_far >= i) {
                 return i;
             }
         }
