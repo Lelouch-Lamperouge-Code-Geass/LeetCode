@@ -5,11 +5,17 @@ Follow up for [H-Index](https://leetcode.com/problems/h-index/description/): Wha
 __Note that the citation vector here is different from the counting-sort style citation vector in LeetCode 274, in the latter the counting-sort style citation vector is increasing continuously, but here the citation vector is not. Another difference is that in the counting-sort style citation vector whose indexes represting citation times, are obviously unique. So if you want to use the same method as LeetCode 274, you need create the counting-sort style citation vector too.__
 
 Now let's think an alternative solution.
- 
-![alt](https://upload.wikimedia.org/wikipedia/commons/d/da/H-index-en.svg)
 
-Look at above chart, the difference from this description is that the citations array is sorted in __descending order__ in this chart.
 
+The basic idea of this solution is to use binary search to find the minimum index such that
+
+```
+citations[index] >= length(citations) - index
+```
+
+After finding this index, the answer is length(citations) - index.
+
+This logic is very similar to the C++ function lower_bound or upper_bound.
                         
 We use two pinter to solve this problem: pointer l (low) and pointer h (high).
 
