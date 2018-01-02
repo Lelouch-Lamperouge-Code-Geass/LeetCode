@@ -21,7 +21,54 @@ return false.
     
 # Solution
 
-### Solution one
+### Solution 1
+
+We maintain a maximum-3-size increasing sequence, whenever we meet a number, we go through this sequence one by one and update the first number that is bigger than current number.
+
+If current number is bigger than all the numbers in the sequence, we can push it into the sequence.
+
+Return true when sequence's size meet 3. Since the sequence's maximum size is 3, iterate it will cost constant time.
+
+__Time complexity is O(n), space complexity is O(n).__
+
+```cpp
+class Solution {
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        // We maintain an increasing sequence with maximum 3 items here.
+        std::vector<int> sequence;
+        
+        for (int num : nums) {
+            int i(0);
+            
+            // sequence's size will not exceeed 3,
+            // this loop costs constant time.
+            for ( ; i < sequence.size(); ++i) {
+                if (sequence[i] >= num) {
+                    sequence[i] = num;
+                    break;
+                }
+            }
+            
+            if (i == sequence.size()) { 
+                // Did not update any items in sequence
+                // because num is not less than any items in current sequence
+                if (sequence.empty() || sequence.back() < num) sequence.emplace_back(num);
+                if (sequence.size() == 3) return true;
+            }
+        }
+        
+        return false;
+    }
+};
+```
+
+
+### Solution two
+
+This solution is optimized based on above solution.
+
+Since the sequence's maximum size is 3, we just need two variables to store the smallest and the second smallest number in the sequence, and return true whenever we meet a number which is bigger than both.
 
 The basic condition is at any time, small < big.  
 So for any arbitrary element later, we call it i, there are three possibilities:  
@@ -54,7 +101,7 @@ C2 = so far best candidate of end element of a two-cell subsequence to form a tr
 So c1 and c2 are the perfect summary of history.
 ```
 
-__time complexity is O(n), space complexity is O(1)__
+__Time complexity is O(n), space complexity is O(1)__
 
 ```cpp
 class Solution {
@@ -68,32 +115,6 @@ public:
       if (num <= small) { small = num; } // update small if num is smaller than both
       else if (num <= big) { big = num; } // update big only if greater than small but smaller than big
       else return true; // return if you find a number bigger than both
-    }
-    return false;
-  }
-};
-```
-
-### Solution 2 : Longest Increasing Sequence, O(nlogn)
-
-This solution doesn't meet the requirement of time complexity and space complexity.
-But it is still worth to check it out.
-    
-__time complexity is O(nlogn), space complexity is O(n)__
-
-```cpp
-class Solution {
-public:
-  bool increasingTriplet(vector<int>& nums) {
-    std::vector<int> sequence;
-    for (int num : nums) {
-      auto iter = std::lower_bound(sequence.begin(), sequence.end(), num);
-      if (iter == sequence.end()) {
-        sequence.push_back(num);
-      } else {
-        *iter = num;
-      }
-      if (sequence.size() == 3) return true;
     }
     return false;
   }
