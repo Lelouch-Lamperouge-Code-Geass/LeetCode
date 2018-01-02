@@ -23,6 +23,9 @@ _Note: your initial thought might be using sliding window method, but the tricky
 
 The subarray sum reminds me the range sum problem. Preprocess the input array such that you get the range sum in constant time.
 
+Note that the numbers in the range sum can be an arbitrary vector with 0/positive/negative numbers, this is because the original vector is arbitrary vector too. 
+
+
 * sum[i] means the sum from 0 to i inclusively   
 * the sum from i to j is sum[j] - sum[i - 1] except that from 0 to j is sum[j]  
 * j-i is equal to the length of subarray of original array. we want to find the max(j - i)     
@@ -38,7 +41,7 @@ public:
     int maxSubArrayLen(vector<int>& nums, int k) {
         int sum = 0;
         std::size_t res = 0;
-        unordered_map<int, std::size_t> m;
+        unordered_map<int, std::size_t> m; // value to index mapper
         for (std::size_t i = 0; i < nums.size(); ++i) {
             sum += nums[i];
             if (sum == k) {
