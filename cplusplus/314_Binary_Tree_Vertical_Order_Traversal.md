@@ -59,8 +59,8 @@ Here is an example of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]. Notice that every c
 ![alt](https://drscdn.500px.org/photo/135826875/m%3D900/7e1d9c2bdc47791e3b54f25bf50b6370)
 
 
-__The most important thing is to think about how to guarantee the order of top-to-bottom and left-to-right.__
-Obviously, DFS will NOT give us this guarantee.
+__The most important thing is to think about how to guarantee the order of top-to-bottom and left-to-right.__ Left to right is easy, because we are maintaining a HashMap from column to nodes, and we can eventually add nodes column by column. However, DFS won't guranteee that within each column, upper level node will be add before lower level node. Therefore we can't use DFS here.
+
 
 ```cpp
 /**
@@ -112,26 +112,47 @@ private:
 ```
 
 ```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
 class Solution {
 public:
     vector<vector<int>> verticalOrder(TreeNode* root) {
-        vector<vector<int>> res;
-        if(!root) return res;
-        map<int,vector<int>> hm;
-        queue<pair<TreeNode*,int>> q;
-        q.push({root,0});
-        while(!q.empty()){
-            TreeNode* node=q.front().first;
-            int col=q.front().second;
-            q.pop();
-            hm[col].push_back(node->val);
-            if(node->left) q.push({node->left,col-1});
-            if(node->right) q.push({node->right,col+1});
+        if (!root) return vector<vector<int>>();
+        
+        unordered_map<int, vector<int>> column_to_nodes_mapper;
+        queue<pair<int, TreeNode*>> nodes;
+        nodes.push(make_pair(0, root));
+        int min_column(0), max_column(0);
+        
+        while (!nodes.empty()) {
+            int cur_column = nodes.front().first;
+            TreeNode* node = nodes.front().second;
+            nodes.pop();
+            column_to_nodes_mapper[cur_column].emplace_back(node->val);
+            min_column = std::min(min_column, cur_column);
+            max_column = std::max(max_column, cur_column);
+            
+            if (node->left) {
+                nodes.push(make_pair(cur_column - 1, node->left));
+            }
+            if (node->right) {
+                nodes.push(make_pair(cur_column + 1, node->right));
+            }
         }
-        for(auto i:hm){
-            res.push_back(i.second);
+        
+        vector<vector<int>> result;
+        for (int i = min_column; i <= max_column; ++i) {
+            result.emplace_back(column_to_nodes_mapper[i]);
         }
-    return res;
-  }
+        
+        return result;
+    }
 };
 ```
