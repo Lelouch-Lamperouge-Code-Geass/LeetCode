@@ -49,7 +49,7 @@ private:
 };
 ```
 
- I tried to save the iterators only but did not pass the leetcode tests, it might be because that the input vector may have been destroyed.
+I tried to save the iterators only but did not pass the leetcode tests, it might be because that the input vector may have been destroyed.
 
 __Below solution is not working!__
 ```cpp
@@ -79,7 +79,11 @@ private:
 };
 ```
 
-Modify a little bit, then it works.
+In order for above solution to work, we need to _pass nums by reference_ there, this is related to C++ handle lifetime of parameter.
+
+
+
+If we save the nums, then it works.
 
 ```cpp
 class Solution {
