@@ -9,7 +9,8 @@ Example:
 int[] nums = new int[] {1,2,3,3,3};
 Solution solution = new Solution(nums);
 
-// pick(3) should return either index 2, 3, or 4 randomly. Each index should have equal probability of returning.
+// pick(3) should return either index 2, 3, or 4 randomly. 
+// Each index should have equal probability of returning.
 solution.pick(3);
 
 // pick(1) should return 0. Since in the array only nums[0] is equal to 1.
@@ -19,6 +20,10 @@ solution.pick(1);
 # Solution
 
 ### Solution 1, Reservoir Sampling
+
+Even though this solution passed leetcode tests, I don't think it is correct.
+
+Because it is clearly stated that "The array size can be very large.", we should not store the numbers in member variable.
 
 ```cpp
 class Solution {
@@ -44,7 +49,7 @@ private:
 };
 ```
 
-Below is my first dumb-and-not-working solution. I tried to save the iterators only but forgot about the input vector may have been destroyed.
+ I tried to save the iterators only but did not pass the leetcode tests, it might be because that the input vector may have been destroyed.
 
 __Below solution is not working!__
 ```cpp
