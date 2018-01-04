@@ -108,3 +108,46 @@ public:
     }
 };
 ```
+
+### Solution 2
+
+The method, in DP idea, costs lots of time, but the logic is very eary and clear. 
+
+f[m][i] means if we could split the array [0, i] in m subarray, the minimal value of the largest sum among these m subarrays we could get.
+
+Then, f[m][i] = min (max(f[m-1][j], sum(nums[from j + 1 to i])), where j = [0, i - 1];
+
+
+The complexity is O(n^3).
+
+
+```cpp
+class Solution {
+public:
+    int splitArray(vector<int>& nums, int m) {
+        int len = nums.size();
+        vector<vector<long>> arr(m, vector<long>(len, 0));
+        arr[0][0] = nums[0];
+        for(int i = 1; i<len; i++)
+        {
+            arr[0][i] = arr[0][i - 1] + nums[i];
+        }
+        
+        for(int k = 1; k<m; k++)
+        {
+            for(int i = 0; i<len; i++)
+            {
+                long minVal = arr[0][i];
+                for(int j = i-1; j>= 0; j--)
+                {
+                    // arr[0][i] - arr[0][j] is the range sum from i to j
+                    long tmpVal = max(arr[0][i] - arr[0][j], arr[k - 1][j]);
+                    minVal = min(minVal, tmpVal);
+                }
+                arr[k][i] = minVal;
+            }
+        }
+        return arr[m-1][len - 1];
+    }
+};
+```
