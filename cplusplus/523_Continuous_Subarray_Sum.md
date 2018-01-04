@@ -39,6 +39,16 @@ There are a couple of things that worth mention:
 2. For each modk value, we need to store the index as leftmost as possible
 3. k could be 0 or negative
 
+
+Some test cases:
+
+```
+[1,5], -6 -> true;
+[0], 0 -> false;
+[5, 2, 4], 5 -> false;
+[0, 0], 100 -> true;
+```
+
 ```cpp
 class Solution {
 public:
@@ -68,3 +78,10 @@ public:
     }
 };
 ```
+
+
+# Knowledge
+
+### 负数究竟是如何取模的？
+
+https://www.zhihu.com/question/31344913
