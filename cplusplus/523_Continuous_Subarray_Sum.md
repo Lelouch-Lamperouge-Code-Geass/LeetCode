@@ -1,4 +1,4 @@
-Given a list of __non-negative__ numbers and a target integer k, write a function to check if the array has a continuous subarray of size at least 2 that sums up to the multiple of k, that is, sums up to n*k where n is also an integer.
+Given a list of __non-negative__ numbers and a target integer k, write a function to check if the array has a continuous subarray of size at least 2 that sums up to the multiple of k, that is, sums up to n\*k where n is also an integer.
 
 ##### Example 1:
 
@@ -23,6 +23,10 @@ Explanation: Because [23, 2, 6, 4, 7] is an continuous subarray of size 5 and su
 
 # Solution
 
+First of all, let's think a similar problem, "check if the array has a continuous subarray that sums up to S" ? In this case, we will use a range-sum array, and whenever we need a number, check have we met "S - cur_number" or not.
+
+Now for this problem, the anything changed is that right now S must be a multiple of K. That's all.
+
 This solution is based on below formula:
 
 ```
@@ -33,7 +37,7 @@ There are a couple of things that worth mention:
 
 1. We need to add a dummy item in the HashMap
 2. For each modk value, we need to store the index as leftmost as possible
-3. k could be 0 (it won't be negative becuase it is mentioned in the description)
+3. k could be 0 or negative
 
 ```cpp
 class Solution {
@@ -41,7 +45,11 @@ public:
     bool checkSubarraySum(vector<int>& nums, int k) {
         const std::size_t n(nums.size());
         
+        // Stores  <range sum from beginning, index> 
         unordered_map<long long, int> modk_mapper;
+        
+        // We add a dummy item at the first of the "virtual range sum vector".
+        // The dummy item's value is 0 and locates at index -1.
         modk_mapper.insert(std::make_pair(0, -1));
         
         long long range_sum(0);
