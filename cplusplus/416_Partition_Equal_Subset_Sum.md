@@ -29,11 +29,16 @@ Explanation: The array cannot be partitioned into equal sum subsets.
 
 This problem is essentially let us to find whether there are several numbers in a set which are able to sum to a specific value (in this problem, the value is sum/2).
 
-Actually, this is a 0/1 knapsack problem, for each number, we can pick it or not. Let us assume dp[i][j] means whether the specific sum j can be gotten from the first i numbers. If we can pick such a series of numbers from 0-i whose sum is j, dp[i][j] is true, otherwise it is false.
+For subarray [0, i], whether we can get sum ```k``` is depended on :
+
+1. If we choose to add num[i], whether we can get sum ```k - nums[i]``` out of subarray [0, i - 1]
+2. If we choose not to add nums[i], whether we can get sum ```k``` out of subarray[0, i - 1]
+
+Actually, this is a 0/1 knapsack problem, for each number, we can pick it or not. Let us assume dp[i][k] means whether the specific sum k can be gotten from the first i numbers. If we can pick such a series of numbers from 0-i whose sum is k, dp[i][k] is true, otherwise it is false.
 
 Base case: dp[0][0] is true; (zero number consists of sum 0 is true)
 
-Transition function: For each number, if we don't pick it, dp[i][j] = dp[i-1][j], which means if the first i-1 elements has made it to j, dp[i][j] would also make it to j (we can just ignore nums[i]). If we pick nums[i]. dp[i][j] = dp[i-1][j-nums[i]], which represents that j is composed of the current value nums[i] and the remaining composed of other previous numbers. Thus, the transition function is dp[i][j] = dp[i-1][j] || dp[i-1][j-nums[i]].
+Transition function: For each number, if we don't pick it, dp[i][k] = dp[i-1][k], which means if the first i-1 elements has made it to k, dp[i][k] would also make it to k (we can just ignore nums[i]). If we pick nums[i]. dp[i][k] = dp[i-1][k-nums[i]], which represents that k is composed of the current value nums[i] and the remaining composed of other previous numbers. Thus, the transition function is dp[i][k] = dp[i-1][k] || dp[i-1][k-nums[i]].
 
 ```cpp
 class Solution {
@@ -49,7 +54,7 @@ public:
         sum /= 2;
         const std::size_t n(nums.size());
         
-        // can_partition[i][j] means whether the specific sum j can be gotten from the first i numbers
+        // can_partition[i][k] means whether the specific sum k can be gotten from the first i numbers
         std::vector<std::vector<bool>> can_partition(n + 1, std::vector<bool>(sum + 1, false));
         
         // When sum == 0 , it's always true
@@ -59,11 +64,11 @@ public:
         
         
         for (std::size_t i = 1; i <= n; ++i) { // amount of first numbers in nums 
-            for (std::size_t j = 1; j <= sum; ++j) { // value from 0 to sum
-                can_partition[i][j] = // Not choose current number
-                                      can_partition[i-1][j] 
+            for (std::size_t k = 1; k <= sum; ++k) { // value from 0 to sum
+                can_partition[i][k] = // Not choose current number
+                                      can_partition[i-1][k] 
                                       // Choose current number
-                                      || j >= nums[i-1] && can_partition[i - 1][j - nums[i - 1]];
+                                      || k >= nums[i-1] && can_partition[i - 1][k - nums[i - 1]];
             }
         }
         
