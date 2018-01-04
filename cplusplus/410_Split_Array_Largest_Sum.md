@@ -76,3 +76,33 @@ public:
     }
 };
 ```
+
+My first solution, TLE.
+
+```cpp
+class Solution {
+private:
+    int splitArray(vector<int> & range_sum, int start, int end, int m) {
+        if (m <= 1) return range_sum[end] - range_sum[start];
+        
+        int reval(INT_MAX);
+        for (int i = start + 1; i < end; ++i) {
+            int left_sum = range_sum[i] - range_sum[start];
+            int right_sum = splitArray(range_sum, i, end, m - 1);
+            reval = std::min(reval, std::max(left_sum, right_sum));
+        }
+        
+        return reval;
+    }
+public:
+    int splitArray(vector<int>& nums, int m) {
+        const int n(nums.size());
+        vector<int> range_sum(n + 1, 0);
+        for (int i = 0; i < n; ++i) {
+            range_sum[i + 1] = range_sum[i] + nums[i];
+        }
+        
+        return splitArray(range_sum, 0, n, m);
+    }
+};
+```
