@@ -33,6 +33,8 @@ We can break this problem into two smaller problems:
 2. Given a lower bound (left), an upper bound (right), an unknown bool array (B), and an API uses i as input and tells you whether B[i] is true. If we know there exists an index k, that B[i] is false when i < k, and B[i] is true when i >= k. What is the fastest way to find this k (the lower bound)?  
 
 
+__The time complexity is O(log(SumOfArray - MaxOfArray) * n).__
+
 ```cpp
 class Solution {
 private:
@@ -77,7 +79,7 @@ public:
 };
 ```
 
-My first solution.__Did not pass tests, TLE.__
+My first solution.__Did not pass tests, TLE.__ The time complexity is way much worse than above solution.
 
 ```cpp
 class Solution {
