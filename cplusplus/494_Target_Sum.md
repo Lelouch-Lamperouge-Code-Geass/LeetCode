@@ -91,6 +91,51 @@ We can use that fact to quickly identify inputs that do not have a solution.
 
 For detailed explanation on how to solve subset sum problem, you may refer to [Partition Equal Subset Sum](https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/416_Partition_Equal_Subset_Sum.md).
 
+
+```cpp
+class Solution {
+private:
+    // Return number of ways to reach target_sum by choosing any number of 
+    // numbers in nums.
+    int waysOfReachSum(const vector<int> &nums,
+                      int target_sum) {
+        const int n = nums.size();
+        
+        // Note that we know nums only have non-negative numbers.
+        // Here the target_sum is non-negative too.
+        vector< vector<int> > ways_of_sum(n + 1, vector<int>(target_sum + 1, 0));
+        
+        ways_of_sum[0][0] = 1;
+        
+        for (int i = 1; i <= n; ++i) {
+            int cur_num = nums[i - 1];
+            for (int val = 0; val <= target_sum; ++val) {
+                ways_of_sum[i][val] = ways_of_sum[i - 1][val]; // not choose cur_num
+                if (val >= cur_num) ways_of_sum[i][val] += ways_of_sum[i - 1][val - cur_num]; // choose cur_num
+            }
+        }
+        
+        return ways_of_sum[n][target_sum];
+    }
+public:
+    int findTargetSumWays(vector<int>& nums, int S) {
+        int array_sum = std::accumulate(nums.begin(), nums.end(), 0);
+        
+        // S can't be bigger tha  array_sum.
+        if (S > array_sum) return 0;
+        
+        // The sum of array sum and S must be an even number.
+        
+        if ((array_sum + S) % 2 == 1) return 0;
+        
+        return waysOfReachSum(nums, (array_sum + S) >> 1);
+    }
+};
+```
+
+We can optimize the space complexity to be one-dimension instead of two-dimension.
+
+
 ```cpp
 class Solution {
 public:
