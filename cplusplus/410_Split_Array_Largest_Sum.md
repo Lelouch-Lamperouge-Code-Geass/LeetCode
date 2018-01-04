@@ -77,7 +77,7 @@ public:
 };
 ```
 
-My first solution, TLE.
+My first solution.__Did not pass tests, TLE.__
 
 ```cpp
 class Solution {
