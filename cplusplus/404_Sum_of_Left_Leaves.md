@@ -20,6 +20,8 @@ The key is to make sure we only add value when it comes from a leaf node on left
 
 ### Recursive solution
 
+For given node we check whether its left child is a leaf. If it is the case, we add its value to answer, otherwise recursively call method on left child. For right child we call method only if it has at least one nonnull child.
+
 ```cpp
 /**
  * Definition for a binary tree node.
@@ -53,6 +55,8 @@ public:
 ```
 
 ### Iterative method.
+
+Here for each node in the tree we check whether its left child is a leaf. If it is true, we add its value to answer, otherwise add left child to the stack to process it later. For right child we add it to stack only if it is not a leaf.
 
 ```cpp
 /**
