@@ -146,6 +146,8 @@ public:
             } else { // func_type == "end"
                 running_time_of_func[func_ids.top()] += timestamp + 1 - begin_timestamp_of_curr_quantum;
                 func_ids.pop();
+                
+                 // Note here next quantum begins after current timestamp
                 begin_timestamp_of_curr_quantum = timestamp + 1;
             }
             
