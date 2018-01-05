@@ -100,3 +100,59 @@ public:
     }
 };
 ```
+
+Let's refactor above code a little bit to make it better. 
+
+```cpp
+class Solution {
+private:
+    vector<string> splitBy(const string &str, char delimiter) {
+        vector<string> reval;
+        size_t begin(0), end(0); 
+        
+        while (end != std::string::npos) {
+            end = str.find_first_of(delimiter, begin);
+            reval.emplace_back(str.substr(begin, end - begin));
+            
+            begin = end + 1;
+        }
+        
+        return reval;
+    }
+public:
+    vector<int> exclusiveTime(int n, vector<string>& logs) {
+        // Stores the running time of each function
+        vector<int> running_time_of_func(n, 0);
+        
+        // Whenever a new function begin to run, push its id to stack
+        stack<int> func_ids;
+        
+        // Beginning timestamp of current time-slice(quantum).
+        int begin_timestamp_of_curr_quantum(0);
+        
+        for (const string &log_line : logs) {
+            const vector<string> &strs = splitBy(log_line, ':');
+
+            const int func_id = std::stoi(strs[0]);
+            const string &func_type = strs[1];
+            const int timestamp = std::stoi(strs[2]);
+            
+            if (func_type == "start") {
+                if (!func_ids.empty()) {
+                    running_time_of_func[func_ids.top()] += timestamp - begin_timestamp_of_curr_quantum;
+                }
+                func_ids.push(func_id);
+                begin_timestamp_of_curr_quantum = timestamp;
+            } else { // func_type == "end"
+                running_time_of_func[func_ids.top()] += timestamp + 1 - begin_timestamp_of_curr_quantum;
+                func_ids.pop();
+                begin_timestamp_of_curr_quantum = timestamp + 1;
+            }
+            
+            
+        }
+        
+        return running_time_of_func;
+    }
+};
+```
