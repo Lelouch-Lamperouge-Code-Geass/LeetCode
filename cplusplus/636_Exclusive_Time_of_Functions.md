@@ -60,34 +60,43 @@ is also a valid input, because function can call itself recursively.
 class Solution {
 public:
     vector<int> exclusiveTime(int n, vector<string>& logs) {
-        vector<int> reval(n, 0);
-        stack<int> task_ids;
-        int begin_timestamp(0);
-        for (const std::string &log : logs) {
-            std::size_t first_colon = log.find_first_of(':');
-            int task_id = std::stoi(log.substr(0, first_colon));
+        // Stores the running time of each function
+        vector<int> running_time_of_func(n, 0);
+        
+        // Whenever a new function begin to run, push its id to stack
+        stack<int> func_ids;
+        
+        // Beginning timestamp of current time-slice(quantum).
+        int begin_timestamp_of_curr_quantum(0);
+        
+        for (const string &log_line : logs) {
+            size_t pos_of_first_colon = log_line.find_first_of(':');
+            int func_id = std::stoi( log_line.substr(0, pos_of_first_colon) );
             
-            std::size_t second_colon = log.find_first_of(':', first_colon + 1);
-            const std::string status = log.substr(first_colon + 1, second_colon - first_colon - 1);
+            size_t pos_of_second_colon = log_line.find_first_of(':', pos_of_first_colon + 1);
+            string func_type = log_line.substr(pos_of_first_colon + 1, 
+                                               pos_of_second_colon - pos_of_first_colon - 1);
             
-            int timestamp = std::stoi(log.substr(second_colon + 1));
+            int timestamp = std::stoi( log_line.substr(pos_of_second_colon + 1) );
             
-            if (status == "start") {
-                if (!task_ids.empty()) {
-                    reval[task_ids.top()] += timestamp - begin_timestamp;
+            if (func_type == "start") {
+                if (!func_ids.empty()) {
+                    running_time_of_func[func_ids.top()] += timestamp - begin_timestamp_of_curr_quantum;
                 }
+                func_ids.push(func_id);
+                begin_timestamp_of_curr_quantum = timestamp;
+            } else { // func_type == "end"
+                running_time_of_func[func_ids.top()] += timestamp + 1 - begin_timestamp_of_curr_quantum;
+                func_ids.pop();
                 
-                // new interval begins, doesn't belong to current interval.
-                begin_timestamp = timestamp;
-                task_ids.push(task_id);
-            } else { // END
-                reval[task_ids.top()] += timestamp - begin_timestamp + 1;
-                task_ids.pop();
-                begin_timestamp = timestamp + 1;
+                // Note here next quantum begins after current timestamp
+                begin_timestamp_of_curr_quantum = timestamp + 1;
             }
+            
+            
         }
         
-        return reval;
+        return running_time_of_func;
     }
 };
 ```
