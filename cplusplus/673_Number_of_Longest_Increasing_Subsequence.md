@@ -61,7 +61,7 @@ public:
                     } else if (max_len_end_with[j] + 1 == max_len_end_with[i]) {
                         max_len_count_end_with[i]  += max_len_count_end_with[j];
                     } else { 
-                        // max_len_end_with[j] + 1 == max_len_end_with[i], ignore
+                        // max_len_end_with[j] + 1 < max_len_end_with[i], ignore
                     }
                 }
             }
