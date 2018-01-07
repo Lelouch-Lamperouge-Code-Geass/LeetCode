@@ -21,6 +21,8 @@ Output: "bb"
 
 # Solution
 
+### Solution one
+
 ```cpp
 class Solution {
 public:
@@ -50,3 +52,7 @@ public:
 
 };
 ```
+
+### Solution two
+
+https://articles.leetcode.com/longest-palindromic-substring-part-ii/
