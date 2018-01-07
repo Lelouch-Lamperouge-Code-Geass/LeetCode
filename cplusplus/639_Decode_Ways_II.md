@@ -35,6 +35,8 @@ Output: 9 + 9 = 18
 
 # Solution
 
+Let count[i] represent the number of decode ways when reach index i of s. The most tricky part is how can we handle case like "\*\*", "\*\*\*", etc. Because how many decode ways on index i, is partailly depended on the value on s[i - 1], means whether s[i - 1] is '0', '1', '2' or other numbers, and '\*' makes it more complicate to handle. 
+
 Let's keep track of:
 
 ```
@@ -82,6 +84,45 @@ public:
         }
         
         return e0;
+    }
+};
+```
+
+Maybe a more clear style.
+
+```cpp
+class Solution {
+public:
+    int numDecodings(string s) {
+        static long max_limit = 1000000007;
+        
+        // pre_end_with_any referes to previous strings which end with any char,
+        // it will not be used to pair with following chars. pre_end_with_one refers to
+        // number of previous strings which end with an open '1', it is used only to pair with following chars.
+        // Same as pre_end_with_two.
+        long pre_end_with_any(1), pre_end_with_one(0), pre_end_with_two(0);
+        
+        for (char c : s) {
+            long cur_end_with_any(0), cur_end_with_one(0), cur_end_with_two(0);
+            
+            if (c == '*') {
+                cur_end_with_any =  (pre_end_with_any * 9 + pre_end_with_one * 9 + pre_end_with_two * 6);
+                cur_end_with_one = pre_end_with_any; // '*' can be treated as open '1'
+                cur_end_with_two = pre_end_with_any; // '*' can be treated as open '2'          
+            } else {
+                cur_end_with_any = (c != '0' ? pre_end_with_any : 0) 
+                                    + pre_end_with_one 
+                                    + (c >= '0' && c <= '6' ? pre_end_with_two : 0);
+                cur_end_with_one = (c == '1'? pre_end_with_any : 0);
+                cur_end_with_two = (c == '2'? pre_end_with_any : 0);
+            }
+            
+            pre_end_with_any = cur_end_with_any % max_limit;
+            pre_end_with_one = cur_end_with_one;
+            pre_end_with_two = cur_end_with_two;
+        }
+        
+        return pre_end_with_any;
     }
 };
 ```
