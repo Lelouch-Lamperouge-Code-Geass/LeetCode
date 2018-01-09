@@ -6,6 +6,8 @@ The brackets must close in the correct order, "()" and "()[]{}" are all valid bu
 
 ### Solution one
 
+In this solution, the stack stores the close parenthese only.
+
 ```cpp
 class Solution {
 public:
@@ -33,6 +35,8 @@ public:
 ```
 
 ### Solution two
+
+In this solution, the stack stores the open parenthese only.
 
 ```cpp
 class Solution {
