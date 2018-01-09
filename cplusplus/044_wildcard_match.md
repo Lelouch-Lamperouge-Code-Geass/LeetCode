@@ -21,6 +21,16 @@ isMatch("aab", "c*a*b") ? false
 
 # Solution
 
+First of all, you need have a clear understand about the difference between regular expression and wildcard.
+
+You can compare this problem to the Leetcode problem 10.
+
+The main difference between these two problems is the usage of '\*'.
+
+In wildcard, '\*' can match any sequence of characters, including empty sequence. That's why we call it "wild", because the wildcard '\*' can match way many more characters since it is not depended upon previous character.
+
+However, in regular expression, '\*' has a direct relationship with previous character, it can negate previous character(match 0 previous character), or it can match one or multiple of the previous character.
+
 ### Solution 1 with dynamic programming :
 Let's briefly summarize the idea of DP. We define the state P[i][j] to be whether s[0..i) matches p[0..j), here i, j represents length. The state equations are as follows:
     
