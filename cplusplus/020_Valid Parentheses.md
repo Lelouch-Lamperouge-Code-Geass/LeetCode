@@ -8,6 +8,8 @@ The brackets must close in the correct order, "()" and "()[]{}" are all valid bu
 
 In this solution, the stack stores the close parenthese only.
 
+The basic idea is to push the right parentheses ')', ']', or '}' into the stack each time when we encounter left ones. And if a right bracket appears in the string, we need check if the stack is empty and also whether the top element is the same with that right bracket. If not, the string is not a valid one. At last, we also need check if the stack is empty.
+
 ```cpp
 class Solution {
 public:
