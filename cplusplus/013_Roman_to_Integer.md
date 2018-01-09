@@ -15,14 +15,13 @@ class Solution {
 public:
   int romanToInt(string s) {
     int reval(0);
-    int n(s.size()), i(n - 1);
-    while (i >= 0) {
-      if (i >= 0 && RomanCharToInteger(s[i]) < RomanCharToInteger(s[i+1])) {
+    std::size_t n(s.size()), i(n);
+    while (i-- > 0) {
+      if (i + 1 < n && RomanCharToInteger(s[i]) < RomanCharToInteger(s[i+1])) {
         reval -= RomanCharToInteger(s[i]);
       } else {
         reval += RomanCharToInteger(s[i]);
       }
-      -- i;
     }
     return reval;
   }
