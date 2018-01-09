@@ -31,13 +31,21 @@ pre       cur  nex  tmp
 pre            cur  nex  tmp
 ```
 
-Above is how it works inside one group iteration(for example, k=3)
+Above is how it works inside one group iteration(for example, k=3).
+
+We can observe that:
+
+1. ```pre``` always point to the last node of the last group.  After each group rotation, we need to update it to point to the last node of the lately rotated group.
+2. During each group rotation, we keep appending ```next``` node to ```pre``` node. While ```cur``` never change during each group rotation.  
+3. We need to count the total nodes first, so that if the left-out nodes is less than ```k```, we should just remain them as it is.
 
 ```cpp
 class Solution {
 public:
   ListNode* reverseKGroup(ListNode* head, int k) {
     if(!head || k<=1) return head;
+    
+    // Count the number of nodes.
     ListNode* curr(head);
     int count(0);
     while (curr) {
