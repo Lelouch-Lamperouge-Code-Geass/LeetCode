@@ -26,11 +26,11 @@ isMatch("aab", "c*a*b") ? true
 2, If p.charAt(j) == '.' : dp[i][j] = dp[i-1][j-1];
 3, If p.charAt(j) == '*': 
    here are two sub conditions:
-               1   if p.charAt(j-1) != s.charAt(i) : dp[i][j] = dp[i][j-2]  //in this case, a* only counts as empty
-               2   if p.charAt(i-1) == s.charAt(i) or p.charAt(i-1) == '.':
-                              dp[i][j] = dp[i-1][j]    //in this case, a* counts as multiple a 
-                           or dp[i][j] = dp[i][j-1]   // in this case, a* counts as single a
-                           or dp[i][j] = dp[i][j-2]   // in this case, a* counts as empty
+   (1)   if p.charAt(j-1) != s.charAt(i) : dp[i][j] = dp[i][j-2]  //in this case, a* only counts as empty
+   (2)   if p.charAt(i-1) == s.charAt(i) or p.charAt(i-1) == '.':
+                  dp[i][j] = dp[i-1][j]    //in this case, a* counts as multiple a 
+               or dp[i][j] = dp[i][j-1]   // in this case, a* counts as single a
+               or dp[i][j] = dp[i][j-2]   // in this case, a* counts as empty
 ```
 
 ### Solution one
@@ -51,9 +51,11 @@ public:
             for (std::size_t j=1;j<=p_size;++j) {
                 if (p[j-1]=='*') {
                     // when p's char is *, we only need consider two conditions.
-                    // First, * match 0 times ,use * to counteract previous char, sort of like deleting it.
-                    // Second, * match >=1 times, as long as the char before * in p can match the current char in s, 
-                    // * can be used to match current char in s, we just need check is_match[i-1][j]
+                    // First, * match 0 times ,use * to counteract previous char, 
+                    // sort of like deleting it.
+                    // Second, * match >=1 times, as long as the char before * in p 
+                    // can match the current char in s, * can be used to match current char in s, 
+                    // we just need check is_match[i-1][j]
                     is_match[i][j] = is_match[i][j-2] // delete pre char
                                     || is_match[i-1][j] && (s[i-1]==p[j-2]||p[j-2]=='.'); 
                 } else {
