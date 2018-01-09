@@ -40,3 +40,11 @@ private:
   }
 };
 ```
+
+# Knowledge
+
+### Subtractive notation
+
+Subtractive notation is an early form of positional notation used with Roman numerals as a shorthand to replace four or five characters in a numeral representing a number with usually just two characters.
+
+Using subtractive notation the numeral VIIII becomes simply IX. Without subtractive notation, XIV represents the same number as XVI (16 in Arabic numerals). With the introduction of subtractive notation, XIV (14) no longer represents the same number as XVI but rather is an alternate way of writing XIIII.
