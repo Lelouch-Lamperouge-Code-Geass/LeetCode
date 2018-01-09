@@ -27,9 +27,9 @@ You can compare this problem to the Leetcode wildcard problem. https://github.co
 
 The main difference between these two problems is the usage of '\*'.
 
-In wildcard, '\*' can match any sequence of characters, including empty sequence. That's why we call it "wild", because the wildcard '\*' can much way many more characters since it is not depended upon previous character.
+In wildcard, '\*' can match any sequence of characters, including empty sequence. That's why we call it "wild", because the wildcard '\*' can match way many more characters since it is not depended upon previous character.
 
-However, in regular expression, '\*' has a direct relationship with previous character, it can negate previous character(match 0 previous character), or it can match one or multiple of the previous character.
+On the contrary, in regular expression, '\*' has a direct relationship with previous character, it can negate previous character(match 0 previous character), or it can match one or multiple of the previous character.
 
 
 
@@ -81,6 +81,9 @@ public:
 ```
 
 ### Solution two : this one has not been completed, not working 
+
+
+__not a working solution now!__
 
 ```cpp
 class Solution {
