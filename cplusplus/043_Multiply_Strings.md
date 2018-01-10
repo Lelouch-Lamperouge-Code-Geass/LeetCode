@@ -12,7 +12,7 @@ Note:
 Remember how we do multiplication?
 
 Start from right to left, perform multiplication on every pair of digits, and add them together. Let's draw the process! From the following draft, we can immediately conclude:
-```num1[i] * num2[j]` will be placed at indices `[i + j`, `i + j + 1]```  
+__```num1[i] * num2[j]` will be placed at indices `[i + j`, `i + j + 1]```__  
   
 ![alt](https://drscdn.500px.org/photo/130178585/m%3D2048/300d71f784f679d5e70fadda8ad7d68f)
 
