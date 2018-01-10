@@ -14,7 +14,7 @@ The brute force method is straightforward to implement. We scan the substring (t
 
 
 
-### Solution one
+### Solution one : A naive solution
 
 ```cpp
 class Solution {
@@ -33,7 +33,7 @@ public:
 };
 ```
 
-### Solution two
+### Solution two : KMP algorithm
 
 * http://jakeboxer.com/blog/2009/12/13/the-knuth-morris-pratt-algorithm-in-my-own-words/
 * http://www.geeksforgeeks.org/searching-for-patterns-set-2-kmp-algorithm/
