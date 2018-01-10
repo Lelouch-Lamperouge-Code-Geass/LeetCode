@@ -8,6 +8,7 @@ Note:
 4. You must not use any built-in BigInteger library or convert the inputs to integer directly.
 
 # Solution
+
 Remember how we do multiplication?
 
 Start from right to left, perform multiplication on every pair of digits, and add them together. Let's draw the process! From the following draft, we can immediately conclude:
@@ -17,7 +18,10 @@ Start from right to left, perform multiplication on every pair of digits, and ad
 
 
 We have to begin backwards since if we handle the most siginificant position first, how can we update if the product of lower position is 10~ , in which case the higher position need +1?
+
 Another thing need to be pointed out is, for example, let's say the higher position's value is 9, and we just calculated the product of lower position is 10. In this case, the higher position's value +1 ==10. But we don't need to worry about that since we're going to process the higher position later.
+
+We also know that the result string's size won't be more than the sum of the two input strings' size.
 
 Some edge cases:
 
