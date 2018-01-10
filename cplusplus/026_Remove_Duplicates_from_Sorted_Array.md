@@ -32,15 +32,15 @@ public:
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        int index(0);
+        int len(0);
         
         for (int num : nums) {
-            if (index == 0 || num != nums[index - 1]){
-                nums[index++] = num;
+            if (len == 0 || num != nums[len - 1]){
+                nums[len++] = num;
             }
         }
         
-        return index;
+        return len;
     }
 };
 ```
