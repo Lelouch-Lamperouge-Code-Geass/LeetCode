@@ -10,6 +10,10 @@ Your function should return length = 5, with the first five elements of nums bei
 
 ### Solution one
 
+I like this solution because it is straightforward, and easy to be expanded to "duplicates are allowed at most K times".
+
+If duplicates are allowed at most k times, we just change the ```count < 2``` here to be ```count < k```.
+
 ```cpp
 class Solution {
 public:
@@ -19,7 +23,7 @@ public:
         int cur_num(nums[0]), count(1);
         for (int i = 1, n = nums.size(); i < n; ++i) {
             if (nums[i] == cur_num) {
-                if (count < 2) {
+                if (count < 2) { 
                     nums[len++] = nums[i];
                 }
                 ++ count;
@@ -36,7 +40,9 @@ public:
 
 ### Solution two
 
-__Note here we compare each number with nums[i-2]__
+I actually don't like this solution, since it is not straightforwad, and it is hard to be adjusted to  "duplicates are allowed at most K times".
+
+__Note here we compare each number with nums[i-2].__
 
 ```cpp
 int removeDuplicates(vector<int>& nums) {
