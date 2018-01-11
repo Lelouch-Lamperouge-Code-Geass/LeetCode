@@ -20,8 +20,7 @@ Could you come up with an one-pass algorithm using only constant space?
 [blue, ] represents blue colors 
 ```
 
-The pitfall is that we can't move i forward if it's value is 0 or 2.
-And it is possible that after swap(nums[i], nums[--blue]), nums[i] is still 2 or 0.
+The pitfall is that we can't move i forward if it's value is 0 or 2. And it is possible that after swap(nums[i], nums[--blue]), nums[i] is still 2 or 0. 
  
 ```cpp
 class Solution {
@@ -43,3 +42,23 @@ public:
 };
 ```
 
+A different style.
+
+```cpp
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int red(-1), white(0), blue(nums.size());
+        
+        while (white < blue) {
+            if (nums[white] == 0) {
+                std::swap(nums[++red], nums[white++]);
+            } else if (nums[white] == 2) {
+                std::swap(nums[--blue], nums[white]);
+            } else {
+                ++ white;
+            }
+        }
+    }
+};
+```
