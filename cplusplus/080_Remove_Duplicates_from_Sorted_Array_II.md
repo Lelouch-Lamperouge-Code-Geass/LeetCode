@@ -14,27 +14,22 @@ Your function should return length = 5, with the first five elements of nums bei
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        if (nums.size() <= 2) return nums.size();
-        
-        std::size_t index(0);
-        
-        for (std::size_t i = 0; i < nums.size(); ) {
-            const int cur_num(nums[i]);
-            int count(0);
-            
-            while (i < nums.size() && nums[i] == cur_num) {
+        if (nums.empty()) return 0;
+        int len(1);
+        int cur_num(nums[0]), count(1);
+        for (int i = 1, n = nums.size(); i < n; ++i) {
+            if (nums[i] == cur_num) {
+                if (count < 2) {
+                    nums[len++] = nums[i];
+                }
                 ++ count;
-                ++ i;
-            }    
-            
-            count = std::min(count, 2);
-            while (count > 0) {
-                -- count;
-                nums[index++] = cur_num;
+            } else {
+                nums[len++] = nums[i];
+                cur_num = nums[i];
+                count = 1;
             }
         }
-        
-        return index;
+        return len;
     }
 };
 ```
