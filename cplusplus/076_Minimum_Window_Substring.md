@@ -14,7 +14,7 @@ If there are multiple such windows, you are guaranteed that there will always be
 
 # Solution
 
-The simplest solution for this problem is : for each index in s, we create a window which ends with that index, and expand the start position of that window backwards until we find a valid window. That valid window is the minimum window in S whcih contains all the characters in T. The and final result is the minimal window of all the minimal windows ends with each index. The time complexity is obviously O(N^2).
+The simplest solution for this problem is : for each index in s, we create a window which ends with that index, and expand the start position of that window backwards until we find a valid window. That valid window is the minimum window in S whcih contains all the characters in T. Then the final result is the minimal window of all the minimal windows ends with each index. The time complexity is obviously O(N^2).
 
 How can we do better?
 
@@ -23,6 +23,11 @@ One observation from above solution is that, when we move from index ```i``` to 
 We can reduce these kind of recalculations by using a sliding window.
 
 We use a sliding window and begin expand the end index of that window, in our solution the window end index is ```i``` (you can rename it to ```window_end``` if you want). Once we find a valid window, we begin increase ```window_start```  and check the smaller window is valid or not. If it is valid, compare with our result so far; if it is not valid, which means all the valid window on ```i``` has been considered, and it is time to increase ```i```.
+
+We use char_counter to count the number of each char in t. Whenever we add a char into current window, we decrease its count; whenever we pop a char out of current window, we increase its count. Here two things you need to notice:
+
+* For character which is not in string ```t```, when it is in the window, its count is negative; and when current window does have this character, its count will be 0. Therefore, its count will never be positive.
+* It is possible that one character is contained in ```t```, but in current window we have more than we need. But we don't need to worry much about this case, because in that case, its count will be nagative.
 
 Since every char in s goes into and out of the sliding window only once, the time complexity is O(size of s).
 
@@ -40,8 +45,8 @@ public:
         
         std::size_t window_start(0), min_start(0), min_len(INT_MAX);
         for (std::size_t i = 0, n = s.size(); i < n; ++i) {
+            // Add current char into current window
             -- char_counter[s[i]];
-            
             if (char_counter[s[i]] >= 0) {
                 -- char_to_find;
             }
@@ -53,7 +58,7 @@ public:
                     min_len = cur_window_len;
                 }
                 
-                // Begin incrase window_start
+                // Pop the char on window_start out of current window.
                 ++ char_counter[s[window_start]];
                 if (char_counter[s[window_start]] > 0) {
                     // Chars which are not in t, its count will never be positive.
