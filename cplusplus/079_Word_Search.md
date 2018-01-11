@@ -19,6 +19,10 @@ word = "ABCB", -> returns false.
   
 # Solution
 
+Think about why BFS is not a good option here. With BFS, we may have multiple "pathes" all could be potentially the "right" path. And we can't have a good way to avoid visit the same grid cell(if you are thinking of marking each grid cell before push into the BFS queue, then you will find that some grid cells are marked by other pathes, but it is un-visited by current path.).
+
+On the contrary, DFS has no such issue because each time we focus on one path only. Therefore, it is very easy to make a grid-cell as visited.
+
 ### Solution with DFS
 
 ```cpp
