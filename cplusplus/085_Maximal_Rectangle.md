@@ -60,6 +60,12 @@ r: 6 5 4 3 4 5 6
 
 The key is to understand what does height, right, left vectors mean.
 
+* height[i] : the height at index i.
+* left[i] : going left from index i, what is the leftmost index of the rectangle with height[i].
+* right[i] : going right from index i, what is the rightmost index of the rectangle with height[i].
+
+Then we can calculate the rectagnel at index i, with ```height[i] * (right[i] + 1 - left[i])```.
+
 ```cpp
 class Solution {
 public:
@@ -152,7 +158,7 @@ public:
         vector<std::size_t> height(col_size, 0), left(col_size, 0), right(col_size, col_size - 1);
         for (std::size_t row = 0; row < row_size; ++ row) {
             // left_most represents the leftmost index for consecutive '1'
-            // including current index in this row
+            // including current index in this row.
             std::size_t left_most(0); 
             for (std::size_t i = 0; i < col_size; ++ i) {
                 if ('0' == matrix[row][i]) {
