@@ -8,7 +8,20 @@ Your algorithm should run in O(n) complexity.
 
 # Solution
 
-##### Solution one
+If we ignore the time complexity, we may want to use a sorting algorithm, which in general has O(nlogn) time complexty.
+
+However, this problem requires a O(n) time/space complexity algorithm.
+
+We do have O(n) sorting algorithm:
+
+* Counting sort : is an algorithm for sorting a collection of objects according to _keys that are small integers_; that is, it is an integer sorting algorithm. It operates by counting the number of objects that have each distinct key value, and using arithmetic on those counts to determine the positions of each key value in the output sequence. Its running time is linear in the number of items and the difference between the maximum and minimum key values, so _it is only suitable for direct use in situations where the variation in keys is not significantly greater than the number of items_. However, it is often used as a subroutine in another sorting algorithm, radix sort, that can handle larger keys more efficiently.
+* Radix sort : is a non-comparative integer sorting algorithm that sorts data with integer keys by grouping keys by the individual digits which share the same significant position and value. A positional notation is required, but because integers can represent strings of characters (e.g., names or dates) and specially formatted floating point numbers, radix sort is not limited to integers. 
+
+
+In this problem, the numbers can have any value and their maximum difference can be huge, therefore counting sort is not a good option.
+Radix-sort might be suitable but it can be hard to implement because here negative numbers are involved.
+
+### Solution one
 
 We will use HashMap. The key thing is to keep track of the sequence length and store that in the boundary points of the sequence. For example, as a result, for sequence {1, 2, 3, 4, 5}, map.get(1) and map.get(5) should both return 5.
 
@@ -83,7 +96,7 @@ public:
 };
 ```
 
-##### Solution two
+### Solution two
 
 ```cpp
 /* This solution looks like O(n^2) but it is actually O(n).
