@@ -61,32 +61,34 @@ public:
 
 ### Solution 2 
 
-Note that here the numbers can have duplciates!
+Note that here the numbers can have duplicates!
 
 The brute-force solution here is to exhaust all the possible subsets, and remove all duplicates. The time complexity is combinatorial.
 
 How can we improve this?   In general, we have two options:
 
-Keep the input pattern, which is unsorted, and use an auxiliary data structure to help us.  
-Reorder the input pattern, for example sorting the input vector. And build algorithm based above the sorted array. Note that in this condition, our time complexity will be at least the same as the sorting algorithm.  
+* Keep the input pattern, which is unsorted, and use an auxiliary data structure to help us.  
+* Reorder the input pattern, for example sorting the input vector. And build algorithm based above the sorted array. Note that in this condition, our time complexity will be at least the same as the sorting algorithm.  
 
 Here it is obvious that option 2 might be a better idea.  
 
-Imagine that we begin with an empty basket. For each number, we have two options, choose or not choose. Once we made that decision, we move forward for next number.
-
-As you can see, this is a backtracking problem.
-
 A backtracking problem enumerates a set of partial candidates that, in principle, could be completed in various ways to give all the possible solutions to the given problem. The completion is done incrementally, by a sequence of candidate extension steps. Conceptually, the partial candidates are represented as the nodes of a tree structure, the potential search tree.
+
+Imagine that we begin with an empty basket at the root node of a tree. 
 
 For example, let the input array to be [1,1,1,2,2,3,3,4].
 
 Now let's begin with an empty basket, the root node is an empty node. How many children this root node should have?
 
-If you are saying "3 nodes begin with 1, 2 nodes begin with 2, 2 nodes begin with 3, 1 node begin with 4", then dude you are in big trouble. Because the second child begin with the second 1 is just a subtree of the first child! You will definitely have duplicates unless you use a HashSet to filter them out before return the results.
+If you are saying "3 nodes begin with 1, 2 nodes begin with 2, 2 nodes begin with 3, 1 node begin with 4", then  you are in big trouble. Because the second child begin with the second 1 is just a subtree of the first child! You will definitely have duplicates unless you use a HashSet to filter them out before return the results.
 
 Therefore, the children of our root node should be "1 node begin with 1, 1 node begin with 2, 1 node begin with 3, and 1 node begin with 4". For each tree node in this potential search tree, it can't have two children which have the same value! And you will notice that for the iterative part in below solution.
 
 On each node, we try to choose following numbers as its children. However, if one child is identified to have the same value as its previous sibling, ignore this child. This "choose children" is the iterative part. For each child, we add it to the temp result, and keep doing the same thing. This is the recursive part, which is DFS.
+
+Since on each node, we have a unique path to move to one of its children, then the results are guaranteed to have no duplicates.
+
+When we reach a node, we add the ```temp``` into our final result immediately. Basically, we are "adding a tree node", and we can say that each tree node represents a result.
 
 Another different perspectie is like this :
 
@@ -108,30 +110,34 @@ subsets([1,2,3,4]) = []
 
                      
 ```cpp
-class Solution2 {
-public:
-  vector< vector<int> > subsetsWithDup(vector<int>& nums) {
-    vector< vector<int> > res;
-    std::sort(nums.begin(),nums.end());
-    vector<int> temp;
-    dfs(res,temp,nums,0);
-    return res;
-  }
+class Solution {
 private:
-  // Consider start as a tree node, and the number after nums[start]
-  // as its children, which means the branches it can enter.
-  // Don't you agree that the longest branch will be visted at first?
-  void dfs(vector<vector<int>> & res,
-           vector<int> & temp,
-           const vector<int> & nums,
-           int start) {
-    res.push_back(temp);
-    for (int i=start;i<nums.size();++i) {
-      if (i>start && nums[i]==nums[i-1]) continue; //ignore duplicates
-      temp.push_back(nums[i]);
-      dfs(res,temp,nums,i+1);
-      temp.pop_back();
+    void checkWithBacktracking(vector<vector<int>> &result,
+                              vector<int> &temp,
+                              const vector<int> &nums,
+                              const int pos) {
+        // Here we are at a tree node. Add it to result.
+        result.emplace_back(temp);
+        
+        // Right now we are planning to leave current tree node
+        // to one of its child nodes. Every child here should be unique!
+        for (int i = pos; i < nums.size(); ++i) {
+            if (i > pos && nums[i] == nums[i - 1]) {
+                continue;
+            } else {
+                temp.emplace_back(nums[i]);
+                checkWithBacktracking(result, temp, nums, i + 1);
+                temp.pop_back();
+            }
+        }
     }
-  }
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<vector<int>> result;
+        vector<int> temp;
+        std::sort(nums.begin(), nums.end());
+        checkWithBacktracking(result, temp, nums, 0);
+        return result;
+    }
 };
 ```
