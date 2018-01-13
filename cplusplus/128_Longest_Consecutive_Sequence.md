@@ -23,7 +23,7 @@ Radix-sort might be suitable but it can be hard to implement because here negati
 
 ### Solution one
 
-We will use HashMap. The key thing is to keep track of the sequence length and store that in the boundary points of the sequence. For example, as a result, for sequence {1, 2, 3, 4, 5}, map.get(1) and map.get(5) should both return 5.
+We will use HashMap. The key thing is to keep track of the sequence length and store that in the boundary points of the sequence. For example, as a result, for sequence {1, 2, 3, 4, 5}, map.get(1) and map.get(5) should both return 5. And __we should only update the HashMap when we meed a new number__. Continue with this example, right now {1, 2, 3, 4, 5} is one sequence we have, if now number 2 comes again, we should ignore it. Otherwise we will get left-length of 5 by callgin map.get(1), and some right-length by calling map.get(3).
 
 Whenever a new element n is inserted into the map, do two things:
 
