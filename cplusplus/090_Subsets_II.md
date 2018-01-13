@@ -23,6 +23,17 @@ If nums = [1,2,2], a solution is:
 We can treat duplicate element as a spacial element.   
 For example, if we have duplicate elements (5, 5), instead of treating them as two elements that are duplicate, we can treat it as one special element 5, but this element has more than two choices: you can either NOT put it into the subset, or put ONE 5 into the subset, or put TWO 5s into the subset. 
 
+Example, for input [1,2,2,3,3]  
+
+```
+[] => Add zero 1 : [], 
+      Add one 1 : [1]  
+   => Add zero 2 : [],[1],
+      Add one 2 : [2],[1,2],  
+      Add two 2 : [2,2],[1,2,2]
+```
+
+
 ```cpp
 class Solution {
 public:
