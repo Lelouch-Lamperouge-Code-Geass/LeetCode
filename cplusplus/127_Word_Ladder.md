@@ -34,6 +34,68 @@ To simplify the problem, we insert end into dict. Once we meet end during the BF
 
 ### Solution 1
 
+
+```cpp
+class Solution {
+private:
+    // For all the words in HashSet left,
+    // we try to build the reachable word based on dictionary.
+    int buildLadder(unordered_set<string> &left,
+                    unordered_set<string> &right,
+                    unordered_set<string> &dictionary,
+                   int ladder_len) {
+        if (left.size() > right.size()) {
+            // We always work on the smaller HashSet to improve performance.
+            return buildLadder(right, left, dictionary, ladder_len);
+        } else {
+            unordered_set<string> next_left;
+            for (const string &item : left) {
+                // Change one character at a time to check whether the new
+                // transformed word exists in the dictionary or not.
+                string clone(item);
+                for (char &c : clone) {
+                    const char origin_char = c;
+                    for (char z = 'a'; z <= 'z'; ++z) {
+                        if (z != origin_char) {
+                            c = z;
+                            if (right.count(clone)) {
+                                // Already find a common node, return.
+                                return ladder_len + 1;
+                            }
+                            if (dictionary.count(clone)) {
+                                next_left.insert(clone);
+                                // We need erase the graph node
+                                // to avoid redundant calculation.
+                                dictionary.erase(clone);
+                            }
+                        }
+                    }
+                    c = origin_char; // revert back
+                }                
+            }
+            // If next_left is empty, that means ladder doesn't exist.
+            return next_left.empty() ? 0 : buildLadder(next_left, right, dictionary, ladder_len + 1);
+        }
+    }
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        unordered_set<string> left, right;
+        left.insert(beginWord);
+        right.insert(endWord);
+        unordered_set<string> dictionary(wordList.begin(), wordList.end());
+        // We must make sure endWord is a transformed word.
+        // beginWord is NOT a transformed, so we don't check it here.
+        if (dictionary.count(endWord) == 0) return 0;
+        dictionary.erase(beginWord);
+        dictionary.erase(endWord);
+        int transform_times = buildLadder(left, right, dictionary, 0);
+        return transform_times != 0 ? 1 + transform_times : 0;
+    }
+};
+```
+
+A different style.
+
 ```cpp
 class Solution {
 public:
