@@ -94,3 +94,30 @@ public:
     }
 };
 ```
+
+A different style.
+
+```cpp
+class Solution {
+public:
+    int numDecodings(string s) {
+        if (s.empty() || s[0] == '0') return 0;
+        int pre_any(1), pre_open_one(0), pre_open_two(0);
+        
+        for (char c : s) {
+            int cur_any(0), cur_open_one(0), cur_open_two(0);
+            
+            cur_any = c == '0' ? pre_open_one + pre_open_two 
+                                : pre_any + pre_open_one + (c <= '6' ? pre_open_two : 0);
+            cur_open_one = c == '1' ? pre_any : 0;
+            cur_open_two = c == '2' ? pre_any : 0;
+            
+            pre_any = cur_any;
+            pre_open_one = cur_open_one;
+            pre_open_two = cur_open_two;
+        }
+        
+        return pre_any;
+    }
+};
+```
