@@ -8,7 +8,7 @@ __You need confirm with interviewer that m + n is within integer range.__
 
 
 Note the in below code we merge backwards from i = m + n + 1 to i = 0, not merge forwards from i = 0 to i = m + n + 1.
-The reason is that former will not override the numbers in nums1 we have not allocate.
+The reason is that former will not override the numbers in nums1 that are not allocated yet.
 
 ```cpp
 class Solution {
