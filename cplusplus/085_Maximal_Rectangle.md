@@ -66,6 +66,11 @@ The key is to understand what does height, right, left vectors mean.
 
 Then we can calculate the rectagnel at index i, with ```height[i] * (right[i] + 1 - left[i])```.
 
+
+Calculate height[i] is easy, if we think of scanning the matrix layer by layer, then we know that as long as char at index i is '1', then we can ```++height[i]```.
+
+How about left[i] and right[i] ? Taking calculating left[i] as an example, we can use a variable ```left_most``` to represents the left most index of consecutive '1' including current char at index i. If ```left_most <= left[i]```, then the consecitive '1' at left side of index i (including index i) is not shorter than the previous row, so left[i] won't change; however, if ```left_most > left[i]```, then the consecitive '1' at left side of index i (including index i) is shorter than the previous row, this looks like "has a hole in the wall".
+
 ```cpp
 class Solution {
 public:
