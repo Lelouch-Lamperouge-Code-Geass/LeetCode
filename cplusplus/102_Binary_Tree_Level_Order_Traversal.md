@@ -76,8 +76,8 @@ public:
         queue<TreeNode*> myQueue;
         vector<int> curLevel;
         myQueue.push(root);
-        myQueue.push(NULL);//push NULL as a mark of level end
-        TreeNode *curNode(NULL);
+        myQueue.push(nullptr);//push nullptr as a mark of level end
+        TreeNode *curNode(nullptr);
         while(!myQueue.empty() )
         {
             curNode = myQueue.front();
@@ -87,7 +87,7 @@ public:
                 reVal.push_back(curLevel);
                 curLevel.clear();
                 if(!myQueue.empty())
-                    myQueue.push(NULL);//add mark 
+                    myQueue.push(nullptr);//add mark 
             }
             else
             {
