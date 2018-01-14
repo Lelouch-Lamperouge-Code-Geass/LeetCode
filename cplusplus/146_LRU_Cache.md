@@ -25,6 +25,8 @@ cache.get(4);       // returns 4
 
 The problem can be solved with a hashtable that keeps track of the keys and its values in the double linked list. One interesting property about double linked list is that the node can remove itself without other reference. In addition, it takes constant time to add and remove nodes from the head or tail.
 
+The the cache reaches its capacity, we need evict the least recently used item out. We need to pop the oldest item out of the list and also erase the corresponding entry in the HashMap. Therefore, we must store key in the list, while value can be storeed in the list or the HashMap.
+
 ##### Solution  one
 ```cpp
 class LRUCache {
