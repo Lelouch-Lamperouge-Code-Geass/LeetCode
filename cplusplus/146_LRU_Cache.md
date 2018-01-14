@@ -83,6 +83,56 @@ private:
 };
 ```
 
+A different style.
+
+```cpp
+class LRUCache {
+private:
+    typedef std::list<pair<int, int>>::iterator ListPos;
+    std::list<pair<int, int>> m_list;
+    std::unordered_map<int, ListPos> m_mapper;
+    int m_capacity;
+    void acccessExistedItemByKey(int key) {
+        if (m_mapper.count(key)) {
+            ListPos list_pos = m_mapper[key];
+            const int value = list_pos->second;
+            m_list.erase(list_pos);
+            m_list.push_front(make_pair(key,value));
+            m_mapper[key] = m_list.begin();
+        }
+    }
+public:
+    LRUCache(int capacity) : m_capacity(capacity){
+        
+    }
+    
+    int get(int key) {
+        if (!m_mapper.count(key)) {
+            return -1;
+        } else {
+            acccessExistedItemByKey(key);
+            return m_mapper[key]->second;
+        }
+    }
+    
+    void put(int key, int value) {
+        if (m_mapper.count(key)) {
+            acccessExistedItemByKey(key);
+            m_mapper[key]->second = value;
+        } else {
+            if (m_list.size() == m_capacity) {
+                int delete_key = m_list.back().first;
+                m_list.pop_back();
+                m_mapper.erase(delete_key);
+            }
+            m_list.push_front(make_pair(key, value));
+            m_mapper[key] = m_list.begin();
+        }
+    }
+};
+
+ ```
+
 ##### Solution two : a more generic solution with template.
 
 ```cpp
