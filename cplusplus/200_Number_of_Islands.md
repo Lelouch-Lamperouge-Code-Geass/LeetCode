@@ -25,7 +25,7 @@ Answer: 3
 # Solution
 
 
-##### Solution one : BFS
+### Solution one : BFS
 
 ```cpp
 class Solution {
@@ -75,7 +75,7 @@ public:
 };
 ```
 
-##### Solution two : DFS
+### Solution two : DFS
 
 ```cpp
 class Solution {
