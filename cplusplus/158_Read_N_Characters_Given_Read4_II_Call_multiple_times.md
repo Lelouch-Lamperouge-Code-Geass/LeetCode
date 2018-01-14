@@ -40,12 +40,14 @@ public:
         int count(0);
         
         while (count < n) {
+            // Read into private buffer
             if (m_pos == 0) {
                 m_buff_count = read4(m_buff);
             }
             
             if (m_buff_count == 0) break;
 
+            // Read from private buffer to output buffer.
             while (count < n && m_pos < m_buff_count) {
                 *buf = m_buff[m_pos];
                 ++ buf, ++ m_pos, ++ count;
