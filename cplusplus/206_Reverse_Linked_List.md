@@ -40,7 +40,9 @@ public:
 
 ### Solution 2
 
-Recursive solution
+Recursive solution.
+
+The basic idea of this recursive solution is to reverse all the following nodes after head. Then we need to set head to be the final node in the reversed list. We simply set its next node in the original list (head -> next) to point to it and sets its next to be NULL.
 
 ```cpp
 class Solution {
