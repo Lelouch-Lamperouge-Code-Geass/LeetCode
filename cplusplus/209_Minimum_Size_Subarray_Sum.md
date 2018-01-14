@@ -72,6 +72,8 @@ public:
         for (int i = 1; i <= n; i++) { 
             if (sums[i] >= s) {
                 int p = upper_bound(sums, 0, i, sums[i] - s);
+                // If such a upper bound can be find, that means
+                // though the sum within range [p, i] is not less than s.
                 if (p != -1) minlen = min(minlen, i - p + 1);
             }
         }
