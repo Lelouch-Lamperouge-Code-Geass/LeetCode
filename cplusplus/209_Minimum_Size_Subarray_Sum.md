@@ -96,3 +96,40 @@ private:
     }
 };  
 ```
+
+# Knowledge
+
+### upper_bound and lower_bound in C++
+
+* Iterator lower_bound (Iterator first, Iterator last, const val)
+* Iterator upper_bound (Iterator first, Iterator last, const val)
+ 
+lower_bound returns an iterator pointing to the first element in the range [first,last) which has a value not less than ‘val’.
+ 
+upper_bound returns an iterator pointing to the first element in the range [first,last) which has a value greater than ‘val’.
+
+```cpp
+int main ()
+{
+    int gfg[] = {5,6,7,7,6,5,5,6};
+     
+    vector<int> v(gfg,gfg+8);    // 5 6 7 7 6 5 5 6
+ 
+    sort (v.begin(), v.end());  // 5 5 5 6 6 6 7 7
+ 
+    vector<int>::iterator lower,upper;
+    lower = lower_bound (v.begin(), v.end(), 6); 
+    upper = upper_bound (v.begin(), v.end(), 6); 
+ 
+    cout << "lower_bound for 6 at position " << (lower- v.begin()) << '\n';
+    cout << "upper_bound for 6 at position " << (upper - v.begin()) << '\n';
+ 
+    return 0;
+}
+```
+
+```
+lower_bound for 6 at position 3
+upper_bound for 6 at position 6
+```
+
