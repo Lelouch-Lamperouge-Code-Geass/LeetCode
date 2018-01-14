@@ -25,6 +25,8 @@ All the 4 chars will be consumed in the first call. So the tricky part of this q
 
 Therefore, we maintain a private buffer, and we need to read from file whenever m_pos is 0. Otherwise, we need to copy chars from private buffer to final buffer.
 
+In short, if we have chars in private buffer, read them to output buffer first. Otherwise, read from file and put chars to private buffer. Therefore, we read chars from file to private buffer, and read chars from private buffer to output buffer.
+
 ```cpp
 // Forward declaration of the read4 API.
 int read4(char *buf);
