@@ -154,7 +154,8 @@ public:
         ++ cur->m_word_count;
     }
     
-    /** Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter. */
+    /** Returns if the word is in the data structure. 
+      A word could contain the dot character '.' to represent any one letter. */
     bool search(string word) {
         return searchWithDFS(m_root, word, 0);
     }
