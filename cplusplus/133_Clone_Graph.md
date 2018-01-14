@@ -35,7 +35,7 @@ We need to maintain a hashmap from original node to the "clone" node. And use BF
 
 __Note: we also need be careful about cycle and self-cycle.__
 
-##### Solution with BFS
+### Solution with BFS
 
 Instantiation clone node and push to queue. Clone edges for popped node.
 
@@ -71,7 +71,7 @@ public:
 };
 ```
 
-##### Solution with DFS
+### Solution with DFS
 
 
 ```cpp
