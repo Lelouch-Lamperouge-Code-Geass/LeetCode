@@ -50,6 +50,8 @@ private:
             
         }
         ~TrieNode() {
+            // We know that the child pointers have dynamic memory allocated.
+            // Therefore we need clear those memory on heap.
             for (const TrieNodePtr & child : m_children) {
                 delete child;
             }
