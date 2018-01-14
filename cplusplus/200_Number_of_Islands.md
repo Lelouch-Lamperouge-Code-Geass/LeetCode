@@ -29,55 +29,48 @@ Answer: 3
 
 ```cpp
 class Solution {
+private:
+    void checkWithBFS(vector<vector<char>>& grid, int row, int col) {
+        static const vector<pair<int, int>> moves = {{1,0},{-1, 0}, {0, 1}, {0, -1}};
+        const int row_size = grid.size(), col_size = grid[0].size();
+        
+        grid[row][col] = '0';
+        queue<pair<int, int>> cells;
+        cells.push(make_pair(row, col));
+        while (!cells.empty()) {
+            pair<int, int> cur_cell = cells.front();
+            cells.pop();
+            
+            for (const pair<int, int> &move : moves) {
+                int next_row = cur_cell.first + move.first, 
+                    next_col = cur_cell.second + move.second;
+                // Check boundary
+                if (next_row < 0 || next_row >= row_size 
+                    || next_col < 0 || next_col >= col_size) continue;
+                // Must be '1'
+                if (grid[next_row][next_col] == '0') continue;
+                
+                // We must change the char to be '0' before push the the queue.
+                // Otherwise it is possible that one cell get pushed into the queue
+                // multiple times since it is a neighbor of mutiple cells.
+                grid[next_row][next_col] = '0';
+                
+                cells.push(make_pair(next_row, next_col));
+            }
+        }
+    }
 public:
     int numIslands(vector<vector<char>>& grid) {
-        if (grid.empty()) return 0;
-        const std::size_t row_size(grid.size()), col_size(grid[0].size());
         int reval(0);
-        for (std::size_t row = 0; row < row_size; ++ row) {
-            for (std::size_t col = 0; col < col_size; ++col) {
+        for (int row = 0, row_size = grid.size(); row < row_size; ++row) {
+            for (int col = 0, col_size = grid[0].size(); col < col_size; ++col) {
                 if (grid[row][col] == '1') {
-                    findWithBFS(grid, row, col);
+                    checkWithBFS(grid, row, col); 
                     ++ reval;
                 }
             }
         }
         return reval;
-    }
-private:
-    void findWithBFS(vector<vector<char>>& grid, std::size_t row, std::size_t col) {
-        const std::size_t row_size(grid.size()), col_size(grid[0].size());
-        
-        if (row < row_size && col < col_size && grid[row][col] == '1') {
-            std::queue<std::pair<std::size_t, std::size_t>> coordinates;
-            grid[row][col] = '0';
-            coordinates.emplace(std::make_pair(row, col));
-            
-            while (!coordinates.empty()) {
-                const std::size_t cur_row = coordinates.front().first,
-                    cur_col = coordinates.front().second;
-                coordinates.pop();
-                if (cur_row > 0 && grid[cur_row - 1][cur_col] == '1') {
-                    grid[cur_row - 1][cur_col] = '0';
-                    coordinates.emplace(std::make_pair(cur_row - 1, cur_col));
-                }
-                
-                if (cur_row + 1 < row_size && grid[cur_row + 1][cur_col] == '1') {
-                    grid[cur_row + 1][cur_col] = '0';
-                    coordinates.emplace(std::make_pair(cur_row + 1, cur_col));
-                }
-                
-                if (cur_col > 0 && grid[cur_row][cur_col - 1] == '1') {
-                    grid[cur_row][cur_col - 1] = '0';
-                    coordinates.emplace(std::make_pair(cur_row, cur_col - 1));
-                }
-                
-                if (cur_col + 1 < col_size && grid[cur_row][cur_col + 1] == '1') {
-                    grid[cur_row][cur_col + 1] = '0';
-                    coordinates.emplace(std::make_pair(cur_row, cur_col + 1));
-                }
-            }
-        } 
     }
 };
 ```
