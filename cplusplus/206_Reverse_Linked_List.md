@@ -9,6 +9,10 @@ A linked list can be reversed either iteratively or recursively. Could you imple
 
 Iterative solution.
 
+Note here we did not make dummy.next = head at first. In this way, we can easily make sure that the next pointer of the final node will be nullptr.
+
+And this code can handle empty list pretty good too.
+
 ```cpp
 /**
  * Definition for singly-linked list.
@@ -21,17 +25,15 @@ Iterative solution.
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        if(!head || !head->next) return head;
-        ListNode dummy(0), *pre(&dummy), *next(nullptr);
-        dummy.next = head;
-        while(head){
-            next = head->next;
-            head->next = pre;
-            pre = head;
-            head = next;
+        ListNode dummy(0), *pre(&dummy), *curr(head), *next(nullptr);
+        while (curr) {
+            next = curr->next;
+            curr->next = pre->next;
+            pre->next = curr;
+            curr = next;
         }
-        dummy.next->next = nullptr; // set tail->next to be nullptr
-        return pre;
+        
+        return dummy.next;
     }
 };
 ```
