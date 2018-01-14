@@ -85,6 +85,9 @@ private:
             sums[i] = nums[i - 1] + sums[i - 1];
         return sums;
     }
+    // Return the first index i within [left, right],
+    // which makes sums[i] > target.
+    // If such index doesn't exist, return -1.
     int upper_bound(vector<int>& sums, int left, int right, int target) {
         int l = left, r = right;
         while (l < r) {
