@@ -47,7 +47,6 @@ The basic idea of this recursive solution is to reverse all the following nodes 
 ```cpp
 class Solution {
 public:
-    // return tail of the list
     ListNode* reverseList(ListNode* head) {
         if(!head||!head->next) return head;
         ListNode* node(reverseList(head->next));
