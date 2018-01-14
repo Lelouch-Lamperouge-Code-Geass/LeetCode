@@ -6,10 +6,18 @@ By using the read4 API, implement the function ```int read(char *buf, int n)``` 
 
 # Solution
 
+This problem's description is pretty bad.
+
+Actually, this question may be more practical than it looks like at your first glimpse.
+
+In reality, hardware or system may have constraints for read from file system. eg. hardeware DMA engine may fetch data 128 bytes from disk. another example is that loading 4-bytes in aligned ddr should be obviously faster than load 1 byte 4 times. It is exactly same as read4 problem.
+
+However, I still don't think this is a good interview question. The concept behind the problem is important, but a knowledge-based question is enough.
+
 Edge cases:
 
 1. The final read may not need 4 chars.
-2. The ``` read4(char *buf)``` function does not move buff pointer forward, notice that here it is passed by copy pointer.
+2. __The ``` read4(char *buf)``` function does not move buff pointer forward, notice that here it is passed by copy pointer__.
 
 ```cpp
 // Forward declaration of the read4 API.
