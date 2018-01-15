@@ -87,7 +87,8 @@ public:
             return left.end > right.end;
         };
         
-        std::priority_queue<Interval, vector<Interval>,  decltype(end_earlier_comparison)> meeting_rooms(end_earlier_comparison);
+        std::priority_queue<Interval, vector<Interval>,  
+                            decltype(end_earlier_comparison)> meeting_rooms(end_earlier_comparison);
         
         for (const Interval &inter : intervals) {
             if (meeting_rooms.empty() || inter.start < meeting_rooms.top().end) {
