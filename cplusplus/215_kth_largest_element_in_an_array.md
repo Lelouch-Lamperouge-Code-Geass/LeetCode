@@ -7,9 +7,29 @@ Note:
 You may assume k is always valid, 1 ? k ? array's length.
 
 # Solution  
+
+We can come up with some O(NlogN) solutions very easily.
+
+* We can sort the array, and return k-th element.
+* We can use a k-size min-heap, keep adding larger number into it and keep popping the smallest number out of it. Finally return the top element.
+
+How can we implement a O(N) solution?
+
+We recall that a partition algorithm can partition an array into three parts, the part larger than/equals to/smaller than a random number, and the return value is the final index where that random number is located.
+
+Let's say if the return index is ```k - 1```(here kth is 1-based), then we already find out our target number.
+
+But what if the return index is larger than ```k - 1```? That means the number we are looking for is at the left side of this index. Then all we need to do in this case is to find another random number within the left part and to partition again on the left range.
+
+Same if the return index is smaller than ```k - 1```, which means the number we are looking for is at the right side of the returned index.
+
+We keep doing partition, and each time we can "throw away" part of the input array.
+
+Average time complexity is O(N), worst case(for example, when numbers are all the same) is O(N^2).
   
 ### Solution one
-n quicksort, in each iteration, we need to select a pivot and then partition the array into three parts:
+
+In quicksort, in each iteration, we need to select a pivot and then partition the array into three parts:
 
 1. Elements smaller than the pivot;
 2. Elements equal to the pivot;
