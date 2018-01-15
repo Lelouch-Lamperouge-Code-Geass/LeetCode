@@ -41,20 +41,25 @@ public:
         
         bool reval(true);
         
-        for (ListNode *left = head, *right = reverseList(fast); 
-              left && right; left = left->next, right = right->next) {
+        ListNode *left = head, *right = reverseList(fast), *right_head(right);
+        
+        while (left && right) {
             if (left->val != right->val) {
                 reval = false;
-                reverseList(fast); //reverse back
                 break;
             }
+            left = left->next; 
+            right = right->next;
         }
+        
+        reverseList(right_head); //reverse back
         
         slow->next = fast;
         
         return reval;
     }
 private:
+    // Reverse the list and return the new-head node.
     ListNode* reverseList(ListNode *head) {
         ListNode dummy(0), *next(nullptr);
         
