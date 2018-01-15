@@ -67,3 +67,102 @@ public:
 };
 ```
 
+### What if we want to store Interval?
+
+Unlike above solution, here we store the Interval instead just end-time.
+
+#### Using lambda expression
+
+I paste the code here because it shows how should we use lambda expression to define comparator when it comes to template container.
+
+```cpp
+class Solution {
+public:
+    int minMeetingRooms(vector<Interval>& intervals) {
+        std::sort(intervals.begin(), intervals.end(), [](const Interval &left, const Interval &right){
+            return left.start < right.start;
+        });
+        
+        auto end_earlier_comparison = [](const Interval &left, const Interval &right) -> bool{
+            return left.end > right.end;
+        };
+        
+        std::priority_queue<Interval, vector<Interval>,  decltype(end_earlier_comparison)> meeting_rooms(end_earlier_comparison);
+        
+        for (const Interval &inter : intervals) {
+            if (meeting_rooms.empty() || inter.start < meeting_rooms.top().end) {
+                // Add meeting room
+                meeting_rooms.push(inter);
+            } else {
+                // If the current meeting starts right after the meeting room ending earliest,
+                // there's no need for a new room, just reuse the exsiting one
+                Interval new_item = meeting_rooms.top();
+                meeting_rooms.pop();
+                new_item.end = std::max(new_item.end, inter.end);
+                meeting_rooms.push(new_item);
+            }
+        }
+        
+        return meeting_rooms.size();
+    }
+};
+```
+
+#### Using functor
+
+Functors are objects that can be treated as though they are a function or function pointer. 
+
+```cpp
+class Solution {
+private:
+    // A functor
+    struct EndEarlier {
+        public:
+            bool operator() (const Interval &left, const Interval &right){
+                return left.end > right.end;
+            }
+    };
+public:
+    int minMeetingRooms(vector<Interval>& intervals) {
+        std::sort(intervals.begin(), intervals.end(), [](const Interval &left, const Interval &right){
+            return left.start < right.start;
+        });
+        
+        auto end_earlier_comparison = [](const Interval &left, const Interval &right) -> bool{
+            return left.end > right.end;
+        };
+        
+        std::priority_queue<Interval, vector<Interval>, EndEarlier> meeting_rooms;
+        
+        for (const Interval &inter : intervals) {
+            if (meeting_rooms.empty() || inter.start < meeting_rooms.top().end) {
+                // Add meeting room
+                meeting_rooms.push(inter);
+            } else {
+                // If the current meeting starts right after the meeting room ending earliest,
+                // there's no need for a new room, just reuse the exsiting one
+                Interval new_item = meeting_rooms.top();
+                meeting_rooms.pop();
+                new_item.end = std::max(new_item.end, inter.end);
+                meeting_rooms.push(new_item);
+            }
+        }
+        
+        return meeting_rooms.size();
+    }
+};
+```
+
+### Knowledge
+
+Lambda expression help us to construct a __closure__: an __unnamed function object__ capable of capturing variables in scope. _A lambda is not a function pointer! A lambda is an instance of compiler generated class!_
+
+
+Can we do something like ```Foo<decltype([]()->void { })> foo;``` ?
+
+No you can't, because lambda expressions shall not appear in an __unevaluated context__ (such as __decltype__ and __sizeof__, amongst others). 
+
+> The evaluation of a lambda-expression results in a prvalue temporary (12.2). This temporary is called the closure object. A lambda-expression shall not appear in an unevaluated operand (Clause 5). [ Note: A closure object behaves like a function object (20.8).—end note ]
+
+
+
