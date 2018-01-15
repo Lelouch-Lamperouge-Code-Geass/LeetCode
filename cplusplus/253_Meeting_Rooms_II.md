@@ -164,5 +164,24 @@ No you can't, because lambda expressions shall not appear in an __unevaluated co
 
 > The evaluation of a lambda-expression results in a prvalue temporary (12.2). This temporary is called the closure object. A lambda-expression shall not appear in an unevaluated operand (Clause 5). [ Note: A closure object behaves like a function object (20.8).—end note ]
 
+##### Sort numbers
+
+```
+int numbers[]={20,40,50,10,30};
+std::sort (numbers, numbers+5, std::greater<int>());
+```
+
+Why are there parentheses after std::greater there? Are we creating a new std::greater object here?
+
+That's correct. The expression std::greater<int>() corresponds to creating an object of type std::greater<int>.
+
+##### Define container
+
+```
+std::priority_queue<int, std::vector<int>, std::greater<int>> meeting_rooms;
+```
+
+The class template std::priority_queue expects that the argument will be of a __function object type__ that is a pointer to function or a class type that has a function operator.
 
 
+https://stackoverflow.com/questions/44240996/difference-between-stdgreaterint-and-stdgreaterint
