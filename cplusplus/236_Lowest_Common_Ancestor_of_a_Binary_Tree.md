@@ -14,6 +14,8 @@ According to the definition of LCA on Wikipedia: “The lowest common ancestor i
 
 # Solution
 
+The solution here also works for BST, since BST is a special binary tree. However, if the given tree is BST, then we need utilize its properties better to get better performance.
+
 ### Solution 1 , recursive
 Same solution in several languages. It's recursive and expands the meaning of the function. If the current (sub)tree contains both p and q, then the function result is their LCA. If only one of them is in that subtree, then the result is that one of them. If neither are in that subtree, the result is null/None/nil.
 
