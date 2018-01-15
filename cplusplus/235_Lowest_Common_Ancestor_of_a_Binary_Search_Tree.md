@@ -62,6 +62,27 @@ public:
 };
 ```
 
+A different style.
+
+```cpp
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {        
+        while (root) {
+            if (root->val > p->val && root->val > q->val) {
+                root = root->left;
+            } else if (root->val < p->val && root->val < q->val) {
+                root = root->right;
+            } else { // root->val is within the value of p,q inclusively
+                return root;
+            }
+        }
+        
+        return root;
+    }
+};
+```
+
 ### Solution 2: recursion 
 
 __Time complexity is O(height of the tree), space complexity is O(height of the tree) or you can see O(depth of recursion).__
