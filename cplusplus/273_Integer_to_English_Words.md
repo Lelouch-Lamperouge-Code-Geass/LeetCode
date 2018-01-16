@@ -29,6 +29,7 @@ private:
     vector<string> THOURSANDS = {
           "", "Thousand","Million","Billion"  
     };
+    // Return the number string with a trailing ' '.
     string getNumberStringLessThanThousand(int num) {
         ostringstream oss;
         if (num >= 100) {
