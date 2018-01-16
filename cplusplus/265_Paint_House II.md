@@ -2,7 +2,21 @@ There are a row of n houses, each house can be painted with one of the k colors.
 
 The cost of painting each house with a certain color is represented by a n x k cost matrix. For example, costs[0][0] is the cost of painting house 0 with color 0; costs[1][2] is the cost of painting house 1 with color 2, and so on... Find the minimum cost to paint all houses.
 
+__Note:__  
+All costs are positive integers.
+
+__Follow up:__  
+Could you solve it in O(nk) runtime?
+
 # Solution
+
+For every house, we know that we can paint k colors. 
+
+Let paint_cost[i][j] represents the cost of paint current house i with color j, and all previous houses have been painted.
+The minimal paint cost with color j, in this case, is derived from the minimal cost of paint house i - 1, but we need to gurantee that we should use different colors here.
+
+Therefore, we use two paramter, pre_min_one to represnts the color we used to paint previous house which yeild the minimal cost for previous house; pre_min_two to represnts the color we used to pain previous house which gield the second minimial cost for previous house.
+
 
 这道题是之前那道Paint House的拓展，那道题只让用红绿蓝三种颜色来粉刷房子，而这道题让我们用k种颜色，这道题不能用之前那题的解法，会TLE。这题的解法的思路还是用DP，但是在找不同颜色的最小值不是遍历所有不同颜色，而是用min1和min2来记录之前房子的最小和第二小的花费的颜色，如果当前房子颜色和min1相同，那么我们用min2对应的值计算，反之我们用min1对应的值，这种解法实际上也包含了求次小值的方法，感觉也是一种很棒的解题思路，参见代码如下：
 
