@@ -34,6 +34,9 @@ In the end l == r and the H-index is n-l.
 class Solution {
 public:
     int hIndex(vector<int>& citations) {
+        // In the citations vector, we can say that each index
+        // represent paper_id. And the corresponding value represents
+        // the citations of that paper.
         int n_size(citations.size()),low(0), high(n_size-1);
         while (low <= high) {
             int mid = low + (high-low) / 2;
@@ -52,6 +55,9 @@ public:
             } 
         }
         
+        // Here low > high.
+        // Note that here the low and high are paper_id,
+        // they don't have direct relationship with H-Index.
         return n_size - low;
     }
 };
