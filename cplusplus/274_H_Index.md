@@ -8,30 +8,10 @@ Note: If there are several possible values for h, the maximum one is taken as th
   
 # Solution
 
+
 ### Solution 1
 
-![alt](https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/H-index-en.svg/300px-H-index-en.svg.png)
-  
-Time complexity O(nlogn), space complexity O(1).
-  
-```cpp
-class Solution {
-public:
-    int hIndex(vector<int>& citations) {
-        // Sort in descending order
-        std::sort(citations.begin(), citations.end(), std::greater<int>());
-        
-        std::size_t pos(0);
-        while (pos < citations.size() && citations[pos] > pos) {
-            ++ pos;
-        }
-        
-        return pos;
-    }
-};
-```
-
-### Solution 2
+Here we use the methology of counting sort. Remeber that, we can use counting sort here is because the citation value range is small. Counting sort is only suitable for direct use in situations where the variation in keys is not significantly greater than the number of items. 
 
 This type of problems always throw me off, but it just takes some getting used to. The idea behind it is some bucket sort mechanisms. First, you may ask why bucket sort. Well, the h-index is defined as the number of papers with reference greater than the number. So assume n is the total number of papers, if we have n+1 buckets, number from 0 to n, then for any paper with reference corresponding to the index of the bucket, we increment the count for that bucket. The only exception is that for any paper with larger number of reference than n, we put in the n-th bucket.
 
@@ -39,7 +19,7 @@ Then we iterate from the back to the front of the buckets, whenever the total co
 
 ![alt](http://i67.tinypic.com/2yvpfv5.jpg)
        
-Time complexity O(n), space complexity O(n).
+__Time complexity O(n), space complexity O(n).__
 
 ```cpp
 class Solution {
@@ -80,4 +60,25 @@ public:
 };
 ```
 
+### Solution 2
+
+![alt](https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/H-index-en.svg/300px-H-index-en.svg.png)
   
+__Time complexity O(nlogn), space complexity O(1).__
+  
+```cpp
+class Solution {
+public:
+    int hIndex(vector<int>& citations) {
+        // Sort in descending order
+        std::sort(citations.begin(), citations.end(), std::greater<int>());
+        
+        std::size_t pos(0);
+        while (pos < citations.size() && citations[pos] > pos) {
+            ++ pos;
+        }
+        
+        return pos;
+    }
+};
+```  
