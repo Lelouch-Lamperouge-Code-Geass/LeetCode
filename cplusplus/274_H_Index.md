@@ -8,6 +8,11 @@ Note: If there are several possible values for h, the maximum one is taken as th
   
 # Solution
 
+Comparing this problem to LeetCode 275.
+
+Here if we using counting-sort, the index represents the citation times, and the corresponding value represents the number of papers has that citation times. 
+
+However, in LeetCode 275, the each index represent paper_id, and the corresponding value represents the citations of that paper.
 
 ### Solution 1
 
