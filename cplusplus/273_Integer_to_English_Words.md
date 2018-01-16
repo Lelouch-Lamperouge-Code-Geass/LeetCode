@@ -20,7 +20,8 @@ The keypoint is to make sure helper function can return
 class Solution {
 private:
     vector<string> LESS_THAN_TWENTY = {
-          "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"   
+          "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", 
+          "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"   
     };
     vector<string> LESS_THAN_ONE_HUNDRED = {
           "", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"  
@@ -28,18 +29,16 @@ private:
     vector<string> THOURSANDS = {
           "", "Thousand","Million","Billion"  
     };
-    
-    // Return a number string with one trailing whitespace.
     string getNumberStringLessThanThousand(int num) {
         ostringstream oss;
         if (num >= 100) {
             oss << LESS_THAN_TWENTY[num / 100] << " Hundred ";
-            num -= num / 100 * 100;
+            num %= 100;
         }
         
         if (num >= 20) {
             oss << LESS_THAN_ONE_HUNDRED[num / 10] << ' ';
-            num -= num / 10 * 10;
+            num %= 10;
         }
         
         if (num > 0) {
@@ -51,20 +50,16 @@ private:
 public:
     string numberToWords(int num) {
         if (num == 0) return "Zero";
-        
         string reval("");
         std::size_t units_index(0);
         while (num) {
-            if (num % 1000 != 0) {
-             reval = getNumberStringLessThanThousand(num % 1000) + THOURSANDS[units_index] + ' ' + reval;
+            if (num % 1000 != 0) { // Take care of 1,000,000
+                reval = getNumberStringLessThanThousand(num % 1000) + THOURSANDS[units_index] + ' ' + reval;
             }
             num /= 1000;
             ++ units_index;
         }
-        
-        // Remove trailing whitespaces
         while (!reval.empty() && reval.back() == ' ') reval.pop_back();
-        
         return reval;
     }
 };
