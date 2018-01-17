@@ -55,7 +55,8 @@ private:
                 // Therefore, for consecutive )) we only remove the first one.
                 for (int j = last_remove_pos; j <= i; ++j) {
                     if (s[j] == close_char && (j == last_remove_pos || s[j - 1] != close_char)) {
-                        clearInvalidParentheses(result, s.substr(0, j) + s.substr(j + 1), j, i, open_char, close_char, is_reversed);
+                        clearInvalidParentheses(result, s.substr(0, j) + s.substr(j + 1), 
+                                        j, i, open_char, close_char, is_reversed);
                     }
                 }
                 
