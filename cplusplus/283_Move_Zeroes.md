@@ -7,7 +7,9 @@ Note:
 2. Minimize the total number of operations.
 
 # Solution
-  
+
+This problem is simple. Just note that we need to maintain the relative order of the non-zero elements. And we also need to minimize the total number of operations.
+
 ##### A wrong attemp, not meet second requirement.
 
   This solution doesn't meet the second requirement "Minimize the total number of operations", because there are a lot of swaps here.
