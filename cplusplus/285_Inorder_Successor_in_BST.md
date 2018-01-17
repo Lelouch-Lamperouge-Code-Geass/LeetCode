@@ -10,18 +10,27 @@ Initially, the suc is nullptr, and we are at root node. As long as we are moving
 
 Only in a balanced BST O(h) = O(log n). In the worst case h can be as large as n.
 
-```
+
 The idea is to compare root's value with p's value if root is not null, and consider the following two cases:
 
-1. root.val > p.val. In this case, root can be a possible answer, so we store the root node first and call it res. 
-However, we don't know if there is anymore node on root's left that is larger than p.val. 
-So we move root to its left and check again.
+1. root.val > p.val. In this case, root can be a possible answer, so we store the root node first and call it res. However, we don't know if there is anymore node on root's left that is larger than p.val. So we move root to its left and check again.
 
-2. root.val <= p.val. In this case, root cannot be p's inorder successor, neither can root's left child. 
-So we only need to consider root's right child, thus we move root to its right and check again.
+2. root.val <= p.val. In this case, root cannot be p's inorder successor, neither can root's left child. So we only need to consider root's right child, thus we move root to its right and check again.
+
+Note that we can't stop when we meet node p, since we are looking for its successor. It is possible that we have not visited its sucessor when we meet p.
+
+For example, if p is the node 2 in this graph.
+
+```
+     2
+    / \
+null   3
+        \
+         4
 ```
 
-__Time complexity O(h), space complexity O(1)__
+
+__Time complexity O(h), space complexity O(1).__
 
 ```cpp
 /**
@@ -33,6 +42,28 @@ __Time complexity O(h), space complexity O(1)__
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+class Solution {
+public:
+    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+        TreeNode *successor(nullptr);
+        while (root) {
+            if (root->val > p->val) {
+                successor = root;
+                root = root->left;
+            } else if (root->val < p->val){
+                root = root->right;
+            } else { // root->val == p->val, right now root == p
+                root = root->right;
+            }
+        }
+        return successor;
+    }
+};
+```
+
+Simplify a little bit.
+
+```cpp
 class Solution {
 public:
     TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
@@ -52,32 +83,23 @@ public:
 ```
 
 
-#### Java recursive version
+### Recursive version
 
-```java
-public TreeNode successor(TreeNode root, TreeNode p) {
-  if (root == null)
-    return null;
+__Time complexity O(h), space complexity O(h).__
 
-  if (root.val <= p.val) {
-    return successor(root.right, p);
-  } else {
-    TreeNode left = successor(root.left, p);
-    return (left != null) ? left : root;
-  }
-}
-```
-
-```java
-public TreeNode predecessor(TreeNode root, TreeNode p) {
-  if (root == null)
-    return null;
-
-  if (root.val >= p.val) {
-    return predecessor(root.left, p);
-  } else {
-    TreeNode right = predecessor(root.right, p);
-    return (right != null) ? right : root;
-  }
-}
+```cpp
+class Solution {
+public:
+    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+        if (!root) return nullptr;
+        if (root->val < p->val) {
+            return inorderSuccessor(root->right, p);
+        } else if (root->val > p->val) {
+            TreeNode *sub_result = inorderSuccessor(root->left, p);
+            return sub_result ? sub_result : root;
+        } else { // root->val == p->val
+            return inorderSuccessor(root->right, p);
+        }
+    }
+};
 ```
