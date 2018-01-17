@@ -39,6 +39,8 @@ However, we can use a HashMap to do some space–time tradeoff here. It is quite
 
 The HashMap stores the sum of all elements before index i as key, and i as value. For each i, check not only the current sum but also (currentSum - previousSum) to see if there is any that equals k, and update max length.
 
+__Note:whenever we meet a problem in which the sum of consecutive numbers are involved, we can potentially use range-sum to simplify the problem.__
+
 ```cpp
 class Solution {
 public:
