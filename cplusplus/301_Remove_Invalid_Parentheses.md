@@ -26,6 +26,68 @@ Now one may ask. What about '('? What if s = "(()(()" in which we need remove '(
 The answer is: do the same from right to left.
 However a cleverer idea is: reverse the string and reuse the code!
 
+
+```cpp
+class Solution {
+private:
+    void clearInvalidParentheses(vector<string> &result,
+                                 const string & s,
+                                 const int last_remove_pos,
+                                 const int pos,
+                                 const char open_char,
+                                 const char close_char,
+                                 const bool is_reversed) {
+        // Here we know that for string s,
+        // [0, pos - 1] should have same open/close parentheses.
+        int open_parenthesis(0);
+        for (int i = pos; i < s.size(); ++i) {
+            if (s[i] == open_char) {
+                ++ open_parenthesis;
+            } else if (s[i] == close_char) {
+                -- open_parenthesis;
+            }
+            
+            if (open_parenthesis == -1) { 
+                // Right now during the segment [last_remove_pos, pos],
+                // we have need to remove one ')'.
+                // For example, "()())" here our pos is 4, and we can remove one ')'
+                // at index 1, 3, 4. However, remove 3 or 4 will generate duplicates.
+                // Therefore, for consecutive )) we only remove the first one.
+                for (int j = last_remove_pos; j <= i; ++j) {
+                    if (s[j] == close_char && (j == last_remove_pos || s[j - 1] != close_char)) {
+                        clearInvalidParentheses(result, s.substr(0, j) + s.substr(j + 1), j, i, open_char, close_char, is_reversed);
+                    }
+                }
+                
+                // Here we have tried to remove all the possible invalid parenthesis.
+                return;
+            }
+        }
+        // We reach here when we have complete removing invalid parentheses from one direction.
+        // It could be from left to right, or from right to left.
+        if (!is_reversed) {
+            // We just cleaned invalid ')' from left to right.
+            // Let's reverse the string and clean from right to left.
+            string reversed_str(s.rbegin(), s.rend());
+            clearInvalidParentheses(result, reversed_str, 0, 0, close_char, open_char, true);
+        } else {
+            // We complet our job of cleaning from right to left.
+            // Now reverse the string and add to final result.
+            result.emplace_back(string(s.rbegin(), s.rend()));
+        }
+       
+    }
+public:
+    vector<string> removeInvalidParentheses(string s) {
+        vector<string> result;
+        clearInvalidParentheses(result, s, 0, 0, '(', ')', false);
+        return result;
+    }
+};
+```
+
+A different style.
+
 ```cpp
 class Solution {
 private:
