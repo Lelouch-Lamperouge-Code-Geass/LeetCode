@@ -25,6 +25,10 @@ The subarray sum reminds me the range sum problem. Preprocess the input array su
 
 Note that the numbers in the range sum can be an arbitrary vector with 0/positive/negative numbers, this is because the original vector is arbitrary vector too. 
 
+Once we have the range_sum vector, the brute-force solution is to choose every pair indexes <i, j> and check whether the range_sum[j] - range_sum[i] is equals to k, and choose the pair with maximum difference.
+
+However, we can use a HashMap to do some space–time tradeoff here. It is quite similar to Two-Sum problem, the only difference is that instead of choosing two numbers whose sum is equal to k, we need to find two numbers whose difference is equal to k and their indexes difference is the biggest.
+
 
 * sum[i] means the sum from 0 to i inclusively   
 * the sum from i to j is sum[j] - sum[i - 1] except that from 0 to j is sum[j]  
