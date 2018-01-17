@@ -8,7 +8,7 @@ Note:
 
 # Solution
   
-###### A wrong attemp, not meet second requirement.
+##### A wrong attemp, not meet second requirement.
 
   This solution doesn't meet the second requirement "Minimize the total number of operations", because there are a lot of swaps here.
   
