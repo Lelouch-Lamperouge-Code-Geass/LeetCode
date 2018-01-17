@@ -8,7 +8,7 @@ Note:
 
 # Solution
   
-### Solution one, not meet second requirement.
+###### A wrong attemp, not meet second requirement.
 
   This solution doesn't meet the second requirement "Minimize the total number of operations", because there are a lot of swaps here.
   
@@ -29,27 +29,7 @@ public:
 };
 ```
 
-__Use std::size_t instead of int.__
-
-```cpp
-class Solution {
-public:
-    void moveZeroes(vector<int>& nums) {
-        std::size_t MINUS_ONE(-1);
-        std::size_t exclusive_begin(MINUS_ONE), inclusive_end(0);
-        const std::size_t nums_size(nums.size());
-        while (inclusive_end < nums_size) {
-            if (0 != nums[inclusive_end]) {
-                exclusive_begin = (exclusive_begin == MINUS_ONE ? 0 : exclusive_begin + 1);
-                std::swap(nums[exclusive_begin], nums[inclusive_end]);
-            }
-            ++ inclusive_end;
-        }
-    }
-};
-```
-
-### Solution two : a better solution
+### The right solution
 
 ```cpp
 class Solution {
