@@ -54,7 +54,8 @@ public:
                 if (row < row_size 
                     && col < col_size 
                     && rooms[row][col] > rooms[r][c] + 1) {
-                    // rooms[row][col] > rooms[r][c] + 1 guarantees that we won't visit the box we already visited
+                    // rooms[row][col] > rooms[r][c] + 1 guarantees that 
+                    // we won't visit the box we already visited
                     // as well as avoid unnecessary re-calculations
                     rooms[row][col]  = rooms[r][c] + 1;
                     bfs_queue.emplace(row, col);
@@ -88,8 +89,9 @@ private:
              std::size_t col,
              int distance) {
         const std::size_t row_size(rooms.size()), col_size(rooms[0].size());
-        
-        if (row >= row_size || col >= col_size || rooms[row][col] < distance) return;
+        // Note here since gate is 0 and obstacle is -1,
+        // their values determine that we will be blocked once we meet them.
+        if (row >= row_size || col >= col_size || rooms[row][col] <= distance) return;
         rooms[row][col] = distance;
         DFS(rooms, row - 1, col, distance + 1);
         DFS(rooms, row + 1, col, distance + 1);
@@ -97,4 +99,47 @@ private:
         DFS(rooms, row, col + 1, distance + 1);
     }
 };
+```
+
+A different style.
+
+```cpp
+class Solution {
+private:
+    static  int EMPTY_ROOM;
+    static  int GATE;
+    static  int OBSTACLE;
+    void travelWithDFS(vector<vector<int>> &rooms,
+                       int row,
+                       int col,
+                       const int distance) {
+        
+        static vector<pair<int,int>> moves = {{1,0}, {-1, 0}, {0, 1}, {0, -1}};
+        const int row_size = rooms.size(), col_size = rooms[0].size();
+        rooms[row][col] = std::min(rooms[row][col], distance);
+        for (const pair<int, int> &move : moves) {
+            int next_row = row + move.first, next_col = col + move.second;
+            if (next_row < 0 || next_row >= row_size
+               || next_col < 0 || next_col >= col_size) continue;
+            if (rooms[next_row][next_col] == OBSTACLE
+               || rooms[next_row][next_col] == GATE) continue;
+            if (rooms[next_row][next_col] <= distance + 1) continue;
+            travelWithDFS(rooms, next_row, next_col, distance + 1);
+        }
+    }
+public:
+    void wallsAndGates(vector<vector<int>>& rooms) {
+        for (int row = 0, row_size = rooms.size(); row < row_size; ++row) {
+            for (int col = 0, col_size = rooms[0].size(); col < col_size; ++col) {
+                if (rooms[row][col] == GATE) {
+                    travelWithDFS(rooms, row, col, 0);
+                }
+            }
+        }
+    }
+};
+
+int Solution::EMPTY_ROOM = INT_MAX;
+int Solution::GATE = 0;
+int Solution::OBSTACLE = -1;
 ```
