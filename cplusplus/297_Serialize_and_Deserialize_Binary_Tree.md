@@ -136,3 +136,16 @@ public:
 // Codec codec;
 // codec.deserialize(codec.serialize(root));
 ```
+
+
+# Knowledge
+
+### What is serialization?
+
+In computer science, in the context of data storage, __serialization__ is the process of translating data structures or object state into a format that can be stored (for example, in a file or memory buffer) or transmitted (for example, across a network connection link) and reconstructed later (possibly in a different computer environment). When the resulting series of bits is reread according to the serialization format, it can be used to create a semantically identical clone of the original object. For many complex objects, such as those that make extensive use of references, this process is not straightforward. Serialization of object-oriented objects does not include any of their associated methods with which they were previously linked.
+
+This process of serializing an object is also called __marshalling__ an object. The opposite operation, extracting a data structure from a series of bytes, is __deserialization__ (which is also called __unmarshalling__).
+
+### Why use serialization?
+
+If you have a data structure that you need to store on disk or transfer across a network, serialization is a good solution. The disk or network know how to store or transfer data, but they don't understand the way a particular language stores data. Serialization provides a standard process for a language or programming environment to translate its data structures into a standard format. If multiple languages agree on the format, serialization can even provide a way for otherwise incompatible systems to exchange data.
