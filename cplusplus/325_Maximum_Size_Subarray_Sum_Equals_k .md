@@ -57,3 +57,35 @@ public:
     }
 };
 ```
+
+A different style, same methology. Instead of storing <sum, index>, we store <sum, length>.
+
+```cpp
+class Solution {
+public:
+    int maxSubArrayLen(vector<int>& nums, int k) {
+        const int n = nums.size();
+        vector<int> range_sum(n + 1, 0);
+        for (int i = 0; i < n; ++i) {
+            range_sum[i + 1] = range_sum[i] + nums[i];
+        }
+        
+        int max_len(0);
+        unordered_map<int, int> found;  // value to length mapper
+        for (int len = 0; len <= n; ++len) {
+            if (range_sum[len] == k) {
+                max_len = len;
+            } else {
+                if (found.count(range_sum[len] - k)) {
+                    max_len = std::max(max_len, len - found[range_sum[len] - k]);
+                }
+            }
+            if (found.count(range_sum[len]) == 0) {
+                found[range_sum[len]] = len;
+            }
+        }
+        
+        return max_len;
+    }
+};
+```
