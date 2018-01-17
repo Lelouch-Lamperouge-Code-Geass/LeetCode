@@ -15,6 +15,13 @@ First, if person A knows person B, then B could be the candidate of being a cele
 Second, we check two things after we get this candidate. 1. If this candidate knows other person in the group, if the candidate knows anyone in the group, then the candidate is not celebrity, return -1; 2. if everyone knows this candidate, if anyone does not know the candidate, return -1;
 
 
+##### Special cases:
+
+```
+0 knows 1; 1 knows 0.
+```
+
+
 ```cpp
 // Forward declaration of the knows API.
 
