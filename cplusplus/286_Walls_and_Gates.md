@@ -25,6 +25,14 @@ After running your function, the 2D grid should be:
 
 # Solution
 
+It's quite obvious that we need to use BFS or DFS to solve this problem.
+
+Whenever we are using BFS or DFS, we should ask ourselves one question : how should we avoid visit the same spot twice? If we are not careful about handling this problem, we may end up with (1) infinite loop when we are visiting the same spot again and again (2) redundant calculations.
+
+As for this problem, if we find the distance value of a box is smaller than we can achieve in current traversal path, we should stop going forward because we already know thoses further calculations are useless.
+
+Besides, the value of gate(0) and obstacle(-1) gives us very good stop signs. 
+
 ### Solution one , BFS
 Push all gates into queue first. Then for each gate update its neighbor cells and push them to the queue.  
 Repeating above steps until there is nothing left in the queue.
