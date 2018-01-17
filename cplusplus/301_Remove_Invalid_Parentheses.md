@@ -27,6 +27,12 @@ The answer is: do the same from right to left.
 However a cleverer idea is: reverse the string and reuse the code!
 
 
+For example,
+
+Let's say after we remove invalid ')' from left to right, now we have more(or not less) '(' than ')'.
+
+If what we got is ```(()(()```, we should reverse it to ```)(()((```, and now we should treat ')' as the open parenthesis, '(' as the close parenthesis, and remove invalid '('. After this clean-up, we just reverse the string back and add it to final result.
+
 ```cpp
 class Solution {
 private:
