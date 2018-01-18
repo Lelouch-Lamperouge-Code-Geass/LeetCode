@@ -38,19 +38,17 @@ public:
         int reval(0);
         if (root) {
             if (root->left) {
-                TreeNode* left = root->left;
-                if (!left->left && !left->right) {
-                    reval += left->val;
-                } else {
-                    reval += sumOfLeftLeaves(root->left);
+                // Left child is a leaf node
+                if (!root->left->left && !root->left->right) {
+                    reval += root->left->val;
                 }
             }
             
+            reval += sumOfLeftLeaves(root->left);
             reval += sumOfLeftLeaves(root->right);
         }
         return reval;
     }
-
 };
 ```
 
@@ -59,41 +57,26 @@ public:
 Here for each node in the tree we check whether its left child is a leaf. If it is true, we add its value to answer, otherwise add left child to the stack to process it later. For right child we add it to stack only if it is not a leaf.
 
 ```cpp
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
 class Solution {
 public:
     int sumOfLeftLeaves(TreeNode* root) {
         if (!root) return 0;
+        
         int reval(0);
-        stack<TreeNode*> nodes;
+        queue<TreeNode*> nodes;
         nodes.push(root);
         while (!nodes.empty()) {
-            TreeNode* node = nodes.top();
+            root = nodes.front();
             nodes.pop();
-            if (node->left) {
-                TreeNode* left_child = node->left;
-                
-                if (!left_child->left && !left_child->right) {
-                    reval += left_child->val;
-                } else {
-                    nodes.push(left_child);
-                }
+            if (root->left 
+                && !root->left->left && !root->left->right) { // Left child is a leaf node
+                reval += root->left->val;
             }
-            
-            if (node->right) {
-                nodes.push(node->right);
-            }
+            if (root->left) nodes.push(root->left);
+            if (root->right) nodes.push(root->right);
         }
+        
         return reval;
     }
-
 };
 ```
