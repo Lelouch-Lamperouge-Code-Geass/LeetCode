@@ -154,3 +154,40 @@ public:
     }
 };
 ```
+
+### Top-down dynamic programming
+
+```cpp
+class Solution {
+private:
+    int numOfSubset(const vector<int>& nums, 
+                    const int sum,
+                    const int i, 
+                    unordered_map<string, int> &memoization) {
+        string hash_code = to_string(i) + "->" + to_string(sum);
+        if (memoization.count(hash_code)) {
+            return memoization[hash_code];
+        } else {
+            int reval = 0;
+            if (i >= 0) {
+                reval += numOfSubset(nums, sum, i - 1, memoization);
+                if (sum >= nums[i]) reval += numOfSubset(nums, sum - nums[i], i - 1, memoization);
+            } else { // i <= 0
+                if (sum == 0) ++ reval;
+            }
+            memoization[hash_code] = reval;
+            return reval;
+        }
+    }
+public:
+    int findTargetSumWays(vector<int>& nums, int S) {
+        int sum_of_nums = std::accumulate(nums.begin(), nums.end(), 0);
+        int total_sum = sum_of_nums + S;
+        
+        if (total_sum % 2 == 1) return 0;
+        
+         unordered_map<string, int> memoization;
+        return numOfSubset(nums, total_sum / 2, nums.size() - 1, memoization);
+    }
+};
+```
