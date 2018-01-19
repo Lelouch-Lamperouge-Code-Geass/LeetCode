@@ -38,6 +38,11 @@ Yet another example, sequence [0, 1, 1, 0, 1, 1, 1, 0], as shown below. The long
 
 ![alt](https://discuss.leetcode.com/assets/uploads/files/1487544408978-figure_3.png)
 
+
+
+
+__Note that for each value, we stores the leftmost index only.__
+
 ```cpp
 class Solution {
 public:
