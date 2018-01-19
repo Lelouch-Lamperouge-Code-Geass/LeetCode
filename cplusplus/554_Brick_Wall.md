@@ -30,31 +30,38 @@ Output: 2
 
 ##### My first naive solution, get MLE
 
+This solution fails for cases like:
+
+```
+[[2147483647]
+[2147483647]
+[2147483647]
+[2147483647]
+...
+]
+```
+
+The reason is that the max\_cells is depened on the wall width, which might be very big.
+
 ```cpp
 class Solution {
 public:
     int leastBricks(vector<vector<int>>& wall) {
-        const int width = std::accumulate(wall[0].begin(), wall[0].end(), 0);
+        const int total_layers(wall.size());
+        const int max_cells = std::accumulate(wall[0].begin(), wall[0].end(), 0);
+        vector<int> brick_count(max_cells, total_layers);
         
-        vector<int> bricks(width + 1, 0);
-        
-        for (const vector<int> &brick_layer : wall) {
-            // We assume that current layer has no vertical line at first.
-            vector<int> fill(width + 1, 1);
-            int cur_width(0);
-            for (int brick_width : brick_layer) {
-                cur_width += brick_width;
-                
-                // Be careful when reach edge, it should always be 1
-                if (cur_width != width) fill[cur_width] = 0;
-            }
-            
-            for (int i = 0; i <= width; ++i) {
-                bricks[i] += fill[i];
+        for (const vector<int> &wall_layer : wall) {
+            int len(0);
+            for (int cell_len : wall_layer) {
+                len += cell_len;
+                if (len != 0 && len != max_cells) {
+                    -- brick_count[len];
+                }
             }
         }
         
-        return *std::min_element(bricks.begin(), bricks.end());
+        return *std::min_element(brick_count.begin(), brick_count.end());
     }
 };
 ```
