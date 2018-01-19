@@ -19,7 +19,8 @@ logs =
 Output:[3, 4]
 Explanation:
 Function 0 starts at time 0, then it executes 2 units of time and reaches the end of time 1. 
-Now function 0 calls function 1, function 1 starts at time 2, executes 4 units of time and end at time 5.
+Now function 0 calls function 1, function 1 starts at time 2, 
+executes 4 units of time and end at time 5.
 Function 0 is running again at time 6, and also end at the time 6, thus executes 1 unit of time. 
 So function 0 totally execute 2 + 1 = 3 units of time, and function 1 totally execute 4 units of time.
 ```
@@ -56,52 +57,6 @@ So whenever we see an end, we have to make sure to subtract our curr_length to w
 
 is also a valid input, because function can call itself recursively.
 
-```cpp
-class Solution {
-public:
-    vector<int> exclusiveTime(int n, vector<string>& logs) {
-        // Stores the running time of each function
-        vector<int> running_time_of_func(n, 0);
-        
-        // Whenever a new function begin to run, push its id to stack
-        stack<int> func_ids;
-        
-        // Beginning timestamp of current time-slice(quantum).
-        int begin_timestamp_of_curr_quantum(0);
-        
-        for (const string &log_line : logs) {
-            size_t pos_of_first_colon = log_line.find_first_of(':');
-            int func_id = std::stoi( log_line.substr(0, pos_of_first_colon) );
-            
-            size_t pos_of_second_colon = log_line.find_first_of(':', pos_of_first_colon + 1);
-            string func_type = log_line.substr(pos_of_first_colon + 1, 
-                                               pos_of_second_colon - pos_of_first_colon - 1);
-            
-            int timestamp = std::stoi( log_line.substr(pos_of_second_colon + 1) );
-            
-            if (func_type == "start") {
-                if (!func_ids.empty()) {
-                    running_time_of_func[func_ids.top()] += timestamp - begin_timestamp_of_curr_quantum;
-                }
-                func_ids.push(func_id);
-                begin_timestamp_of_curr_quantum = timestamp;
-            } else { // func_type == "end"
-                running_time_of_func[func_ids.top()] += timestamp + 1 - begin_timestamp_of_curr_quantum;
-                func_ids.pop();
-                
-                // Note here next quantum begins after current timestamp
-                begin_timestamp_of_curr_quantum = timestamp + 1;
-            }
-            
-            
-        }
-        
-        return running_time_of_func;
-    }
-};
-```
-
-Let's refactor above code a little bit to make it better. 
 
 ```cpp
 class Solution {
@@ -155,6 +110,51 @@ public:
         }
         
         return running_time_of_func;
+    }
+};
+```
+
+A different style.
+
+```cpp
+class Solution {
+private:
+    vector<string> parseLogEntry(const string &str) {
+        vector<string> reval;
+        istringstream iss(str);
+        string temp("");
+        
+        while (std::getline(iss, temp, ':')) {
+            reval.emplace_back(temp);
+        }
+        
+        return reval;
+    }
+public:
+    vector<int> exclusiveTime(int n, vector<string>& logs) {
+        vector<int> reval(n, 0);
+        
+        stack<int> func_ids;
+        int quantum_start(0);
+        for (const string &log_entry : logs) {
+            const vector<string> &entry_items = parseLogEntry(log_entry);
+            const int func_id = std::stoi(entry_items[0]);
+            const string &status = entry_items[1];
+            const int timestamp = std::stoi(entry_items[2]);
+            if (status == "end") {
+                reval[func_ids.top()] += timestamp + 1 - quantum_start;
+                func_ids.pop();
+                quantum_start = timestamp + 1;
+            } else { // "start"
+                if (!func_ids.empty()) {
+                    reval[func_ids.top()] += timestamp - quantum_start;
+                    quantum_start = timestamp;
+                }
+                func_ids.push(func_id);
+            }
+        }
+        
+        return reval;
     }
 };
 ```
