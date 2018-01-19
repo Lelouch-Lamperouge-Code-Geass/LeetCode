@@ -18,7 +18,8 @@ Also, since the answer may be very large, you should return the output mod 10^9 
 ```
 Input: "*"
 Output: 9
-Explanation: The encoded message can be decoded to the string: "A", "B", "C", "D", "E", "F", "G", "H", "I".
+Explanation: The encoded message can be decoded to the string: 
+"A", "B", "C", "D", "E", "F", "G", "H", "I".
 ```
 
 ##### Example 2:
@@ -98,7 +99,8 @@ public:
         
         // pre_end_with_any referes to previous strings which end with any char,
         // it will not be used to pair with following chars. pre_end_with_one refers to
-        // number of previous strings which end with an open '1', it is used only to pair with following chars.
+        // number of previous strings which end with an open '1', 
+        // it is used only to pair with following chars.
         // Same as pre_end_with_two.
         long pre_end_with_any(1), pre_end_with_one(0), pre_end_with_two(0);
         
