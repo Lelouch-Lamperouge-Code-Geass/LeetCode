@@ -47,6 +47,9 @@ Some test cases:
 [0], 0 -> false;
 [5, 2, 4], 5 -> false;
 [0, 0], 100 -> true;
+[0,0], 0  -> true;
+[0], 0 -> false;
+[23,2,6,4,7] , 0 -> false
 ```
 
 ```cpp
