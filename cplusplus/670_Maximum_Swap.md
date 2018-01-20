@@ -63,7 +63,7 @@ public:
 
 ### Solution two
 
-We only need to record a position array (pos[i]) which represent the largest number index form the i position.
+We only need to record a position array (pos[i]) which represent the largest number index from the i position.
 
 For instance,
 
@@ -84,7 +84,7 @@ pos 0 1 2 4 4
 input[pos] 5 4 3 2 2
 ```
 
-Note that using largest_digit_behind[i] != i won't work here, e.g 98368 => 98368,  1993 => 9193.
+Note that using largest\_digit\_behind[i] != i won't work here, e.g 98368 => 98368,  1993 => 9193.
 
 If for same digit, we record the rightmost.
 
