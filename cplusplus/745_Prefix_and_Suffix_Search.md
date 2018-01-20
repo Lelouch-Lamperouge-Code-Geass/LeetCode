@@ -38,7 +38,8 @@ public:
         for (int i = 0, n = words.size(); i < n; ++i) {
             for (int prefix_len = 0; prefix_len <= words[i].size(); ++prefix_len){
                 for (int suffix_len = 0; suffix_len <= words[i].size(); ++suffix_len) {
-                    string hash = words[i].substr(0, prefix_len) + '#' + words[i].substr(words[i].size() - suffix_len);
+                    string hash = words[i].substr(0, prefix_len) 
+                                  + '#' + words[i].substr(words[i].size() - suffix_len);
                     m_hashmap[hash] = i; // Always store the bigger weight
                 }
             }
