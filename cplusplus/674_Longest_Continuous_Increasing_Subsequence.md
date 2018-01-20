@@ -6,7 +6,8 @@ Given an unsorted array of integers, find the length of longest __continuous__ i
 Input: [1,3,5,4,7]
 Output: 3
 Explanation: The longest continuous increasing subsequence is [1,3,5], its length is 3. 
-Even though [1,3,5,7] is also an increasing subsequence, it's not a continuous one where 5 and 7 are separated by 4.
+Even though [1,3,5,7] is also an increasing subsequence, 
+    it's not a continuous one where 5 and 7 are separated by 4.
 ```
 
 ##### Example 2:
@@ -21,7 +22,7 @@ __Note__: Length of the array will not exceed 10,000.
 
 # Solution
 
-Before we begin to solve this problem, let's recall what's subarray, subsequence, substring. Substring is in general if not all cases, continuous. But consecutivity is not implied for subarray and subsequence. Therefore, you need always ask for clarification from interviwer about consecutivity.
+Before we begin to solve this problem, let's recall what's subarray, subsequence, substring. Substring and subarray is in general continuous. But consecutivity is not implied for subsequence. Therefore, you need always ask for clarification from interviwer about consecutivity.
 
 Now, let's solve this problem.
 
