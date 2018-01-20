@@ -41,7 +41,7 @@ cnt[k+1] = sum(cnt[i]) for all i <= k and nums[i] < nums[k+1] and len[i] = len[k
 
 Starting case and default case: cnt[0] = len[0] = 1;
 
-__Time complexity is O(N).__
+__Time complexity is O(N ^ 2), space complexity is O(N).__
 
 ```cpp
 class Solution {
