@@ -22,6 +22,8 @@ Note: Length of the given array will be not exceed 2000 and the answer is guaran
 
 # Solution
 
+If we know the length of longest increasing subsenquence end with index i, and the count of same length LIS end with index i. Then we know the max LIS length  of the whole array. And the we can add all the LIS with the same length together.
+
 The solution is based on DP.
 
 ```
