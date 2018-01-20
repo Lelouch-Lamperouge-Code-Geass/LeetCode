@@ -24,9 +24,9 @@ WordFilter.f("b", "") // returns -1
 We knows that each word has maximum length 10, so we can use a naive solution : use the combinations of every prefixes and every suffixes as a HashKey, and for words have the same HashKey, only stores the highest index(weight).
 
 
-__Time complexity and space complexity are both O(NumberOfWords * LengthOfWord ^ 2).__
+__Space complexity is O(NumberOfWords * LengthOfWord ^ 2).__
 
-The downside is that it cost a lot of memory, and initialization is time-consuming. The good thing is that the fetch function will only cost O(1).
+The time complexity of initializtion is also O(NumberOfWords * LengthOfWord ^ 2). The good thing is that the fetch function will only cost O(1).
 
 ```cpp
 class WordFilter {
@@ -59,7 +59,7 @@ public:
  * WordFilter obj = new WordFilter(words);
  * int param_1 = obj.f(prefix,suffix);
  */
- ``
+```
  
 ### Solution two
  
