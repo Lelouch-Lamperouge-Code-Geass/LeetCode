@@ -32,6 +32,10 @@ In short, if we have chars in private buffer, read them to output buffer first. 
 int read4(char *buf);
 
 class Solution {
+private:
+    char m_buf[4]; // Private buffer
+    int m_buf_pos = 0; // Index of private buffer
+    int m_buf_count = 0; // How many chars need to be read from private buffer
 public:
     /**
      * @param buf Destination buffer
@@ -39,30 +43,28 @@ public:
      * @return    The number of characters read
      */
     int read(char *buf, int n) {
-        int count(0);
+        int reval(0);
         
-        while (count < n) {
-            // Read into private buffer
-            if (m_pos == 0) {
-                m_buff_count = read4(m_buff);
+        while (reval < n) {
+            // Chars in private buffer have been all read.
+            // Time to read file!
+            if (m_buf_pos >= m_buf_count) {
+                m_buf_pos = 0;
+                m_buf_count = read4(m_buf);
             }
             
-            if (m_buff_count == 0) break;
-
+            // No chars left in file!
+            if (m_buf_count == 0) break;
+            
             // Read from private buffer to output buffer.
-            while (count < n && m_pos < m_buff_count) {
-                *buf = m_buff[m_pos];
-                ++ buf, ++ m_pos, ++ count;
+            while (reval < n && m_buf_pos < m_buf_count) {
+                *buf = m_buf[m_buf_pos];
+                ++ buf, ++ m_buf_pos;
+                ++ reval;
             }
-            
-            if (m_pos >= m_buff_count) m_pos = 0;
         }
         
-        return count;
+        return reval;
     }
-private:
-    int m_pos = 0;
-    int m_buff_count = 0;
-    char m_buff[4];
 };
 ```
