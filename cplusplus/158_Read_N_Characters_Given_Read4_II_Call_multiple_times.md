@@ -27,6 +27,8 @@ Therefore, we maintain a private buffer, and we need to read from file whenever 
 
 In short, if we have chars in private buffer, read them to output buffer first. Otherwise, read from file and put chars to private buffer. Therefore, we read chars from file to private buffer, and read chars from private buffer to output buffer.
 
+__Note that read4 function will read chars into the buffer, but since the pointer is copied by value, it won't actually increase the buffer pointer's address. In this solution, our private buffer's address won't change at all, but we need increas pointer ```buf```.__
+
 ```cpp
 // Forward declaration of the read4 API.
 int read4(char *buf);
