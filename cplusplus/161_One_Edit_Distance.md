@@ -58,6 +58,33 @@ void UnitTest() {
 
  ```
  
+ A different style.
+ 
+ ```cpp
+ class Solution {
+public:
+    bool isOneEditDistance(string s, string t) {
+        const int commen_len = std::min(s.size(), t.size());
+        
+        for (int i(0); i < commen_len; ++i) {
+            if (s[i] != t[i]) {
+                if (s.size() == t.size()) {
+                    return s.substr(i + 1) == t.substr(i + 1);
+                } else if (s.size() < t.size()) {
+                    return s.substr(i) == t.substr(i + 1);
+                } else {
+                    return s.substr(i + 1) == t.substr(i);
+                }
+            }
+        }
+        // Not here we have to cast them both to be int type.
+	// Otherwise they will be treated as size_t, which may overflow
+	// when using shorter length minus longer length.
+        return std::abs((int)s.size() - (int)t.size()) == 1;
+    }
+};
+```
+ 
  ### Solution 2
  
  ```cpp
