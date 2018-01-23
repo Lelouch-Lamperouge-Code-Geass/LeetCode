@@ -87,12 +87,12 @@
 410 Split Array Largest Sum 32.0% Hard
 461 Hamming Distance 73.0% Easy
 477 Total Hamming Distance 44.8% Medium
-494     Target Sum    43.4%Medium
-523     Continuous Subarray Sum 23.1%   Medium
-525     Contiguous Array   40.4%Medium
-534     Design TinyURL  0.0%    Medium
-535     Encode and Decode TinyURL       74.2%   Medium
-543     Diameter of Binary Tree   44.4% Easy
+494 Target Sum    43.4%Medium
+523 Continuous Subarray Sum 23.1%   Medium
+525 Contiguous Array   40.4%Medium
+534 Design TinyURL  0.0%    Medium
+535 Encode and Decode TinyURL       74.2%   Medium
+543 Diameter of Binary Tree   44.4% Easy
 554     Brick Wall  45.7%       Medium
 572     Subtree of Another Tree       40.8%     Easy
 578     Get Highest Answer Rate Question28.2%   Medium
