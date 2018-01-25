@@ -171,84 +171,68 @@ int minArea(const std::vector< std::vector<char> > & image,
                                                         
 ### Solution two
 
-We can combine some functions which have similar code into one function. However, I would say this is optional since the merged code is not a clear as solution one.
+We can combine some functions which have similar code into one function. 
 
 ```cpp
-#include <iostream>
-#include <vector>
-
-int SearchColumn(const std::vector< std::vector<char> > & image,
-                 int begin_row,
-                 int end_row,
-                 int begin_column,
-                 int end_column,
-                 bool search_left_most) {
-  while (begin_column < end_column) {
-    int row(begin_row), mid_column = begin_column + (end_column - begin_column) / 2;
-    while (row <= end_row && image[row][mid_column] == '0') ++ row;
-
-    if (search_left_most) {
-      if (row > end_row) {
-        begin_column = mid_column + 1;
-      } else {
-        end_column = mid_column;
-      }
-      return begin_column;
-    } else {
-      if (row > end_row) {
-        end_column = mid_column;
-      } else {
-        begin_column = mid_column + 1;
-      }
-      return end_column - 1;
+class Solution {
+private:
+    int searchColumn(const vector<vector<char>>& image,
+                     const int begin_row,
+                     const int end_row,
+                     int begin_column,
+                     int end_column,
+                     const bool not_reversed) {
+        while (begin_column != end_column) {
+            int col = begin_column + (end_column - begin_column) / 2;
+            int row(begin_row);
+            while (row < end_row && image[row][col] == '0') ++row;
+            bool has_one = (row < end_row);
+            // The invariant here is keeping first '1'-column
+            // within range [begin_column, end_column]
+            if (has_one == not_reversed) {
+                end_column = col;
+            } else {
+                begin_column = col + 1;
+            }
+        }
+        // We reach here when begin_column == end_column
+        return begin_column;
     }
-  }
-}
-
-int SearchRow(const std::vector< std::vector<char> > & image,
-                 int begin_row,
-                 int end_row,
-                 int begin_column,
-                 int end_column,
-                 bool search_top_most) {
-  while (begin_row < end_row) {
-    int col(begin_column), mid_row = begin_row + (end_row - begin_row) / 2;
-    while (col <= end_column && image[mid_row][col] == '0') ++ col;
-    if (col > end_column && search_top_most) {
-      begin_row = mid_row + 1;
-    } else {
-      end_row = mid_row;
+    
+    int searchRow(const vector<vector<char>>& image,
+                  int begin_row,
+                  int end_row,
+                  const int begin_column,
+                  const int end_column,
+                  const bool not_reversed) {
+        while (begin_row != end_row) {
+            int row = begin_row + (end_row - begin_row) / 2;
+            int col(begin_column);
+            while (col < end_column && image[row][col] == '0') ++col;
+            bool has_one = (col < end_column);
+            // The invariant here is keeping first '1'-row
+            // within range [begin_row, row]
+            if (has_one == not_reversed) {
+                end_row = row;
+            } else {
+                begin_row = row + 1;
+            }
+        }
+        // We reach here when begin_row == end_row
+        return begin_row;
     }
-  }
-
-  return begin_row;
-}
-
-// Thus the algorithm runs in O(m log n + n log m)
-int minArea(const std::vector< std::vector<char> > & image,
-            int x, int y) {
-  if (image.empty()) return 0;
-  const int row_size(image.size()), col_size(image[0].size());
-  int left_most_column = SearchColumn(image, 0, row_size - 1, 0, y, true);
-  int right_most_column = SearchColumn(image, 0, row_size - 1, y, col_size - 1, false);
-  int top_most_row = SearchRow(image, 0, x, left_most_column, right_most_column, true);
-  int bottom_most_row = SearchRow(image, x, row_size - 1, left_most_column, right_most_column, false);
-  std::cout << left_most_column << ',' << right_most_column << std::endl;
-  std::cout << top_most_row << ',' << bottom_most_row << std::endl;
-  return (right_most_column - left_most_column + 1) * (bottom_most_row - top_most_row + 1);
-}
-
-
-int main() {
-  std::vector< std::vector<char> > image = {
-    {'0','0','1','0'},
-    {'0','1','1','0'},
-    {'0','1','0','0'}
-  };
-  std::cout << minArea(image, 2, 1) << std::endl;
-  return 0;
-}
-
+    
+                             
+public:
+    int minArea(vector<vector<char>>& image, int x, int y) {
+        const int row_size(image.size()), col_size(image[0].size());
+        int start_col = searchColumn(image, 0, row_size, 0, y, true);
+        int end_col = searchColumn(image, 0, row_size, y, col_size, false);
+        int start_row = searchRow(image, 0, x, start_col, end_col, true);
+        int end_row = searchRow(image, x, row_size, start_col, end_col, false);
+        return (end_col - start_col) * (end_row - start_row);
+    }
+};
 ```
 
 
