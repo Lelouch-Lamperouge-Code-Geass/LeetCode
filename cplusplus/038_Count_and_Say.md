@@ -68,6 +68,38 @@ public:
 };
 ```
 
+We can ust ostringstream instead of string here.
+
+```cpp
+class Solution {
+public:
+    string countAndSay(int n) {
+        if (n <= 0) return "";
+        string reval("1");
+        -- n;
+        ostringstream oss;
+        while (n-- > 0) {
+            char cur_char(reval[0]);
+            int count(1);
+            for (int i = 1, len = reval.size(); i < len; ++i) {
+                if (reval[i] != cur_char) {
+                    oss << count << cur_char;
+                    cur_char = reval[i];
+                    count = 1;
+                } else {
+                    ++ count;
+                }
+            }
+            oss << count << cur_char; // Don't forget last part
+            
+            reval = oss .str();
+            oss.str(""); // Reset the oss to be empty
+        }
+        return reval;
+    }
+};
+```
+
 # knowledge
 
 ### Run-length encoding
