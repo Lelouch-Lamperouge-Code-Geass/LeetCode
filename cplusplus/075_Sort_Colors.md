@@ -20,6 +20,13 @@ Could you come up with an one-pass algorithm using only constant space?
 [blue, ] represents blue colors 
 ```
 
+And the process chart looks similar to this.
+
+```
+     R            W           B 
+0000001111111111111xxxxxxxxxxx2222222222
+```
+
 The pitfall is that we can't move i forward if it's value is 0 or 2. And it is possible that after swap(nums[i], nums[--blue]), nums[i] is still 2 or 0. 
  
 ```cpp
