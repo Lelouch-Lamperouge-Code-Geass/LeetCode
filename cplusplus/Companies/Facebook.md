@@ -16,7 +16,7 @@ https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/015_3Sum.md)
 
 #### 17 Letter Combinations of a Phone Number
 
-(https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/017_Letter_Combinations_of_a_Phone_Number.md)
+https://github.com/YangLiuNYU/LeetCode/blob/master/cplusplus/017_Letter_Combinations_of_a_Phone_Number.md
 
 #### 20 Valid Parentheses
 
