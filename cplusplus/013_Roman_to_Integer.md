@@ -4,9 +4,14 @@ Input is guaranteed to be within the range from 1 to 3999.
 
 # Solution
 
-* https://en.wikipedia.org/wiki/Roman_numerals
+https://en.wikipedia.org/wiki/Roman\_numerals
 
-We start from the end of string, if the char is smaller than next char, minus it, otherwise add it.
+
+
+
+### Solution one
+
+We start from the end of string, if number on current char is smaller than number on next char, minus it, otherwise add it.
  
 __Time complexity is O(n), and space complexity is O(1).__
   
@@ -22,6 +27,46 @@ public:
       } else {
         reval += RomanCharToInteger(s[i]);
       }
+    }
+    return reval;
+  }
+private:
+  int RomanCharToInteger(char c) {
+    switch (c) {
+    case 'I' : return 1;
+    case 'V' : return 5;
+    case 'X' : return 10;
+    case 'L' : return 50;
+    case 'C' : return 100;
+    case 'D' : return 500;
+    case 'M' : return 1000;
+    default : return 0;
+    }
+  }
+};
+```
+
+### Solution two
+
+Start from left to right, add each number and also record previous number.
+
+If we ever meet a number which is larger than previous number, that means we need to minus ```2 * previous\_number```.
+
+__Time complexity is O(n), and space complexity is O(1).__
+  
+
+```cpp
+class Solution {
+public:
+  int romanToInt(string s) {
+    int reval(0);
+    int pre_number(0);
+    for (int i = 0, n = s.size();i < n; ++i) {
+        if (i > 0 && RomanCharToInteger(s[i]) > RomanCharToInteger(s[i - 1])) {
+            reval -= 2 * pre_number; 
+        }
+        reval += RomanCharToInteger(s[i]);
+        pre_number = RomanCharToInteger(s[i]);
     }
     return reval;
   }
