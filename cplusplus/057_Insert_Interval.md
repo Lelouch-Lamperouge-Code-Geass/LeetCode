@@ -18,6 +18,12 @@ This is because the new interval [4,9] overlaps with [3,5],[6,7],[8,10].
 
 # Solution
 
+Note that here the existing intervals are non-overlapping, so all we need to consider is how to add the new interval.
+
+If the existing intervals are overlapping, the solution will be different.
+
+You need pay attention to this kind of detail before dive into solving the problem.
+
 ```cpp
 
 /**
