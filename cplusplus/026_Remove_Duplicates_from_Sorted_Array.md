@@ -9,6 +9,8 @@ Your function should return length = 2, with the first two elements of nums bein
 
 # Solution
 
+The basic idea is, we use ```unique_index``` represents the the current index of "unique array". And then we iterate nums, and since nums is sorted, we can check each number with its previous number to see whether it is a duplicate one. If not we just put it into ```nums[unique_index++]```. One interesting fact is that the gap between ```unique_index``` and ```i``` are area which is safe to overwrite, and the gap difference is how many duplicates we have meet so far. 
+
 ### Solution one
 
 ```cpp
