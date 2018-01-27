@@ -17,6 +17,7 @@ Near the very end, closest step, before while loop, left = mid = right.
 
 1. If we use mid * mid == x to check, what if mid * mid causes overflow?
 2. If we use mi == x / mid to check, we should avoid mid is zero.
+3. When x == 1, x / 2 == 0.
 
 ```cpp
 class Solution {
