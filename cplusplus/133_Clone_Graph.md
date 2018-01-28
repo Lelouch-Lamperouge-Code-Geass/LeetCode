@@ -37,7 +37,9 @@ __Note: we also need be careful about cycle and self-cycle.__
 
 ### Solution with BFS
 
-Instantiation clone node and push to queue. Clone edges for popped node.
+For each node, if its clone doesn't exist, that means we have not process this node before. Therefore we push it into BFS queue and also create its clone node. And when we pop a node out of BFS queue, we process its clone's edgesd.
+
+In short, clone node before push original node into queue. Process the edges when pop original node out of the queue.
 
 Time complexity  O(|V|+|E|), space complexity  O(|V|+|E|).
 
@@ -73,6 +75,7 @@ public:
 
 ### Solution with DFS
 
+Every function call on the DFS function, we create a clone node for a node and also clones its edges.
 
 ```cpp
 class Solution {
