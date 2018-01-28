@@ -68,3 +68,39 @@ private:
     }
 };
 ```
+
+Different style.
+
+```cpp
+class Solution {
+private:
+    char MARK = '#'; 
+    bool searchWithDFS(vector<vector<char>> &board, 
+                       const string &word, int row, int col, int pos) {
+        if (pos == word.size()) return true;
+        const int row_size = board.size(), col_size = board[0].size();
+        if (row < 0 || col < 0 || row >= row_size || col >= col_size) return false;
+        if (board[row][col] == MARK || board[row][col] != word[pos]) return false;
+        const char save_char = board[row][col];
+        board[row][col] = MARK;
+        bool found_word = searchWithDFS(board, word, row - 1, col, pos + 1)
+                        || searchWithDFS(board, word, row + 1, col, pos + 1)
+                        || searchWithDFS(board, word, row, col - 1, pos + 1)
+                        || searchWithDFS(board, word, row, col + 1, pos + 1);
+        board[row][col] = save_char; // Revert back
+        return found_word;
+    }
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        const int row_size = board.size(), col_size = board[0].size();
+        for (int i = 0; i < row_size; ++i) {
+            for (int j = 0; j < col_size; ++j) {
+                if (word[0] == board[i][j] && searchWithDFS(board, word, i, j, 0)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+};
+```
