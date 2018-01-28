@@ -12,11 +12,19 @@ For example, given the following matrix:
 Return 6.
   
 # Solution
+
+It is very easy to calculate the height of any matrix cell. If we have the leftmost and rightmost index which set a range [leftmost, rightmost] and all the index within this range has a height not less than current height, then we can get the largest rectangle contains current grid cell. 
+
+The problems become how can we find such leftmost and rightmost index in an efficent way?
+
+Let's image we are at matrix[i][j], and current height is H. And we scan with H from index i to index 0, then the leftmost is limited by the first 0 we encountered during this scan.
+
+So it is safe to say, the leftmost on this grid cell is restrainted by all the '0' on the leftside of the vertical line with current height. To simply put, the first '0' we meet if we scan to left with current height. And same for rightmost.
   
 ### Solution one
 
 The DP solution proceeds row by row, starting from the first row. 
-Let the maximal rectangle area at row i and column j be computed by [right(i,j) - left(i,j)]*height(i,j).
+Let the maximal rectangle area at row i and column j be computed by ```[right(i,j) - left(i,j)]*height(i,j)```.
 All the 3 variables left, right, and height can be determined by the information from previous row, 
 and also information from the current row. So it can be regarded as a DP solution. The transition equations are:
 
@@ -71,87 +79,6 @@ Calculate height[i] is easy, if we think of scanning the matrix layer by layer, 
 
 How about left[i] and right[i] ? Taking calculating left[i] as an example, we can use a variable ```left_most``` to represents the left most index of consecutive '1' including current char at index i. If ```left_most <= left[i]```, then the consecitive '1' at left side of index i (including index i) is not shorter than the previous row, so left[i] won't change; however, if ```left_most > left[i]```, then the consecitive '1' at left side of index i (including index i) is shorter than the previous row, this looks like "has a hole in the wall".
 
-```cpp
-class Solution {
-public:
-    int maximalRectangle(vector<vector<char>>& matrix) {
-        if(matrix.empty()) return 0;
-        
-        const std::size_t row_size(matrix.size()), col_size(matrix[0].size());
-        vector<std::size_t> left(col_size, 0), right(col_size, col_size-1), height(col_size, 0);
-        
-        std::size_t max_area(0);
-        for (std::size_t row = 0; row < row_size; ++row) {
-            // calculate height on each cell
-            calculateHeight(matrix, row, height);
-            
-            // for each height, calculate the leftmost index including that height
-            calculateLeftmost(matrix, row, left);
-            
-            // for each height, calculate the rightmost index including that height
-            calculateRightmost(matrix, row, right);
-            
-            for (std::size_t col = 0; col < col_size; ++col) {
-                max_area = std::max(max_area, (right[col] + 1 - left[col]) * height[col]);
-            }
-        }
-        
-        return max_area;
-    }
-    
-private:
-    void calculateHeight(const vector<vector<char>> &matrix, 
-                         const std::size_t row,
-                         vector<std::size_t> & height) {
-        const std::size_t col_size = matrix[0].size();
-        for (std::size_t col = 0; col < col_size; ++col) {
-            if (matrix[row][col] == '1') {
-                ++ height[col];
-            } else {
-                height[col] = 0;
-            }
-        }
-    }
-    
-    void calculateLeftmost(const vector<vector<char>> &matrix, 
-                            const std::size_t row,
-                            vector<std::size_t> & left) {
-        const std::size_t col_size = matrix[0].size();
-        std::size_t leftmost(0);
-        for (std::size_t col = 0; col < col_size; ++col) {
-            if (matrix[row][col] == '1') {
-                left[col] = std::max(left[col], leftmost);
-            } else {
-                // matrix[row][col] == '0'
-                // current height will be marked as 0
-                // therefore, the leftmost including current height(0) is 0
-                left[col] = 0;
-                leftmost = col + 1;
-            }
-        }    
-    }
-    
-    void calculateRightmost(const vector<vector<char>> &matrix, 
-                            const std::size_t row,
-                            vector<std::size_t> & right) {
-        const std::size_t col_size = matrix[0].size();
-        std::size_t rightmost(col_size - 1);
-        for (std::size_t col = col_size; col-- > 0; ) {
-            if (matrix[row][col] == '1') {
-                right[col] = std::min(right[col], rightmost);
-            } else {
-                // matrix[row][col] == '0'
-                // current height will be marked as 0
-                // therefore, the rightmost including current height(0) is col_size -1 
-                right[col] = col_size - 1;
-                rightmost = col > 0 ? col - 1 : 0;
-            }
-        }    
-    }
-};
-```
-
-A more concise version.
 
 ```cpp
 class Solution {
@@ -189,6 +116,47 @@ public:
                 
                 int cur_height = height[i] * (right[i] + 1 - left[i]);
                 reval = std::max(reval, cur_height);
+            }
+        }
+        
+        return reval;
+    }
+};
+```
+
+A different style.
+
+```cpp
+class Solution {
+public:
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        if (matrix.empty()) return 0;
+        const int col_size = matrix[0].size();
+        vector<int> height(col_size, 0), left(col_size, 0), right(col_size, col_size - 1);
+        int reval(0);
+        for (const vector<char> &row : matrix) {
+            int left_with_cur_height(0);
+            for (int i = 0; i < col_size; ++i) {
+                if (row[i] == '1') {
+                    ++ height[i];
+                    left[i] = std::max(left[i], left_with_cur_height);
+                } else {
+                    height[i] = 0;
+                    left[i] = 0;
+                    left_with_cur_height = i + 1;
+                }
+            }
+            
+            int right_with_cur_height(col_size - 1);
+            for (int i = col_size - 1; i >= 0; --i) {
+                if (height[i] != 0) {
+                    right[i] = std::min(right[i], right_with_cur_height);
+                } else {
+                    right[i] = col_size - 1;
+                    right_with_cur_height = i - 1;
+                }
+                
+                reval = std::max(reval, height[i] * (right[i] + 1 - left[i]));
             }
         }
         
