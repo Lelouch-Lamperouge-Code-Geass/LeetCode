@@ -101,20 +101,19 @@ A different style.
 class Solution {
 public:
     int numDecodings(string s) {
-        if (s.empty() || s[0] == '0') return 0;
+        if (s.empty()) return 0;
         int pre_any(1), pre_open_one(0), pre_open_two(0);
-        int cur_any(0), cur_open_one(0), cur_open_two(0);
         for (char c : s) {
-            cur_any = c == '0' ? pre_open_one + pre_open_two 
-                                : pre_any + pre_open_one + (c <= '6' ? pre_open_two : 0);
-            cur_open_one = c == '1' ? pre_any : 0;
-            cur_open_two = c == '2' ? pre_any : 0;
+            int cur_any = (c != '0' ? 1 : 0) * pre_any
+                         + 1 * pre_open_one
+                         + (c >= '0' && c <= '6' ? 1 : 0) * pre_open_two;
+            int cur_open_one = (c == '1'? 1 : 0) * pre_any;
+            int cur_open_two = (c == '2'? 1 : 0) * pre_any;
             
             pre_any = cur_any;
             pre_open_one = cur_open_one;
             pre_open_two = cur_open_two;
         }
-        
         return pre_any;
     }
 };
