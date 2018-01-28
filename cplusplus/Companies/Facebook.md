@@ -138,3 +138,23 @@ https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/121_Best_Time_to_Buy_and_Sell_Stock.md
 
+#### 125. Valid Palindrome
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/125_Valid_Palindrome.md
+
+#### 127. Word Ladder
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/127_Word_Ladder.md
+
+#### 128. Longest Consecutive Sequence
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/128_Longest_Consecutive_Sequence.md
+
+#### 133. Clone Graph
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/133_Clone_Graph.md
+
+#### 139. Word Break
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/139_Word_Break.md
+
