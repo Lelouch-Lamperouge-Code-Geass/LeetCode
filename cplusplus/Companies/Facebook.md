@@ -62,7 +62,7 @@ https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/050_Pow.md
 
-### 56. Merge Intervals
+#### 56. Merge Intervals
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/056_Merge_Intervals.md
 
