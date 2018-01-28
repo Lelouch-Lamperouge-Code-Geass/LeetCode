@@ -28,79 +28,14 @@ The problem can be solved with a hashtable that keeps track of the keys and its 
 The the cache reaches its capacity, we need evict the least recently used item out. We need to pop the oldest item out of the list and also erase the corresponding entry in the HashMap. Therefore, we must store key in the list, while value can be storeed in the list or the HashMap.
 
 ##### Solution  one
-```cpp
-class LRUCache {
-private:
-    std::list<std::pair<int,int>> m_items;
-    typedef std::list<std::pair<int,int>>::iterator ListPosition;
-    std::unordered_map<int, ListPosition> m_mapper;
-    int m_capacity;
-public:
-    LRUCache(int capacity) : m_capacity(capacity) {
-        
-    }
-    
-    int get(int key) {
-        int reval(-1);
-        if (m_mapper.count(key) > 0) {
-            reval = m_mapper[key]->second;
-            erase_item_by_key(key); // erase if exispt
-            add_item(key, reval); // add to begin of LRU
-        }
-        
-        return reval;
-    }
-    
-    void put(int key, int value) {
-        if (m_items.size() == m_capacity && m_mapper.count(key) == 0) {
-            // reach capacity and this is a new item,
-            // delete the least recently used item
-            evict_lru_item();
-        }
-        erase_item_by_key(key);
-        add_item(key, value);
-    }
-    
-private:
-    void erase_item_by_key(int key) {
-        if (m_mapper.count(key) > 0) {
-            ListPosition list_position = m_mapper[key];
-            m_items.erase(list_position);
-            m_mapper.erase(key);
-        }
-    }
-    
-    void add_item(int key, int value) {
-        m_items.push_front(std::make_pair(key, value));
-        m_mapper[key] = m_items.begin();
-    }
-    
-    void evict_lru_item() {
-        if (!m_items.empty()) {
-            erase_item_by_key(m_items.back().first);
-        }
-    }
-};
-```
-
-A different style.
 
 ```cpp
 class LRUCache {
 private:
-    typedef std::list<pair<int, int>>::iterator ListPos;
-    std::list<pair<int, int>> m_list;
-    std::unordered_map<int, ListPos> m_mapper;
+    std::list<int> m_keys;
+    typedef std::list<int>::iterator ListPos;
+    std::unordered_map<int, pair<int, ListPos>> m_mapper;
     int m_capacity;
-    void acccessExistedItemByKey(int key) {
-        if (m_mapper.count(key)) {
-            ListPos list_pos = m_mapper[key];
-            const int value = list_pos->second;
-            m_list.erase(list_pos);
-            m_list.push_front(make_pair(key,value));
-            m_mapper[key] = m_list.begin();
-        }
-    }
 public:
     LRUCache(int capacity) : m_capacity(capacity){
         
@@ -110,27 +45,37 @@ public:
         if (!m_mapper.count(key)) {
             return -1;
         } else {
-            acccessExistedItemByKey(key);
-            return m_mapper[key]->second;
+            ListPos list_pos = m_mapper[key].second;
+            m_keys.erase(list_pos);
+            m_keys.push_front(key);
+            m_mapper[key].second = m_keys.begin();
+            return m_mapper[key].first;
         }
     }
     
     void put(int key, int value) {
         if (m_mapper.count(key)) {
-            acccessExistedItemByKey(key);
-            m_mapper[key]->second = value;
+            get(key);
+            m_mapper[key].first = value;
         } else {
-            if (m_list.size() == m_capacity) {
-                int delete_key = m_list.back().first;
-                m_list.pop_back();
+            if (m_keys.size() == m_capacity) {
+                int delete_key = m_keys.back();
+                m_keys.pop_back();
                 m_mapper.erase(delete_key);
+
             }
-            m_list.push_front(make_pair(key, value));
-            m_mapper[key] = m_list.begin();
+            m_keys.push_front(key);
+            m_mapper[key] = std::make_pair(value, m_keys.begin());
         }
     }
 };
 
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
  ```
 
 ##### Solution two : a more generic solution with template.
