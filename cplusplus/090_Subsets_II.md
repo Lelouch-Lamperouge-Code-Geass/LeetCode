@@ -95,9 +95,9 @@ If you are saying "3 nodes begin with 1, 2 nodes begin with 2, 2 nodes begin wit
 
 Therefore, the children of our root node should be "1 node begin with 1, 1 node begin with 2, 1 node begin with 3, and 1 node begin with 4". For each tree node in this potential search tree, it can't have two children which have the same value! And you will notice that for the iterative part in below solution.
 
-On each node, we try to choose following numbers as its children. However, if one child is identified to have the same value as its previous sibling, ignore this child. This "choose children" is the iterative part. For each child, we add it to the temp result, and keep doing the same thing. This is the recursive part, which is DFS.
+On each node, we try to choose following numbers as its children. However, if one child is identified to have the same value as its previous sibling, ignore this child. This "choose children" is the iterative part. For each child, we add it to the temp result, and keep doing the same thing. This is the recursive part, which is DFS.__The key here is to make sure that each node's children are unique, which means the outward extending branch should not have same value.__
 
-Since on each node, we have a unique path to move to one of its children, then the results are guaranteed to have no duplicates.
+__Since on each node, we have a unique path to move to one of its children, then the results are guaranteed to have no duplicates. Each node represents an item in the final result. And we can use the path from root node to current node as its hash which is guranteed to be unique.__
 
 When we reach a node, we add the ```temp``` into our final result immediately. Basically, we are "adding a tree node", and we can say that each tree node represents a result.
 
