@@ -70,3 +70,47 @@ public:
     }
 };
 ```
+
+Same methodology, different style.
+
+```cpp
+// Forward declaration of the read4 API.
+int read4(char *buf);
+
+class Solution {
+private:
+    char m_buf[4];
+    int m_buf_pos = 0;
+    int m_end_of_buf = 0;
+public:
+    /**
+     * @param buf Destination buffer
+     * @param n   Maximum number of characters to read
+     * @return    The number of characters read
+     */
+    int read(char *buf, int n) {
+        int to_read(n);
+        bool end_of_file(false);
+        while (to_read > 0) {
+            // If private buffer has chars, read from it.
+            while (m_buf_pos != m_end_of_buf && to_read > 0) {
+                *buf = m_buf[m_buf_pos];
+                ++ buf, ++m_buf_pos, -- to_read;
+            }
+            
+            if (end_of_file) break; // No chars left in file
+            
+            // Only read from file when private buffer's chars
+            // have been all read.
+            if (m_buf_pos == m_end_of_buf) {
+                m_buf_pos = m_end_of_buf = 0;
+                int num_of_chars = read4(m_buf);
+                end_of_file = num_of_chars < 4 ? true : false;
+                m_end_of_buf += num_of_chars;
+            }
+        }
+        
+        return n - to_read;
+    }
+};
+```
