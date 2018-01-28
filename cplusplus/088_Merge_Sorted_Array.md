@@ -10,15 +10,64 @@ __You need confirm with interviewer that m + n is within integer range.__
 Note the in below code we merge backwards from i = m + n + 1 to i = 0, not merge forwards from i = 0 to i = m + n + 1.
 The reason is that former will not override the numbers in nums1 that are not allocated yet.
 
+For example,
+
+```
+nums1 : 1, 4, 5, _, _
+nums2 : 2, 3
+```
+
+Write 5. 
+
+```
+nums1 : 1, 4, 5, _, 5
+nums2 : 2, 3
+```
+
+Write 4.
+
+```
+nums1 : 1, 4, 5, 4, 5
+nums2 : 2, 3
+```
+
+Write 3.
+
+```
+nums1 : 1, 4, 3, 4, 5
+nums2 : 2, 3
+```
+Write 2.
+
+```
+nums1 : 1, 2, 3, 4, 5
+nums2 : 2, 3
+```
+
+Write 1.
+
+```
+nums1 : 1, 2, 3, 4, 5
+nums2 : 2, 3
+```
+
 ```cpp
 class Solution {
 public:
     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
-        int i1(m-1),i2(n-1);
-        for (int i=m+n-1;i>=0;--i) {
-            if(i2<0) nums1[i] = nums1[i1--];
-            else if(i1<0) nums1[i] =nums2[i2--];
-            else nums1[i] = nums1[i1] > nums2[i2] ? nums1[i1--] : nums2[i2--]; 
+        int index1(m - 1), index2(n - 1);
+        for (int i = m + n - 1; i >= 0; --i) {
+            if (index1 < 0) {
+                nums1[i] = nums2[index2--];
+            } else if (index2 < 0) {
+                nums1[i] = nums1[index1--];
+            } else {
+                if (nums1[index1] > nums2[index2]) {
+                    nums1[i] = nums1[index1--];
+                } else {
+                    nums1[i] = nums2[index2--];
+                }
+            }
         }
     }
 };
