@@ -67,36 +67,44 @@ In this solution, we use a queue and push nodes into the queue level by level.
 But how can we know where is the the begin of a new level? For that, we add a null node to mark the end of each level.
 
 ```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
 class Solution {
 public:
     vector<vector<int>> levelOrder(TreeNode* root) {
-        vector< vector<int> > reVal;
-        if(!root)
-            return reVal;
-        queue<TreeNode*> myQueue;
-        vector<int> curLevel;
-        myQueue.push(root);
-        myQueue.push(nullptr);//push nullptr as a mark of level end
-        TreeNode *curNode(nullptr);
-        while(!myQueue.empty() )
-        {
-            curNode = myQueue.front();
-            myQueue.pop();
-            if(!curNode)//NULL node, level end
-            {
-                reVal.push_back(curLevel);
-                curLevel.clear();
-                if(!myQueue.empty())
-                    myQueue.push(nullptr);//add mark 
-            }
-            else
-            {
-                curLevel.push_back(curNode->val);
-                if(curNode->left) myQueue.push(curNode->left);
-                if(curNode->right) myQueue.push(curNode->right);
+        vector<vector<int>> reval;
+        if (!root) return reval;
+        queue<TreeNode*> nodes;
+        nodes.push(root);
+        nodes.push(nullptr); // mark end of this level
+        TreeNode *cur_node(nullptr);
+        reval.emplace_back(vector<int>());
+        while (!nodes.empty()) {
+            cur_node = nodes.front();
+            nodes.pop();
+            if (cur_node) {
+                reval.back().emplace_back(cur_node->val);
+                if (cur_node->left) nodes.push(cur_node->left);
+                if (cur_node->right) nodes.push(cur_node->right);
+            } else { 
+                // cur_node is nullptr, this is the end of this level
+                // Let's also add a nullptr to mark the end of next level
+                // and a new vector for the elements in next level. 
+                // But we need to make sure there are nodes in next level at first.
+                if (!nodes.empty()) {
+                    nodes.push(nullptr);
+                    reval.emplace_back(vector<int>());
+                }
             }
         }
-        return reVal;
+        return reval;
     }
 };
 ```
