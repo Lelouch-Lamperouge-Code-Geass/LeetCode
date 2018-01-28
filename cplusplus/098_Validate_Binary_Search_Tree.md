@@ -82,6 +82,9 @@ private:
 
 ### Solution two
 
+* When curr is not nullptr, we are going downward to left and pushing nodes into stack.  
+* When curr is null, we take node out of the stack.   
+
 ```cpp
 class Solution {
 public:
