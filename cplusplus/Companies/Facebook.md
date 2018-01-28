@@ -118,3 +118,23 @@ https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/090_Subsets_II.md
 
+#### 91. Decode Ways
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/091_Decode_Ways.md
+
+#### 98. Validate Binary Search Tree
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/098_Validate_Binary_Search_Tree.md
+
+#### 102. Binary Tree Level Order Traversal
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/102_Binary_Tree_Level_Order_Traversal.md
+
+#### 117. Populating Next Right Pointers in Each Node II
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/117_Populating_Next_Right_Pointers_in_Each_Node_II.md
+
+#### 121. Best Time to Buy and Sell Stock
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/121_Best_Time_to_Buy_and_Sell_Stock.md
+
