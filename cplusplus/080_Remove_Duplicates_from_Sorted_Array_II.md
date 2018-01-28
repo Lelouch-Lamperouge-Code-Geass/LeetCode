@@ -40,16 +40,21 @@ public:
 
 ### Solution two
 
-I actually don't like this solution, since it is not straightforwad, and it is hard to be adjusted to  "duplicates are allowed at most K times".
+The key here is that the numbers are sorted. Therefore, as long as we can make sure current number is larger than nums[len - 2], we can add it there.
 
-__Note here we compare each number with nums[i-2].__
+__Note here we compare each number with nums[len-2].__
 
 ```cpp
-int removeDuplicates(vector<int>& nums) {
-    int i = 0;
-    for (int n : nums)
-        if (i < 2 || n > nums[i-2])
-            nums[i++] = n;
-    return i;
-}
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int len(0);
+        for (int num : nums) {
+            if (len < 2 || num > nums[len - 2]) {
+                nums[len ++ ] = num;
+            }
+        }
+        return len;
+    }
+};
 ```
