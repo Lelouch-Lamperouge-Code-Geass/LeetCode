@@ -10,7 +10,7 @@ Your algorithm should run in O(n) complexity.
 
 If we ignore the time complexity, we may want to use a sorting algorithm, which in general has O(nlogn) time complexty.
 
-However, this problem requires a O(n) time/space complexity algorithm.
+However, this problem requires a O(n) time/space complexity.
 
 We do have O(n) sorting algorithm:
 
@@ -32,7 +32,7 @@ Whenever a new element n is inserted into the map, do two things:
 
 Note that since only the two ends of each interval get updated everytime, therefore the value in the middle may not have the updated new length.
 
-The value in the middle is meaningless AFTER the left and right boundaries are added in the map. But this does not mean the middle value should not be included. Here is the explanation: although the boundaries and corresponding length to the other ends are maintained in the algorithm, we don't know whether it is LEFT or RIGHT by just looking at the single key-value pair. For example, a pair whose key = 10 and value = 3 can represent two possible intervals: [8, 10] or [10, 12]. Thanks to the middle values in the map, only one interval is possible by checking if map contains n, n-1 and n+1.
+If mapper[num] indeed return a length of sequence, how can we know it is the sequence ends or starts here? We can just check whether ```num + 1``` and ```num - 1``` exists in the mapper or not.
 
 And also note that we should avoid checking the duplicate numbers.
 
