@@ -112,6 +112,51 @@ int findRoot(int idx) {
 }
 ```
 
+A different style.
+
+```cpp
+class Solution {
+private:
+    int findRoot(vector<int> &roots, int id) {
+        while (id != roots[id]) {
+            id = roots[id] = roots[roots[id]]; // Path compression
+        }
+        return id;
+    }
+public:
+    vector<int> numIslands2(int m, int n, vector<pair<int, int>>& positions) {
+        static vector<pair<int, int>> dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        vector<int> roots(m * n, -1); // -1 means it is water
+        
+        vector<int> reval;
+        int land(0);
+        for (const pair<int, int> &pos : positions) {
+            int id_of_pos = pos.first * n + pos.second;
+            roots[id_of_pos] = id_of_pos; // Make it a land 
+            ++ land; 
+            for (const pair<int, int> &dir : dirs) {
+                int i = pos.first + dir.first;
+                int j = pos.second + dir.second;
+                int id = i * n + j;
+                
+                // Valid range and it is not water area
+                if (i >= 0 && i < m && j >= 0 && j < n
+                   && roots[id] != -1) {
+                    int neighbor_root =  findRoot(roots, id);
+                    int cur_root = findRoot(roots, id_of_pos);
+                    if (neighbor_root != cur_root) {
+                        roots[neighbor_root] = roots[cur_root]; // Join together
+                        -- land;
+                    }
+                }
+            }
+            reval.emplace_back(land);
+        }
+        return reval;
+    }
+};
+```
+
 # Summary
 
 To find the number of connected components. We can use:
