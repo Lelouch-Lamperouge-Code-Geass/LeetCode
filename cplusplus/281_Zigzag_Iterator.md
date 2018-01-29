@@ -23,6 +23,8 @@ It should return [1,4,8,2,5,9,3,6,7].
 
 Uses a linkedlist to store the iterators in different vectors. Every time we call next(), we pop an element from the list, and re-add it to the end to cycle through the lists.
 
+####  Use queue
+
 ```cpp
 
 class ZigzagIterator {
@@ -51,3 +53,42 @@ private:
 };
 
 ```
+
+####  Use list
+
+```cpp
+class ZigzagIterator {
+private:
+    typedef vector<int>::iterator VecIter;
+    list<pair<VecIter, VecIter>> m_iter_pairs;
+    
+public:
+    ZigzagIterator(vector<int>& v1, vector<int>& v2) {
+        if (!v1.empty())
+        m_iter_pairs.emplace_back(make_pair(v1.begin(), v1.end()));
+        if (!v2.empty())
+        m_iter_pairs.emplace_back(make_pair(v2.begin(), v2.end()));
+    }
+
+    int next() {
+        pair<VecIter, VecIter> cur_pair = m_iter_pairs.front();
+        m_iter_pairs.pop_front();
+        int reval = *(cur_pair.first);
+        ++ cur_pair.first;
+        if (cur_pair.first != cur_pair.second) {
+            m_iter_pairs.push_back(cur_pair);
+        }
+        return reval;
+    }
+
+    bool hasNext() {
+        return !m_iter_pairs.empty();
+    }
+};
+
+/**
+ * Your ZigzagIterator object will be instantiated and called as such:
+ * ZigzagIterator i(v1, v2);
+ * while (i.hasNext()) cout << i.next();
+ */
+ ```
