@@ -25,6 +25,16 @@ You may assume that all words are consist of lowercase letters a-z.
 
 We begin with root TrieNode, if we find a corresponding child node that can match current char, move to that node.
 
+Note that since on each node, we are seeking the child to match str[pos], that means current node has been matched. This means str[pos] represents the next char we need to match. And for current node, pos actually can be seen as the length of matched string so far.
+
+For example, 
+
+```
+pos : 0,   1, 2, 3
+     root->T->E->A
+```     
+
+here when we reach node A, pos is 3 which is the length of word "TEA".
 
 
 ```
