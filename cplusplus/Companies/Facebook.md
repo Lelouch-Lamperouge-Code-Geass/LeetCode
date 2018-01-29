@@ -158,3 +158,51 @@ https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/139_Word_Break.md
 
+#### 146. LRU Cache
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/146_LRU_Cache.md
+
+#### 157. Read N Characters Given Read4
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/157_Read_N_Characters_Given_Read4.md
+
+#### 158. Read N Characters Given Read4 II - Call multiple times
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/158_Read_N_Characters_Given_Read4_II_Call_multiple_times.md
+
+#### 161. One Edit Distance
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/161_One_Edit_Distance.md
+
+#### 168. Excel Sheet Column Title
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/168_Excel_Sheet_Column_Title.md
+
+#### 173. Binary Search Tree Iterator
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/173_Binary_Search_Tree_Iterator.md
+
+#### 200. Number of Islands
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/200_Number_of_Islands.md
+
+#### 206. Reverse Linked List
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/206_Reverse_Linked_List.md
+
+#### 208. Implement Trie (Prefix Tree)
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/208_Implement_Trie.md
+
+#### 210. Course Schedule II
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/210_Course_Schedule_II.md
+
+#### 211. Add and Search Word - Data structure design
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/211_Add_and_Search_Word.md
+
+#### 215. Kth Largest Element in an Array
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/215_kth_largest_element_in_an_array.md
+
