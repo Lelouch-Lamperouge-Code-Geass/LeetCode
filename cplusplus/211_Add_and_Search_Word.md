@@ -25,7 +25,7 @@ You may assume that all words are consist of lowercase letters a-z.
 
 We begin with root TrieNode, if we find a corresponding child node that can match current char, move to that node.
 
-__Note that in below implementaion, when we reach a node, the pos's value is actually the 
+
 
 ```
                       root
