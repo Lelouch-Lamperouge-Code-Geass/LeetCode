@@ -20,16 +20,15 @@ The idea is quite straightforward: just traverse s and each time when we see two
 class Solution {
 public:
     vector<string> generatePossibleNextMoves(string s) {
-        vector<string> moves;
-        int n = s.length();
-        for (int i = 0; i < n - 1; i++) {
-            if (s[i] == '+' && s[i + 1] == '+') { 
+        vector<string> result;
+        for (int i = 0, n = s.size(); i + 2 <= n; ++i) {
+            if (s[i] == '+' && s[i + 1] == '+') {
                 s[i] = s[i + 1] = '-';
-                moves.push_back(s);
-                s[i] = s[i + 1] = '+';
+                result.emplace_back(s);
+                s[i] = s[i + 1] = '+'; // revert back
             }
         }
-        return moves;
+        return result;
     }
 };
 ```
