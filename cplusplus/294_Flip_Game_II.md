@@ -16,17 +16,17 @@ For the time complexity, here is what I thought, let's say the length of the inp
 class Solution {
 public:
     bool canWin(string s) {
-        for (std::size_t i = 0, n = s.size(); i + 1 < n; ++i) {
-            if (s[i] == '+' && s[i+1] == '+') { // Can flip
-                string next_s(s);
-                next_s[i] = next_s[i+1] = '-';
-                if (!canWin(next_s)) {
-                    return true;
+        bool can_win(false);
+        for (int i = 0, n = s.size(); i + 2 <= n && !can_win; ++i) {
+            if (s[i] == '+' && s[i + 1] == '+') {
+                s[i] = s[i + 1] = '-';
+                if (!canWin(s)) {
+                    can_win = true;
                 }
+                s[i] = s[i + 1] = '+'; // revert back
             }
         }
-        
-        return false;
+        return can_win;
     }
 };
 ```
@@ -37,25 +37,25 @@ If we use HashMap to memorize both win string & lose string, we can further redu
 class Solution {
 public:
     bool canWin(string s) {
-         // Since the rule won't change here, we can use a static HashMap
-        static std::unordered_map<std::string, bool> memoization_table;
-        if (memoization_table.count(s) != 0) {
-            return memoization_table[s];
-        }
+        // Since the rule won't change here, we can use a static HashMap
+        static unordered_map<string, bool> memoization;
         
-        for (std::size_t i = 0, n = s.size(); i + 1 < n; ++i) {
-            if (s[i] == '+' && s[i+1] == '+') { // Can flip
-                string next_s(s);
-                next_s[i] = next_s[i+1] = '-';
-                if (!canWin(next_s)) {
-                    memoization_table[s] = true;
-                    return true;
+        if (memoization.count(s)) {
+            return memoization[s];
+        } else {
+            bool can_win(false);
+            for (int i = 0, n = s.size(); i + 2 <= n && !can_win; ++i) {
+                if (s[i] == '+' && s[i + 1] == '+') {
+                    s[i] = s[i + 1] = '-';
+                    if (!canWin(s)) {
+                        can_win = true;
+                    }
+                    s[i] = s[i + 1] = '+'; // revert back
                 }
             }
+            memoization[s] = can_win;
+            return can_win;
         }
-        
-        memoization_table[s] = false;
-        return false;
     }
 };
 ```
