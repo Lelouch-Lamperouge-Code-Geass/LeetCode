@@ -28,39 +28,55 @@ There will be at least one building. If it is not possible to build such house a
 I also tested the other three C++ solutions posted so far, they took 340-1812 ms. I think mine is faster because I don't use a fresh "visited" for each BFS. Instead, I walk only onto the cells that were reachable from all previous buildings. From the first building I only walk onto cells where grid is 0, and make them -1. From the second building I only walk onto cells where grid is -1, and I make them -2. And so on.
 
 ```cpp
-int shortestDistance(vector<vector<int>> grid) {
-    int m = grid.size(), n = grid[0].size();
-    auto total = grid;
-    int walk = 0, mindist, delta[] = {0, 1, 0, -1, 0};
-    for (int i=0; i<m; ++i) {
-        for (int j=0; j<n; ++j) {
-            if (grid[i][j] == 1) {
-                mindist = -1;
-                auto dist = grid;
-                queue<pair<int, int>> q;
-                q.emplace(i, j);
-                while (q.size()) {
-                    auto ij = q.front();
-                    q.pop();
-                    for (int d=0; d<4; ++d) {
-                        int i = ij.first + delta[d];
-                        int j = ij.second + delta[d+1];
-                        if (i >= 0 && i < m && j >= 0 && j < n && grid[i][j] == walk) {
-                            grid[i][j]--;
-                            dist[i][j] = dist[ij.first][ij.second] + 1;
-                            total[i][j] += dist[i][j] - 1;
-                            q.emplace(i, j);
-                            if (mindist < 0 || mindist > total[i][j])
-                                mindist = total[i][j];
+class Solution {
+public:
+    int shortestDistance(vector<vector<int>> grid) {
+        static vector<pair<int, int>> moves = {
+            {1, 0}, {-1, 0}, {0, 1}, {0, -1}  
+        };
+        const int row_size = grid.size(), col_size = grid[0].size();
+        vector<vector<int>> total = grid;
+        
+        // Here we make return value -1 by default, just in case
+        // no empty land can reach all building.
+        int  reval(-1), empty_land(0);
+        for (int row = 0; row < row_size; ++row) {
+            for (int col = 0; col < col_size; ++col) {
+                // BFS
+                if (grid[row][col] == 1) {
+                    // Whenever we meet a new building, we reset reval
+                    // to be -1. As long as one empty building can reach
+                    // the new building, we set it to be positive.
+                    reval = -1;
+                    
+                    vector<vector<int>> dist = grid; // Distance
+                    queue<pair<int, int>> bfs_queue;
+                    bfs_queue.emplace(row, col);
+                    while (!bfs_queue.empty()) {
+                        auto cur_cell = bfs_queue.front();
+                        bfs_queue.pop();
+                        for (const pair<int, int> &move : moves) {
+                            int i = cur_cell.first + move.first;
+                            int j = cur_cell.second + move.second;
+                            if (i >= 0 && i < row_size && j >= 0 && j < col_size && grid[i][j] == empty_land) {
+                                --grid[i][j]; // make it as the searchable empty land for next BFS
+                                dist[i][j] = dist[cur_cell.first][cur_cell.second] + 1;
+                                total[i][j] += dist[i][j] - 1;
+                                bfs_queue.emplace(i, j);
+                                if (reval == -1 || reval > total[i][j]) {
+                                    reval = total[i][j];
+                                }
+                            }
                         }
                     }
+                    // For next building, we use a different int to represent empty land.
+                    -- empty_land; 
                 }
-                walk--;
             }
         }
+        return reval;
     }
-    return mindist;
-}
+};
 ```
 
 
