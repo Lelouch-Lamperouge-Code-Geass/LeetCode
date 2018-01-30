@@ -78,59 +78,77 @@ Finally, we can traverse the ```final_distance[][]``` matrix to get the point ha
 The total time complexity will be ```O(m^2*n^2)```, which is quite high!. 
 
 ```cpp
-// Notice here grid and distance are passed by value.
-// That's because wee need store the BFS information for each building.
-void markWithBFS(vector<vector<int>> grid,
-                 vector<vector<int>> distance,
-                 vector<vector<int>> &final_distance,
-                 vector<vector<int>> &reach,
-                 std::size_t row,
-                 std::size_t col) {
-  static vector<pair<int,int>> moves = {{1,0},{-1,0},{0,1},{0,-1}};
-  const std::size_t row_size(grid.size()), col_size(grid[0].size());
-  std::queue<pair<int,int>> positions;
-  positions.push(make_pair(row, col));
-  grid[row][col] = 2;
-  while (!positions.empty()) {
-    pair<int,int> cur_pos = positions.front();
-    positions.pop();
-    for (const pair<int, int> &move : moves) {
-      int r = cur_pos.first + move.first, c = cur_pos.second + move.second;
-      if (r < row_size && c < col_size && 0 == grid[r][c]) {
-        distance[r][c] = distance[cur_pos.first][cur_pos.second] + 1;
-        final_distance[r][c] += distance[r][c];
-        ++ reach[r][c];
-        grid[r][c] = 2; // We mark the cell as visited with '2'
-        positions.push(make_pair(r, c));
-      }
+class Solution {
+private:
+    void bfsFromBuilding(const vector<vector<int>>& grid,
+                         vector<vector<int>> &total_distance,
+                         vector<vector<int>> &distance,
+                         vector<vector<bool>> &visited,
+                         vector<vector<int>>  &reach,
+                         int row, 
+                         int col) {
+        static vector<pair<int, int>> moves = {
+            {1, 0}, {-1, 0}, {0, 1}, {0, -1}  
+        };
+        const int row_size = distance.size(), col_size = distance[0].size();
+        queue<pair<int, int>> nodes;
+        nodes.push(make_pair(row, col));
+        visited[row][col] = true;
+        while (!nodes.empty()) {
+            pair<int, int> cur_node = nodes.front();
+            nodes.pop();
+            for (const auto &move : moves) {
+                int next_row = cur_node.first + move.first;
+                int next_col = cur_node.second + move.second;
+                
+                // We need make sure range is valid.
+                // And we also only push node into queue
+                // when the expecting distance is smaller.
+                // This is an effective way to avoid re-visit
+                // as well we unnecessary visit.
+                if (next_row >= 0 && next_row < row_size
+                    && next_col >= 0 && next_col < col_size
+                    && !visited[next_row][next_col]
+                    && grid[next_row][next_col] == 0) {
+                    visited[next_row][next_col] = true;
+                    nodes.push(make_pair(next_row, next_col));
+                    distance[next_row][next_col] = distance[cur_node.first][cur_node.second] + 1;
+                    total_distance[next_row][next_col] += distance[next_row][next_col];
+                    ++ reach[next_row][next_col];
+                }
+            }
+        }
     }
-  }
-}
+public:
+    int shortestDistance(vector<vector<int>>& grid) {
+        const int row_size = grid.size(), col_size = grid[0].size();
+        
+        vector<vector<int>> total_distance(row_size, vector<int>(col_size, 0));
+        vector<vector<int>> distance(row_size, vector<int>(col_size, 0));
+        vector<vector<int>> reach(row_size, vector<int>(col_size, 0));
 
-int shortestDistance(vector<vector<int>> grid) {
-  const std::size_t row_size(grid.size()), col_size(grid[0].size());
-  vector<vector<int>> distance(row_size, vector<int>(col_size, 0)), reach(row_size, vector<int>(col_size, 0));
-  vector<vector<int>> final_distance = distance;
-  int total_building(0);
-  for (std::size_t row = 0; row < row_size; ++ row) {
-    for (std::size_t col = 0; col < col_size; ++col) {
-      if (1 == grid[row][col]) { // building
-        ++ total_building;
-        markWithBFS(grid, distance, final_distance, reach, row, col);
-      }
+        int total_building(0);
+        for (int row = 0; row < row_size; ++row) {
+            for (int col = 0; col < col_size; ++col) {
+                if (grid[row][col] == 1) {
+                    ++ total_building;
+                    vector<vector<int>> cur_distance = distance;
+                    vector<vector<bool>> visited(row_size, vector<bool>(col_size, false));
+                    bfsFromBuilding(grid, total_distance, cur_distance, visited, reach, row, col);
+                }
+            }
+        }
+        
+        int reval(INT_MAX);
+        for (int row = 0; row < row_size; ++row) {
+            for (int col = 0; col < col_size; ++col) {
+                if (grid[row][col] == 0 && reach[row][col] == total_building ) {
+                    reval = std::min(reval, total_distance[row][col]);
+                }
+            }
+        }
+        
+        return reval == INT_MAX ? -1 : reval;
     }
-  }
-
-  int reval(INT_MAX);
-  for (std::size_t row = 0; row < row_size; ++ row) {
-    for (std::size_t col = 0; col < col_size; ++col) {
-      if (0 == grid[row][col] && total_building == reach[row][col]) {
-        std::cout << final_distance[row][col] << ',';
-        reval = std::min(reval, final_distance[row][col]);
-      }
-    }
-    std::cout << endl;
-  }
-  return reval;
-}
+};
 ```
