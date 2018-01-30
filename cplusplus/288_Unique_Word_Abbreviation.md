@@ -28,6 +28,9 @@ isUnique("cane") -> false
 isUnique("make") -> true
 ```
 
+
+# Solution
+
 The description (A word's abbreviation is unique if no other word from the dictionary has the same abbreviation) 
 is clear however a bit twisting. It took me a few "Wrong Answer"s to finally understand what it's asking for.
 We are trying to search for a word in a dictionary. If this word (also this word’s abbreviation) 
@@ -47,7 +50,9 @@ EX:
 // this abbreviation will never be unique.
 ```
 
-# Solution
+To me, the most ridiculous part of the spec is that there may be duplicates in the given dictionary of words.
+
+Come on, it is called a dictionary!!!
 
 思路: 将字典中的单词按照缩写为key, 将具有相同缩写的放进一个hash表中. 当判断一个给定单词是否唯一的时候,可以先计算出其缩写, 然后去hash表中查, 如果hash表中这个缩写对应几个单词, 那么肯定是不唯一的, 如果只对应一个单词, 则看这个单词是不是我们要判断的单词, 如果是的话,则唯一, 否则不唯一. 如果这个缩写在hash表中没有对应单词, 那么肯定唯一了.
 
