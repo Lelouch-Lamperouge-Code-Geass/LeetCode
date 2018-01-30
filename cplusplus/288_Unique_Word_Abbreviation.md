@@ -51,6 +51,45 @@ EX:
 
 思路: 将字典中的单词按照缩写为key, 将具有相同缩写的放进一个hash表中. 当判断一个给定单词是否唯一的时候,可以先计算出其缩写, 然后去hash表中查, 如果hash表中这个缩写对应几个单词, 那么肯定是不唯一的, 如果只对应一个单词, 则看这个单词是不是我们要判断的单词, 如果是的话,则唯一, 否则不唯一. 如果这个缩写在hash表中没有对应单词, 那么肯定唯一了.
 
+There are two cases that satisfies unique abbreviation:
+
+1. For word whose abbreviation is not in the dictionary, then it definitely has an unique abbreviation.
+2. For word whose abbreviation is in the dictionary, then if it is the only word in this dictionry which has such abbreviation, still should return true.
+
+```cpp
+class ValidWordAbbr {
+private:
+    string getAbbr(const string &str) {
+        if (str.size() <= 2) {
+            return str;
+        } else {
+            return str[0] + to_string(str.size() - 2) + str[str.size() - 1];
+        }
+    }
+    unordered_map<string, unordered_set<string>> m_dict;
+public:
+    ValidWordAbbr(vector<string> dictionary) {
+        for (const string &str : dictionary) {
+            m_dict[getAbbr(str)].insert(str);
+        }
+    }
+    
+    bool isUnique(string word) {
+        const string abbr(getAbbr(word));
+        return m_dict[abbr].size() == 0 
+            || m_dict[abbr].size() == 1 && word == *(m_dict[abbr].begin());
+    }
+};
+
+/**
+ * Your ValidWordAbbr object will be instantiated and called as such:
+ * ValidWordAbbr obj = new ValidWordAbbr(dictionary);
+ * bool param_1 = obj.isUnique(word);
+ */
+ ```
+ 
+A different style.
+
 ```cpp
 class ValidWordAbbr {  
 public:  
