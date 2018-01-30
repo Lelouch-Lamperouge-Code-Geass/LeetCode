@@ -106,6 +106,28 @@ private:
 
 ### Solution two
 
+In C++, ```std::nth_element``` is a partial sorting algorithm that rearranges elements in [first, last) such that:
+
+* The element pointed at by nth is changed to whatever element would occur in that position if [first, last) was sorted.
+* All of the elements before this new nth element are less than or equal to the elements after the new nth element.
+
+```cpp
+template< class RandomIt, class Compare >
+void nth_element( RandomIt first, RandomIt nth, RandomIt last, Compare comp );
+```
+
+Here ```comp```	is acomparison function object (i.e. an object that satisfies the requirements of Compare) which returns true if the first argument is less than (i.e. is ordered before) the second. 
+
+The signature of the comparison function should be equivalent to the following:
+
+```cpp
+ bool cmp(const Type1 &a, const Type2 &b);
+```
+
+The signature does not need to have const &, but the function object must not modify the objects passed to it.
+
+The types Type1 and Type2 must be such that an object of type RandomIt can be dereferenced and then implicitly converted to both of them. 
+
 ```cpp
 class Solution {
 public:
@@ -142,6 +164,6 @@ The expected running time is O(N) The worst case running time for most implement
 
 Now with the new ISO C++ 2011 standard, the complexity for std::sort has been tightened up - it is guaranteed to be O(N * log N) and has no worse case as David Musser's IntroSort is used: - use QuickSort and if parts of the array experience bad partitioning, swap to heapsort.
 
-Ideally exactly the same should apply std::nth_element but the ISO C++ 2011 standard has not tightened up the complexity requirements. So std::nth_element could be O(N * N) in the worst case. This could be because in David Musser's original paper (see here) he did not mention what algorithm should be swapped to if QuickSelect goes bad.
+Ideally exactly the same should apply std::nth\_element but the ISO C++ 2011 standard has not tightened up the complexity requirements. So std::nth\_element could be O(N * N) in the worst case. This could be because in David Musser's original paper (see here) he did not mention what algorithm should be swapped to if QuickSelect goes bad.
 
-In the worst case, the median-of-medians using groups of 5 could be used (I have seen a paper the recommended groups of 7 but cannot find it). So a quality implementation of std::nth_element could use QuickSelect and swap to median-of-medians if partitioning goes bad. This would guarantee O(N) behaviour. QuickSelect can be improved by using sampling making the worst case unlikely but not impossible.
+In the worst case, the median-of-medians using groups of 5 could be used (I have seen a paper the recommended groups of 7 but cannot find it). So a quality implementation of std::nth\_element could use QuickSelect and swap to median-of-medians if partitioning goes bad. This would guarantee O(N) behaviour. QuickSelect can be improved by using sampling making the worst case unlikely but not impossible.
