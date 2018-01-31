@@ -33,3 +33,29 @@ public:
     
 };
 ```
+
+A different style.
+
+```cpp
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        const int n = nums.size();
+        vector<int> reval(n, 1);
+        
+        int carry(1), counter_carry(1);
+        
+        for (int i = 0; i < n; ++i) {
+            int counter_i = n - i - 1;
+            
+            reval[i] *= carry;
+            reval[counter_i] *= counter_carry;
+            
+            carry *= nums[i];
+            counter_carry *= nums[counter_i];
+        }
+        
+        return reval;
+    }
+};
+```
