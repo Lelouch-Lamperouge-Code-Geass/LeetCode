@@ -21,6 +21,8 @@ Sorting takes O(nlogn) time and the overlapping checks take O(n) time, so this i
 class Solution {
 public:
     bool canAttendMeetings(vector<Interval>& intervals) {
+        // Since the comparison logic stay the same, we can use
+        // a static comparision functor.
         static auto Compare = [](const Interval &left, const Interval &right){
             return left.start < right.start;
         };
