@@ -31,13 +31,18 @@ General idea:
 
 * Step 1: Use a multiset to sort all boundary points. For a start point of an interval, let the height be negative; otherwise, let the height be positive. Time complexity: O(n log n)
 
-* Step 2: Use a multiset (rather than a heap/priority_queue) to maintain the current set of heights to be considered. If a new start point is met, insert the height into the set, otherwise, delete the height. The current max height is the back() element of the multiset. For each point, the time complexity is O(log n). The overall time complexity is O(n log n).
+* Step 2: Use a multiset (rather than a heap/priority-queue) to maintain the current set of heights to be considered. If a new start point is met, insert the height into the set, otherwise, delete the height. The current max height is the back() element of the multiset. For each point, the time complexity is O(log n). The overall time complexity is O(n log n).
 
 * Step 3:Delete the points with equal heights. Time: O(n)
 
-__Time Complexity: O(n log n)__
+__Time Complexity: O(n log n), Space Complexity: O(n)__
 
-__Space Complexity: O(n)__
+There are something I want to point out regarding to below solution:
+
+1. We add a dummy 0 for the max-height-heap, this is because there maybe some area have no buildings at all, and at that time the height should be 0.
+2. multi-set is a container that stores elements following a specific order, and where multiple elements can have equivalent values. When it is used to store pairs, if the item with smaller first value, or same first value but smaller second value will be put first. 
+This is because, internally, the elements in a multiset are always sorted following a specific __strict weak ordering__ criterion indicated by its internal comparison object (of type Compare).
+3. Multisets are typically implemented as binary search trees.
 
 ```cpp
 class Solution {
