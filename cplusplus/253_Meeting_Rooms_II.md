@@ -87,6 +87,9 @@ public:
             return left.end > right.end;
         };
         
+        // Note the decltype here, itnspects the declared type of an entity 
+        // or the type and value category of an expression. And also note the 
+        // end_earlier_comparison in ().
         std::priority_queue<Interval, vector<Interval>,  
                             decltype(end_earlier_comparison)> meeting_rooms(end_earlier_comparison);
         
