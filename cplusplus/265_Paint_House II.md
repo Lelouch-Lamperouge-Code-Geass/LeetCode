@@ -35,10 +35,12 @@ public:
         for (int color = 0; color < number_of_color; ++color) {
             min_costs[0][color] = costs[0][color];
             
-            if (pre_min1_color == -1 || min_costs[0][color] < min_costs[0][pre_min1_color]) {
+            if (pre_min1_color == -1 
+                || min_costs[0][color] < min_costs[0][pre_min1_color]) {
                 pre_min2_color = pre_min1_color;
                 pre_min1_color = color;
-            } else if (pre_min2_color == -1  || min_costs[0][color] < min_costs[0][pre_min2_color]) {
+            } else if (pre_min2_color == -1  
+                || min_costs[0][color] < min_costs[0][pre_min2_color]) {
                 pre_min2_color = color;
             }
         }
@@ -58,10 +60,12 @@ public:
                     min_costs[house][color] = min_costs[house - 1][pre_min2_color] + costs[house][color];
                 }
                 
-                if (cur_min1_color == -1 || min_costs[house][color] < min_costs[house][cur_min1_color]) {
+                if (cur_min1_color == -1 
+                    || min_costs[house][color] < min_costs[house][cur_min1_color]) {
                     cur_min2_color = cur_min1_color;
                     cur_min1_color = color;
-                } else if (cur_min2_color == -1 || min_costs[house][color] < min_costs[house][cur_min2_color]) {
+                } else if (cur_min2_color == -1 
+                    || min_costs[house][color] < min_costs[house][cur_min2_color]) {
                     cur_min2_color = color;
                 }
             }
@@ -84,36 +88,38 @@ class Solution {
 public:
     int minCostII(vector<vector<int>>& costs) {
         if (costs.empty()) return 0;
+        int num_of_house = costs.size(), num_of_color = costs[0].size();
+        vector<vector<int>> min_costs(num_of_house, vector<int>(num_of_color, INT_MAX));
+        int pre_min_color(-1), pre_min2_color(-1);
         
-        const std::size_t house_count(costs.size()), color_count(costs[0].size());
-        
-        std::vector<std::vector<int>> min_costs(house_count, std::vector<int>(color_count, INT_MAX));
-        
-        int min_one_color(-1), min_two_color(-1); // Record the color of minimal cost so far
-        
-        for (std::size_t house = 0; house < house_count; ++ house) {
-            int pre_min_one_color = min_one_color, pre_min_two_color = min_two_color;
-            min_one_color = -1, min_two_color = -1;
-            for (int color = 0; color < color_count; ++ color) {
-                if (color != pre_min_one_color) {
-                    min_costs[house][color] = house == 0 ? costs[house][color] 
-                            : min_costs[house - 1][pre_min_one_color] + costs[house][color];
+        for (int house = 0; house < num_of_house; ++house) {
+            int cur_min_color(-1), cur_min2_color(-1);
+            
+            for (int color = 0; color < num_of_color; ++color) {
+                if (house == 0) {
+                    min_costs[house][color] = costs[house][color];
                 } else {
-                    min_costs[house][color] = house == 0 ? costs[house][color] 
-                        :min_costs[house - 1][pre_min_two_color] + costs[house][color];
+                    if (pre_min_color != color) {
+                        min_costs[house][color] = min_costs[house - 1][pre_min_color] + costs[house][color];
+                    } else {
+                        min_costs[house][color] = min_costs[house - 1][pre_min2_color] + costs[house][color];
+                    }
                 }
-                
-                if (min_one_color < 0 || min_costs[house][color] < min_costs[house][min_one_color]) {
-                    min_two_color = min_one_color;
-                    min_one_color = color;
-                } else if (min_two_color < 0 || min_costs[house][color] < min_costs[house][min_two_color]) {
-                    min_two_color = color;
-                }
+                if (cur_min_color == -1 
+                    ||  min_costs[house][color]  <  min_costs[house][cur_min_color] ) {
+                    cur_min2_color = cur_min_color;
+                    cur_min_color = color;
+                } else if (cur_min2_color == -1 
+                    ||  min_costs[house][color]  <  min_costs[house][cur_min2_color] ) {
+                    cur_min2_color = color;
+                } 
             }
-
+            
+            pre_min_color = cur_min_color;
+            pre_min2_color = cur_min2_color;
         }
         
-        return min_costs[house_count - 1][min_one_color];
+        return min_costs[num_of_house - 1][pre_min_color];
     }
 };
 ```
