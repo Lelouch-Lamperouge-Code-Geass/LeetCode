@@ -239,3 +239,19 @@ https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/253_Meeting_Rooms_II.md
 
 
+### 257. Binary Tree Paths
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/257_Binary_Tree_Paths.md
+
+### 261. Graph Valid Tree
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/261_Graph_Valid_Tree.md
+
+### 265. Paint House II
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/265_Paint_House%20II.md
+
+### 269. Alien Dictionary
+
+https://leetcode.com/problems/alien-dictionary/description/
+
