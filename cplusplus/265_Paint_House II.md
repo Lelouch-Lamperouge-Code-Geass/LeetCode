@@ -55,9 +55,11 @@ public:
                 // we need to derive from the previous minimum cost color if we can,
                 // otherwise , derive from the previous second minimum cost color.
                 if (color != pre_min1_color) {
-                    min_costs[house][color] = min_costs[house - 1][pre_min1_color] + costs[house][color];
+                    min_costs[house][color] 
+                        = min_costs[house - 1][pre_min1_color] + costs[house][color];
                 } else {
-                    min_costs[house][color] = min_costs[house - 1][pre_min2_color] + costs[house][color];
+                    min_costs[house][color] 
+                        = min_costs[house - 1][pre_min2_color] + costs[house][color];
                 }
                 
                 if (cur_min1_color == -1 
@@ -100,9 +102,11 @@ public:
                     min_costs[house][color] = costs[house][color];
                 } else {
                     if (pre_min_color != color) {
-                        min_costs[house][color] = min_costs[house - 1][pre_min_color] + costs[house][color];
+                        min_costs[house][color] 
+                            = min_costs[house - 1][pre_min_color] + costs[house][color];
                     } else {
-                        min_costs[house][color] = min_costs[house - 1][pre_min2_color] + costs[house][color];
+                        min_costs[house][color] 
+                            = min_costs[house - 1][pre_min2_color] + costs[house][color];
                     }
                 }
                 if (cur_min_color == -1 
