@@ -28,7 +28,8 @@ public:
         
         const int num_of_house = costs.size(), number_of_color = costs[0].size();
         
-        std::vector<std::vector<int>> min_costs(num_of_house, std::vector<int>(number_of_color, INT_MAX));
+        std::vector<std::vector<int>> min_costs(num_of_house, 
+            std::vector<int>(number_of_color, INT_MAX));
         
         int pre_min1_color(-1), pre_min2_color(-1);
         
