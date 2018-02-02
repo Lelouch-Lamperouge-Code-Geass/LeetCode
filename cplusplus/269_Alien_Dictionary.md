@@ -83,7 +83,7 @@ https://en.wikipedia.org/wiki/Topological_sorting
 
 ### Kahn's algorithm
 
-##### C++ solution
+When use Kahn's algorithm, if there is a cycle exist in the graph, that means our zero-indegree-queue will not able to add all the chars. 
 
 ```cpp
 class Solution {
@@ -145,6 +145,63 @@ private:
 };
 ```
 
+A different style.
+
+```cpp
+class Solution {
+public:
+    string alienOrder(vector<string>& words) {
+        unordered_map<char, unordered_set<char>> graph;
+        unordered_set<char> char_set;
+        for (int i = 0, n = words.size(); i < n; ++i) {
+            if (i + 1 < n) {
+                const string &cur_word = words[i];
+                const string &next_word = words[i + 1];
+                int l(0), common_len = std::min(cur_word.size(), next_word.size());
+                while (l < common_len) {
+                    if (cur_word[l] != next_word[l]) {
+                        graph[cur_word[l]].insert(next_word[l]);
+                        break;
+                    }
+                    ++ l;
+                }
+            }
+            for (char c : words[i]) {
+                char_set.insert(c);
+            }
+        }
+        
+        unordered_map<char, int> indegree;
+        for (const auto &entry : graph) {
+            for (char c : entry.second) {
+                ++ indegree[c];
+            }
+        }
+        
+        queue<char> zero_indegree_queue;
+        for (char c : char_set) {
+            if (indegree[c] == 0) zero_indegree_queue.push(c);  
+        }
+        
+        string reval("");
+        while (!zero_indegree_queue.empty()) {
+            const char cur_char = zero_indegree_queue.front();
+            zero_indegree_queue.pop();
+            
+            reval.push_back(cur_char);
+            for (char to_char : graph[cur_char]) {
+                -- indegree[to_char];
+                if (indegree[to_char] == 0) {
+                    zero_indegree_queue.push(to_char);
+                }
+            }
+        }
+        // Important to check the reval's size here.
+        // If it is smaller than char-set, then cycle exists!
+        return reval.size() != char_set.size() ? "" : reval;
+    }
+};
+```
 
 
 ### DFS
