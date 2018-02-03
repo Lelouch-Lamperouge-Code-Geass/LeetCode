@@ -10,28 +10,8 @@ Note:
 
 This problem is simple. Just note that we need to maintain the relative order of the non-zero elements. And we also need to minimize the total number of operations.
 
-##### A wrong attemp, not meet second requirement.
 
-  This solution doesn't meet the second requirement "Minimize the total number of operations", because there are a lot of swaps here.
-  
-```cpp  
-class Solution {
-public:
-    void moveZeroes(vector<int>& nums) {
-        int exclusive_begin(-1), inclusive_end(0);
-        const std::size_t nums_size(nums.size());
-        while (inclusive_end < nums_size) {
-            if (0 != nums[inclusive_end]) {
-                ++ exclusive_begin;
-                std::swap(nums[exclusive_begin], nums[inclusive_end]);
-            }
-            ++ inclusive_end;
-        }
-    }
-};
-```
-
-### The right solution
+### Solution one
 
 ```cpp
 class Solution {
@@ -52,6 +32,26 @@ public:
         while (nonzero_end < nums_size) {
             nums[nonzero_end] = 0;
             ++ nonzero_end;
+        }
+    }
+};
+```
+
+##### Solution two
+
+  
+```cpp  
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int exclusive_begin(-1), inclusive_end(0);
+        const std::size_t nums_size(nums.size());
+        while (inclusive_end < nums_size) {
+            if (0 != nums[inclusive_end]) {
+                ++ exclusive_begin;
+                std::swap(nums[exclusive_begin], nums[inclusive_end]);
+            }
+            ++ inclusive_end;
         }
     }
 };
