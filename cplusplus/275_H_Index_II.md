@@ -62,3 +62,10 @@ public:
     }
 };
 ```
+
+# Summary
+
+The key to solve problem 274 and 275 is based on the defination of H-Index, "A scientist has index h if h of his/her N papers have at least h citations each, and the other N − h papers have no more than h citations each."
+
+We need to set up a relationship between citation and the number of papers meet that citation. In 274, the counting-sort vector's indexes represent the citation, and values represent the number of papers meeting the citation times. In 275, the sorted-citation vecotr's indexes represent the id of paper and values represent the citation for that paper, but we can get the number of pappers by using ```n - index```.
+
