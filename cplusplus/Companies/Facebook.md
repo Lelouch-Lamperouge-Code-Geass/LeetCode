@@ -295,3 +295,22 @@ https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/297_Serialize_and_Deserialize_Binary_Tree.md
 
+#### 301. Remove Invalid Parentheses
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/301_Remove_Invalid_Parentheses.md
+
+#### 311. Sparse Matrix Multiplication
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/311_Sparse_Matrix_Multiplication.md
+
+#### 314. Binary Tree Vertical Order Traversal
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/314_Binary_Tree_Vertical_Order_Traversal.md
+
+#### 325. Maximum Size Subarray Sum Equals k
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/325_Maximum_Size_Subarray_Sum_Equals_k%20.md
+
+#### 334. Increasing Triplet Subsequence
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/334_Increasing_Triplet_Subsequence.md
