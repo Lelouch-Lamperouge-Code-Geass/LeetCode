@@ -15,6 +15,8 @@ First, if person A knows person B, then B could be the candidate of being a cele
 Second, we check two things after we get this candidate. 1. If this candidate knows other person in the group, if the candidate knows anyone in the group, then the candidate is not celebrity, return -1; 2. if everyone knows this candidate, if anyone does not know the candidate, return -1;
 
 
+If we use a graph to represent the relationship, it basically means, the celebrity is the node that has no outgoing edge, and every other node should has one edge pointing to it. This also means that ```bool knows(a, b)``` will tell if node ```a``` has an outgoing edge to node ```b``` or not. In below solution, after the first loop, we only get a candidate node that _POSSIBLY_ has no outgoing edge. Therefore, in our second loop, it is necessary to check whether it indeed has no outgoing edge, and also whether it has an incoming edge from every other node.
+
 ##### Special cases:
 
 ```
