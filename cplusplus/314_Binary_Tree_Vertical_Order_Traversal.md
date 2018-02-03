@@ -61,6 +61,54 @@ Here is an example of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]. Notice that every c
 
 ![alt](https://drscdn.500px.org/photo/135826875/m%3D900/7e1d9c2bdc47791e3b54f25bf50b6370)
 
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> verticalOrder(TreeNode* root) {
+        if (!root) return vector<vector<int>>();
+        
+        unordered_map<int, vector<int>> column_to_nodes_mapper;
+        queue<pair<int, TreeNode*>> nodes;
+        nodes.push(make_pair(0, root));
+        int min_column(0), max_column(0);
+        
+        while (!nodes.empty()) {
+            int cur_column = nodes.front().first;
+            TreeNode* node = nodes.front().second;
+            nodes.pop();
+            column_to_nodes_mapper[cur_column].emplace_back(node->val);
+            min_column = std::min(min_column, cur_column);
+            max_column = std::max(max_column, cur_column);
+            
+            if (node->left) {
+                nodes.push(make_pair(cur_column - 1, node->left));
+            }
+            if (node->right) {
+                nodes.push(make_pair(cur_column + 1, node->right));
+            }
+        }
+        
+        vector<vector<int>> result;
+        for (int i = min_column; i <= max_column; ++i) {
+            result.emplace_back(column_to_nodes_mapper[i]);
+        }
+        
+        return result;
+    }
+};
+```
+
+
+A different style.
 
 ```cpp
 /**
@@ -107,54 +155,6 @@ private:
                 nodes.push(std::make_pair(item.first + 1, item.second->right));
             }
         }
-    }
-};
-```
-
-A different style.
-
-```cpp
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
-class Solution {
-public:
-    vector<vector<int>> verticalOrder(TreeNode* root) {
-        if (!root) return vector<vector<int>>();
-        
-        unordered_map<int, vector<int>> column_to_nodes_mapper;
-        queue<pair<int, TreeNode*>> nodes;
-        nodes.push(make_pair(0, root));
-        int min_column(0), max_column(0);
-        
-        while (!nodes.empty()) {
-            int cur_column = nodes.front().first;
-            TreeNode* node = nodes.front().second;
-            nodes.pop();
-            column_to_nodes_mapper[cur_column].emplace_back(node->val);
-            min_column = std::min(min_column, cur_column);
-            max_column = std::max(max_column, cur_column);
-            
-            if (node->left) {
-                nodes.push(make_pair(cur_column - 1, node->left));
-            }
-            if (node->right) {
-                nodes.push(make_pair(cur_column + 1, node->right));
-            }
-        }
-        
-        vector<vector<int>> result;
-        for (int i = min_column; i <= max_column; ++i) {
-            result.emplace_back(column_to_nodes_mapper[i]);
-        }
-        
-        return result;
     }
 };
 ```
