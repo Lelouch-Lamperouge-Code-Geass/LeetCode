@@ -275,3 +275,23 @@ https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/278_First_Bad_Version.md
 
+#### 282. Expression Add Operators
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/282_Expression_Add_Operators.md  
+
+### 283. Move Zeroes
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/283_Move_Zeroes.md
+
+#### 285. Inorder Successor in BST
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/285_Inorder_Successor_in_BST.md
+
+#### 286. Walls and Gates
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/286_Walls_and_Gates.md
+
+#### 297. Serialize and Deserialize Binary Tree
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/297_Serialize_and_Deserialize_Binary_Tree.md
+
