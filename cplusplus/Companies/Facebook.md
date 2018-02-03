@@ -239,19 +239,39 @@ https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/253_Meeting_Rooms_II.md
 
 
-### 257. Binary Tree Paths
+#### 257. Binary Tree Paths
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/257_Binary_Tree_Paths.md
 
-### 261. Graph Valid Tree
+#### 261. Graph Valid Tree
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/261_Graph_Valid_Tree.md
 
-### 265. Paint House II
+#### 265. Paint House II
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/265_Paint_House%20II.md
 
-### 269. Alien Dictionary
+#### 269. Alien Dictionary
 
 https://leetcode.com/problems/alien-dictionary/description/
+
+#### 273. Integer to English Words
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/273_Integer_to_English_Words.md
+
+#### 274. H-Index
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/274_H_Index.md
+
+#### 275. H-Index II
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/275_H_Index_II.md
+
+#### 277. Find the Celebrity
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/277_Find_the_Celebrity.md
+
+#### 278. First Bad Version
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/278_First_Bad_Version.md
 
