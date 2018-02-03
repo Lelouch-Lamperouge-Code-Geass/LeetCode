@@ -59,7 +59,8 @@ public:
             }
         }
         
-        // We should not reach here unless the input is empty vector.
+        // We will not reach here anyway bacause the h-index range is [0, num_of_papers],
+        // which has been tried in above loop.
         return 0;
     }
 };
