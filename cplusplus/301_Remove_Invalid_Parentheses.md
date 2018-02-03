@@ -19,7 +19,8 @@ The counter will increase when it is '(' and decrease when it is ')'. Whenever t
 
 To make the prefix valid, we need to remove a ')'. The problem is: which one? The answer is any one in the prefix. However, if we remove any one, we will generate duplicate results, for example: s = ()), we can remove s[1] or s[2] but the result is the same (). Thus, we restrict ourself to remove the first ) in a series of concecutive )s.
 
-After the removal, the prefix is then valid. We then call the function recursively to solve the rest of the string. However, we need to keep another information: the last removal position. If we do not have this position, we will generate duplicate by removing two ‘)’ in two steps only with a different order.
+After the removal, the prefix is then valid. We then call the function recursively to solve the rest of the string. However, we need to keep another information: the last removal position. If we do not have this position, we will generate duplicate by removing two ')' in two steps only with a different order.
+
 For this, we keep tracking the last removal position and only remove ‘)’ after that.
 
 Now one may ask. What about '('? What if s = "(()(()" in which we need remove '('?
@@ -33,78 +34,32 @@ Let's say after we remove invalid ')' from left to right, now we have more(or no
 
 If what we got is ```(()(()```, we should reverse it to ```)(()((```, and now we should treat ')' as the open parenthesis, '(' as the close parenthesis, and remove invalid '('. After this clean-up, we just reverse the string back and add it to final result.
 
-```cpp
-class Solution {
-private:
-    void clearInvalidParentheses(vector<string> &result,
-                                 const string & s,
-                                 const int last_remove_pos,
-                                 const int pos,
-                                 const char open_char,
-                                 const char close_char,
-                                 const bool is_reversed) {
-        // Here we know that for string s,
-        // [0, pos - 1] should have same open/close parentheses.
-        int open_parenthesis(0);
-        for (int i = pos; i < s.size(); ++i) {
-            if (s[i] == open_char) {
-                ++ open_parenthesis;
-            } else if (s[i] == close_char) {
-                -- open_parenthesis;
-            }
-            
-            if (open_parenthesis == -1) { 
-                // Right now during the segment [last_remove_pos, pos],
-                // we have need to remove one ')'.
-                // For example, "()())" here our pos is 4, and we can remove one ')'
-                // at index 1, 3, 4. However, remove 3 or 4 will generate duplicates.
-                // Therefore, for consecutive )) we only remove the first one.
-                for (int j = last_remove_pos; j <= i; ++j) {
-                    if (s[j] == close_char && (j == last_remove_pos || s[j - 1] != close_char)) {
-                        clearInvalidParentheses(result, s.substr(0, j) + s.substr(j + 1), 
-                                        j, i, open_char, close_char, is_reversed);
-                    }
-                }
-                
-                // Here we have tried to remove all the possible invalid parenthesis.
-                return;
-            }
-        }
-        // We reach here when we have complete removing invalid parentheses from one direction.
-        // It could be from left to right, or from right to left.
-        if (!is_reversed) {
-            // We just cleaned invalid ')' from left to right.
-            // Let's reverse the string and clean from right to left.
-            string reversed_str(s.rbegin(), s.rend());
-            clearInvalidParentheses(result, reversed_str, 0, 0, close_char, open_char, true);
-        } else {
-            // We complet our job of cleaning from right to left.
-            // Now reverse the string and add to final result.
-            result.emplace_back(string(s.rbegin(), s.rend()));
-        }
-       
-    }
-public:
-    vector<string> removeInvalidParentheses(string s) {
-        vector<string> result;
-        clearInvalidParentheses(result, s, 0, 0, '(', ')', false);
-        return result;
-    }
-};
-```
 
-A different style.
+What's the purpose of ```last_remove_pos```? Let us review the algorithm. We scan ths string s from left to right, and whenever we neet an extra close-parenthese, we know we need to delete one. Here we need to be careful that after the one deletion, the generated strings should be unique. And then we keep calling the same function again with this  unique and different "new string s". If we regard the original string s as a tree node, here we get different children with different prefixes. For these children, we need to do the same, scan them until meet extra close-parenthese, and process them to generate new "longer prefix  string". Basically, each of these children nodes will have their own children with just "longer prefix string". Because these prefix substrings are valid, so we can just begin to scan the new strings from the last-valid-len becuase the prefix ```s.substr(0, last_valid_len)``` is valid. 
+
+The most tricky question is, after we meet the extra close-parenthese, should we try to delete begin from which index? Should we begin to delete from index 0, or should we begin to delete from ```last_valid_len```? The answer is neither.
+
+If we begin to delete from ```last_valid_len```, then ```())())``` after first function call will have one child ```()())``` with ```last_valid_len == 2```, we will never have ```(())``` if we can only delete ')' from index 2. So this is wrong. 
+
+If we begin to delete from index 0, for original string s "()()))", we will have two children:
+
+1. ```(()))``` with ```last_valid_len = 4, last_remove_pos = 1```.
+2. ```()())``` with ```last_valid_len = 4, last_remove_pos = 4```.
+
+If we scan from index 0 again, both will have child ```(())```. This will generated duplicate results.
+
+Therefore, we should begin to delete extra close-parenthese from ```last_remove_pos```.
 
 ```cpp
 class Solution {
 private:
     void removeInvalidParenthesesWithDFS(vector<string> &result,
                                          const string &s,
-                                         int pos,
+                                         int last_valid_len,
                                          int last_remove_pos,
                                          const pair<char, char> &parentheses ) {
         int left_paren_count(0);
-        for (int i = pos, n = s.size(); i < n; ++i) {
+        for (int i = last_valid_len, n = s.size(); i < n; ++i) {
             if (s[i] == parentheses.first) {
                 ++ left_paren_count;
             } else if (s[i] == parentheses.second) {
@@ -113,7 +68,7 @@ private:
                 } else { // more ')' than '('
                     // Right now during the segment [last_remove_pos, pos],
                     // we have need to remove one ')'.
-                    // For example, "()())" here our pos is 4, and we can remove one ')'
+                    // For example, "()())" here our last_valid_len is 4, and we can remove one ')'
                     // at index 1, 3, 4. However, remove 3 or 4 will generate duplicates.
                     // Therefore, for consecutive )) we only remove the first one.
                     for (int j = last_remove_pos; j <= i; ++j) {
@@ -160,56 +115,7 @@ public:
 ```
 
 
-A different style.
 
-```cpp
-class Solution {
-public:
-    vector<string> removeInvalidParentheses(string s)
-    {
-        std::vector<std::string> result;
-        remove(s, result, 0, 0, std::make_pair('(', ')'));
-        return result;
-    }
-
-private:
-    void remove(const string& s,
-        vector<string>& result,
-        int last_segment_begin,
-        int last_segment_end,
-        const std::pair<char, char>& parens)
-    {
-        for (int stack = 0, i = last_segment_end; i < s.size(); ++i) {
-            if (s[i] == parens.first)
-                ++stack;
-            if (s[i] == parens.second)
-                --stack;
-            if (stack < 0) { // stack < 0, which means we have more ) than (
-                for (int j = last_segment_begin; j <= i; ++j) {
-                    if (s[j] == parens.second && (j == last_segment_begin || s[j - 1] != parens.second)) {
-                        remove(s.substr(0, j) + s.substr(j + 1), result, j, i, parens);
-                    }
-                }
-                // Here we have tried to remove all the possible invalid (
-                return;
-            }
-        }
-        // When i == s.size(), we will be here.
-
-        std::string rs(s);
-        std::reverse(rs.begin(), rs.end());
-
-        if (parens.first == '(') {
-            // Means it is time to reverse string and process it backwards.
-            remove(rs, result, 0, 0, std::make_pair(')', '('));
-        }
-        else {
-            // Alreay processed this string from both direction.
-            result.push_back(rs);
-        }
-    }
-};
-```
 
 ### Solution two
 
