@@ -46,6 +46,9 @@ return its vertical order traversal as:
 
 # Solution
 
+__The most important thing is to think about how to guarantee the order of top-to-bottom and left-to-right.__ Left to right is easy, because we are maintaining a HashMap from column to nodes, and we can eventually add nodes column by column. However, DFS won't guranteee that within each column, upper level node will be add before lower level nodel. Think about it, our first DFS function path will visit all the nodes on leftmost side, and all these nodes will be the first node on each of the column which violate the top-down order. Therefore we can't use DFS here. Therefore, we need process nodes level by leve. BFS and level-order traversal works here.
+
+
 * BFS, put node, col into queue at the same time.  
 * Every left child access col - 1 while right child col + 1.  
 * This maps node into different col buckets.    
@@ -57,9 +60,6 @@ __*Note that DFS won't work here since the order of elements won't be guranteed.
 Here is an example of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]. Notice that every child access changes one column bucket id. So 12 actually goes ahead of 11.
 
 ![alt](https://drscdn.500px.org/photo/135826875/m%3D900/7e1d9c2bdc47791e3b54f25bf50b6370)
-
-
-__The most important thing is to think about how to guarantee the order of top-to-bottom and left-to-right.__ Left to right is easy, because we are maintaining a HashMap from column to nodes, and we can eventually add nodes column by column. However, DFS won't guranteee that within each column, upper level node will be add before lower level node. Therefore we can't use DFS here.
 
 
 ```cpp
@@ -110,6 +110,8 @@ private:
     }
 };
 ```
+
+A different style.
 
 ```cpp
 /**
