@@ -53,11 +53,11 @@ public:
             if (sum == k) {
                 res = i + 1; // can't be larger than i + 1 so far
             } else if (m.count(sum - k) != 0) {
-                res = max(res, i - m[sum - k]);
+                res = max(res, i + 1 - m[sum - k]);
             }
             // There might be duplicate value of of sum[i] we should avoid overriding its index
             // as we want the max j - i, so we want to keep i as left as possible. 
-            if (!m.count(sum)) m[sum] = i;
+            if (!m.count(sum)) m[sum] = i + 1;
         }
         return res;
     }
