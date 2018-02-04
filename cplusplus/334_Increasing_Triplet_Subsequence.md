@@ -23,7 +23,9 @@ return false.
 
 Assume we found one number A and another number B that is larger than A. If we could find a third number C that is larger than B, we can return a true. So the problem becomes how to update A and B to make them ready for C to be discovered.
 
-Now the process becomes simple and clear, keep updating A to be the minimum value ever visited and keep B being the smallest value that is larger than A. Once C > B is encountered, return true;
+Now the process becomes simple and clear, keep updating A to be the minimum value ever visited and keep B being the smallest value that is larger than A. Once C > B is encountered, return true.
+
+__Be careful that when we meet a number is smaller or equals to A, we can't update B with A's current value, the order appears before B will be break if we do this.__ You may see, since we update A's value with the new smaller value, don't we break the order either? The thing is, we are only asked to find whether such sequence exist, not to return the actual sequence. When we replace A with smaller value, B's value is still the same, and it won't affect us.
 
 ### Solution 1
 
