@@ -82,6 +82,31 @@ public:
 };
 ```
 
+A different style.
+
+```cpp
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& nums, int k) {
+        const int n = nums.size();
+        vector<int> range_sum(n + 1, 0);
+        for (int i = 0; i < n; ++i) {
+            range_sum[i + 1] = range_sum[i] + nums[i];
+        }
+        
+        unordered_map<int, int> found;
+        for (int i = 0; i <= n; ++i) {
+            int mod_k = k == 0 ? range_sum[i] : range_sum[i] % k;
+            if (!found.count(mod_k)) {
+                found[mod_k] = i;
+            } else {
+                if (i - found[mod_k] >= 2) return true;
+            }
+        }
+        return false;
+    }
+};
+```
 
 # Knowledge
 
