@@ -314,3 +314,24 @@ https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/
 #### 334. Increasing Triplet Subsequence
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/334_Increasing_Triplet_Subsequence.md
+
+#### 341. Flatten Nested List Iterator
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/341_Flatten_Nested_List_Iterator.md
+
+#### 377. Combination Sum IV
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/377.%20Combination%20Sum%20IV.md
+
+#### 380. Insert Delete GetRandom O(1)
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/380.%20Insert%20Delete%20GetRandom%20O(1).md
+
+#### 398. Random Pick Index
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/398_Random_Pick_Index.md
+
+#### 404. Sum of Left Leaves
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/404_Sum_of_Left_Leaves.md
+
