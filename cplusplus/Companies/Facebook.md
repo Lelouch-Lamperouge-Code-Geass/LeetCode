@@ -375,3 +375,14 @@ https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/572_Subtree_of_Another_Tree.md
 
+#### 621. Task Scheduler
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/621_Task_Scheduler.md
+
+
+#### 636. Exclusive Time of Functions
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/636_Exclusive_Time_of_Functions.md
+
+
+e
