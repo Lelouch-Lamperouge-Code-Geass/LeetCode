@@ -351,3 +351,7 @@ https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/494_Target_Sum.md
 
+#### 523. Continuous Subarray Sum
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/523_Continuous_Subarray_Sum.md
+
