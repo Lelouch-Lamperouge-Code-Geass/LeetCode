@@ -36,8 +36,13 @@ So function 0 totally execute 2 + 1 = 3 units of time, and function 1 totally ex
 
 # Solution
 
+We use a stack to store function-id, and ```quota_start``` to store the start-timestamp of current time-splice. 
 
-The idea is simple everytime we see a start, we just push it to the stack. Now when we reach an end, we are guaranteed that the top of the stack is a start with the same id as the current item because all completed start/ends in between this start and end has been removed already. We just add current item timestamp - stack top timestamp + 1 to times[i].
+Whenever we see a "start" which means we are going to run a new function, calculate the running time for previous function, push the new function id into stack, and update ```quota_start```.
+
+Whenever we see a "end" which means we are going to stop running current function, calculate the running time for current function, pop its id out of stack, and update ```quota_start```.
+
+
 
 So for example
 [..., {0:start:3}] and item = {0 : end :6} we add 6 - 3 + 1
@@ -82,8 +87,8 @@ public:
         // Whenever a new function begin to run, push its id to stack
         stack<int> func_ids;
         
-        // Beginning timestamp of current time-slice(quantum).
-        int begin_timestamp_of_curr_quantum(0);
+        // Beginning timestamp of current time-slice(quanta).
+        int begin_timestamp_of_curr_quanta(0);
         
         for (const string &log_line : logs) {
             const vector<string> &strs = splitBy(log_line, ':');
@@ -94,16 +99,16 @@ public:
             
             if (func_type == "start") {
                 if (!func_ids.empty()) {
-                    running_time_of_func[func_ids.top()] += timestamp - begin_timestamp_of_curr_quantum;
+                    running_time_of_func[func_ids.top()] += timestamp - begin_timestamp_of_curr_quanta;
                 }
                 func_ids.push(func_id);
-                begin_timestamp_of_curr_quantum = timestamp;
+                begin_timestamp_of_curr_quanta= timestamp;
             } else { // func_type == "end"
-                running_time_of_func[func_ids.top()] += timestamp + 1 - begin_timestamp_of_curr_quantum;
+                running_time_of_func[func_ids.top()] += timestamp + 1 - begin_timestamp_of_curr_quanta;
                 func_ids.pop();
                 
-                 // Note here next quantum begins after current timestamp
-                begin_timestamp_of_curr_quantum = timestamp + 1;
+                 // Note here next quanta begins after current timestamp
+                begin_timestamp_of_curr_quanta = timestamp + 1;
             }
             
             
@@ -119,41 +124,37 @@ A different style.
 ```cpp
 class Solution {
 private:
-    vector<string> parseLogEntry(const string &str) {
-        vector<string> reval;
+    vector<string> splitBy(const string &str, char delimiter) {
         istringstream iss(str);
+        vector<string> reval;
         string temp("");
-        
-        while (std::getline(iss, temp, ':')) {
+        while (std::getline(iss, temp, delimiter)) {
             reval.emplace_back(temp);
         }
-        
         return reval;
     }
 public:
     vector<int> exclusiveTime(int n, vector<string>& logs) {
         vector<int> reval(n, 0);
-        
         stack<int> func_ids;
-        int quantum_start(0);
+        int quanta_start(0);
         for (const string &log_entry : logs) {
-            const vector<string> &entry_items = parseLogEntry(log_entry);
-            const int func_id = std::stoi(entry_items[0]);
-            const string &status = entry_items[1];
-            const int timestamp = std::stoi(entry_items[2]);
-            if (status == "end") {
-                reval[func_ids.top()] += timestamp + 1 - quantum_start;
-                func_ids.pop();
-                quantum_start = timestamp + 1;
-            } else { // "start"
+            vector<string> items = splitBy(log_entry, ':');
+            int func_id = std::stoi(items[0]);
+            int timestamp = std::stoi(items[2]);
+            
+            if (items[1] == "start") {
                 if (!func_ids.empty()) {
-                    reval[func_ids.top()] += timestamp - quantum_start;
-                    quantum_start = timestamp;
+                    reval[func_ids.top()] += timestamp - quanta_start;
                 }
+                quanta_start = timestamp;
                 func_ids.push(func_id);
+            } else { // items[1] == "end"
+                reval[func_id] += timestamp + 1 - quanta_start;
+                func_ids.pop();
+                quanta_start = timestamp + 1;
             }
         }
-        
         return reval;
     }
 };
