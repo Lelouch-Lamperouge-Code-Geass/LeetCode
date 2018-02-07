@@ -355,3 +355,23 @@ https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/523_Continuous_Subarray_Sum.md
 
+#### 525. Contiguous Array
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/525_Contiguous_Array.md
+
+#### 535. Encode and Decode TinyURL
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/535.%20Encode%20and%20Decode%20TinyURL.md
+
+#### 543. Diameter of Binary Tree
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/543_Diameter_of_Binary_Tree.md
+
+#### 554. Brick Wall
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/554_Brick_Wall.md
+
+#### 572. Subtree of Another Tree
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/572_Subtree_of_Another_Tree.md
+
