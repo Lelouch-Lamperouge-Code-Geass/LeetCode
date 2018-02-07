@@ -68,3 +68,25 @@ public:
     }
 };
 ```
+
+A different style.
+
+```cpp
+class Solution {
+public:
+    int findMaxLength(vector<int>& nums) {
+        unordered_map<int, int> found;
+        found[0] = -1;
+        int max_len(0), val(0);
+        for (int i = 0, n = nums.size(); i < n; ++i) {
+            val += nums[i] == 1 ? 1 : -1;
+            if (!found.count(val)) {
+                found[val] = i;
+            } else {
+                max_len = std::max(max_len, i - found[val]);
+            }
+        }
+        return max_len;
+    }
+};
+```
