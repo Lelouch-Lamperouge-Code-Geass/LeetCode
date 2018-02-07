@@ -110,6 +110,20 @@ public:
 
 # Knowledge
 
+### Modulo of a negative number
+
+https://math.stackexchange.com/questions/519845/modulo-of-a-negative-number
+
+
+It's calculated exactly like the mod of a positive number. In arithmetic modulo cc, we seek to express any x as ```qc + r```, where ```r``` must be a non-negative integer.
+
+Why don't we test it out with an example?
+
+Take ```−100 mod 8 = 4```. This is because ```8 * −13 = −104```. The remainder is 4.
+
+So now let's take ```(37−54) mod 5```. It's equal to ```−17 mod 5 = 3```. 
+
+
 ### 负数究竟是如何取模的？
 
 https://www.zhihu.com/question/31344913
