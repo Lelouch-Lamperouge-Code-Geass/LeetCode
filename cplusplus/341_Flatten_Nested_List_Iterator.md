@@ -50,6 +50,13 @@ Composite should be used when clients ignore the difference between compositions
 
 # Solution
 
+Edge cases:
+
+```
+[[]]
+[[],[1].[[]],[2]]
+```
+
 
 ### Solution one
 Though this solution works, it copys the whole data.
