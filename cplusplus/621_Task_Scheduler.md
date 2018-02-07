@@ -21,13 +21,13 @@ Explanation: A -> B -> idle -> A -> B -> idle -> A -> B.
 
 If you have t identical tasks and need to separate by n steps, it needs ```(n+1)*(t-1) + 1``` steps. Similar to problem "plant t trees every n meters". 
 
-Now if we have m tasks with highest frequency, and same task are required to be at least n steps away, then it would take ```(n+1)*(m-1) + m``` when m <= n. We basically here use tasks with max frequency to make frame, here ```n + 1``` is the frame size, and ```m-1``` is the number of frames we initially used, and we still have m max-frequency tasks left so we just append them at the end. 
+Now if we have m tasks with highest frequency, and same task are required to be at least n steps away, then it would take ```(n+1)*(max_freq-1) + max_freq``` when ```max_freq <= n```. We basically here use tasks with max frequency to make frame, here ```n + 1``` is the frame size, and ```max_freq-1``` is the number of frames we initially used. And we still need to add the number of chars which has ```max_freq``` into our minimal size. 
 
-Now we have a total size with ```(n+1)*(m-1) + m```.
+Now we have a total size with ```(n + 1) * (max_freq - 1) + num_of_chars_has_max_freq```.
 
-When m <= n, all other tasks with lower frequency will just fill the empty spaces.
+When ```max_freq <= n```, all other tasks with lower frequency will just fill the empty spaces.
 
-When m > n, there will be no empty spaces left in the size we have so far, but all the tasks with lower frequency will just increase the gap if we fill them at end of each frame, and because their frequency is less than frame numbers we have, the gap between each same tasks will not be smaller for these tasks. In this case, we will find ```(n+1)*(m-1) + m``` is smaller than ```tasks.size()```, and latter should be the return value. For example, we have AAABBBCCCDD, and k = 2. Firstly we arrange sth like ABCABCABC, but we still got 2 "D"s remained.So now we simply insert each 'D' to the end of each "ABC" sequence, and generate the asnwer ABCDABCDABC. That is to say, if we get m > k, by applying such strategy, in the end we will have a sequence without idle, so the final answer is the size of the input array.
+When ```max_freq > n```, there will be no empty spaces left in the size we have so far, but all the tasks with lower frequency will just increase the gap if we fill them at end of each frame, and because their frequency is less than frame numbers we have, the gap between each same tasks will not be smaller for these tasks. In this case, we will find ```(n+1)*(max_freq-1) + num_of_chars_has_max_freq``` is smaller than ```tasks.size()```, and latter should be the return value. For example, we have AAABBBCCCDD, and k = 2. Firstly we arrange sth like ABCABCABC, but we still got 2 "D"s remained.So now we simply insert each 'D' to the end of each "ABC" sequence, and generate the asnwer ABCDABCDABC. That is to say, if we get ```num_of_chars_has_max_freq > k```, by applying such strategy, in the end we will have a sequence without idle, so the final answer is the size of the input array.
 
 The idea is pretty simple. for example, you have (aaaabbbbcccddeef, 4) how would you do it:
 
