@@ -21,7 +21,7 @@ Explanation: A -> B -> idle -> A -> B -> idle -> A -> B.
 
 If you have t identical tasks and need to separate by n steps, it needs ```(n+1)*(t-1) + 1``` steps. Similar to problem "plant t trees every n meters". 
 
-Now if we have m tasks with highest frequency, and same task are required to be at least n steps away, then it would take ```(n+1)*(max_freq-1) + max_freq``` when ```max_freq <= n```. We basically here use tasks with max frequency to make frame, here ```n + 1``` is the frame size, and ```max_freq-1``` is the number of frames we initially used. And we still need to add the number of chars which has ```max_freq``` into our minimal size. 
+Now if we have m tasks with highest frequency, and same task are required to be at least n steps away, then it would take ```(n+1)*(max_freq-1) + num_of_chars_has_max_freq``` when ```max_freq <= n```. We basically here use tasks with max frequency to make frame, here ```n + 1``` is the frame size, and ```max_freq-1``` is the number of frames we initially used. And we still need to add the number of chars which has ```max_freq``` into our minimal size. 
 
 Now we have a total size with ```(n + 1) * (max_freq - 1) + num_of_chars_has_max_freq```.
 
