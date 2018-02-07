@@ -335,3 +335,19 @@ https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/404_Sum_of_Left_Leaves.md
 
+#### 410. Split Array Largest Sum
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/410_Split_Array_Largest_Sum.md
+
+#### 461. Hamming Distance
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/461.%20Hamming%20Distance.md
+
+#### 477. Total Hamming Distance
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/477_Total_Hamming_Distance.md
+
+#### 494. Target Sum
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/494_Target_Sum.md
+
