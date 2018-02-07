@@ -80,3 +80,25 @@ public:
 };
 ```
 
+A different style.
+
+```cpp
+class Solution {
+public:
+    int leastInterval(vector<char>& tasks, int n) {
+        vector<int> task_frequency(26, 0);
+        int max_freq(0);
+        for (char t : tasks) {
+            max_freq = std::max(max_freq, ++ task_frequency[t - 'A']);
+        }
+        
+        int cur_size = (n + 1) * (max_freq - 1);
+        
+        for (int freq : task_frequency) {
+            if (freq == max_freq)  ++ cur_size;
+        }
+        
+        return std::max(cur_size, (int)tasks.size());
+    }
+};
+```
