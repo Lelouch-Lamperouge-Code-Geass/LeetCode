@@ -94,7 +94,7 @@ private:
 
 ### Solution two
 
-If we encode the tree into a unique string, and check whether the encoded string for s has a substring for encoded string for t. This may bring better performance. However, you need to use KMP algorithm to implement the substring-searching function in order to get ```O(length_of_encoded_s + length_of_encoded_t)```. Here I just use C++ string::find which has much worse efficiency, just to make the point.
+If we encode the tree into a unique string, and check whether the encoded string of s has a substring for encoded string of t. This may bring better performance. However, you need to use KMP algorithm to implement the substring-search function in order to get ```O(length_of_encoded_s + length_of_encoded_t)``` time complexity. Here I just use C++ string::find which has much worse efficiency, just to make the point.
 
 Another thing you need to be careful about is how to generate the encoded string.
 
