@@ -26,6 +26,8 @@ If we know the length of longest increasing subsenquence end with index i, and t
 
 The solution is based on DP.
 
+The most important thing here is define a sub-problem as "the max-length ending with nums[i], and the count of that length ending with nums[i]". Notice "ending with nums[i]" is the key. 
+
 ```
 For a sequence of numbers,
 cnt[k] is total number of longest subsequence ending with nums[k];
