@@ -389,4 +389,31 @@ https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/637_Average_of_Levels_in_Binary_Tree.md  
 
+#### 639. Decode Ways II
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/639_Decode_Ways_II.md
+
+#### 647. Palindromic Substrings
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/647_Palindromic_Substrings.md
+
+#### 653. Two Sum IV - Input is a BST
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/653.%20Two%20Sum%20IV%20-%20Input%20is%20a%20BST.md
+
+#### 670. Maximum Swap
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/670_Maximum_Swap.md
+
+#### 673. Number of Longest Increasing Subsequence
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/673_Number_of_Longest_Increasing_Subsequence.md
+
+#### 674. Longest Continuous Increasing Subsequence
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/674_Longest_Continuous_Increasing_Subsequence.md
+
+
+
+
 
