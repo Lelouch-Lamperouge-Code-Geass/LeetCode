@@ -158,7 +158,15 @@ private:
  */
 ```
 
-# Segment tree vs Fenwick tree(BIT)
+# Knowledge
+
+* https://github.com/Lelouch-Lamperouge-Code-Geass/TechnicalKnowledge/blob/master/Algorithm/BinaryIndexedTree.md
+* https://www.topcoder.com/community/data-science/data-science-tutorials/binary-indexed-trees/
+* http://www.geeksforgeeks.org/binary-indexed-tree-or-fenwick-tree-2/
+* https://www.hackerearth.com/practice/notes/binary-indexed-tree-or-fenwick-tree/
+* https://cs.stackexchange.com/questions/10538/bit-what-is-the-intuition-behind-a-binary-indexed-tree-and-how-was-it-thought-a
+
+### Segment tree vs Fenwick tree(BIT)
 
 Here are the things to keep in mind while deciding whether to use segment tree or binary indexed tree:
 
@@ -167,3 +175,5 @@ Here are the things to keep in mind while deciding whether to use segment tree o
 * A BIT requires only half as much memory as a segment tree : In cases where you have masochistic memory constraints, you are almost stuck with using a BIT
 * Though BIT and segment tree operations are both O(log(n)), the segment tree operations have a larger constant factor : This should not matter for most cases. But once again, if you have masochistic time constraints, you might want to switch from a segment tree to a BIT. The constant factor might become more of a problem if the BIT/Segment tree is multidimensional.
 * With practice, coding either will be very fast : If you have coded a segment tree 100 times, you will get it very fast the next time you do it. So no need to worry about code being long.
+
+
