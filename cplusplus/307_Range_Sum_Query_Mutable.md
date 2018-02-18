@@ -107,7 +107,10 @@ When updating value, we keep adding __last set bit__ to index in order to go upw
 When getting range sum, we keep minus __last set bit__ to index in order to go upward to root node.
 
 
-__Note : be careful of using std::size_t, since it is not signed number.__
+##### Note 
+
+Though the numbers index range is [0, n - 1], binary indexed tree's node __ID__ range is [1, n + 1]. Note that the ID range is important here for the algorithm to work.
+
 
 ```cpp
 class NumArray {
