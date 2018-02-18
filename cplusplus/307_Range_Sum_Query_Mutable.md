@@ -111,43 +111,42 @@ __Note : be careful of using std::size_t, since it is not signed number.__
 
 ```cpp
 class NumArray {
+private:
+    vector<int> m_nums;
+    vector<int> m_bit;
+    int getSum(int i) {
+        int reval(0);
+        int id = i + 1;
+        while (id >= 1) {
+            reval += m_bit[id - 1];
+            int last_set_bit = (id) & (-id);
+            id -= last_set_bit;
+        }
+        return reval;
+    }
 public:
-    NumArray(vector<int> nums) : m_nums(nums.size(), 0), m_bit(nums.size() + 1, 0) {
-        for (std::size_t i = 0, n = nums.size(); i < n; ++i) {
+    NumArray(vector<int> nums) : m_nums(nums.size(), 0), m_bit(nums.size(), 0){
+        for (int i = 0, n = nums.size(); i < n; ++i) {
             update(i, nums[i]);
         }
     }
     
     void update(int i, int val) {
-        const int diff = val - m_nums[i]; 
+        const int diff = val - m_nums[i];
         m_nums[i] = val;
-        int tree_index = i + 1; // BIT　index begins with 1
-        int tree_size = m_bit.size();
-        while (tree_index < tree_size) {
-            m_bit[tree_index] += diff;
-            int last_set_bit = tree_index & (-tree_index);
-            tree_index += last_set_bit;
+        
+        int id = i + 1, max_id = m_bit.size() + 1;
+        
+        while (id <= max_id) {
+            m_bit[id - 1] += diff;
+            int last_set_bit = (id) & (-id);
+            id += last_set_bit;
         }
     }
     
     int sumRange(int i, int j) {
         return getSum(j) - getSum(i - 1);
     }
-    
-private:
-    int getSum(int i) {
-        int reval(0);
-        int tree_index = i + 1; // BIT　index begins with 1
-        while (tree_index > 0) {
-            reval += m_bit[tree_index];
-            int last_set_bit = tree_index & (-tree_index);
-            tree_index -= last_set_bit;
-        }
-        
-        return reval;
-    }
-    std::vector<int> m_bit;
-    std::vector<int> m_nums;
 };
 
 /**
