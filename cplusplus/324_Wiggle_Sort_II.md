@@ -14,7 +14,11 @@ Can you do it in O(n) time and/or in-place with O(1) extra space?
 
 ### Solution 1
 
-Note that here we need three-way partition, nth_element internally uses partition algorithm but it is not three-way partition.
+The idea is : we partition nums into small part and big part. And we add numbers from big part into odd indexes, and numbers from small part into even indexes. Note that for both part we need begin with their respective highest index, because the largest numbers in small part may be the same as the smallest numbers in big part.
+
+We need to implement three-way-parition here because the std::nth_element function in LeetCode isn't implemented with three-way-partition. However, in some C++ compiler(e.g. my visual studio) it is.
+
+The purpose of three-way-partition is to gurantee that the elements in nums is arranged into three clusters : smaller, equals, bigger.
 
 ```cpp
 class Solution {
@@ -25,6 +29,12 @@ public:
         nth_element(nums.begin(), nums.begin() + mid, nums.end());
         threeWayPartition(nums, nums[mid]);
         vector<int> res(n);
+        
+        // Here for both large part and small part,
+        // we begin with the highest index in their part.
+        // This is because it is possible that the largest numbers
+        // in small part are the same as the smallest numbers in big part.
+        // And thus we cant interlace them at last.
         int largeStart = n-1;
         int smallStart = (n%2) ? mid : (mid-1);
         for (int i = 0; i < n; i+=2)
