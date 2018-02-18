@@ -70,6 +70,7 @@ Here 'Query(x1,y1,x2,y2)' means the sum of elements enclosed in the rectangle wi
 ```   
 
 
+![alt](https://raw.githubusercontent.com/hot13399/leetcode-graphic-answer/master/308.%20Range%20Sum%20Query%202D%20-%20Mutable.jpg)
 
 
 ```cpp
