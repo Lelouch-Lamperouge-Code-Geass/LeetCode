@@ -3,6 +3,42 @@ For example, given nums = [3, 5, 2, 1, 6, 4], one possible answer is [1, 6, 2, 5
 
 # Solution
 
+### Solution one
+
+The idea is simple. We partition the nums into one small half and one big half.
+
+And then we put the smallere numbers into even indexes, and bigger numbers into odd indexes.
+
+The time complexity and space complexity are both O(N).
+
+Note that std::nth_element has O(N) complexity.
+
+```cpp
+class Solution {
+public:
+    void wiggleSort(vector<int>& nums) {
+        int n = nums.size();
+        std::nth_element(nums.begin(), nums.begin() + n / 2, nums.end());
+        
+        vector<int> result(nums.size(), 0);
+        
+        int small(0), big(n - 1);
+        for (int i = 0; i < n; ++i) {
+            if (i % 2 == 0) {
+                result[i] = nums[small++];
+            } else {
+                result[i] = nums[big-- ];
+            }
+        }
+        
+        nums = result;
+    }
+};
+```
+
+
+### Solution two
+
 The final sorted nums needs to satisfy two conditions:
 * If i is odd, then nums[i] >= nums[i - 1];
 * If i is even, then nums[i] <= nums[i - 1].
@@ -40,14 +76,20 @@ __Time complexity O(N) Space complexity O(1)__
 
 ```cpp
 class Solution {
-public: 
+public:
     void wiggleSort(vector<int>& nums) {
-        int n = nums.size();
-        for (int i = 1; i < n; i++)
-            if (((i & 1) && nums[i] < nums[i - 1]) // odd index should >= previous number
-                || (!(i & 1) && nums[i] > nums[i - 1])) // even index should <= previous number
-                swap(nums[i], nums[i - 1]);
-    } 
+        for (int i = 1, n = nums.size(); i < n; ++i) {
+            if (i % 2 == 0) { // even
+                if (nums[i - 1] < nums[i]) {
+                    std::swap(nums[i - 1], nums[i]);
+                }
+            } else { // odd
+                if (nums[i - 1] > nums[i]) {
+                    std::swap(nums[i - 1], nums[i]);
+                }
+            }
+        }
+    }
 };
 ```
 
