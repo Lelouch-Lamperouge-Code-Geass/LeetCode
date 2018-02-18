@@ -95,8 +95,11 @@ public:
 
 
 
-# Follow-up
+# Thought
 
 __Note: the difference between this and the wiggle sort II is that in latter two adjacent number cannot be the same. And also this problem defines the wiggle style has to be ```nums[0] <= nums[1] >= nums[2] <= nums[3] ...```.__
 
 For example, given nums = [1, 1, 1, 3, 3, 3, 2, 2, 2], one acceptable answer is [1,1,1,2,2,3,2,3,3] which is not acceptable to wiggle sort II. A valid answer to wiggle sort II is [1, 3, 2, 3, 2, 3, 1, 2, 1].
+
+
+The second solution here doesn't work for wiggle-sort-II because since no adjacent numbers can be the same, once we encountered same adjacent numbers, obviously swapping them won't work at all.
