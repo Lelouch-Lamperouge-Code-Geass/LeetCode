@@ -11,38 +11,82 @@ basic ideal is using buckets. 1 bucket for every second because we only need to 
 
 ```cpp
 class HitCounter {
-public:
-  /** Initialize your data structure here. */
-  HitCounter() {
-    times.resize(300);
-    hits.resize(300);
-  }
-
-  /** Record a hit.
-      @param timestamp - The current timestamp (in seconds granularity). */
-  void hit(int timestamp) {
-    int idx = timestamp % 300;
-    if (times[idx] != timestamp) {
-      times[idx] = timestamp;
-      hits[idx] = 1;
-    } else {
-      ++hits[idx];
-    }
-  }
-
-  /** Return the number of hits in the past 5 minutes.
-      @param timestamp - The current timestamp (in seconds granularity). */
-  int getHits(int timestamp) {
-    int res = 0;
-    for (int i = 0; i < 300; ++i) {
-      if (timestamp - times[i] < 300) {
-        res += hits[i];
-      }
-    }
-    return res;
-  }
-
 private:
-  vector<int> times, hits;
+    vector<int> bucket_timestamps;
+    vector<int> bucket_hits;
+public:
+    /** Initialize your data structure here. */
+    HitCounter() : bucket_timestamps(300, 0), bucket_hits(300, 0){
+        
+    }
+    
+    /** Record a hit.
+        @param timestamp - The current timestamp (in seconds granularity). */
+    void hit(int timestamp) {
+        int index = timestamp % 300;
+        if (bucket_timestamps[index] != timestamp) {
+            // This bucket is older than 5 minutes
+            bucket_timestamps[index] = timestamp;
+            bucket_hits[index] = 1;
+        } else {
+            ++ bucket_hits[index];
+        }
+    }
+    
+    /** Return the number of hits in the past 5 minutes.
+        @param timestamp - The current timestamp (in seconds granularity). */
+    int getHits(int timestamp) {
+        int reval(0);
+        for (int i = 0; i < 300; ++i) {
+            if (timestamp - bucket_timestamps[i] < 300) {
+                reval += bucket_hits[i];
+            }
+        }
+        return reval;
+    }
 };
+
+/**
+ * Your HitCounter object will be instantiated and called as such:
+ * HitCounter obj = new HitCounter();
+ * obj.hit(timestamp);
+ * int param_2 = obj.getHits(timestamp);
+ */
+```
+
+However, this solution is not thread-safe.
+
+Here is the thread-safe version.
+
+```cpp
+class HitCounter {
+    vector<atomic<uint64_t>> hits;
+    
+public:
+    HitCounter() : hits(300) {}
+    
+    void hit(uint32_t timestamp) {
+        int bucket = timestamp % 300;
+        uint64_t curVal = hits[bucket];
+        uint64_t nextVal = 0;
+        do {
+            uint32_t count = 1;
+            if (uint32_t(curVal) == timestamp)
+                count = uint32_t(curVal >> 32) + 1;
+            nextVal = uint64_t(timestamp) | (uint64_t(count) << 32);
+        } while(!hits[bucket].compare_exchange_weak(curVal, nextVal));
+    }
+    
+    uint64_t getHits(uint32_t timestamp) {
+        uint64_t total = 0;
+        for (int i = 0; i < 300; ++i) {
+            uint64_t val = hits[i];
+            if (timestamp - uint32_t(val) < 300) {
+                total += val >> 32;
+            }
+        }
+        return total;
+    }
+};
+
 ```
