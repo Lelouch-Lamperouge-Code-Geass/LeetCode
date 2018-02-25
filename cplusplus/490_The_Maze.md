@@ -55,6 +55,15 @@ Explanation: There is no way for the ball to stop at the destination.
 
 # Solution
 
+We begin from the start position and can roll in four directions at each "stoppable position" which is the stopped position on each rolling process. The problem is asking whether we can stop at the destination position, which means that the destination point should be a "stoppable position" too. 
+
+We can use BFS/DFS to solve this problem.
+
+
+### Solution one with BFS
+
+We begin with start position and keep rolling and adding "stoppable positions" into the bfs-queue. We need to mark these positions before we put them into the bfs-queue.
+
 ```cpp
 class Solution {
 private:
