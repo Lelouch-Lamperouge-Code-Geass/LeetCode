@@ -26,6 +26,9 @@ What about BST? We can do a reverse inorder traversal to traverse the nodes of t
 
 __Time complexity O(number_of_nodes), space complexity O(height_of_the_tree).__
 
+
+### Recursive solution
+
 ```cpp
 /**
  * Definition for a binary tree node.
@@ -55,4 +58,41 @@ private:
 };
 ```
 
+### Iterative solution
 
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* convertBST(TreeNode* root) {
+        stack<TreeNode*> nodes;
+        int sum_of_greater_key(0);
+        TreeNode *curr(root);
+        while (curr || !nodes.empty()) {
+            if (curr) {
+                nodes.push(curr);
+                curr = curr->right;
+            } else {
+                curr = nodes.top();
+                nodes.pop();
+                
+                int cur_val = curr->val;
+                curr->val += sum_of_greater_key;
+                sum_of_greater_key += cur_val;
+                
+                curr = curr->left;
+            }
+        }
+        
+        return root;
+    }
+};
+```
