@@ -28,6 +28,8 @@ Note: You may assume the sum of values in any subtree is in the range of 32-bit 
 
 # Solution
 
+The idea is post-order-traverse the tree and get sum of every sub-tree, put sum to count mapping to a HashMap. Then generate result based on the HashMap.
+
 ```cpp
 /**
  * Definition for a binary tree node.
