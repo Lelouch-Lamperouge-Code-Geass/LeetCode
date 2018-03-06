@@ -49,7 +49,8 @@ public:
                 } else {
                     if (s[left] == s[right]) {
                         // We don't need to compare it to below two max_len values.
-                        // We definitely can get the max length by evolving from max_len[left + 1][right - 1].
+                        // We definitely can get the max length by evolving from 
+                        // max_len[left + 1][right - 1].
                         max_len[left][right] = max_len[left + 1][right - 1] + 2;
                     } else {            
                         max_len[left][right] = std::max(max_len[left][right - 1],
