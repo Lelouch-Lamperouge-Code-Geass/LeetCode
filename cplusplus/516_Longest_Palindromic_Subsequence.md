@@ -24,13 +24,13 @@ Here is a problem looking for [longest palindromic substring](https://leetcode.c
 
 ### Solution 1
 
-Let's define max_len[left][right] means the longest palindromic subsequence's length of substring [left, right].
+Let's define ```max_len[left][right]``` means the longest palindromic subsequence's length of substring [left, right].
 
-Then max_len[left][right] is the maximum value of :
+Then ```max_len[left][right]``` is the maximum value of :
 
-1. If s[left] == s[right] : s[left + 1][right - 1] + 2, s[right] and s[left] are both part of current longest palindromic subsenquence.
-2. max_len[left][right - 1] : s[right] is not useful, it is not part of current longest palindromic subsenquence.
-3. max_len[left + 1][right] : s[right] is useful, but since s[left] != s[right] here, we can just ignore s[left].
+1. If ```s[left] == s[right]``` : ```s[left + 1][right - 1] + 2```, ```s[right]``` and ```s[left]``` are both part of current longest palindromic subsenquence.
+2. ```max_len[left][right - 1]``` : ```s[right]``` is not useful, it is not part of current longest palindromic subsenquence.
+3. ```max_len[left + 1][right]``` : s[right] is useful, but since ```s[left] != s[right]``` here, we can just ignore s[left].
 
 
 ```cpp
