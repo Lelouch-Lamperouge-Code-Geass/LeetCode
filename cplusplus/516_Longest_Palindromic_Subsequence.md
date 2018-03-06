@@ -20,6 +20,7 @@ One possible longest palindromic subsequence is "bb".
 
 __Be careful about subsequence vs substring! This is the first thing you need to get clarification from interviwer.__
 
+Here is a problem looking for [longest palindromic substring](https://leetcode.com/problems/longest-palindromic-substring/description/). Please ponder the difference between these two problems. 
 
 ### Solution 1
 
