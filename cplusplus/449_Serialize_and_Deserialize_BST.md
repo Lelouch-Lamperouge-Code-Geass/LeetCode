@@ -147,3 +147,46 @@ public:
     }
 };
 ```
+
+In fact, we can use ```reinterpret_cast``` to 
+
+The ```reinterpret_cast``` expression does not compile to any CPU instructions. It is purely a compiler directive which instructs the compiler to treat the sequence of bits (object representation) of expression as if it had the type new_type.
+
+Therefore, we know ```reinterpret_cast``` guarantees that if you cast a pointer to a different type, and then ```reinterpret_cast``` it back to the original type, you get the original value.
+
+```cpp
+class Codec {
+public:
+ 
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        string s;
+        serialize(root, s);
+        return s;
+    }
+ 
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {        
+        int pos = 0;
+        return deserialize(data, pos, INT_MIN, INT_MAX);
+    }
+private:
+    void serialize(TreeNode* root, string& s) {
+        if (!root) return;    
+        s.append(reinterpret_cast<const char*>(&root->val), sizeof(root->val));
+        serialize(root->left, s);
+        serialize(root->right, s);
+    }
+    
+    TreeNode* deserialize(const string& s, int& pos, int curMin, int curMax) {
+        if (pos >= s.size()) return nullptr;
+        int val = *reinterpret_cast<const int*>(s.data() + pos);
+        if (val < curMin || val > curMax) return nullptr;
+        pos += sizeof(val); // We only move pos forward unless we know val is valid.
+        TreeNode* root = new TreeNode(val);
+        root->left = deserialize(s, pos, curMin, val);
+        root->right = deserialize(s, pos, val, curMax);
+        return root;
+    }
+};
+```
