@@ -38,9 +38,9 @@ __O(n) time, O(1) space.__
 
 We use threee variables to store the first-max, second-max and third-max numbers.
 
-We initialize three numbers begin with LONG_MIN. LONG_MIN here also means that the number has been reassigned a meaningful value or not. We use long here because it is possible the nums has INT_MIN. 
+We initialize three variables ```first_max```, ```second_max```,  ```third_max``` begin with LONG_MIN. LONG_MIN here means that the number doesn't has a meaningful value yet. We use ```LONG_MIN``` here because it is possible the nums has ```INT_MIN```  and it is the third-maximum-number. 
 
-For example, if we initialize these three numbers with ```INT_MIN```, it won't pass the case for ```[1,2,-2147483648]```, since in this case the return value will be the maximum number ```2``` instead of the third maximum number ```-2147483648```.
+For example, if we initialize these three numbers with ```INT_MIN```, it won't pass the case for ```[1,2,-2147483648]```, since in this case the third maximum number is ```-2147483648```.
 
 __Note that the third maximum here means the third maximum distinct number , and the description of this problem is so bad that it doesn't mention it at all, and instead added a note on the third example.__
 
@@ -74,7 +74,9 @@ public:
 
 ### Solution 2
 
-Since we only have 3 elements, insert/delete is constant time operations. 
+We can use a min-heap to store the maximum numbers so far. We keep adding numbers to this min-heap and if its size is more than 3, we then pop the minimum number out.
+
+Since we only have 3 elements, insert/delete is constant time operations for this min-heap. 
 
 __O(1) time, O(1) space.__
 
@@ -82,11 +84,12 @@ __O(1) time, O(1) space.__
 class Solution {
 public:
     int thirdMax(vector<int>& nums) {
-        set<int> top3;
+        set<int> top3; // min-heap
         for (int num : nums) {
             top3.insert(num);
-            if (top3.size() > 3)
+            if (top3.size() > 3) { // Erase the minimum number at top
                 top3.erase(top3.begin());
+             }
         }
         return top3.size() == 3 ? *top3.begin() : *top3.rbegin();
     }
