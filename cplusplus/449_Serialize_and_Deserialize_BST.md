@@ -9,6 +9,13 @@ __Note__: Do not use class member/global/static variables to store states. Your 
 
 # Solution
 
+
+Note that the biggest difference between this problem and LeetCode 297 is in the bold part __"The encoded string should be as compact as possible"__. he special property of binary search trees compared to general binary trees allows a more compact encoding. So while the solutions to problem #297 still work here as well, they’re not as good as they should be.
+
+For Binary tree solution, we need to have “#” or “null” to indicate null node in the serialized string. However, for BST, we don’t need such “#” which make it more compact.
+
+
+
 ### Solution 1
 
 ```cpp
