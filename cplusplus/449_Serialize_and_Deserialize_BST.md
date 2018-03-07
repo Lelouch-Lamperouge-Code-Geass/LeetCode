@@ -89,42 +89,54 @@ Really if using ASCII numbers you are paying a lot of penalty memory for integer
 
 ```cpp
 class Codec {
+private:
+    void preOrderTraversal(TreeNode* root, string& order) {
+        if (!root) return;
+        
+        // Copy the bytes of root->val to buf[4].
+        // In general, int is 4 bytes and that's why we are using
+        // 4 chars buffer here. But again, this might be too optimized,
+        // and the portability is not good.
+        char buf[4];
+        memcpy(buf, &(root->val), sizeof(int)); //burn the int into 4 chars
+        for (int i=0; i<4; i++) order.push_back(buf[i]);
+        
+        preOrderTraversal(root->left, order);
+        preOrderTraversal(root->right, order);
+    }
+    
+    TreeNode* reconstruct(const string& buffer, int& pos, int minValue, int maxValue) {
+        if (pos >= buffer.size()) {
+             // Check whether buffer ends.
+            return nullptr;
+        } else {
+            // Get number of bytes from buffer.
+            int value(0);
+            memcpy(&value, &buffer[pos], sizeof(int));
+            if (value < minValue || value > maxValue) return nullptr;
+
+            TreeNode* node = new TreeNode(value);
+            pos += sizeof(int);
+            
+            node->left = reconstruct(buffer, pos, minValue, value);
+            node->right = reconstruct(buffer, pos, value, maxValue);
+            return node;    
+        }
+    }
 public:
 
     // Encodes a tree to a single string.
     string serialize(TreeNode* root) {
         string order;
-        inorderDFS(root, order);
+        preOrderTraversal(root, order);
         return order;
     }
     
-    inline void inorderDFS(TreeNode* root, string& order) {
-        if (!root) return;
-        char buf[4];
-        memcpy(buf, &(root->val), sizeof(int)); //burn the int into 4 chars
-        for (int i=0; i<4; i++) order.push_back(buf[i]);
-        inorderDFS(root->left, order);
-        inorderDFS(root->right, order);
-    }
 
     // Decodes your encoded data to tree.
     TreeNode* deserialize(string data) {
         int pos = 0;
         return reconstruct(data, pos, INT_MIN, INT_MAX);
-    }
-    
-    inline TreeNode* reconstruct(const string& buffer, int& pos, int minValue, int maxValue) {
-        if (pos >= buffer.size()) return NULL; //using pos to check whether buffer ends is better than using char* directly.
-        
-        int value;
-        memcpy(&value, &buffer[pos], sizeof(int));
-        if (value < minValue || value > maxValue) return NULL;
-        
-        TreeNode* node = new TreeNode(value);
-        pos += sizeof(int);
-        node->left = reconstruct(buffer, pos, minValue, value);
-        node->right = reconstruct(buffer, pos, value, maxValue);
-        return node;
     }
 };
 ```
