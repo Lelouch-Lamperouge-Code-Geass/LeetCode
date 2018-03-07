@@ -35,35 +35,39 @@ Both numbers with value 2 are both considered as second maximum.
 
 __O(n) time, O(1) space.__
 
+
+We use threee variables to store the first-max, second-max and third-max numbers.
+
+We initialize three numbers begin with LONG_MIN. LONG_MIN here also means that the number has been reassigned a meaningful value or not. We use long here because it is possible the nums has INT_MIN. 
+
+For example, if we initialize these three numbers with ```INT_MIN```, it won't pass the case for ```[1,2,-2147483648]```, since in this case the return value will be the maximum number ```2``` instead of the third maximum number ```-2147483648```.
+
+__Note that the third maximum here means the third maximum distinct number , and the description of this problem is so bad that it doesn't mention it at all, and instead added a note on the third example.__
+
+Since we are required to find the thrid __distinct__ number, we need to ignore all the numbers which are the same as ```first_max```, ```second_max```,  ```third_max```.
+
 ```cpp
 class Solution {
 public:
     int thirdMax(vector<int>& nums) {
-        // All three numbers begin with LONG_MIN.
-        // LONG_MIN here also means that the number has been reassigned 
-        // a meaningful value or not. We use long here because it is possible
-        // the nums has INT_MIN.
-        long low(LONG_MIN), mid(LONG_MIN), high(LONG_MIN);
+        long first_max(LONG_MIN), second_max(LONG_MIN), third_max(LONG_MIN);
         
         for (int num : nums) {
-            if (num == low || num == mid || num == high) continue;
-            if (num > high) {
+            if (num == first_max || num == second_max || num == third_max) continue;
+            if (num > first_max) { // num > first_max
                 // Now we need shift all three
-                low = mid;
-                mid = high;
-                high = num;
-            } else if (num > mid) {
-                // Shift low and mid
-                low = mid;
-                mid = num;
-                
-            } else if (num > low){ // num > low
-                // Shift low
-                low = num;
+                third_max= second_max;
+                second_max = first_max;
+                first_max = num;
+            } else if (num > second_max) { // first_max > num > second_max
+                third_max = second_max;
+                second_max = num;
+            } else if (num > third_max) { // second_max > num > third_max
+                third_max = num;
             }
         }
         
-        return low != LONG_MIN ? low : high;
+        return third_max != LONG_MIN ? third_max : first_max;
     }
 };
 ```
