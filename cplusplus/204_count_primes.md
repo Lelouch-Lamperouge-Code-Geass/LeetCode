@@ -24,13 +24,13 @@ To find all the prime numbers less than or equal to a given integer n by Eratost
 4. Find the first number greater than p in the list that is not marked. If there was no such number, stop. Otherwise, let p now equal this new number (which is the next prime), and repeat from step 3.  
 5. When the algorithm terminates, the numbers remaining not marked in the list are all the primes below n.     
      
-The main idea here is that every value given to p will be prime, because if it were composite it would be marked as a multiple of some other, smaller prime. Note that some of the numbers may be marked more than once (e.g., 15 will be marked both for 3 and 5).
+_The main idea here is that every value given to p will be prime, because if it were composite it would be marked as a multiple of some other, smaller prime. Note that some of the numbers may be marked more than once (e.g., 15 will be marked both for 3 and 5)._
      
-As a refinement, it is sufficient to mark the numbers in step 3 starting from p^2, as all the smaller multiples of p will have already been marked at that point. This means that the algorithm is allowed to terminate in step 4 when p^2 is greater than n.    
+_As a refinement, it is sufficient to mark the numbers in step 3 starting from ```p^2```, as all the smaller multiples of p will have already been marked at that point. This means that the algorithm is allowed to terminate in step 4 when p^2 is greater than n._    
      
 The sieve of Eratosthenes is a popular way to benchmark computer performance. As can be seen from the above by removing all constant offsets and constant factors and ignoring terms that tend to zero as n approaches infinity, the time complexity of calculating all primes below n in the random access machine model is O(n log log n) operations, a direct consequence of the fact that the prime harmonic series asymptotically approaches log log n. It has an exponential time complexity with regard to input size, though, which makes it a pseudo-polynomial algorithm. The basic algorithm requires O(n) of memory.
      
-The bit complexity of the algorithm is O(n (log n) (log log n)) bit operations with a memory requirement of O(n).    
+The bit complexity of the algorithm is ```O(n (log n) (log log n))``` bit operations with a memory requirement of ```O(n)```.    
      
 https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes     
 
