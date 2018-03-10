@@ -28,36 +28,33 @@ The algorithm is implemented as follows:
 class Solution {
 public:
     RandomListNode *copyRandomList(RandomListNode *head) {
-        
         // Clone each node and append it to the original node
-        RandomListNode *curr(head);
-        while (curr) {
-            RandomListNode *clone = new RandomListNode(curr->label);
-            clone->next = curr->next;
-            curr->next = clone;
-            curr = clone->next;
+        RandomListNode *cur(head);
+        while (cur) {
+            RandomListNode *temp = new RandomListNode(cur->label);
+            temp->next = cur->next;
+            cur->next = temp;
+            
+            temp->random = cur->random;
+            
+            cur = temp->next;
         }
-        
-        // Adjust random pointers of clone nodes
-        curr = head;
-        while (curr) {
-            if (curr->random) {
-                curr->next->random = curr->random->next;
-            }
-            curr = curr->next->next;
+        // Adjust random pointers of clone nodes.
+        cur = head;
+        while (cur) {
+            if (cur->next->random) cur->next->random = cur->next->random->next;
+            cur = cur->next->next;
         }
         
         // Split the list
         RandomListNode dummy(0), *pre(&dummy);
-        curr = head;
-        while (curr) {
-            pre->next = curr->next;
-            curr->next = curr->next->next;
-            
+        cur = head;
+        while (cur) {
+            pre->next = cur->next;
+            cur->next = cur->next->next;
             pre = pre->next;
-            curr = curr->next;
+            cur = cur->next;
         }
-        
         return dummy.next;
     }
 };
