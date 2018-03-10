@@ -28,14 +28,60 @@ Let's assume that these two linkedlist have intersection. We let L1 represents t
 
 What if they have no intersection? The p and q will be null at the same time.
     
-    
 Edge cases:
 
 1. Either linked list can be empty.
-2. These two linked list may have no intersection at ll.
+2. These two linked list may have no intersection at all.
+3. The two linked list are actually the same linked list. So ```headA``` and ```headB``` at the same node from the start.
+
+
+__The most hideous trap of this problem is that how to avoid infinite loop. You need to be very careful about it.__
     
 ### Solution one    
     
+```cpp
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        if (!headA || !headB) return nullptr;
+        ListNode *pa(headA), *pb(headB);
+        bool switched_pa(false), switched_pb(false);
+        while (pa != pb) {
+            if (pa->next) {
+                pa = pa->next;
+            } else {
+                if (switched_pa) return nullptr;
+                pa = headB;
+                switched_pa = true;
+            }
+            
+            if (pb->next) {
+                pb = pb->next;
+            } else {
+                if (switched_pb) return nullptr;
+                pb = headA;
+                switched_pb = true;
+            }
+            
+        }      
+        return pa;
+    }
+};
+```
+
+    
+    
+### Solution two    
+
+Above solution can be simplified. But this solution is a little bit tricky to understand, so I would say its readability and maintainability is not as good as above code.
+
+If one of them reaches the end earlier then reuse it by moving it to the beginning of other list. Once both of them go through reassigning, they will be equidistant from the collision point.
+
+* If no intersection, after ```size_of_a + size_of_b``` steps, ```p1``` and ```p2``` will reach nullptr at the same time, in that case, we are still able to terminate the loop.
+* If there is intersection, after travel the same distances, ```p1``` and ```p2``` will definitely meet at one node.
+    
+__If no intersection, p1 and p2 will reach NULL at the same time.__ 
+
 ```cpp
 /**
  * Definition for singly-linked list.
@@ -48,56 +94,18 @@ Edge cases:
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        if (!headA || !headB) return nullptr;
-        ListNode *p(headA), *q(headB);
-        bool switched_p(false), switched_q(false);
-        while (p != q) {
-            if (p->next) {
-                p = p->next;
-            } else {
-                if (switched_p) return nullptr;
-                p = headB;
-                switched_p = true;
-            }
+        ListNode *pa(headA), *pb(headB);
+        while (pa && pb && pa != pb) {
+            pa = pa->next;
+            pb = pb->next;
             
-            if (q->next) {
-                q = q->next;
-            } else {
-                if (switched_q) return nullptr;
-                q = headA;
-                switched_q = true;
-            }
+            if (pa == pb) return pa;
             
-        }      
-        return p;
+            if (!pa) pa = headB;
+            if (!pb) pb = headA;
+        }
+        
+        return pa == pb ? pa : nullptr;
     }
-};
-```
-
-    
-    
-### Solution two    
-
-Above solution can be simplified.
-
-If one of them reaches the end earlier then reuse it by moving it to the beginning of other list.
-Once both of them go through reassigning, they will be equidistant from the collision point.
-    
-__If no intersection, p1 and p2 will reach NULL at the same time.__ 
-
-```cpp
-class Solution {
- public:
-  ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-    ListNode *a(headA), *b(headB);
-    while (a && b && a != b) {
-      a = a->next;
-      b = b->next;
-      if (a == b) return a;
-      if (!a) a = headB;
-      if (!b) b = headA;
-    }
-    return a == b ? a : nullptr;
-  }
 };
 ```
