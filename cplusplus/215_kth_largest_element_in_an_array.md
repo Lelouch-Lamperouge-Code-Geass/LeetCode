@@ -53,6 +53,22 @@ Now let's briefly write down the algorithm before writing our codes.
   
 Now let's turn it into code.
 
+#### time complexity analysis
+
+We know that for the while loop in ```findKthLargest```, we increase start or decrease end on every loop step, and this can take n steps. For ```randomPartition```, if all the numbers in the vector are the same, then the randomization is basically useless here, and it's time complexity is O(end + 1 - start).
+
+So we know that in worst case(all numbers are the same), the time complexity is O(N^2).
+
+Right now let's take analyze ```randomPartition``` which is a little tricky here.
+
+The best case is that ```randomPartition``` can discard half of the numbers every time, this is the biggest difference between this problem and quick-sort algorithm. For quick-sort, the problem can be shown as this picture.
+
+<img src = "https://ka-perseus-images.s3.amazonaws.com/21cd0d70813845d67fbb11496458214f90ad7cb8.png" height = "300" width = "300">
+
+We know that the tree height in this picture is log(N), which means there are log(N) tree layers, and on each layer we process every element, so the best time complexity for quick-sort is O(NlogN).
+
+However, in this problem, in best case we can discard half the elements every time after calling ```randomPartition```, thus we will call ```randomPartition``` log(N) times.
+
 __The algorithm has average O(N) time, but worst case is O(N^2).__
   
 ```cpp
