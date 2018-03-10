@@ -137,3 +137,48 @@ public:
     }
 };
 ```
+
+### Solution three
+
+We can calculate what's the maximum steps we need to do in order to find the intersection node if it exists.
+
+This solution is a little slower than above solutions, but in practical, its readability and maintainability is pretty good since it is very straightforward and it's quite clear that it avoid the infinite loop in a very clear way.
+
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+private:
+    size_t getLengthOfList(ListNode *node) {
+        size_t len(0);
+        while (node) {
+            ++ len;
+            node = node->next;
+        }
+        return len;
+    }
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        if (!headA || !headB) return nullptr;
+        if (headA == headB) return headA;
+        
+        size_t total_steps = getLengthOfList(headA) + getLengthOfList(headB) ;
+        ListNode *pa(headA), *pb(headB);
+        for (size_t i = 0; i < total_steps; ++i) {
+            pa = pa->next? pa->next : headB;
+            pb = pb->next? pb->next : headA;
+            
+            if (pa == pb) return pa;
+        }
+        
+        
+        return nullptr;
+    }
+};
+```
