@@ -24,27 +24,107 @@ Note:
 * You may assume no duplicates in the word list.
 * You may assume beginWord and endWord are non-empty and are not the same.
 
-# Knowledge
-
-### Bidirectional search
-
-* https://en.wikipedia.org/wiki/Bidirectional_search
-
-__Bidirectional search__ is a graph search algorithm that finds a shortest path from an initial vertex to a goal vertex in a directed graph. It runs two simultaneous searches: one forward from the initial state, and one backward from the goal, stopping when the two meet in the middle. The reason for this approach is that in many cases it is faster.
-
-__Note that this graph doesn't have weight, therefore we can use BFS to solve it. If the edge here has weight, we need to use Dijkstra algorithm.__
-
-In normal graph search using BFS/DFS we begin our search in one direction usually from source vertex toward the goal vertex, but what if we start search form both direction simultaneously. Bidirectional search is a graph search algorithm which find smallest path form source to goal vertex. It runs two simultaneous search 
-
-1. Forward search form source/initial vertex toward goal vertex
-2. Backward search form goal/target vertex toward source vertex
-
-Bidirectional search replaces single search graph(which is likely to grow exponentially) with two smaller sub graphs – one starting from initial vertex and other starting from goal vertex. The search terminates when two graphs intersect.
-
 
 # Solution
 
+This is a graph problem. If we treat each word as a graph node(vertex), then the problem becomes find the shortest path from one graph node to another graph node. Real-life examples can be, "find the shortest path from one bus station to another bus station".
+
+Here we use bidirectional-BFS to build the graph, ```graph[cur_word]``` is an unordered_set of words that ```cur_word``` can be reached, of course you need to make sure all the words(graph nodes) are in the ```wordList``` provided. In this bidirectional-BFS, we have left graph nodes layer, and right graph nodes layer. This bidirectional-BFS should end as long as there is any graph node in "right" layer can be reached from graph nodes in "left" layer(quoted here becuse in bi-BFS, left ane right layer are switched sometimes). Everytime before we process the "left" layer, we erase its words from the dictionary, thus to avoid re-visit graph node(A node in current left layer => B in next left nodes, also means B => A) as well as avoid unnecessary calculation(if both A and B are within current left layer nodes, A=>B can be avoided).
+
+
+After bidirectional-BFS, we have a graph to represent the relationship from one word to another word. Right now we can find the shortest-path by using DFS.
+
+Since both BFS and DFS have time complexity ```O(number_of_edges + number_of_vertices)```, this solution's time complexity is ```O(number_of_edges + number_of_vertices)```.
+
+
 ### Solution 1
+
+```cpp
+class Solution {
+private:
+    void bidirectionBfs(unordered_set<string> &left_words,
+                        unordered_set<string> &right_words,
+                        unordered_set<string> &dictionary,
+                        unordered_map<string, unordered_set<string>> &graph,
+                        bool is_reversed) {
+        if (left_words.empty() || right_words.empty()) return;
+        
+        if (left_words.size() > right_words.size()) {
+            bidirectionBfs(right_words, left_words, dictionary, graph, !is_reversed);
+        } else {
+            // Erase nodes that beging processed.
+            for (const string &s : left_words) dictionary.erase(s);
+
+            bool find_path(false);
+            unordered_set<string> next_left_words;
+            for (const string &left_word : left_words) {
+                string cur_word(left_word);
+                for (char & c : cur_word) {
+                    const char origin_char(c);
+                    for (char tmp_char = 'a'; tmp_char <= 'z'; ++tmp_char) {
+                        if (tmp_char == origin_char) continue;
+                        c = tmp_char;
+                        if (right_words.count(cur_word)) {
+                            find_path = true;
+                        }
+
+                        if (dictionary.count(cur_word)) {
+                            next_left_words.insert(cur_word);
+                            
+                            if (!is_reversed) {
+                                graph[left_word].insert(cur_word);
+                            } else {
+                                graph[cur_word].insert(left_word);
+                            }
+                        }
+                    }
+                    c = origin_char; // revert back
+                }
+            }
+            if (find_path) return;
+            else bidirectionBfs(next_left_words, right_words, dictionary, graph, is_reversed);
+        }
+    }
+    void buildPathWithDFS(const string &cur_word,
+                          const string &end_word,
+                          unordered_map<string, unordered_set<string>> &graph,
+                          vector<vector<string>> &reval,
+                          vector<string> &cur_path) {
+        cur_path.emplace_back(cur_word);
+        if (cur_word == end_word) {
+            // The end of current path.
+            reval.emplace_back(cur_path);
+        } else {
+            for (const string &next_word : graph[cur_word]) {
+                buildPathWithDFS(next_word, end_word, graph, reval, cur_path);
+            }
+        }
+        cur_path.pop_back();
+    }
+public:
+    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
+        unordered_set<string> left_words({beginWord});
+        unordered_set<string> right_words({endWord});
+        unordered_set<string> dictionary(wordList.begin(), wordList.end());
+        if (dictionary.count(endWord) == 0) {
+            // Ok, one unit test requires that if endWord is not in wordList,
+            // return empty container
+            return vector<vector<string>>();
+        }
+        
+        unordered_map<string, unordered_set<string>> graph;
+        
+        bidirectionBfs(left_words, right_words, dictionary, graph, false);
+        
+        vector<vector<string>> reval;
+        vector<string> cur_path;
+        buildPathWithDFS(beginWord, endWord, graph, reval, cur_path);
+        return reval;
+    }
+};
+```
+
+### Solution 2, same method as solution 1, just with unit test
 
 We are required to return the SHORTEST transformation sequences in the end. How to build the transformation sequence then? It turns out if we can store the next transformation words for each word, then we can build the paths based on that.
 Therefore, a HashMap stores <word, vector<next-transformation>> pairs will be a good choice.
@@ -163,7 +243,7 @@ private:
 };
 ```
 
-# Full code with unit tests
+#### Full code with unit tests
 
 ```cpp
 // get next reachable words based on word dictionary
@@ -330,3 +410,20 @@ int main() {
   return 0;
 }
 ```
+
+# Knowledge
+
+### Bidirectional search
+
+* https://en.wikipedia.org/wiki/Bidirectional_search
+
+__Bidirectional search__ is a graph search algorithm that finds a shortest path from an initial vertex to a goal vertex in a directed graph. It runs two simultaneous searches: one forward from the initial state, and one backward from the goal, stopping when the two meet in the middle. The reason for this approach is that in many cases it is faster.
+
+__Note that this graph doesn't have weight, therefore we can use BFS to solve it. If the edge here has weight, we need to use Dijkstra algorithm.__
+
+In normal graph search using BFS/DFS we begin our search in one direction usually from source vertex toward the goal vertex, but what if we start search form both direction simultaneously. Bidirectional search is a graph search algorithm which find smallest path form source to goal vertex. It runs two simultaneous search 
+
+1. Forward search form source/initial vertex toward goal vertex
+2. Backward search form goal/target vertex toward source vertex
+
+Bidirectional search replaces single search graph(which is likely to grow exponentially) with two smaller sub graphs – one starting from initial vertex and other starting from goal vertex. The search terminates when two graphs intersect.
