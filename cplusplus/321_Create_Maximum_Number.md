@@ -62,105 +62,72 @@ We have 7 when i = 1 and j = 1, which 7 should we choose?
 
 __The key is to compare the left subarray include that number, and choose the one is [lexicographically larger](https://en.wikipedia.org/wiki/Lexicographical_order).__
 
-
-
-
-
-
-```java
-public int[] maxNumber(int[] nums1, int[] nums2, int k) {
-    int n = nums1.length;
-    int m = nums2.length;
-    int[] ans = new int[k];
-    for (int i = Math.max(0, k - m); i <= k && i <= n; ++i) {
-        int[] candidate = merge(maxArray(nums1, i), maxArray(nums2, k - i), k);
-        if (greater(candidate, 0, ans, 0)) ans = candidate;
-    }
-    return ans;
-}
-private int[] merge(int[] nums1, int[] nums2, int k) {
-    int[] ans = new int[k];
-    for (int i = 0, j = 0, r = 0; r < k; ++r)
-        ans[r] = greater(nums1, i, nums2, j) ? nums1[i++] : nums2[j++];
-    return ans;
-}
-public boolean greater(int[] nums1, int i, int[] nums2, int j) {
-    while (i < nums1.length && j < nums2.length && nums1[i] == nums2[j]) {
-        i++;
-        j++;
-    }
-    return j == nums2.length || (i < nums1.length && nums1[i] > nums2[j]);
-}
-public int[] maxArray(int[] nums, int k) {
-    int n = nums.length;
-    int[] ans = new int[k];
-    for (int i = 0, j = 0; i < n; ++i) {
-        while (n - i + j > k && j > 0 && ans[j - 1] < nums[i]) j--;
-        if (j < k) ans[j++] = nums[i];
-    }
-    return ans;
-}
-```
-
-CPP　version, to be continue.
-
 ```cpp
 class Solution {
 public:
-    vector<int> MaxSubVec(const vector<int> & nums, const std::size_t n) {
-       if (nums.size() < n || 0 == n) return vector<int>();
-
-          vector<int> reval;
-          std::size_t remain(nums.size());
-          for (int num : nums) {
-            while (reval.size() + remain > n && !reval.empty() && reval.back() < num) {
-              //printVector(reval);
-              reval.pop_back();
-            }
-
-            reval.emplace_back(num);
-
-            if (remain > 0) -- remain;
-          }
-
-          while (reval.size() > n) reval.pop_back();
-
-          return reval;
-    }
-    
-    bool GreaterThan(const std::vector<int> & left, 
-         std::size_t i, 
-         const std::vector<int> & right, 
-         std::size_t j) {
-        const std::size_t left_size(left.size()), right_size(right.size());
-        while (i<left_size && j<right_size && left[i] == right[j]) {
-            ++i;
-            ++j;
-        }
-        return j == right_size || ( i < left_size && left[i] > right[j]); 
-    }
-    
-    vector<int> Merge(const vector<int> & left, const vector<int> & right, std::size_t k) {
-        vector<int> reval(k, 0);
-        for (std::size_t i = 0, l = 0, r = 0; i < k; ++i) {
-            reval[i] = GreaterThan(left,l,right,r) ? left[l++] : right[r++];
-        }
-        return reval;
-    }
-    
     vector<int> maxNumber(vector<int>& nums1, vector<int>& nums2, int k) {
-        std::size_t size1(nums1.size()), size2(nums2.size());
-        vector<int> reval(k,0);
-        for (std::size_t i = 1; i < k && i < size1; ++i) {
-            const vector<int> & left = MaxSubVec(nums1,i);
-            const vector<int> & right = MaxSubVec(nums2,k - i);
-            vector<int> temp = Merge(left, right, k);
-            if (GreaterThan(temp,0,reval,0)) {
-                reval = temp;
+        const size_t size_1(nums1.size()), size_2(nums2.size());
+        
+        vector<int> max_number;
+        
+        for (size_t len1 = 0; len1 <= size_1 && len1 <= k; ++len1) {
+            if (k - len1 > size_2) continue;
+            vector<int> candidate(maxNumberWithMerge(maxSubNumber(nums1, len1), maxSubNumber(nums2, k - len1)));
+            if (isLexicographicalGreater(candidate, max_number, 0, 0)) {
+                max_number = candidate;
             }
         }
-        return reval;
+        return max_number;
+    }
+private:
+    // Return true/false whether subarray [pos1:end) of nums1 is lexicographically 
+    // greater than subarray [pos2:end) of nums2
+    bool isLexicographicalGreater(const vector<int>& nums1, 
+                                  const vector<int>& nums2,
+                                  size_t pos1,
+                                  size_t pos2) {
+        while (pos1 < nums1.size() && pos2 < nums2.size()
+              && nums1[pos1] == nums2[pos2]) {
+            ++ pos1, ++ pos2;
+        }
+        
+        return pos2 == nums2.size() || pos1 < nums1.size() && nums1[pos1] > nums2[pos2];
     }
     
+    // Return a subarray which representing the maximum number
+    // we can get from nums with size len.
+    vector<int> maxSubNumber(const vector<int>& nums,
+                             size_t len) {
+        vector<int> reval;
+        size_t number_left(len);
+        for (size_t i = 0, n = nums.size(); i < n; ++i) {
+            while (!reval.empty() && reval.back() < nums[i] 
+                   && (reval.size() - 1 + n - i) >= len // Make sure we have enough numbers to reach len
+                  ) {
+                reval.pop_back();
+            }
+            reval.emplace_back(nums[i]);
+        }
+        return vector<int>(reval.begin(), reval.begin() + len);
+    }
+    
+    // Return the maximum number we can get by merging two numbers.
+    vector<int> maxNumberWithMerge(const vector<int>& nums1, 
+                                   const vector<int>& nums2) {
+        
+        const size_t size_1(nums1.size()), size_2(nums2.size()), total_size(size_1 + size_2);
+        vector<int> reval(total_size, 0);
+        
+        for (size_t index(0), i(0), j(0); index < total_size; ++ index) {
+            reval[index] = isLexicographicalGreater(nums1, nums2, i, j) ? nums1[i++] : nums2[j++];
+        }
+        
+        return reval;
+    }
 };
 ```
+
+
+
+
+
