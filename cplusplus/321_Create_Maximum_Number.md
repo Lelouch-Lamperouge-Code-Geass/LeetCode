@@ -35,6 +35,11 @@ The basic idea:
 
 To create max number of length k from two arrays, you need to create max number of length i from array one and max number of length k-i from array two, then combine them together. After trying all possible i, you will get the max number created from two arrays.
 
+Therefore, we need to solve two simpler sub-problems:
+
+1. Create the maximum number of one array with specified subarray length.  
+2. Create the maximum number of by merging two arrays.  
+
 Optimization:
 
 1. Suppose nums1 = [3, 4, 6, 5], nums2 = [9, 1, 2, 5, 8, 3], the maximum number you can create from nums1 is [6, 5] with length 2. For nums2, it's [9, 8, 3] with length 3. Merging the two sequence, we have [9, 8, 6, 5, 3], which is the max number we can create from two arrays without length constraint. If the required length k<=5, we can simply trim the result to required length from front. For instance, if k=3, then [9, 8, 6] is the result.
