@@ -66,6 +66,10 @@ public:
 
 ### Solution 2, iterative solution with a stack
 
+Whenever we first encounter a node, we push it to stack, and keep going to its left and adding nodes to stack.
+
+Whenever current node is nullptr, we begin to pop node out of stack. For every node popped from stack, its left branch has been visited. We process this node, and set current node pointer to its right child, which is not pushed to stack yet.
+
 __Time complexity O(number of nodes), space complexity O(depth of tree).__
 
 ```cpp
@@ -92,7 +96,7 @@ public:
                 root = my_stack.top();
                 my_stack.pop();
                 res.push_back(root->val);
-                root = root->right;
+                root = root->right; // Note it is not res.push_back(root->right)!
             }
         }
         return res;
