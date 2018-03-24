@@ -32,6 +32,8 @@ Output: 0
 
 # Solution
 
+### Solution one
+
 Note that even though in our description, no duplicates exist in the array. Below solution can still handle if duplicates are involved.
 
 ```cpp
@@ -39,12 +41,12 @@ public class Solution {
     public int searchInsert(int[] nums, int target) {
         int low = 0, high = nums.length - 1;
         
-        // Invariant: the desired index is between [low, high+1]
+        // Invariant: the desired index is between [low, high]
         while (low <= high) {
             int mid = low + (high - low) / 2;
             if (nums[mid] < target) {
                 low = mid + 1;
-            } else {
+            } else { // nums[mid] >= target
                 high = mid - 1;
             }
         }
@@ -59,4 +61,18 @@ public class Solution {
         return low;
     }
 }
+```
+
+### Solution two
+
+We can use ```std::equal_range``` here.
+
+```cpp
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        auto iter_pair = std::equal_range(nums.begin(), nums.end(), target);
+        return iter_pair.first - nums.begin();
+    }
+};
 ```
