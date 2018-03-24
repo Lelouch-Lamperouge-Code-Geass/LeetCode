@@ -61,9 +61,7 @@ a b a b c
 
 (Note: we will not match substring with itself, so we will skip index 0)
 
-So how does this table help us search string match faster?
-
-Well, the answer is if we are trying to match a char after proper postfix with target string and failed, then we can smartly shift the string, so that the matching string in proper prefix will replace proper postfix and now we can try to match the char after proper prefix with this char in target.
+__So how does this table help us search string match faster? Well, the answer is if we are trying to match a char after proper postfix with target string and failed, then we can smartly shift the string, so that the matching string in proper prefix will replace proper postfix and now we can try to match the char after proper prefix with this char in target.__
 
 Take above string as an example.
 
