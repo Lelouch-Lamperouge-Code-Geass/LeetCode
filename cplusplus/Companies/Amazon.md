@@ -1,3 +1,29 @@
+
+
+#### 675. Cut Off Trees for Golf Event
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/675.%20Cut%20Off%20Trees%20for%20Golf%20Event.md
+
+#### 682. Baseball Game
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/682.%20Baseball%20Game.md
+
+#### 692. Top K Frequent Words
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/692.%20Top%20K%20Frequent%20Words.md
+
+#### 694. Number of Distinct Islands
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/694.%20Number%20of%20Distinct%20Islands.md
+
+#### 711. Number of Distinct Islands II
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/711.%20Number%20of%20Distinct%20Islands%20II.md
+
+#### 725. Split Linked List in Parts
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/725.%20Split%20Linked%20List%20in%20Parts.md
+
 #### 738. Monotone Increasing Digits
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/738.%20Monotone%20Increasing%20Digits.md
