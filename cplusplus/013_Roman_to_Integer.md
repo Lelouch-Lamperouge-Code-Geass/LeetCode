@@ -4,10 +4,20 @@ Input is guaranteed to be within the range from 1 to 3999.
 
 # Solution
 
-https://en.wikipedia.org/wiki/Roman\_numerals
+In order to solve problems related to roman numberal, remember that roman numberal and arabic numeral are not that different. The only difference they have is how their symbols represent each digit.
 
+For example, for number ```3526```, its roman numberal is ```MMMDXXVI```.
 
+```
+3     5   2   6
+MMM   D   XX  VI   
+```
 
+In arabic numeral, digits are alwasy 0-9, ```3``` in ```123``` represent three digits in ones place, ```3``` in ```231``` represent three digits in tens place, ```3``` in ```321``` represent three digits in hundreds  place. The digit's position plays a very important role here.
+
+In roman numeral, digit changes. ```III``` represent three digits in ones place, ```XXX``` represent three digits in tens place, ```CCC``` represent three digits in ones  place. The digit's position doesn't paly an important role here.
+
+Nevertheless, here their radix are 10-based. All we need care is how to represent the digit.
 
 ### Solution one
 
@@ -87,6 +97,8 @@ private:
 ```
 
 # Knowledge
+
+https://en.wikipedia.org/wiki/Roman\_numerals
 
 ### Subtractive notation
 
