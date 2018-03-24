@@ -98,7 +98,7 @@ private:
 
 # Knowledge
 
-https://en.wikipedia.org/wiki/Roman\_numerals
+https://en.wikipedia.org/wiki/Roman_numerals
 
 ### Subtractive notation
 
