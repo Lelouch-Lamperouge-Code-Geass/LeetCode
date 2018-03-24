@@ -78,5 +78,16 @@
 692     Top K Frequent Words   41.9% Medium
 694     Number of Distinct Islands      43.4%   Medium
 711     Number of Distinct Islands II   24.2%   Hard
+725	    Split Linked List in Parts   47.4%	Medium	
+738	    Monotone Increasing Digits   41.0%	Medium	
+742	    Closest Leaf in a Binary Tree 33.4%	Medium	
+746	    Min Cost Climbing Stairs      43.3%	Easy	
+762	    Prime Number of Set Bits in Binary Representation  55.1%	Easy	
+763	    Partition Labels  64.2%	Medium	
+771	    Jewels and Stones  82.2%	Easy	
+775	    Global and Local Inversions  31.1%	Medium	
+776	    Split BST  48.4%	Medium	
+791	    Custom Sort String  60.5%	Medium	
+801	    Minimum Swaps To Make Sequences Increasing  20.4%	Medium	
 
 ```
