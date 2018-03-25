@@ -1,5 +1,37 @@
 
 
+#### 606. Construct String from Binary Tree
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/606.%20Construct%20String%20from%20Binary%20Tree.md
+
+#### 617. Merge Two Binary Trees
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/617_Merge_Two_Binary_Trees.md
+
+#### 640. Solve the Equation
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/640.%20Solve%20the%20Equation.md
+
+#### 645. Set Mismatch
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/645.%20Set%20Mismatch.md
+
+#### 646. Maximum Length of Pair Chain
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/646.%20Maximum%20Length%20of%20Pair%20Chain.md
+
+#### 661. Image Smoother
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/661.%20Image%20Smoother.md
+
+#### 662. Maximum Width of Binary Tree
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/662.%20Maximum%20Width%20of%20Binary%20Tree.md
+
+#### 663. Equal Tree Partition
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/663.%20Equal%20Tree%20Partition.md
+
 #### 675. Cut Off Trees for Golf Event
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/675.%20Cut%20Off%20Trees%20for%20Golf%20Event.md
