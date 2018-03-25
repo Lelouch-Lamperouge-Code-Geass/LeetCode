@@ -1,5 +1,22 @@
 
 
+
+#### 536. Construct Binary Tree from String
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/536_Construct_Binary_Tree_from_String.md
+
+#### 537. Complex Number Multiplication
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/537.%20Complex%20Number%20Multiplication.md
+
+#### 538. Convert BST to Greater Tree
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/538_Convert_BST_to_Greater_Tree.md
+
+#### 553. Optimal Division
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/553.%20Optimal%20Division.md
+
 #### 606. Construct String from Binary Tree
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/606.%20Construct%20String%20from%20Binary%20Tree.md
