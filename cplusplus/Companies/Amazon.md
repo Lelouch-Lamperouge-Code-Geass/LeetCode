@@ -1,4 +1,12 @@
 
+#### 529. Minesweeper
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/529.%20Minesweeper.md
+
+#### 532. K-diff Pairs in an Array
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/532.%20K-diff%20Pairs%20in%20an%20Array.md
+
 #### 535. Encode and Decode TinyURL
 
 
