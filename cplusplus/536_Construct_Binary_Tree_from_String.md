@@ -25,7 +25,11 @@ Output: return the tree root node representing the following tree:
 
 # Solution
 
+__Note that here the number can be negative since the input has '-'. But it has no '+'.__
+
 ### Iterative solution
+
+Here we use a stack to store nodes. Whenever we find a number, we create a new node. And if the stack is not empty, then add current node as previous node's left/right child. Whenever we meet ')', pop one node out of the stack.
 
 ```cpp
 /**
@@ -76,6 +80,7 @@ public:
 
 ### Recursive solution 
 
+
 ```cpp
 /**
  * Definition for a binary tree node.
@@ -121,6 +126,44 @@ private:
             
             return curr;
         }
+    }
+};
+```
+
+A different style.
+
+```cpp
+class Solution {
+private:
+    TreeNode* deserialize(const string &s, size_t &pos) {
+        if (pos == s.size()) {
+            return nullptr;
+        } else {
+            size_t next_pos = s.find_first_not_of("-1234567890", pos);
+            
+            int num = stoi(s.substr(pos, next_pos - pos));
+            
+            TreeNode *cur_node = new TreeNode(num);
+            
+            pos = next_pos;
+            
+            if (pos < s.size() && s[pos] == '(') {
+                cur_node->left = deserialize(s, ++pos);
+                ++ pos;
+            }
+            
+            if (pos < s.size() && s[pos] == '(') {
+                cur_node->right = deserialize(s, ++pos);
+                ++ pos;
+            }
+            
+            return cur_node;
+        }
+    }
+public:
+    TreeNode* str2tree(string s) {
+        size_t pos(0);
+        return deserialize(s, pos);
     }
 };
 ```
