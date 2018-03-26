@@ -47,6 +47,13 @@ It's impossible to make all the three washing machines have the same number of d
 
 # Solution
 
+Notice that below two solutions are essentailly the same just from different perspective, please check their difference.
+
+__The key point is to realize that we can add maximum two dress on a machine(adding one from left neighbor and one from right neighbor), but can give away maximum one dress on a machine.__
+
+
+### Solution if we think from operation perspective
+
 First we check the sum of dresses in all machines. if that number cannot be divided by count of machines, there is no solution.
 
 Otherwise, we can always transfer a dress from one machine to another, one at a time until every machines reach the same number, so there must be a solution. In this way, the total actions is sum of operations on every machine.
@@ -79,11 +86,8 @@ Done.
 Let me use an example to briefly explain this. For example, your machines is ```[0,0,11,5]```. So your total is 16 and the target value for each machine is 4. Convert the machines array to a kind of gain/lose array, we get: [+4,+4,-7,-1]. Now what we want to do is go from the first one and try to make all of them 0.
 
 To make the 1st machines 0, you need to give all its “load” to the 2nd machines. So we get: ```[0,+8,-7,-1]```, then: ```[0,0,+1,-1]```, lastly: ```[0,0,0,0]```, done. You don’t have to worry about the details about how these machines give load to each other. __In this process, the least steps we need to eventually finish this process is determined by the peak of abs(cnt) and the max of “gain/lose” array.__ In this case, the peak of abs(cnt) is 8 and the max of gain/lose array is 7. So the result is 8.
+ 
 
-Some other example:
-
-* machines: ```[0,3,0]```; gain/lose array: ```[-1,2,-1]```; ```max = 2, cnt = 0, -1, 1, 0```, its abs peak is 1. So result is 2.  
-* machines: ```[1,0,5]```; gain/lose array: ```[-1,-2,3]```; ```max = 3, cnt = 0, -1, -3, 0```, its abs peak is 3. So result is 3.  
 
 ```cpp
 class Solution {
@@ -100,10 +104,14 @@ public:
         int operation_load(0), reval(0);
         
         for (int dress_on_this_machine : machines) {
-            int curr_operation = dress_on_this_machine - average_dress_per_machine;
+            int curr_operation = average_dress_per_machine - dress_on_this_machine;
             operation_load = curr_operation + operation_load;
             
-            reval = std::max(reval, curr_operation);
+            // If curr_operation is positive, that means we need add dress here,
+            // and we can add maximum two dresses at a time (get one from each neighbor).
+            // If curr_operation is negative, that means we need give away dress,
+            // but we can only give away one dresses at a time.
+            reval = std::max(reval, -curr_operation);
             reval = std::max(reval, std::abs(operation_load));
         }
         
@@ -112,7 +120,48 @@ public:
 };
 ```
 
+### Solution if we think from dress need perspective
 
+In my opinion, the lower bound of moves is determined by two factor:
+
+* The total gain/lose between each two machines. For example in your sample data the total gain/lose between machine 1 and 2 are (-4)+(-4)=-8 and 7+1=8. This means in order to make a balance, there should be at least 8 items move from right to left between machine 1 and 2. In your algorithm this is done by Math.abs(cnt)
+* The max of each individual gain/lose if positive. __The problem says “pass one dress of each washing machine to one of” which means if the gain/lose is negative, there could be at most two items moved in because there are only at most two neighbors. But if gain/lose is positive, only one can be moved out so this sets the lower bound.__
+
+Some other example:
+
+* machines: ```[0,3,0]```; gain/lose array: ```[-1,2,-1]```; ```max = 2, cnt = 0, -1, 1, 0```, its abs peak is 1. So result is 2.  
+* machines: ```[1,0,5]```; gain/lose array: ```[-1,-2,3]```; ```max = 3, cnt = 0, -1, -3, 0```, its abs peak is 3. So result is 3. 
+
+```cpp
+class Solution {
+public:
+    int findMinMoves(vector<int>& machines) {
+        if (machines.empty()) return 0;
+       
+        long total_dresses = std::accumulate(machines.begin(), machines.end(), 0);
+            
+        const std::size_t num_of_machine = machines.size();
+        if (total_dresses % num_of_machine != 0) return -1;
+        int average_dress_per_machine = total_dresses / num_of_machine;
+        
+        int dress_load(0), reval(0);
+        
+        for (int dress_on_this_machine : machines) {
+            int dress_need = dress_on_this_machine - average_dress_per_machine;
+            dress_load = dress_need + dress_load;
+            
+            // If dress_need is negative, that means we need add dress here,
+            // and we can add maximum two dresses at a time (get one from each neighbor).
+            // If dress_need is positive, that means we need give away dress,
+            // but we can only give away one dresses at a time.
+            reval = std::max(reval, dress_need);
+            reval = std::max(reval, std::abs(dress_load));
+        }
+        
+        return reval;
+    }
+};
+```
 
 
 
