@@ -1,3 +1,6 @@
+#### 517. Super Washing Machines
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/517_Super_Washing_Machines.md
 
 #### 529. Minesweeper
 
