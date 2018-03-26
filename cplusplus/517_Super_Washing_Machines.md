@@ -58,27 +58,27 @@ For a single machine, necessary operations is to transfer dresses from one side 
 
 For example, for input [1,0,5], we know that evetually each washing machine should have 2 dresses.
 
-And the operation array is initially [-1, -2, 3], which means washing machine 1 need add one dress, washing machine 2 need add two dresses, and washing machine 3 need give out 3 dresses. Or in other words, washing machine 1 need one ADD operation, washing machine 2 need two ADD operations, and washing machine 3 need performe three GIVEAWAY operation.
+And the operation array is initially [+1, +2, -3], which means washing machine 1 need add one dress, washing machine 2 need add two dresses, and washing machine 3 need give out 3 dresses. Or in other words, washing machine 1 need one ADD operation, washing machine 2 need two ADD operations, and washing machine 3 need performe three GIVEAWAY operation.
 
-> Note that for the operation array, the number of GIVEAWAY operation is the same as the number of ADD operation, these two kinds operation basically neutralize each other. For example, for operation array [-1, 1], one ADD operation and one GIVEAWAY operation is needed and they paired up as one "move".
+> Note that for the operation array, the number of GIVEAWAY operation is the same as the number of ADD operation, these two kinds operation basically neutralize each other. For example, for operation array [-1, +1], one ADD operation and one GIVEAWAY operation is needed and they paired up as one "move".
 
-Let's continue with our example with initial operation array [-1, -2, 3], we know that in order to add one address to waching machine 1 we need one GIVEAWAY opertaion on machine 2. If current operation number on washing machine two is positive, which means right now washing machine 2 only need perform GIVEAWAY operation, we add -1 on the operation number to neutralize it; however if it is negative, which means washing machine 2 also need perform ADD operation too, we can also add the -1 on the operation number, but here it means washing machine 2 need to get dresses from other washing machines.
+Let's continue with our example with initial operation array [+1, +2, -3], we know that in order to add one address to waching machine 1 we need one GIVEAWAY opertaion on machine 2. If current operation number on washing machine two is positive, which means right now washing machine 2 only need perform GIVEAWAY operation, we add +1 on the operation number to neutralize it; however if it is negative, which means washing machine 2 also need perform ADD operation too, we can also add the -1 on the operation number, but here it means washing machine 2 need to get dresses from other washing machines.
 
 The work flow like this:
 
 ```
-[-1, -2, 3]  : basically means [1 ADD, 2 ADD, 3 GIVEAWAY] 
+[+1, +2, -3]  : basically means [1 ADD, 2 ADD, 3 GIVEAWAY] 
 
-[0, -3, 3] : we add the operations of washing machine 1 on washing machine 2
+[0, +3, -3] : we add the operations of washing machine 1 on washing machine 2
 
 [0, 0, 0] : we add the operations of washing machine 2 on washing machine 3
 
 Done.
 ```
 
-Let me use an example to briefly explain this. For example, your machines is ```[0,0,11,5]```. So your total is 16 and the target value for each machine is 4. Convert the machines array to a kind of gain/lose array, we get: [-4,-4,7,1]. Now what we want to do is go from the first one and try to make all of them 0.
+Let me use an example to briefly explain this. For example, your machines is ```[0,0,11,5]```. So your total is 16 and the target value for each machine is 4. Convert the machines array to a kind of gain/lose array, we get: [+4,+4,-7,-1]. Now what we want to do is go from the first one and try to make all of them 0.
 
-To make the 1st machines 0, you need to give all its “load” to the 2nd machines. So we get: ```[0,-8,7,1]```, then: ```[0,0,-1,1]```, lastly: ```[0,0,0,0]```, done. You don’t have to worry about the details about how these machines give load to each other. __In this process, the least steps we need to eventually finish this process is determined by the peak of abs(cnt) and the max of “gain/lose” array.__ In this case, the peak of abs(cnt) is 8 and the max of gain/lose array is 7. So the result is 8.
+To make the 1st machines 0, you need to give all its “load” to the 2nd machines. So we get: ```[0,+8,-7,-1]```, then: ```[0,0,+1,-1]```, lastly: ```[0,0,0,0]```, done. You don’t have to worry about the details about how these machines give load to each other. __In this process, the least steps we need to eventually finish this process is determined by the peak of abs(cnt) and the max of “gain/lose” array.__ In this case, the peak of abs(cnt) is 8 and the max of gain/lose array is 7. So the result is 8.
 
 Some other example:
 
