@@ -1,3 +1,20 @@
+
+#### 459. Repeated Substring Pattern
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/459.%20Repeated%20Substring%20Pattern.md
+
+#### 460. LFU Cache
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/460.%20LFU%20Cache.md
+
+#### 508. Most Frequent Subtree Sum
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/508.%20Most%20Frequent%20Subtree%20Sum.md
+
+#### 516. Longest Palindromic Subsequence
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/516.%20Longest%20Palindromic%20Subsequence.md.md
+
 #### 517. Super Washing Machines
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/517_Super_Washing_Machines.md
