@@ -18,6 +18,8 @@ For Binary tree solution, we need to have “#” or “null” to indicate null
 
 ### Solution 1
 
+Here we use the same solution as "LeetCode 297. Serialize and Deserialize Binary Tree".
+
 ```cpp
 /**
  * Definition for a binary tree node.
