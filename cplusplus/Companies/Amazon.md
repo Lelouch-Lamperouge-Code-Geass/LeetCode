@@ -1,4 +1,16 @@
 
+#### 438. Find All Anagrams in a String
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/438.%20Find%20All%20Anagrams%20in%20a%20String.md
+
+#### 449. Serialize and Deserialize BST
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/449.%20Serialize%20and%20Deserialize%20BST.md
+
+#### 451. Sort Characters By Frequency
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/451.%20Sort%20Characters%20By%20Frequency.md
+
 #### 459. Repeated Substring Pattern
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/459.%20Repeated%20Substring%20Pattern.md
