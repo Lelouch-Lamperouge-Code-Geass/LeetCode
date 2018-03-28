@@ -94,18 +94,21 @@ __If no intersection, p1 and p2 will reach NULL at the same time.__
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        ListNode *pa(headA), *pb(headB);
-        while (pa && pb && pa != pb) {
-            pa = pa->next;
-            pb = pb->next;
+        if (!headA || !headB) return nullptr;
+        
+        ListNode *p(headA), *q(headB);
+        while (p != q) {
+            p = p->next;
+            q = q->next;
             
-            if (pa == pb) return pa;
+            // This happens when no intersection
+            if (!p && !q) return nullptr;
             
-            if (!pa) pa = headB;
-            if (!pb) pb = headA;
+            if (!p) p = headB;
+            if (!q) q = headA;
         }
         
-        return pa == pb ? pa : nullptr;
+        return p;
     }
 };
 ```
