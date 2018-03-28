@@ -98,55 +98,55 @@ A different style.
 
 ```cpp
 class Solution {
-public:
-    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
-        if (beginWord == endWord) return 1;
-        unordered_set<string> begin_words = {beginWord}, end_words = {endWord};
-        unordered_set<string> word_set(wordList.begin(), wordList.end());
-        if (word_set.count(endWord) == 0) return 0;
-        return getLadderLength(begin_words, end_words, word_set, 1);
-    }
-    
 private:
-    void eraseWordsFromDictionary(unordered_set<string> &words, 
-                                  unordered_set<string> &dictionary) {
-        for (const string &w : words) {
-            dictionary.erase(w);
-        }
-    }
-    
-    int getLadderLength(unordered_set<string> &begin_words,
-                       unordered_set<string> &end_words,
-                       unordered_set<string> &word_set,
-                       int len) {
-        if (begin_words.size() > end_words.size()) {
-            return getLadderLength(end_words, begin_words, word_set, len);
-        } else {
-            eraseWordsFromDictionary(begin_words, word_set);
-            eraseWordsFromDictionary(end_words, word_set);
+    int getLadderLength(unordered_set<string> &left,
+                        unordered_set<string> &right,
+                        unordered_set<string> &word_set,
+                        int len) {
+        if (left.empty() || right.empty()) return -1;
+        
+        if (left.size() > right.size()) return getLadderLength(right, left, word_set, len);
+        
+        unordered_set<string> next_left;
+        for (const string &left_word : left) {
+            string clone(left_word);
             
-            unordered_set<string> next_words;
-            
-            for (const string &word : begin_words) {
-                string word_copy(word);
-                for (char &c : word_copy) {
-                    const char origin_char(c);
-                    for (char tc = 'a'; tc <='z'; ++tc) {
-                        if (tc == origin_char) continue;
-                        c = tc;
-                        if (end_words.count(word_copy) > 0) {
-                            return len + 1;
-                        } else if (word_set.count(word_copy) > 0){
-                            next_words.insert(word_copy);
+            for (char &cur_char : clone) {
+                const char orig_char(cur_char);
+                for (char c = 'a'; c <= 'z'; ++c) {
+                    if (c == orig_char) continue;
+                    cur_char = c;
+                    if (right.count(clone)) {
+                        return len;
+                    } else {
+                        if (word_set.count(clone)) {
+                            next_left.insert(clone);
+                            word_set.erase(clone);
                         }
                     }
-                    c = origin_char;
+                    cur_char = orig_char;
                 }
             }
-            
-            if (next_words.empty()) return 0;
-            else return getLadderLength(next_words, end_words, word_set, len + 1);
         }
+        
+        return getLadderLength(next_left, right, word_set, len + 1);
+    }
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        unordered_set<string> word_set(wordList.begin(), wordList.end());
+        if (word_set.count(endWord) == 0) return 0;
+        if (beginWord == endWord) return 1;
+        
+        unordered_set<string> left, right;
+        left.insert(beginWord);
+        right.insert(endWord);
+        
+        word_set.erase(beginWord);
+        word_set.erase(endWord);
+        
+        int len = getLadderLength(left, right, word_set, 2);
+        
+        return len == -1 ? 0 : len;
     }
 };
 ```
