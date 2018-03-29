@@ -1,4 +1,66 @@
 
+#### 204. Count Primes
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/204.%20Count%20Primes.md
+
+#### 206. Reverse Linked List
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/206.%20Reverse%20Linked%20List.md
+
+#### 215. Kth Largest Element in an Array
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/215.%20Kth%20Largest%20Element%20in%20an%20Array.md
+
+#### 234. Palindrome Linked List
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/234.%20Palindrome%20Linked%20List.md
+
+#### 235. Lowest Common Ancestor of a Binary Search Tree
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/235.%20Lowest%20Common%20Ancestor%20of%20a%20Binary%20Search%20Tree.md
+
+#### 236. Lowest Common Ancestor of a Binary Tree
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/236.%20Lowest%20Common%20Ancestor%20of%20a%20Binary%20Tree.md
+
+#### 238. Product of Array Except Self
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/238.%20Product%20of%20Array%20Except%20Self.md
+
+#### 239. Sliding Window Maximum
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/239.%20Sliding%20Window%20Maximum.md
+
+#### 240. Search a 2D Matrix II
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/240.%20Search%20a%202D%20Matrix%20II.md
+
+#### 242. Valid Anagram
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/242.%20Valid%20Anagram.md
+
+#### 297. Serialize and Deserialize Binary Tree
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/297.%20Serialize%20and%20Deserialize%20Binary%20Tree.md
+
+#### 355. Design Twitter
+
+#### 380. Insert Delete GetRandom O(1)
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/380.%20Insert%20Delete%20GetRandom%20O(1).md
+
+#### 387. First Unique Character in a String
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/387.%20First%20Unique%20Character%20in%20a%20String.md
+
+#### 396. Rotate Function
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/396.%20Rotate%20Function.md
+
+#### 414. Third Maximum Number
+
+https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/414.%20Third%20Maximum%20Number.md
+
 #### 438. Find All Anagrams in a String
 
 https://github.com/Lelouch-Lamperouge-Code-Geass/LeetCode/blob/master/cplusplus/438.%20Find%20All%20Anagrams%20in%20a%20String.md
