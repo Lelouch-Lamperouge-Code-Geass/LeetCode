@@ -110,12 +110,12 @@
 674 Longest Continuous Increasing Subsequence       43.0%   Easy
 680 Valid Palindrome II31.9%Easy
 689 Maximum Sum of 3 Non-Overlapping Subarrays      42.8%   Hard
-714	Best Time to Buy and Sell Stock with Transaction Fee 45.3%	Medium	
-721	Accounts Merge 32.9%	Medium	
-745	Prefix and Suffix Search 25.0%	Hard	
-750	Number Of Corner Rectangles 53.6%	Medium	
-764	Largest Plus Sign 36.8%	Medium	
-784	Letter Case Permutation 52.2%	Easy	
-785	Is Graph Bipartite? 38.9%	Medium	
-801	Minimum Swaps To Make Sequences Increasing 21.9%	Medium	
+714 Best Time to Buy and Sell Stock with Transaction Fee 45.3%	Medium	
+721 Accounts Merge 32.9%	Medium	
+745 Prefix and Suffix Search 25.0%	Hard	
+750 Number Of Corner Rectangles 53.6%	Medium	
+764 Largest Plus Sign 36.8%	Medium	
+784 Letter Case Permutation 52.2%	Easy	
+785 Is Graph Bipartite? 38.9%	Medium	
+801 Minimum Swaps To Make Sequences Increasing 21.9%	Medium	
 ```
