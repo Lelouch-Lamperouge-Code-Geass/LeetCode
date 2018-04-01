@@ -93,21 +93,29 @@
 534 Design TinyURL  0.0%    Medium
 535 Encode and Decode TinyURL       74.2%   Medium
 543 Diameter of Binary Tree   44.4% Easy
-554     Brick Wall  45.7%       Medium
-572     Subtree of Another Tree       40.8%     Easy
-578     Get Highest Answer Rate Question28.2%   Medium
-597     Friend Requests I: Overall Acceptance Rate      36.0%   Easy
-602     Friend Requests II: Who Has the Most Friends    42.0%   Medium
-621     Task Scheduler     42.2%Medium
-636     Exclusive Time of Functions     43.0%   Medium
-637     Average of Levels in Binary Tree    55.8%       Easy
-639     Decode Ways II     23.6%Hard
-642     Design Search Autocomplete System       30.1%   Hard
-647     Palindromic Substrings  55.8%   Medium
-653     Two Sum IV - Input is a BST 50.7%       Easy
-670     Maximum Swap   38.3%    Medium
-673     Number of Longest Increasing Subsequence31.0%   Medium
-674     Longest Continuous Increasing Subsequence       43.0%   Easy
-680     Valid Palindrome II31.9%Easy
-689     Maximum Sum of 3 Non-Overlapping Subarrays      42.8%   Hard
+554 Brick Wall  45.7%       Medium
+572 Subtree of Another Tree       40.8%     Easy
+578 Get Highest Answer Rate Question28.2%   Medium
+597 Friend Requests I: Overall Acceptance Rate      36.0%   Easy
+602 Friend Requests II: Who Has the Most Friends    42.0%   Medium
+621 Task Scheduler     42.2%Medium
+636 Exclusive Time of Functions     43.0%   Medium
+637 Average of Levels in Binary Tree    55.8%       Easy
+639 Decode Ways II     23.6%Hard
+642 Design Search Autocomplete System       30.1%   Hard
+647 Palindromic Substrings  55.8%   Medium
+653 Two Sum IV - Input is a BST 50.7%       Easy
+670 Maximum Swap   38.3%    Medium
+673 Number of Longest Increasing Subsequence31.0%   Medium
+674 Longest Continuous Increasing Subsequence       43.0%   Easy
+680 Valid Palindrome II31.9%Easy
+689 Maximum Sum of 3 Non-Overlapping Subarrays      42.8%   Hard
+714	Best Time to Buy and Sell Stock with Transaction Fee 45.3%	Medium	
+721	Accounts Merge 32.9%	Medium	
+745	Prefix and Suffix Search 25.0%	Hard	
+750	Number Of Corner Rectangles 53.6%	Medium	
+764	Largest Plus Sign 36.8%	Medium	
+784	Letter Case Permutation 52.2%	Easy	
+785	Is Graph Bipartite? 38.9%	Medium	
+801	Minimum Swaps To Make Sequences Increasing 21.9%	Medium	
 ```
