@@ -99,40 +99,40 @@ private:
 This solution is more reasonable since it doesn't clone the whole original input.
 ```cpp
 class NestedIterator {
-public:
-  NestedIterator(vector<NestedInteger> &nestedList) {
-    m_begins.push(nestedList.begin());
-    m_ends.push(nestedList.end());
-  }
-
-  int next() {
-    hasNext();
-    return ( m_begins.top() ++ )->getInteger(); // stack.top() return reference
-  }
-
-  // Make sure this function won't move iterator forward,
-  // so that even get called multiple times, items won't be lost.
-  bool hasNext() {
-    while (!m_begins.empty()) {
-      if (m_begins.top() == m_ends.top()) {
-        m_begins.pop();
-        m_ends.pop();
-      } else {
-        auto x = m_begins.top();
-        if (x->isInteger()) {
-          return true;
-        } else {
-          m_begins.top()++; // move iterator of current list forward
-          m_begins.push(x->getList().begin());
-          m_ends.push(x->getList().end());
-        }
-      }
-    }
-    return false;
-  }
 private:
-  stack<vector<NestedInteger>::iterator> m_begins, m_ends;
+    stack<vector<NestedInteger>::iterator> m_begins, m_ends;
+public:
+    NestedIterator(vector<NestedInteger> &nestedList) {
+        m_begins.push(nestedList.begin());
+        m_ends.push(nestedList.end());
+    }
 
+    int next() {
+        hasNext();
+        int reval = m_begins.top()->getInteger();
+        ++ m_begins.top(); // stack.top() return reference
+        return reval;
+    }
+
+    bool hasNext() {
+        while (!m_begins.empty()) {
+            if (m_begins.top() == m_ends.top()) {
+                m_begins.pop();
+                m_ends.pop();
+            } else {
+                if (!m_begins.top()->isInteger()) {
+                    auto  x = m_begins.top();
+                    ++ m_begins.top();
+                    m_begins.push(x->getList().begin());
+                    m_ends.push(x->getList().end());
+                } else {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
 };
 ```
 
@@ -165,5 +165,58 @@ public:
         }           
         return false;
     }       
+};
+```
+
+# An intersting observation
+
+Below solution works and it is almost the same like above solution two.
+
+Note here
+
+```
+vector<NestedInteger> &cur_list = m_begins.top()->getList();
+```
+
+If we remove the reference symbol `&`, it doesn't work. This is probably because ```m_begins.top()->getList();``` return a refence.
+
+I still don't have an answer why this is hapenning, probably because the internal logic of ```&```. And I guess it depends on the compiler too.
+
+```cpp
+class NestedIterator {
+private:
+    stack<vector<NestedInteger>::iterator> m_begins, m_ends;
+public:
+    NestedIterator(vector<NestedInteger> &nestedList) {
+        m_begins.push(nestedList.begin());
+        m_ends.push(nestedList.end());
+    }
+
+    int next() {
+        hasNext();
+        int reval = m_begins.top()->getInteger();
+        ++ m_begins.top(); // stack.top() return reference
+        return reval;
+    }
+
+    bool hasNext() {
+        while (!m_begins.empty()) {
+            if (m_begins.top() == m_ends.top()) {
+                m_begins.pop();
+                m_ends.pop();
+            } else {
+                if (!m_begins.top()->isInteger()) {
+                    vector<NestedInteger> &cur_list = m_begins.top()->getList();
+                    ++ m_begins.top();
+                    m_begins.push(cur_list.begin());
+                    m_ends.push(cur_list.end());
+                } else {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
 };
 ```
