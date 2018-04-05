@@ -88,19 +88,26 @@ A different style.
 class Solution {
 public:
     bool checkSubarraySum(vector<int>& nums, int k) {
-        const int n = nums.size();
-        vector<int> range_sum(n + 1, 0);
+        const size_t n = nums.size();
+        
+        // Calculate range-sum
+        vector<long> range_sum(n + 1, 0); 
         for (int i = 0; i < n; ++i) {
             range_sum[i + 1] = range_sum[i] + nums[i];
         }
         
-        unordered_map<int, int> found;
-        for (int i = 0; i <= n; ++i) {
-            int mod_k = k == 0 ? range_sum[i] : range_sum[i] % k;
-            if (!found.count(mod_k)) {
-                found[mod_k] = i;
+        // <sum, length>
+        unordered_map<long, int> visited;
+        
+        for (int len = 0; len <= n; ++len) {
+            long modk = k == 0? range_sum[len] : range_sum[len] % k;
+            
+            // We may have same [sum % k] value.
+            // In that case, we stores the leftmost one. 
+            if (!visited.count(modk)) {
+                visited[modk] = len;
             } else {
-                if (i - found[mod_k] >= 2) return true;
+                if (len - visited[modk] >= 2) return true;
             }
         }
         return false;
@@ -111,6 +118,15 @@ public:
 # Knowledge
 
 ### Modulo of a negative number
+
+
+
+```
+对于a mod b
+1. a mod b = a mod (-b)
+2. a mod b = - (-a mod b)
+```
+
 
 https://math.stackexchange.com/questions/519845/modulo-of-a-negative-number
 
