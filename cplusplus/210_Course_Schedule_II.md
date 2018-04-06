@@ -39,7 +39,6 @@ We observe that if a node has incoming edges, it has prerequisites. Therefore, t
 __Please note, we fist of all put all the zero-indegree nodes into the queue. If we only put one zero-indegree node, it will be a problem. Think about we have two zero-indegree nodes, and we push only one node as the begin node into the queue, and after take out it from the queue and reduce the indegree of its neighbors. It is possible that all its neighbors's indegree are all larger than zero. And another zero-indegree node has never been put into the queue.__
 
 
-
 ```cpp           
 class Solution {
 public:
@@ -74,6 +73,8 @@ public:
 ### Solution 2 with DFS
 
 Another way to think about it is the last few in the order must be those which are not prerequisites of other courses. Thinking it recursively means if one node has unvisited child node, you should visit them first before you put this node down in the final order array. This sounds like the post-order of a DFS. Since we are putting nodes down in the reverse order, we should reverse it back to correct ordering or use a stack.
+
+__Note : 1. for the DFS part, we can only add the the course once its all children have been visited, and eventually we need to reverse the final result. 2. ```on_path[cid]``` must be checked before ```visited[cid]``` in the DFS part, otherwise it won't work. 
 
 ```cpp
 class Solution {
