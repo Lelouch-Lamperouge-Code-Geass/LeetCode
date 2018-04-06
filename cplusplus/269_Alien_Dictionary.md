@@ -83,7 +83,11 @@ https://en.wikipedia.org/wiki/Topological_sorting
 
 ### Kahn's algorithm
 
-When use Kahn's algorithm, if there is a cycle exist in the graph, that means our zero-indegree-queue will not able to add all the chars. 
+When use Kahn's algorithm, __if there is a cycle exist in the graph, that means our zero-indegree-queue will not able to add all the chars.__ 
+
+__Note that it's better to calculate indegree after we get the ```Graph```, this is because it is possible that an Edge ```a->b``` can appear multiple times, and we need to avoid increasing indegree for the same edge.__ Example, ```a->c, d->e, a->c, a->c```, indegree of ```c``` will become 3 if we are not careful.
+
+
 
 ```cpp
 class Solution {
@@ -152,53 +156,47 @@ class Solution {
 public:
     string alienOrder(vector<string>& words) {
         unordered_map<char, unordered_set<char>> graph;
-        unordered_set<char> char_set;
-        for (int i = 0, n = words.size(); i < n; ++i) {
-            if (i + 1 < n) {
-                const string &cur_word = words[i];
-                const string &next_word = words[i + 1];
-                int l(0), common_len = std::min(cur_word.size(), next_word.size());
-                while (l < common_len) {
-                    if (cur_word[l] != next_word[l]) {
-                        graph[cur_word[l]].insert(next_word[l]);
-                        break;
-                    }
-                    ++ l;
-                }
-            }
-            for (char c : words[i]) {
-                char_set.insert(c);
+        unordered_map<char, int> indegree;
+        
+        for (const string &word : words) {
+            for (char c : word) {
+                graph[c] = {};
+                indegree[c] = 0;
             }
         }
         
-        unordered_map<char, int> indegree;
-        for (const auto &entry : graph) {
-            for (char c : entry.second) {
-                ++ indegree[c];
+        for (int i = 1; i < words.size(); ++i) {
+            for (int j = 0, len = std::min(words[i - 1].size(), words[i].size()); j < len; ++j) {
+                if (words[i - 1][j] != words[i][j]) {
+                    graph[words[i - 1][j] ].insert(words[i][j]);
+                    break;
+                }
             }
+        }
+        
+        for (const auto &entry : graph) {
+            for (char c : entry.second) ++ indegree[c];
         }
         
         queue<char> zero_indegree_queue;
-        for (char c : char_set) {
-            if (indegree[c] == 0) zero_indegree_queue.push(c);  
+        for (const auto entry : indegree) {
+            if (entry.second == 0) zero_indegree_queue.push(entry.first);
         }
         
         string reval("");
         while (!zero_indegree_queue.empty()) {
-            const char cur_char = zero_indegree_queue.front();
+            char c = zero_indegree_queue.front();
             zero_indegree_queue.pop();
+            reval.push_back(c);
             
-            reval.push_back(cur_char);
-            for (char to_char : graph[cur_char]) {
-                -- indegree[to_char];
-                if (indegree[to_char] == 0) {
-                    zero_indegree_queue.push(to_char);
+            for (char next : graph[c]) {
+                if (--indegree[next] == 0) {
+                    zero_indegree_queue.push(next);
                 }
             }
         }
-        // Important to check the reval's size here.
-        // If it is smaller than char-set, then cycle exists!
-        return reval.size() != char_set.size() ? "" : reval;
+        
+        return reval.size() != graph.size() ? "" : reval ;
     }
 };
 ```
