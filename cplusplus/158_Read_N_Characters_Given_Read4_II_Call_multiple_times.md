@@ -35,9 +35,9 @@ int read4(char *buf);
 
 class Solution {
 private:
-    char m_buf[4]; // Private buffer
-    int m_buf_pos = 0; // Index of private buffer
-    int m_buf_count = 0; // How many chars need to be read from private buffer
+    int m_buff_pos = 0;
+    int m_buff_end = 0;
+    char m_buff[4];
 public:
     /**
      * @param buf Destination buffer
@@ -46,24 +46,28 @@ public:
      */
     int read(char *buf, int n) {
         int reval(0);
-        
-        while (reval < n) {
-            // Chars in private buffer have been all read.
-            // Time to read file!
-            if (m_buf_pos >= m_buf_count) {
-                m_buf_pos = 0;
-                m_buf_count = read4(m_buf);
+        while (n > 0) {
+            // As long as we have characters in private buffer,
+            // read from private buffer.
+            if (m_buff_pos < m_buff_end) {
+                while (n > 0 && m_buff_pos < m_buff_end) {
+                    *buf = m_buff[m_buff_pos];
+                    ++ buf;
+                    ++ m_buff_pos;
+                    ++ reval;
+                    -- n;
+                }
             }
             
-            // No chars left in file!
-            if (m_buf_count == 0) break;
-            
-            // Read from private buffer to output buffer.
-            while (reval < n && m_buf_pos < m_buf_count) {
-                *buf = m_buf[m_buf_pos];
-                ++ buf, ++ m_buf_pos;
-                ++ reval;
+            // All the characters in private buffer has been read.
+            // Read from file to private buffer.
+            if (m_buff_pos == m_buff_end) {
+                int chars_read = read4(m_buff);
+                if (chars_read == 0) return reval; // No more characters in file!
+                m_buff_end = chars_read;
+                m_buff_pos = 0;
             }
+            
         }
         
         return reval;
