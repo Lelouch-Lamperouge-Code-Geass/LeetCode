@@ -64,7 +64,40 @@ private:
 
 In this solution, we use a queue and push nodes into the queue level by level.
 
-But how can we know where is the the begin of a new level? For that, we add a null node to mark the end of each level.
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if (!root) return vector<vector<int>>();
+        
+        queue<TreeNode*> nodes;
+        nodes.push(root);
+        vector<vector<int>> reval;
+        while (!nodes.empty()) {
+            reval.emplace_back(vector<int>());
+            for (size_t i = 0, n = nodes.size(); i < n; ++i) {
+                TreeNode *cur_node = nodes.front();
+                nodes.pop();
+                reval.back().emplace_back(cur_node->val);
+                if (cur_node->left) nodes.push(cur_node->left);
+                if (cur_node->right) nodes.push(cur_node->right);
+            }
+        }
+        
+        return reval;
+    }
+};
+```
+Or we can add a null node to mark the end of each level.
 
 ```cpp
 /**
