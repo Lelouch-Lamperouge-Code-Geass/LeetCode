@@ -213,4 +213,42 @@
 686 Repeated String Match 30.4% Easy
 687 Longest Univalue Path   32.4%   Easy
 689 Maximum Sum of 3 Non-Overlapping Subarrays  42.8%   Hard
+687 Longest Univalue Path 32.9% Easy 
+686 Repeated String Match 32.3% Easy 
+719 Find K-th Smallest Pair Distance 27.1% Hard 
+727 Minimum Window Subsequence 30.9% Hard 
+726 Number of Atoms 44.0% Hard 
+729 My Calendar I 42.3% Medium 
+731 My Calendar II 37.6% Medium 
+732 My Calendar III 50.7% Hard 
+734 Sentence Similarity 38.9% Easy 
+737 Sentence Similarity II 41.0% Medium 
+739 Daily Temperatures 52.5% Medium 
+387 First Unique Character in a String 47.1% Easy 
+748 Shortest Completing Word 52.0% Medium 
+747 Largest Number At Least Twice of Others 41.9% Easy 
+753 Cracking the Safe 39.6% Hard 
+756 Pyramid Transition Matrix 45.6% Medium 
+758 Bold Words in String 38.0% Easy 
+760 Find Anagram Mappings 75.7% Easy 
+765 Couples Holding Hands 47.8% Hard 
+769 Max Chunks To Make Sorted 47.9% Medium 
+768 Max Chunks To Make Sorted II 42.8% Hard 
+766 Toeplitz Matrix57.8% Easy 
+774 Minimize Max Distance to Gas Station 29.8% Hard 
+777 Swap Adjacent in LR String 27.4% Medium 
+778 Swim in Rising Water 44.2% Hard 
+779 K-th Symbol in Grammar 35.7% Medium 
+782 Transform to Chessboard 35.4% Hard 
+783 Minimum Distance Between BST Nodes 46.8% Easy 
+788 Rotated Digits 50.7% Easy 
+789 Escape The Ghosts 47.6% Medium 
+790 Domino and Tromino Tiling 32.0% Medium 
+792 Number of Matching Subsequences 34.7% Medium 
+780 Reaching Points 21.9% Hard 
+800 Similar RGB Color 53.2% Easy 
+802 Find Eventual Safe States 35.2% Medium 
+803 Bricks Falling When Hit 20.0% Hard 
+808 Soup Servings 29.8% Medium 
+809 Expressive Words 34.2% Medium 	
 ```
