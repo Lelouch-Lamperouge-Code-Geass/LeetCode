@@ -27,6 +27,8 @@ Therefore, for this question, we only need to replace 10 to 26. Note that for th
 
 # Solution
 
+这个问题本质上是十进制转换成别的进制的问题.在这里我们需要把十进制转换成26进制.唯一要注意的地方是十进制的digit是从0开始的，而这里的26进制是从```1('A')```开始的. 而每个位上的digit是什么取决于在这个位上面的数值和base-digit的差值。比如说如果现在在这个位上面的数值是26, 而base-digit是 ```1(A)```, 那么差值就是25, 所以这个位上面的digit就应该是 ```1(A) + 25 = 26(Z)```. 记得最后的结果要反转这个字符串。
+
 Let's see the relationship between the Excel sheet column title and the number:
 
 ```
