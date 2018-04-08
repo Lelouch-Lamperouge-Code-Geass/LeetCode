@@ -17,7 +17,12 @@ If nums = [1,2,3], a solution is:
   []
 ]
 ```
+
 # Solution
+
+I personally like solution 1 and solution 3 here. 
+
+Solution 1 shows a very good methodology, and solution 3 is least error-prone.
 
 ### Solution 1
 
@@ -96,7 +101,7 @@ private:
 };
 ```
 
-### Solution, iterative solution.
+### Solution 3, iterative solution.
 
 The methology is simple. Whenever we meet a number, we keep previous results,  also clone previous results and add current number into the clones.
 
