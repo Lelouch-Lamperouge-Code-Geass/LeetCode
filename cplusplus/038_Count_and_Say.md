@@ -41,34 +41,36 @@ class Solution {
 public:
     string countAndSay(int n) {
         if (n <= 0) return "";
-        string reval("1");
-        -- n;
-        while (n-- > 0) {
-            std::size_t count(0);
-            char cur_char(reval[0]);
-            std::string new_reval("");
-            const std::size_t reval_size(reval.size());
-            for (std::size_t i = 0; i <= reval_size; ++i) {
-                if (i == reval_size) {
-                    new_reval += std::to_string(count) + cur_char; 
-                } else if (reval[i] != cur_char) {
-                    new_reval += std::to_string(count) + cur_char;                
-                    cur_char = reval[i]; 
-                    count = 1;
-                } else {
-                    ++ count;
+        
+        string sequence("1");
+        
+        for (int i = 2; i <= n; ++i) {
+            ostringstream oss;
+            
+            char cur_char(sequence[0]);
+            int char_count(1);
+            for (int sequence_index = 1, sequence_size = sequence.size(); 
+                 sequence_index < sequence_size;
+                 ++ sequence_index) {
+                if (sequence[sequence_index] != cur_char) {
+                    oss << char_count << cur_char; 
+                    cur_char = sequence[sequence_index];
+                    char_count = 1;
+                } else { // sequence[sequence_index] == cur_char
+                    ++ char_count;
                 }
             }
             
-            reval = new_reval;
+            oss << char_count << cur_char;
+            sequence = oss.str();
         }
         
-        return reval;
+        return sequence;
     }
 };
 ```
 
-We can ust ostringstream instead of string here.
+We can use ostringstream instead of string here.
 
 ```cpp
 class Solution {
