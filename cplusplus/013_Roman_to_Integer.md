@@ -29,14 +29,16 @@ __Time complexity is O(n), and space complexity is O(1).__
 class Solution {
 public:
   int romanToInt(string s) {
-    int reval(0);
-    std::size_t n(s.size()), i(n);
-    while (i-- > 0) {
-      if (i + 1 < n && RomanCharToInteger(s[i]) < RomanCharToInteger(s[i+1])) {
+    if (s.empty()) return 0;
+    int reval(RomanCharToInteger(s.back()));
+    int i(s.size() - 2);
+    while (i >= 0) {
+      if (RomanCharToInteger(s[i]) < RomanCharToInteger(s[i+1])) {
         reval -= RomanCharToInteger(s[i]);
       } else {
         reval += RomanCharToInteger(s[i]);
       }
+        --i;
     }
     return reval;
   }
