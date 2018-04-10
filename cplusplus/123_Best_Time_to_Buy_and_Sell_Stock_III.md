@@ -33,7 +33,9 @@ public:
         
         const std::size_t n = prices.size();
         
-        vector<int> buy_one(n, -prices[0]), sell_one(n, 0), buy_two(n, -prices[0]), sell_two(n, 0);
+        vector<int> buy_one(n, INT_MIN), sell_one(n, 0), buy_two(n, INT_MIN), sell_two(n, 0);
+        buy_one[0] = -prices[0];
+        buy_two[0] = -prices[0];
         
         for (std::size_t i = 1; i < n; ++i) {
             buy_one[i] = std::max(buy_one[i-1], 0 - prices[i]);
