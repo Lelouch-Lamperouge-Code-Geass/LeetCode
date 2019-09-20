@@ -60,6 +60,8 @@ Steps involved in finding the topological ordering of a DAG:
 * Step 5: If count of visited nodes is not equal to the number of nodes in the graph then the topological sort is not possible for the given graph.
 
 
+Complexity : ```Time Complexity - O(VE)， Space Complexity - O(V)```
+
 ```cpp                             
 class Solution {
 public:
@@ -102,6 +104,8 @@ public:
 The idea is that we can't not complete the courses only when there is a cycle in the graph. How to detect a cycle? DFS.
 
 At beginning, we mark all nodes un-visited. We can keep beginning with any random graph node, and perform DFS from it, if there is a cycle, then we can just return false because it's clear that we can't complete all of them. We do this untill all nodes are visited.
+
+Complexity : ```Time Complexity - O(VE)，Space Complexity - O(V)```
 
 ```cpp
 class Solution {
