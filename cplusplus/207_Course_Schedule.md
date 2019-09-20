@@ -29,6 +29,8 @@ Hints:
                              
 ### Solution one :  Kahn’s algorithm
 
+This solution is based on the fact that we can only begin with a course that as no prerequisites. It's intuitive to relate this type of problems to graph. And the course here that has no prerequisites are basically the nodes that have zero in-degree. So we begin with such node(course), and after take this node(course), we can minus the indegree of those courses(graph nodes) that are depended on this course. Eventually we can complete as far as we can, and we compare the course we complete with the total amount of course, if it is less than that then we can't complete all the course.
+
 [Kahn’s algorithm for Topological Sorting](http://www.geeksforgeeks.org/topological-sorting-indegree-based-solution/)
 
 
@@ -96,6 +98,10 @@ public:
 ```
 
 ### Solution two : DFS
+
+The idea is that we can't not complete the courses only when there is a cycle in the graph. How to detect a cycle? DFS.
+
+At beginning, we mark all nodes un-visited. We can keep beginning with any random graph node, and perform DFS from it, if there is a cycle, then we can just return false because it's clear that we can't complete all of them. We do this untill all nodes are visited.
 
 ```cpp
 class Solution {
