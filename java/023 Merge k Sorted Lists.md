@@ -14,6 +14,8 @@ Note here that comparing to above brute-force solution which costs O(1) space co
 
 ### Code
 
+Callout : in general, we should return a whole new list without modifying the input lists.
+
 ```java
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
@@ -53,4 +55,7 @@ class Solution {
     }
 }
 ```
+
+
+
 
