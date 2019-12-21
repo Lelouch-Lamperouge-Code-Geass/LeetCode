@@ -31,7 +31,8 @@ class Solution {
         });
         */
         
-        PriorityQueue<ListNode> queue= new PriorityQueue<ListNode>(lists.length, (a, b)-> a.val - b.val);
+        PriorityQueue<ListNode> queue= new PriorityQueue<ListNode>(lists.length, 
+          (a, b)-> a.val - b.val);
         
         for (ListNode listNode : lists) {
             if (listNode != null) {
