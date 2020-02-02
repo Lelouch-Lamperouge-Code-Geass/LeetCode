@@ -9,10 +9,10 @@ Consider the palindromes of odd vs even length. What difference do you notice? C
 # Solution
 
 The idea is to iterate over string, adding current character to set if set doesn't contain that character, or removing current character from set if set contains it.
-When the iteration is finished, just return set.size()==0 || set.size()==1.
+When the iteration is finished, just return `set.size()== 0 || set.size() == 1`.
 
-set.size()==0 corresponds to the situation when there are even number of any character in the string, and
-set.size()==1 corresponsds to the fact that there are even number of any character except one.
+`set.size() == 0` corresponds to the situation when there are even number of any character in the string, and
+`set.size() == 1` corresponsds to the fact that there are even number of any character except one.
 
 ```cpp
 class Solution {
