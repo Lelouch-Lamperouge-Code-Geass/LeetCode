@@ -39,7 +39,7 @@ Note:
 
 # Solution
 
-The rule is, for each str in strs, encode it as <length> + '@' + str.  
+The rule is, for each str in strs, encode it as `<length> + '@' + str`.  
 
 What if str itself contains @ ?  
 
