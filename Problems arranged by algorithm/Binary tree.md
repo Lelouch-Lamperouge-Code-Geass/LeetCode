@@ -80,5 +80,22 @@ Leetcode Problems:
 * [515. Find Largest Value in Each Tree Row](https://leetcode.com/problems/find-largest-value-in-each-tree-row/)
 * [637. Average of Levels in Binary Tree](https://leetcode.com/problems/average-of-levels-in-binary-tree/)  
 
-# A classic problem: invert binary tree 翻转二叉树
+# Invert Binary Tree 翻转二叉树
+
+[226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/)
+
+
+有同学会把红黑树和二叉平衡搜索树弄分开了，其实红黑树就是一种二叉平衡搜索树，这两个树不是独 立的，所以C++中map、multimap、set、multiset的底层实现机制是二叉平衡搜索树，再具体一点是红 黑树。
+
+递归与迭代究竟谁优谁劣呢? 从时间复杂度上其实迭代法和递归法差不多(在不考虑函数调用开销和函数调用产生的堆栈开销)，但是空间复杂度上，递归开销会大一些，因为递归需要系统堆栈存参数返回值等等。递归更容易让程序员理解，但收敛不好，容易栈溢出。这么说吧，递归是方便了程序员，难为了机器(各种保存参数，各种进栈出栈)。在实际项目开发的过程中我们是要尽量避免递归!因为项目代码参数、调用关系都比较复杂，不容易控制递归深度，甚至会栈溢出。
+
+# 101. Symmetric Tree
+
+[101. Symmetric Tree](https://leetcode.com/problems/symmetric-tree/submissions/)
+
+对于二叉树是否对称，要比较的是根节点的左子树与右子树是不是相互翻转的，理解这一点就知道了其 实我们要比较的是两个树(这两个树是根节点的左右子树)，所以在递归遍历的过程中，也是要同时遍 历两棵树。
+
+在迭代法中我们使用了队列，需要注意的是这不是层序遍历，而且仅仅通过一个容器来成对的存放我们要比较的元素，知道这一本质之后就发现，用队列，用栈，甚至用数组，都是可以的。
+
+# 104. Maximum Depth of Binary Tree
 
