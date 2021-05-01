@@ -49,8 +49,8 @@ __栈其实就是递归的一种是实现结构__，也就说前中后序遍历�
 3. 确定单层递归的逻辑
 
 Leetcode Problems:  
-* [94](https://leetcode.com/problems/binary-tree-inorder-traversal/)
-* [144](https://leetcode.com/problems/binary-tree-preorder-traversal/)
-* [145](https://leetcode.com/problems/binary-tree-postorder-traversal/)
+* [94.Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)
+* [144. Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/)
+* [145. Binary Tree Postorder Traversal](https://leetcode.com/problems/binary-tree-postorder-traversal/)
 
 
