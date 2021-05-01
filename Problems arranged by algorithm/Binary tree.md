@@ -64,11 +64,21 @@ Leetcode Problems:
 
 # Level order traversal of binary tree 二叉树的层序遍历
 
+层序遍历一个二叉树。就是从左到右一层一层的去遍历二叉树。这种遍历的方式和我们之前讲过的都不太一样。
+
+需要借用一个辅助数据结构即队列来实现，队列先进先出，符合一层一层遍历的逻辑，而是用栈先进后 出适合模拟深度优先遍历也就是递归的逻辑。
+      
+而这种层序遍历方式就是图论中的广度优先遍历，只不过我们应用在二叉树上。
+
 Leetcode Problems:  
 * [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
 * [107. Binary Tree Level Order Traversal II](https://leetcode.com/problems/binary-tree-level-order-traversal-ii/)
 * [116. Populating Next Right Pointers in Each Node](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/)
 * [117. Populating Next Right Pointers in Each Node II](https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/)
+* [199. Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/)
 * [429. N-ary Tree Level Order Traversal](https://leetcode.com/problems/n-ary-tree-level-order-traversal/)
 * [515. Find Largest Value in Each Tree Row](https://leetcode.com/problems/find-largest-value-in-each-tree-row/)
-* [199. Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/)
+* [637. Average of Levels in Binary Tree](https://leetcode.com/problems/average-of-levels-in-binary-tree/)  
+
+# A classic problem: invert binary tree 翻转二叉树
+
