@@ -89,7 +89,9 @@ Leetcode Problems:
 
 递归与迭代究竟谁优谁劣呢? 从时间复杂度上其实迭代法和递归法差不多(在不考虑函数调用开销和函数调用产生的堆栈开销)，但是空间复杂度上，递归开销会大一些，因为递归需要系统堆栈存参数返回值等等。递归更容易让程序员理解，但收敛不好，容易栈溢出。这么说吧，递归是方便了程序员，难为了机器(各种保存参数，各种进栈出栈)。在实际项目开发的过程中我们是要尽量避免递归!因为项目代码参数、调用关系都比较复杂，不容易控制递归深度，甚至会栈溢出。
 
-# 101. Symmetric Tree
+# Check whether binary tree is symmetric
+
+### 101. Symmetric Tree
 
 [101. Symmetric Tree](https://leetcode.com/problems/symmetric-tree/submissions/)
 
@@ -97,5 +99,34 @@ Leetcode Problems:
 
 在迭代法中我们使用了队列，需要注意的是这不是层序遍历，而且仅仅通过一个容器来成对的存放我们要比较的元素，知道这一本质之后就发现，用队列，用栈，甚至用数组，都是可以的。
 
-# 104. Maximum Depth of Binary Tree
+# Find out the maximum depth of Binary Tree 二叉树的最大深度
+
+### 104. Maximum Depth of Binary Tree
+
+[104. Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
+
+### 559. Maximum Depth of N-ary Tree
+
+[559. Maximum Depth of N-ary Tree](https://leetcode.com/problems/maximum-depth-of-n-ary-tree/)
+
+# Find out th minimum depth of binary tree 二叉树的最小深度
+
+[111. Minimum Depth of Binary Tree](https://leetcode.com/problems/minimum-depth-of-binary-tree/)
+
+题目中说的是:最小深度是从根节点到最近叶子节点的最短路径上的节点数量. 注意是叶子节点。 什么是叶子节点，左右孩子都为空的节点才是叶子节点!
+
+求二叉树的最小深度和求二叉树的最大深度的差别主要在于处理左右孩 子不为空的逻辑。
+
+# 222. Count Complete Tree Nodes
+
+[222. Count Complete Tree Nodes](https://leetcode.com/problems/count-complete-tree-nodes/)
+
+https://cs.stackexchange.com/questions/32397/is-there-a-difference-between-perfect-full-and-complete-tree
+
+https://stackoverflow.com/questions/2603692/what-is-the-difference-between-tree-depth-and-height
+
+# 110. Balanced Binary Tree
+
+[110. Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/)
+
 
