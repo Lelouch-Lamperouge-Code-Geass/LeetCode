@@ -60,9 +60,41 @@ void backtracking(参数) {
 
 ### Leetcode 77. Combinations
 
+
+[77. Combinations](https://leetcode.com/problems/combinations/)
+
 如果n为100，k为50呢，那就50层for循环。 此时就会发现虽然想暴力搜索，但是用for循环嵌套连暴力都写不出来! 要解决 n为100，k为50的情况，暴力写法需要嵌套50层for循环，那么回溯法就用递归来 解决嵌套层数的问题。递归来做层叠嵌套(可以理解是开k层for循环)，每一次的递归中嵌套一个for循环，那么递归就可以用 于解决多层嵌套循环的问题了。
 
 每次从集合中选取元素，可选择的范围随着选择的进行而收缩，调整可选择的范围。 图中可以发现n相当于树的宽度，k相当于树的深度。
 
 那么如何在这个树上遍历，然后收集到我们要的结果集呢? 图中每次搜索到了叶子节点，我们就找到了一个结果。
 
+### 216. Combination Sum III
+
+[216. Combination Sum III](https://leetcode.com/problems/combination-sum-iii/)
+
+### 17. Letter Combinations of a Phone Number
+
+[17. Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/)
+
+### 小结
+
+回溯是递归的副产品，只要有递归就会有回溯。 
+
+回溯法就是暴力搜索，并不是什么高效的算法，最多在剪枝一下。 
+
+回溯算法能解决如下问题:
+* 组合问题:N个数里面按一定规则找出k个数的集合 
+* 排列问题:N个数按一定规则全排列，有几种排列方式 
+* 切割问题:一个字符串按一定规则有几种切割方式 
+* 子集问题:一个N个数的集合里有多少符合条件的子集 
+* 棋盘问题:N皇后，解数独等等
+
+每一道回溯法的题目都可以抽象为树形结构。
+
+我把回溯问题抽象为树形结构，可以直观的看出其搜索的过程:for循环横向遍历，递归纵向遍历， 回溯不断调整结果集。
+
+
+### 39. Combination Sum
+
+[39. Combination Sum](https://leetcode.com/problems/combination-sum/)
